@@ -4,7 +4,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 const HomeScreen = () => {
   const insets = useSafeAreaInsets();
   return (
-    <View style={[{ paddingTop: insets.top }]}>
+    <View style={styles.container}>
       <Text>HomeScreen</Text>
     </View>
   );
@@ -13,5 +13,9 @@ const HomeScreen = () => {
 export default HomeScreen;
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });
