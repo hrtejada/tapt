@@ -1,15 +1,16 @@
+import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { GlobalStyles } from "../constants/styles";
 
-const EmailScreen = () => {
+const SettingsScreen = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>EmailScreen</Text>
+      <Text style={styles.text}>SettingsScreen</Text>
     </View>
   );
 };
 
-export default EmailScreen;
+export default SettingsScreen;
 
 const styles = StyleSheet.create({
   container: {

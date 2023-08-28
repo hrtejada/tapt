@@ -7,6 +7,8 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import HomeScreen from "./screens/HomeScreen";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import EmailScreen from "./screens/EmailScreen";
+import SettingsScreen from "./screens/SettingsScreen";
+import { GlobalStyles } from "./constants/styles";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -38,10 +40,26 @@ export default function App() {
         <NavigationContainer>
           <Drawer.Navigator
             screenOptions={{
-              title: "Home",
+              drawerActiveTintColor: GlobalStyles.colors.background700,
+              drawerActiveBackgroundColor: GlobalStyles.colors.secondary300,
+              drawerInactiveTintColor: GlobalStyles.colors.primary300,
+              drawerInactiveBackgroundColor: GlobalStyles.colors.accent300,
+              drawerStyle: {
+                backgroundColor: GlobalStyles.colors.background500,
+              },
+              headerStyle: {
+                backgroundColor: GlobalStyles.colors.background700,
+              },
             }}
           >
-            <Drawer.Screen name="Main" component={MainView} />
+            <Drawer.Screen
+              name="Main"
+              component={MainView}
+              options={{
+                title: "Home",
+              }}
+            />
+            <Drawer.Screen name="Settings" component={SettingsScreen} />
           </Drawer.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>

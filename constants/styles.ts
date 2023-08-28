@@ -13,11 +13,17 @@ export const GlobalStyles = {
    *  - ACTION?
    */
   colors: {
-    primary: "#654c4f",
+    primary300: "#806064",
+    primary500: "#654c4f",
+    primary700: "#513d40",
+    secondary300: "#4f6955",
     secondary500: "#3c4f40",
     secondary700: "#2c3a2f",
-    accent: "#cec075",
-    text: "#654c4f",
-    background: "#f5f7f3",
+    accent300: "#dad095",
+    accent500: "#cec075",
+    accent700: "#c5b459",
+    background300: "#ffffff",
+    background500: "#f5f7f3",
+    background700: "#e0e7da",
   },
 };
