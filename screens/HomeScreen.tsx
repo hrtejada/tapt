@@ -2,6 +2,7 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { GlobalStyles } from "../constants/styles";
 import Button from "../components/Button";
+import BookingNumberCard from "../components/BookingNumberCard";
 
 const DUMMY_HOME_SCREEN = {
   unreadCount: 0,
@@ -44,18 +45,14 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
         </View>
         <Text style={styles.cardText}>Bookings</Text>
         <View style={styles.bookingContainer}>
-          <View style={styles.bookingCard}>
-            <Text style={styles.cardText}>Accepted:</Text>
-            <Text style={[styles.cardText, styles.bookingNumber]}>
-              {DUMMY_HOME_SCREEN.accepted}
-            </Text>
-          </View>
-          <View style={styles.bookingCard}>
-            <Text style={styles.cardText}>Rejected:</Text>
-            <Text style={[styles.cardText, styles.bookingNumber]}>
-              {DUMMY_HOME_SCREEN.rejected}
-            </Text>
-          </View>
+          <BookingNumberCard
+            title="ACCEPTED"
+            number={DUMMY_HOME_SCREEN.accepted}
+          />
+          <BookingNumberCard
+            title="REJECTED"
+            number={DUMMY_HOME_SCREEN.rejected}
+          />
         </View>
       </View>
       <View>
@@ -130,20 +127,5 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     marginHorizontal: 12,
-  },
-  bookingCard: {
-    borderColor: GlobalStyles.colors.accent700,
-    borderWidth: 2,
-    borderRadius: 6,
-    backgroundColor: GlobalStyles.colors.background700,
-    margin: 8,
-    padding: 8,
-    height: 100,
-    width: 100,
-  },
-  bookingNumber: {
-    fontSize: 48,
-    fontWeight: "bold",
-    color: GlobalStyles.colors.primary500,
   },
 });
