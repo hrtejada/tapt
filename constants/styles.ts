@@ -1,3 +1,5 @@
+import { DefaultTheme } from "@react-navigation/native";
+
 export const GlobalStyles = {
   /**
    * Need the following main colors and then we can build shades/tints off of them
@@ -22,9 +24,10 @@ export const GlobalStyles = {
     accent300: "#dad095",
     accent500: "#cec075",
     accent700: "#c5b459",
-    background300: "#ffffff",
-    background500: "#f5f7f3",
-    background700: "#e0e7da",
+    background100: "#ffffff",
+    background300: "#f5f7f3",
+    background500: "#e0e7da",
+    background700: "#ccd6c2",
     reject: "#f4442e",
     accept: "#44ffd2",
   },

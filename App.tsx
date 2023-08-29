@@ -1,15 +1,14 @@
 import "react-native-gesture-handler"; // LEAVE AT THE TOP OF IMPORTS
+import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import HomeScreen from "./screens/HomeScreen";
-import { createDrawerNavigator } from "@react-navigation/drawer";
-import EmailScreen from "./screens/EmailScreen";
-import SettingsScreen from "./screens/SettingsScreen";
 import { GlobalStyles } from "./constants/styles";
+import EmailScreen from "./screens/EmailScreen";
+import HomeScreen from "./screens/HomeScreen";
 import LoginScreen from "./screens/LoginScreen";
+import SettingsScreen from "./screens/SettingsScreen";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -49,12 +48,12 @@ export default function App() {
         <NavigationContainer>
           <Drawer.Navigator
             screenOptions={{
-              drawerActiveTintColor: GlobalStyles.colors.background700,
-              drawerActiveBackgroundColor: GlobalStyles.colors.secondary300,
-              drawerInactiveTintColor: GlobalStyles.colors.primary300,
-              drawerInactiveBackgroundColor: GlobalStyles.colors.accent300,
+              drawerActiveTintColor: GlobalStyles.colors.primary500,
+              drawerActiveBackgroundColor: GlobalStyles.colors.accent500,
+              drawerInactiveTintColor: GlobalStyles.colors.primary500,
+              drawerInactiveBackgroundColor: GlobalStyles.colors.background500,
               drawerStyle: {
-                backgroundColor: GlobalStyles.colors.background500,
+                backgroundColor: GlobalStyles.colors.background300,
               },
               headerStyle: {
                 backgroundColor: GlobalStyles.colors.background700,
@@ -75,12 +74,3 @@ export default function App() {
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

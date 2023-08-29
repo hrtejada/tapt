@@ -1,6 +1,15 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { GlobalStyles } from "../constants/styles";
+import Button from "../components/Button";
+
+const DUMMY_HOME_SCREEN = {
+  unreadCount: 0,
+  accepted: 50,
+  rejected: 50,
+  bookingStartDate: "8/23/2023",
+  bookingEndDate: "9/25/2023",
+};
 
 /**
  * Home Component
@@ -18,24 +27,38 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
 
   return (
     <View style={[styles.container, { paddingBottom: insets.bottom }]}>
-      <Pressable
-        style={({ pressed }) => pressed && styles.pressed}
-        onPress={pressHandler}
-      >
-        <View style={styles.card}>
-          <Text style={styles.cardText}>Number of Emails</Text>
-          <Text style={styles.cardText}>Go To Emails</Text>
+      <View style={styles.firstRow}>
+        <View style={styles.emailCountContainer}>
+          <Text style={styles.emailCount}>{DUMMY_HOME_SCREEN.unreadCount}</Text>
+          <Text style={styles.emailUnreadText}>Unread Emails</Text>
         </View>
-      </Pressable>
+        <Button onPress={pressHandler} style={styles.emailsButton}>
+          <Text>Go To Emails</Text>
+        </Button>
+      </View>
       <View style={styles.secondRow}>
-        <View style={styles.card}>
-          <Text style={styles.cardText}>Email Stats</Text>
-          <Text style={styles.cardText}>Accepted: 50%</Text>
-          <Text style={styles.cardText}>Rejected: 50%</Text>
+        <View>
           <Text style={styles.cardText}>
-            Currently Booking: 9/1/2023 - 9/30/2023
+            {`Currently Booking: ${DUMMY_HOME_SCREEN.bookingStartDate} - ${DUMMY_HOME_SCREEN.bookingEndDate}`}
           </Text>
         </View>
+        <Text style={styles.cardText}>Bookings</Text>
+        <View style={styles.bookingContainer}>
+          <View style={styles.bookingCard}>
+            <Text style={styles.cardText}>Accepted:</Text>
+            <Text style={[styles.cardText, styles.bookingNumber]}>
+              {DUMMY_HOME_SCREEN.accepted}
+            </Text>
+          </View>
+          <View style={styles.bookingCard}>
+            <Text style={styles.cardText}>Rejected:</Text>
+            <Text style={[styles.cardText, styles.bookingNumber]}>
+              {DUMMY_HOME_SCREEN.rejected}
+            </Text>
+          </View>
+        </View>
+      </View>
+      <View>
         <View style={styles.card}>
           <Text style={styles.cardText}>Ranked Queue</Text>
         </View>
@@ -51,12 +74,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: GlobalStyles.colors.background500,
-    margin: 8,
+    backgroundColor: GlobalStyles.colors.background300,
   },
   cardText: {
     color: GlobalStyles.colors.background500,
     textAlign: "center",
+    fontSize: 16,
   },
   card: {
     borderRadius: 8,
@@ -74,11 +97,53 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
   },
-  pressed: {
-    opacity: 0.75,
-  },
   secondRow: {
-    flexWrap: "wrap",
+    width: "100%",
+    backgroundColor: "#0000ffaa",
+    justifyContent: "center",
+    // alignItems: "center",
+  },
+  emailsButton: {
+    minWidth: 120,
+  },
+  firstRow: {
+    // flex: 2,
     flexDirection: "row",
+    backgroundColor: "#ddff77dd",
+    width: "100%",
+  },
+  emailCountContainer: {
+    margin: 12,
+    padding: 8,
+    backgroundColor: GlobalStyles.colors.background500,
+    borderRadius: 4,
+  },
+  emailCount: {
+    fontSize: 48,
+    fontWeight: "bold",
+  },
+  emailUnreadText: {
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  bookingContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginHorizontal: 12,
+  },
+  bookingCard: {
+    borderColor: GlobalStyles.colors.accent700,
+    borderWidth: 2,
+    borderRadius: 6,
+    backgroundColor: GlobalStyles.colors.background700,
+    margin: 8,
+    padding: 8,
+    height: 100,
+    width: 100,
+  },
+  bookingNumber: {
+    fontSize: 48,
+    fontWeight: "bold",
+    color: GlobalStyles.colors.primary500,
   },
 });
