@@ -9,9 +9,18 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import EmailScreen from "./screens/EmailScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 import { GlobalStyles } from "./constants/styles";
+import LoginScreen from "./screens/LoginScreen";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
+
+const LoginStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Login" component={LoginScreen} />
+    </Stack.Navigator>
+  );
+};
 
 const MainView = () => {
   return (
