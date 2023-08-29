@@ -18,15 +18,28 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
 
   return (
     <View style={[styles.container, { paddingBottom: insets.bottom }]}>
-      <Text style={styles.text}>HomeScreen</Text>
       <Pressable
         style={({ pressed }) => pressed && styles.pressed}
         onPress={pressHandler}
       >
         <View style={styles.card}>
-          <Text style={styles.cardText}>Emails</Text>
+          <Text style={styles.cardText}>Number of Emails</Text>
+          <Text style={styles.cardText}>Go To Emails</Text>
         </View>
       </Pressable>
+      <View style={styles.secondRow}>
+        <View style={styles.card}>
+          <Text style={styles.cardText}>Email Stats</Text>
+          <Text style={styles.cardText}>Accepted: 50%</Text>
+          <Text style={styles.cardText}>Rejected: 50%</Text>
+          <Text style={styles.cardText}>
+            Currently Booking: 9/1/2023 - 9/30/2023
+          </Text>
+        </View>
+        <View style={styles.card}>
+          <Text style={styles.cardText}>Ranked Queue</Text>
+        </View>
+      </View>
     </View>
   );
 };
@@ -36,12 +49,14 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "space-around",
+    justifyContent: "center",
     alignItems: "center",
     backgroundColor: GlobalStyles.colors.background500,
+    margin: 8,
   },
   cardText: {
     color: GlobalStyles.colors.background500,
+    textAlign: "center",
   },
   card: {
     borderRadius: 8,
@@ -52,6 +67,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 1, height: 1 },
     shadowOpacity: 0.5,
     padding: 24,
+    margin: 8,
   },
   text: {
     color: GlobalStyles.colors.primary500,
@@ -60,5 +76,9 @@ const styles = StyleSheet.create({
   },
   pressed: {
     opacity: 0.75,
+  },
+  secondRow: {
+    flexWrap: "wrap",
+    flexDirection: "row",
   },
 });

@@ -25,5 +25,7 @@ export const GlobalStyles = {
     background300: "#ffffff",
     background500: "#f5f7f3",
     background700: "#e0e7da",
+    reject: "#f4442e",
+    accept: "#44ffd2",
   },
 };
