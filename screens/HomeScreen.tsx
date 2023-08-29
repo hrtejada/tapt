@@ -8,6 +8,7 @@ const DUMMY_HOME_SCREEN = {
   unreadCount: 0,
   accepted: 50,
   rejected: 50,
+  booking: true,
   bookingStartDate: "8/23/2023",
   bookingEndDate: "9/25/2023",
 };
@@ -22,6 +23,12 @@ const DUMMY_HOME_SCREEN = {
 const HomeScreen = ({ navigation }: { navigation: any }) => {
   const insets = useSafeAreaInsets();
 
+  let bookingStatusDisplay: string = "Inactive Booking";
+
+  if (DUMMY_HOME_SCREEN.booking) {
+    bookingStatusDisplay = `Active Booking: ${DUMMY_HOME_SCREEN.bookingStartDate} - ${DUMMY_HOME_SCREEN.bookingEndDate}`;
+  }
+
   const pressHandler = () => {
     navigation.navigate("Email");
   };
@@ -30,20 +37,20 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
     <View style={[styles.container, { paddingBottom: insets.bottom }]}>
       <View style={styles.firstRow}>
         <View style={styles.emailCountContainer}>
-          <Text style={styles.emailCount}>{DUMMY_HOME_SCREEN.unreadCount}</Text>
-          <Text style={styles.emailUnreadText}>Unread Emails</Text>
+          <View style={styles.emailCountInner}>
+            <Text style={styles.emailCount}>
+              {DUMMY_HOME_SCREEN.unreadCount}
+            </Text>
+            <Text style={styles.emailUnreadText}>Unread Emails</Text>
+          </View>
         </View>
         <Button onPress={pressHandler} style={styles.emailsButton}>
-          <Text>Go To Emails</Text>
+          Go To Emails
         </Button>
       </View>
       <View style={styles.secondRow}>
-        <View>
-          <Text style={styles.cardText}>
-            {`Currently Booking: ${DUMMY_HOME_SCREEN.bookingStartDate} - ${DUMMY_HOME_SCREEN.bookingEndDate}`}
-          </Text>
-        </View>
-        <Text style={styles.cardText}>Bookings</Text>
+        <Text style={styles.bookingText}>Bookings</Text>
+        <Text style={styles.bookingStatus}>{bookingStatusDisplay}</Text>
         <View style={styles.bookingContainer}>
           <BookingNumberCard
             title="ACCEPTED"
@@ -55,7 +62,7 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
           />
         </View>
       </View>
-      <View>
+      <View style={styles.thirdRow}>
         <View style={styles.card}>
           <Text style={styles.cardText}>Ranked Queue</Text>
         </View>
@@ -69,9 +76,25 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: "space-around",
+    // alignItems: "stretch",
     backgroundColor: GlobalStyles.colors.background300,
+  },
+  firstRow: {
+    flex: 2,
+    flexDirection: "row",
+    // backgroundColor: "#ddff77dd",
+    width: "100%",
+  },
+  secondRow: {
+    flex: 2,
+    width: "100%",
+    // backgroundColor: "#0000ffaa",
+    justifyContent: "center",
+    // alignItems: "center",
+  },
+  thirdRow: {
+    flex: 1,
   },
   cardText: {
     color: GlobalStyles.colors.background500,
@@ -94,38 +117,51 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
   },
-  secondRow: {
-    width: "100%",
-    backgroundColor: "#0000ffaa",
-    justifyContent: "center",
-    // alignItems: "center",
-  },
   emailsButton: {
-    minWidth: 120,
-  },
-  firstRow: {
-    // flex: 2,
-    flexDirection: "row",
-    backgroundColor: "#ddff77dd",
-    width: "100%",
+    flex: 2,
+    justifyContent: "center",
+    marginHorizontal: 12,
+    paddingVertical: 12,
+    // backgroundColor: "#11111133",
   },
   emailCountContainer: {
+    flex: 1,
+    justifyContent: "center",
+  },
+  emailCountInner: {
     margin: 12,
     padding: 8,
     backgroundColor: GlobalStyles.colors.background500,
     borderRadius: 4,
+    width: "90%",
   },
   emailCount: {
-    fontSize: 48,
+    fontSize: 64,
     fontWeight: "bold",
   },
   emailUnreadText: {
-    fontSize: 16,
+    fontSize: 22,
     fontWeight: "bold",
   },
   bookingContainer: {
     flexDirection: "row",
     justifyContent: "space-around",
     marginHorizontal: 12,
+  },
+  bookingStatus: {
+    color: GlobalStyles.colors.primary500,
+    backgroundColor: GlobalStyles.colors.background300,
+    fontSize: 18,
+    fontWeight: "bold",
+    textAlign: "center",
+    margin: 8,
+    padding: 8,
+    borderRadius: 50,
+  },
+  bookingText: {
+    color: GlobalStyles.colors.secondary500,
+    textAlign: "center",
+    fontSize: 20,
+    textDecorationLine: "underline",
   },
 });

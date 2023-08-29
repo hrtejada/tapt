@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
     height: 100,
     width: 100,
     justifyContent: "center",
+    flex: 1,
   },
   title: {
     fontSize: 14,
