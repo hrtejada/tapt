@@ -1,9 +1,9 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { GlobalStyles } from "../constants/styles";
-import Button from "../components/Button";
 import BookingNumberCard from "../components/BookingNumberCard";
+import Button from "../components/Button";
 import UnreadCountCard from "../components/UnreadCountCard";
+import { GlobalStyles } from "../constants/styles";
 
 const DUMMY_HOME_SCREEN = {
   unreadCount: 0,
@@ -15,9 +15,11 @@ const DUMMY_HOME_SCREEN = {
 };
 
 /**
- * Home Component
+ * Home Component displaying the main components of the app.
  *
  * TODO: Flesh out component - Will hold the main cards/buttons to deal with the email queue
+ * @version 0.1.1
+ * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 
 // TODO: Understand what type 'navigation' is
@@ -32,6 +34,7 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
 
   const pressHandler = () => {
     navigation.navigate("Email");
+    // TODO: Retrieve email data or handle it in the EmailScreen
   };
 
   return (
@@ -48,11 +51,11 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
         <View style={styles.bookingContainer}>
           <BookingNumberCard
             title="ACCEPTED"
-            number={DUMMY_HOME_SCREEN.accepted}
+            value={DUMMY_HOME_SCREEN.accepted}
           />
           <BookingNumberCard
             title="REJECTED"
-            number={DUMMY_HOME_SCREEN.rejected}
+            value={DUMMY_HOME_SCREEN.rejected}
           />
         </View>
       </View>
@@ -71,24 +74,23 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "space-around",
-    // alignItems: "stretch",
     backgroundColor: GlobalStyles.colors.background300,
   },
   firstRow: {
     flex: 2,
     flexDirection: "row",
-    backgroundColor: "#ddff77dd",
+    backgroundColor: GlobalStyles.colors.background500,
     width: "100%",
   },
   secondRow: {
     flex: 3,
-    // width: "100%",
-    backgroundColor: "#0000ffaa",
+    backgroundColor: GlobalStyles.colors.background300,
     justifyContent: "center",
-    // alignItems: "center",
   },
   thirdRow: {
     flex: 1,
+    backgroundColor: GlobalStyles.colors.background500,
+    justifyContent: "center",
   },
   emailsButton: {
     flex: 2,

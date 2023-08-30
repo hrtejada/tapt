@@ -1,16 +1,26 @@
 import { StyleSheet, Text, View } from "react-native";
 import { GlobalStyles } from "../constants/styles";
 
+/**
+ * @prop  {string}  title - Text to be displayed as the title of this component
+ * @prop  {number}  value - Value to be displayed as the main content
+ */
 type Props = {
-  title: string;
-  number: number;
+  title: "ACCEPTED" | "REJECTED";
+  value: number;
 };
 
-const BookingNumberCard = ({ title, number }: Props) => {
+/**
+ * Compontent to display stats related to the current booking session.
+ *
+ * @version 0.1.0
+ * @author  Ralph Woiwode <https://github.com/RAWoiwode>
+ */
+const BookingNumberCard = ({ title, value }: Props) => {
   return (
     <View style={styles.card}>
       <Text style={styles.title}>{title}:</Text>
-      <Text style={[styles.title, styles.number]}>{number}</Text>
+      <Text style={[styles.title, styles.number]}>{value}</Text>
     </View>
   );
 };

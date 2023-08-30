@@ -1,13 +1,24 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { GlobalStyles } from "../constants/styles";
 
+/**
+ * @prop  {Function}  onPress - Function to be called when user presses the button
+ * @prop  {string}    mode - (optional) - Used to change appearance of the button
+ * @prop  {object}    style - (optional) - Style object used to passed additional styling to the button
+ */
 type ButtonProps = {
   onPress: () => void;
-  mode?: string;
+  mode?: "isFlat" | "";
   style?: object;
   children: React.ReactNode;
 };
 
+/**
+ * Main button component
+ *
+ * @version 0.1.0
+ * @author  Ralph Woiwode <https://github.com/RAWoiwode>
+ */
 const Button = ({ onPress, mode, style, children }: ButtonProps) => {
   const isFlat = mode === "isFlat";
 

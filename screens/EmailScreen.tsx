@@ -1,15 +1,10 @@
-import {
-  FlatList,
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import { GlobalStyles } from "../constants/styles";
 
 const DUMMY_EMAIL_SCREEN = {
   id: "e1",
+  email: "test@test.com",
+  name: "Testy Tester",
   description:
     "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Mollitia unde assumenda ad eveniet impedit molestiae repellat natus harum porro, fugit cumque iste molestias, tempore sed labore ipsa expedita saepe facere.",
   size: "3x4",
@@ -23,7 +18,19 @@ const DUMMY_EMAIL_SCREEN = {
   other2: "Lorem ipsum, dolor sit amet consectetur.",
 };
 
+/**
+ * Component that will display the parsed email information.
+ *
+ * @version 0.1.0
+ * @author  Ralph Woiwode <https://github.com/RAWoiwode>
+ */
 const EmailScreen = () => {
+  /**
+   * Map each image to an Image component.
+   *
+   * Create a unique key for each image and display the image in a reasonable format.
+   * TODO: Find a better way to create a unique key
+   */
   const imagesDisplay = DUMMY_EMAIL_SCREEN.images.map((image) => {
     const key = DUMMY_EMAIL_SCREEN.id + Math.random();
     return <Image key={key} style={styles.image} source={{ uri: image }} />;
@@ -32,6 +39,10 @@ const EmailScreen = () => {
   return (
     <View style={styles.rootContainer}>
       <View style={styles.emailInfoContainer}>
+        <View style={styles.titleContainer}>
+          <Text style={styles.titleName}>{DUMMY_EMAIL_SCREEN.name} - </Text>
+          <Text style={styles.titleEmail}>{DUMMY_EMAIL_SCREEN.email}</Text>
+        </View>
         <ScrollView>
           <View style={styles.innerEmailContainer}>
             <View style={styles.infoContainer}>
@@ -83,13 +94,25 @@ const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
   },
+  titleContainer: {
+    flexDirection: "row",
+    padding: 8,
+    alignItems: "center",
+  },
+  titleName: {
+    fontSize: 24,
+    fontWeight: "bold",
+  },
+  titleEmail: {
+    fontSize: 20,
+  },
   emailInfoContainer: {
     flex: 3,
     // margin: 8,
     padding: 8,
     justifyContent: "space-around",
     alignItems: "flex-start",
-    flexDirection: "row",
+    // flexDirection: "row",
     backgroundColor: GlobalStyles.colors.background500,
   },
   innerEmailContainer: {
@@ -135,6 +158,8 @@ const styles = StyleSheet.create({
   },
   cardText: {
     textAlign: "center",
+    fontSize: 18,
+    fontWeight: "bold",
   },
   accept: {
     color: "black",
