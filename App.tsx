@@ -9,6 +9,7 @@ import EmailScreen from "./screens/EmailScreen";
 import HomeScreen from "./screens/HomeScreen";
 import LoginScreen from "./screens/LoginScreen";
 import SettingsScreen from "./screens/SettingsScreen";
+import RankedQueueScreen from "./screens/RankedQueueScreen";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -34,6 +35,15 @@ const MainView = () => {
         component={EmailScreen}
         options={{
           presentation: "modal",
+        }}
+      />
+      <Stack.Screen
+        name="Ranked"
+        component={RankedQueueScreen}
+        options={{
+          title: "Ranked Queue",
+          presentation: "card",
+          headerShown: true,
         }}
       />
     </Stack.Navigator>

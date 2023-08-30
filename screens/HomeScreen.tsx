@@ -32,16 +32,20 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
     bookingStatusDisplay = `Active: ${DUMMY_HOME_SCREEN.bookingStartDate} - ${DUMMY_HOME_SCREEN.bookingEndDate}`;
   }
 
-  const pressHandler = () => {
+  const emailPressHandler = () => {
     navigation.navigate("Email");
     // TODO: Retrieve email data or handle it in the EmailScreen
+  };
+
+  const rankedQueuePressHandler = () => {
+    navigation.navigate("Ranked");
   };
 
   return (
     <View style={[styles.container, { paddingBottom: insets.bottom }]}>
       <View style={styles.firstRow}>
         <UnreadCountCard unreadCount={DUMMY_HOME_SCREEN.unreadCount} />
-        <Button onPress={pressHandler} style={styles.emailsButton}>
+        <Button onPress={emailPressHandler} style={styles.emailsButton}>
           Go To Emails
         </Button>
       </View>
@@ -60,9 +64,7 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
         </View>
       </View>
       <View style={styles.thirdRow}>
-        <View style={styles.card}>
-          <Text style={styles.cardText}>Ranked Queue</Text>
-        </View>
+        <Button onPress={rankedQueuePressHandler}>Ranked Queue</Button>
       </View>
     </View>
   );
