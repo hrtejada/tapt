@@ -45,7 +45,8 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     padding: 8,
     backgroundColor: GlobalStyles.colors.primary500,
-    height: 150,
+    minHeight: 50,
+    minWidth: 100,
     justifyContent: "center",
   },
   flat: {
