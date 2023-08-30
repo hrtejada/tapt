@@ -3,6 +3,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { GlobalStyles } from "../constants/styles";
 import Button from "../components/Button";
 import BookingNumberCard from "../components/BookingNumberCard";
+import UnreadCountCard from "../components/UnreadCountCard";
 
 const DUMMY_HOME_SCREEN = {
   unreadCount: 0,
@@ -26,7 +27,7 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
   let bookingStatusDisplay: string = "Inactive Booking";
 
   if (DUMMY_HOME_SCREEN.booking) {
-    bookingStatusDisplay = `Active Booking: ${DUMMY_HOME_SCREEN.bookingStartDate} - ${DUMMY_HOME_SCREEN.bookingEndDate}`;
+    bookingStatusDisplay = `Active: ${DUMMY_HOME_SCREEN.bookingStartDate} - ${DUMMY_HOME_SCREEN.bookingEndDate}`;
   }
 
   const pressHandler = () => {
@@ -36,20 +37,13 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
   return (
     <View style={[styles.container, { paddingBottom: insets.bottom }]}>
       <View style={styles.firstRow}>
-        <View style={styles.emailCountContainer}>
-          <View style={styles.emailCountInner}>
-            <Text style={styles.emailCount}>
-              {DUMMY_HOME_SCREEN.unreadCount}
-            </Text>
-            <Text style={styles.emailUnreadText}>Unread Emails</Text>
-          </View>
-        </View>
+        <UnreadCountCard unreadCount={DUMMY_HOME_SCREEN.unreadCount} />
         <Button onPress={pressHandler} style={styles.emailsButton}>
           Go To Emails
         </Button>
       </View>
       <View style={styles.secondRow}>
-        <Text style={styles.bookingText}>Bookings</Text>
+        <Text style={styles.bookingText}>Booking Info</Text>
         <Text style={styles.bookingStatus}>{bookingStatusDisplay}</Text>
         <View style={styles.bookingContainer}>
           <BookingNumberCard
@@ -83,18 +77,25 @@ const styles = StyleSheet.create({
   firstRow: {
     flex: 2,
     flexDirection: "row",
-    // backgroundColor: "#ddff77dd",
+    backgroundColor: "#ddff77dd",
     width: "100%",
   },
   secondRow: {
-    flex: 2,
-    width: "100%",
-    // backgroundColor: "#0000ffaa",
+    flex: 3,
+    // width: "100%",
+    backgroundColor: "#0000ffaa",
     justifyContent: "center",
     // alignItems: "center",
   },
   thirdRow: {
     flex: 1,
+  },
+  emailsButton: {
+    flex: 2,
+    justifyContent: "center",
+    marginHorizontal: 12,
+    paddingVertical: 12,
+    // backgroundColor: "#11111133",
   },
   cardText: {
     color: GlobalStyles.colors.background500,
@@ -117,32 +118,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
   },
-  emailsButton: {
-    flex: 2,
-    justifyContent: "center",
-    marginHorizontal: 12,
-    paddingVertical: 12,
-    // backgroundColor: "#11111133",
-  },
-  emailCountContainer: {
-    flex: 1,
-    justifyContent: "center",
-  },
-  emailCountInner: {
-    margin: 12,
-    padding: 8,
-    backgroundColor: GlobalStyles.colors.background500,
-    borderRadius: 4,
-    width: "90%",
-  },
-  emailCount: {
-    fontSize: 64,
-    fontWeight: "bold",
-  },
-  emailUnreadText: {
-    fontSize: 22,
-    fontWeight: "bold",
-  },
   bookingContainer: {
     flexDirection: "row",
     justifyContent: "space-around",
@@ -151,17 +126,18 @@ const styles = StyleSheet.create({
   bookingStatus: {
     color: GlobalStyles.colors.primary500,
     backgroundColor: GlobalStyles.colors.background300,
-    fontSize: 18,
+    fontSize: 24,
     fontWeight: "bold",
     textAlign: "center",
-    margin: 8,
+    marginHorizontal: 8,
+    marginVertical: 4,
     padding: 8,
     borderRadius: 50,
   },
   bookingText: {
-    color: GlobalStyles.colors.secondary500,
+    color: GlobalStyles.colors.background100,
     textAlign: "center",
-    fontSize: 20,
+    fontSize: 32,
     textDecorationLine: "underline",
   },
 });
