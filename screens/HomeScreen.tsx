@@ -4,6 +4,7 @@ import BookingNumberCard from "../components/BookingNumberCard";
 import Button from "../components/Button";
 import UnreadCountCard from "../components/UnreadCountCard";
 import { GlobalStyles } from "../constants/styles";
+import { FontAwesome5 } from "@expo/vector-icons";
 
 const DUMMY_HOME_SCREEN = {
   unreadCount: 0,
@@ -18,7 +19,7 @@ const DUMMY_HOME_SCREEN = {
  * Home Component displaying the main components of the app.
  *
  * TODO: Flesh out component - Will hold the main cards/buttons to deal with the email queue
- * @version 0.1.1
+ * @version 0.1.2
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 
@@ -44,12 +45,6 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
   return (
     <View style={[styles.container, { paddingBottom: insets.bottom }]}>
       <View style={styles.firstRow}>
-        <UnreadCountCard unreadCount={DUMMY_HOME_SCREEN.unreadCount} />
-        <Button onPress={emailPressHandler} style={styles.emailsButton}>
-          Go To Emails
-        </Button>
-      </View>
-      <View style={styles.secondRow}>
         <Text style={styles.bookingText}>Booking Info</Text>
         <Text style={styles.bookingStatus}>{bookingStatusDisplay}</Text>
         <View style={styles.bookingContainer}>
@@ -63,8 +58,19 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
           />
         </View>
       </View>
-      <View style={styles.thirdRow}>
+      <View style={styles.secondRow}>
         <Button onPress={rankedQueuePressHandler}>Ranked Queue</Button>
+      </View>
+      <View style={styles.thirdRow}>
+        <UnreadCountCard unreadCount={DUMMY_HOME_SCREEN.unreadCount} />
+        <View style={styles.emailButtonContainer}>
+          <Button onPress={emailPressHandler}>
+            <View style={styles.innerButtonContainer}>
+              <FontAwesome5 name="envelope-open-text" size={48} color="white" />
+              <Text style={styles.emailsButtonText}>Review Emails</Text>
+            </View>
+          </Button>
+        </View>
       </View>
     </View>
   );
@@ -80,26 +86,36 @@ const styles = StyleSheet.create({
   },
   firstRow: {
     flex: 2,
-    flexDirection: "row",
+    justifyContent: "space-around",
     backgroundColor: GlobalStyles.colors.background500,
-    width: "100%",
   },
   secondRow: {
-    flex: 3,
+    flex: 1,
     backgroundColor: GlobalStyles.colors.background300,
     justifyContent: "center",
   },
   thirdRow: {
-    flex: 1,
+    flex: 2,
+    flexDirection: "row",
     backgroundColor: GlobalStyles.colors.background500,
     justifyContent: "center",
   },
-  emailsButton: {
+  emailButtonContainer: {
     flex: 2,
-    justifyContent: "center",
+    justifyContent: "space-evenly",
+    alignItems: "center",
     marginHorizontal: 12,
     paddingVertical: 12,
-    // backgroundColor: "#11111133",
+  },
+  innerButtonContainer: {
+    padding: 8,
+    alignItems: "center",
+  },
+  emailsButtonText: {
+    fontWeight: "bold",
+    fontSize: 24,
+    color: GlobalStyles.colors.background100,
+    marginTop: 16,
   },
   cardText: {
     color: GlobalStyles.colors.background500,
@@ -122,26 +138,27 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
   },
-  bookingContainer: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    marginHorizontal: 12,
+  bookingText: {
+    color: GlobalStyles.colors.secondary700,
+    textAlign: "center",
+    fontSize: 32,
+    textDecorationLine: "underline",
   },
   bookingStatus: {
-    color: GlobalStyles.colors.primary500,
+    color: GlobalStyles.colors.primary700,
     backgroundColor: GlobalStyles.colors.background300,
     fontSize: 24,
     fontWeight: "bold",
     textAlign: "center",
-    marginHorizontal: 8,
+    marginHorizontal: 24,
     marginVertical: 4,
     padding: 8,
-    borderRadius: 50,
+    borderRadius: 25,
+    borderWidth: 1,
+    overflow: "hidden",
   },
-  bookingText: {
-    color: GlobalStyles.colors.background100,
-    textAlign: "center",
-    fontSize: 32,
-    textDecorationLine: "underline",
+  bookingContainer: {
+    flexDirection: "row",
+    marginHorizontal: 12,
   },
 });

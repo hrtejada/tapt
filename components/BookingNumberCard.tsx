@@ -13,14 +13,14 @@ type Props = {
 /**
  * Compontent to display stats related to the current booking session.
  *
- * @version 0.1.0
+ * @version 0.1.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const BookingNumberCard = ({ title, value }: Props) => {
   return (
     <View style={styles.card}>
       <Text style={styles.title}>{title}:</Text>
-      <Text style={[styles.title, styles.number]}>{value}</Text>
+      <Text style={[styles.title, styles.number]}>{value}%</Text>
     </View>
   );
 };
@@ -35,20 +35,20 @@ const styles = StyleSheet.create({
     backgroundColor: GlobalStyles.colors.background500,
     margin: 8,
     padding: 8,
-    height: 100,
+    height: 125,
     width: 100,
     justifyContent: "center",
     flex: 1,
   },
   title: {
-    fontSize: 14,
+    fontSize: 18,
     fontWeight: "bold",
     fontStyle: "italic",
     color: GlobalStyles.colors.primary500,
     textAlign: "center",
   },
   number: {
-    fontSize: 48,
+    fontSize: 56,
     fontStyle: "normal",
   },
 });
