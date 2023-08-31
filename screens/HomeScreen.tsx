@@ -20,7 +20,7 @@ const DUMMY_HOME_SCREEN = {
  * Home Component displaying the main components of the app.
  *
  * TODO: Flesh out component - Will hold the main cards/buttons to deal with the email queue
- * @version 0.1.2
+ * @version 0.1.3
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   emailButtonContainer: {
-    flex: 2,
+    flex: 1,
     justifyContent: "space-evenly",
     alignItems: "center",
     marginHorizontal: 12,
