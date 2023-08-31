@@ -5,6 +5,7 @@ import Button from "../components/Button";
 import UnreadCountCard from "../components/UnreadCountCard";
 import { GlobalStyles } from "../constants/styles";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { StackNavProps } from "../App";
 
 const DUMMY_HOME_SCREEN = {
   unreadCount: 0,
@@ -24,7 +25,7 @@ const DUMMY_HOME_SCREEN = {
  */
 
 // TODO: Understand what type 'navigation' is
-const HomeScreen = ({ navigation }: { navigation: any }) => {
+const HomeScreen = ({ navigation }: StackNavProps) => {
   const insets = useSafeAreaInsets();
 
   let bookingStatusDisplay: string = "Inactive Booking";

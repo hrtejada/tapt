@@ -1,7 +1,10 @@
 import "react-native-gesture-handler"; // LEAVE AT THE TOP OF IMPORTS
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import {
+  NativeStackScreenProps,
+  createNativeStackNavigator,
+} from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { GlobalStyles } from "./constants/styles";
@@ -10,9 +13,24 @@ import HomeScreen from "./screens/HomeScreen";
 import LoginScreen from "./screens/LoginScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 import RankedQueueScreen from "./screens/RankedQueueScreen";
+import ImageScreen from "./screens/ImageScreen";
+
+/**
+ * TODO: Need to make a separate file to manage the Navigation Typescript stuff :-)
+ */
+type StackParamList = {
+  Home: undefined;
+  Email: undefined;
+  Ranked: undefined;
+  Image: { image: string };
+  Login: undefined;
+};
 
 const Drawer = createDrawerNavigator();
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<StackParamList>();
+
+export type StackNavProps = NativeStackScreenProps<StackParamList, "Home">;
+export type ImageScreenProps = NativeStackScreenProps<StackParamList, "Image">;
 
 const LoginStack = () => {
   return (
@@ -44,6 +62,13 @@ const MainView = () => {
           title: "Ranked Queue",
           presentation: "card",
           headerShown: true,
+        }}
+      />
+      <Stack.Screen
+        name="Image"
+        component={ImageScreen}
+        options={{
+          presentation: "modal",
         }}
       />
     </Stack.Navigator>

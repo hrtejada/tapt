@@ -1,4 +1,11 @@
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { GlobalStyles } from "../constants/styles";
 
 const DUMMY_EMAIL_SCREEN = {
@@ -21,10 +28,24 @@ const DUMMY_EMAIL_SCREEN = {
 /**
  * Component that will display the parsed email information.
  *
- * @version 0.1.0
+ * @version 0.1.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
-const EmailScreen = () => {
+const EmailScreen = ({ navigation }: { navigation: any }) => {
+  /**
+   * Handle an image being pressed.
+   *
+   * Bring up the Image Screen modal to show the image larger for the user to get
+   * a better look.
+   *
+   * @param {string} image - String to display the image larger on the modal
+   */
+  const imagePressHandler = (image: string) => {
+    navigation.navigate("Image", {
+      image: image,
+    });
+  };
+
   /**
    * Map each image to an Image component.
    *
@@ -33,7 +54,11 @@ const EmailScreen = () => {
    */
   const imagesDisplay = DUMMY_EMAIL_SCREEN.images.map((image) => {
     const key = DUMMY_EMAIL_SCREEN.id + Math.random();
-    return <Image key={key} style={styles.image} source={{ uri: image }} />;
+    return (
+      <Pressable key={key} onPress={imagePressHandler.bind(this, image)}>
+        <Image style={styles.image} source={{ uri: image }} />
+      </Pressable>
+    );
   });
 
   return (
@@ -171,7 +196,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "100%",
-    height: 200,
+    height: 150,
     resizeMode: "contain",
     marginVertical: 8,
   },
