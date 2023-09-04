@@ -14,6 +14,7 @@ import LoginScreen from "./screens/LoginScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 import RankedQueueScreen from "./screens/RankedQueueScreen";
 import ImageScreen from "./screens/ImageScreen";
+import ComposeReply from "./screens/ComposeReply";
 
 /**
  * TODO: Need to make a separate file to manage the Navigation Typescript stuff :-)
@@ -24,6 +25,7 @@ type StackParamList = {
   Ranked: undefined;
   Image: { image: string };
   Login: undefined;
+  Reply: undefined;
 };
 
 const Drawer = createDrawerNavigator();
@@ -48,29 +50,22 @@ const MainView = () => {
       }}
     >
       <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen
-        name="Email"
-        component={EmailScreen}
-        options={{
+      <Stack.Group
+        screenOptions={{
           presentation: "modal",
         }}
-      />
-      <Stack.Screen
-        name="Ranked"
-        component={RankedQueueScreen}
-        options={{
-          title: "Ranked Queue",
-          presentation: "card",
-          headerShown: true,
-        }}
-      />
-      <Stack.Screen
-        name="Image"
-        component={ImageScreen}
-        options={{
-          presentation: "modal",
-        }}
-      />
+      >
+        <Stack.Screen name="Email" component={EmailScreen} />
+        <Stack.Screen
+          name="Ranked"
+          component={RankedQueueScreen}
+          options={{
+            title: "Ranked Queue",
+          }}
+        />
+        <Stack.Screen name="Image" component={ImageScreen} />
+        <Stack.Screen name="Reply" component={ComposeReply} />
+      </Stack.Group>
     </Stack.Navigator>
   );
 };

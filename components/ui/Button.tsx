@@ -35,8 +35,8 @@ const Button = ({
       onPress={onPress}
       style={({ pressed }) => [
         pressed && styles.pressed,
-        buttonStyle,
         styles.button,
+        buttonStyle,
       ]}
     >
       <View style={[isFlat && styles.flat]}>

@@ -9,6 +9,7 @@ import {
 import { GlobalStyles } from "../constants/styles";
 import { useEffect, useLayoutEffect, useState } from "react";
 import LoadingOverlay from "../components/ui/LoadingOverlay";
+import Button from "../components/ui/Button";
 
 const DUMMY_EMAIL_SCREEN = [
   {
@@ -94,6 +95,14 @@ const EmailScreen = ({ navigation }: { navigation: any }) => {
     });
   };
 
+  const acceptHandler = () => {
+    navigation.navigate("Reply");
+  };
+
+  const rejectHandler = () => {
+    navigation.navigate("Reply");
+  };
+
   if (!isLoading) {
     /**
      * Map each image to an Image component.
@@ -156,12 +165,20 @@ const EmailScreen = ({ navigation }: { navigation: any }) => {
         </ScrollView>
       </View>
       <View style={styles.buttonsContainer}>
-        <View style={[styles.card, styles.accept]}>
-          <Text style={styles.cardText}>Accept Button</Text>
-        </View>
-        <View style={[styles.card, styles.reject]}>
-          <Text style={styles.cardText}>Reject Button</Text>
-        </View>
+        <Button
+          buttonStyle={styles.acceptButton}
+          textStyle={styles.acceptText}
+          onPress={acceptHandler}
+        >
+          Accept
+        </Button>
+        <Button
+          buttonStyle={styles.rejectButton}
+          textStyle={styles.rejectText}
+          onPress={rejectHandler}
+        >
+          Reject
+        </Button>
       </View>
     </View>
   );
@@ -219,34 +236,24 @@ const styles = StyleSheet.create({
   buttonsContainer: {
     flex: 1,
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "space-evenly",
     alignItems: "center",
     backgroundColor: GlobalStyles.colors.primary300,
     borderWidth: 2,
     borderTopColor: GlobalStyles.colors.accent700,
   },
-  card: {
-    borderRadius: 8,
-    elevation: 8,
-    shadowColor: GlobalStyles.colors.accent500,
-    shadowRadius: 4,
-    shadowOffset: { width: 1, height: 1 },
-    shadowOpacity: 0.5,
-    padding: 24,
-    margin: 8,
-  },
-  cardText: {
-    textAlign: "center",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  accept: {
-    color: "black",
+  acceptButton: {
     backgroundColor: GlobalStyles.colors.accept,
   },
-  reject: {
+  acceptText: {
     color: "black",
+    fontWeight: "bold",
+  },
+  rejectButton: {
     backgroundColor: GlobalStyles.colors.reject,
+  },
+  rejectText: {
+    fontWeight: "bold",
   },
   image: {
     width: "100%",
