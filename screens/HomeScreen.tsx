@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import BookingNumberCard from "../components/BookingNumberCard";
-import Button from "../components/Button";
+import Button from "../components/ui/Button";
 import UnreadCountCard from "../components/UnreadCountCard";
 import { GlobalStyles } from "../constants/styles";
 import { FontAwesome5 } from "@expo/vector-icons";

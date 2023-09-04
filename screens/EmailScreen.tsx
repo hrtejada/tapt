@@ -7,22 +7,56 @@ import {
   View,
 } from "react-native";
 import { GlobalStyles } from "../constants/styles";
+import { useEffect, useLayoutEffect, useState } from "react";
+import LoadingOverlay from "../components/ui/LoadingOverlay";
 
-const DUMMY_EMAIL_SCREEN = {
-  id: "e1",
-  email: "test@test.com",
-  name: "Testy Tester",
-  description:
-    "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Mollitia unde assumenda ad eveniet impedit molestiae repellat natus harum porro, fugit cumque iste molestias, tempore sed labore ipsa expedita saepe facere.",
-  size: "3x4",
-  placement: "Right forearm",
-  budget: 400,
-  images: [
-    "https://media.istockphoto.com/id/1367685099/vector/red-poppy-flower-hand-drawn-illustration-vintage-and-antique-flowers-red-field-poppy-flower.jpg?s=612x612&w=0&k=20&c=lqsQbq6ZVAjhMLxX_nkdzaLMkJGuLZShBVoNOgrUY9M=",
-    "https://i.redd.it/agmpul8a1lf11.jpg",
-  ],
-  other1: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Mollitia.",
-  other2: "Lorem ipsum, dolor sit amet consectetur.",
+const DUMMY_EMAIL_SCREEN = [
+  {
+    id: "e1",
+    email: "test@test.com",
+    name: "Testy Tester",
+    description:
+      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Mollitia unde assumenda ad eveniet impedit molestiae repellat natus harum porro, fugit cumque iste molestias, tempore sed labore ipsa expedita saepe facere.",
+    size: "3x4",
+    placement: "Right forearm",
+    budget: 400,
+    images: [
+      "https://media.istockphoto.com/id/1367685099/vector/red-poppy-flower-hand-drawn-illustration-vintage-and-antique-flowers-red-field-poppy-flower.jpg?s=612x612&w=0&k=20&c=lqsQbq6ZVAjhMLxX_nkdzaLMkJGuLZShBVoNOgrUY9M=",
+      "https://i.redd.it/agmpul8a1lf11.jpg",
+    ],
+    other1:
+      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Mollitia.",
+    other2: "Lorem ipsum, dolor sit amet consectetur.",
+  },
+  {
+    id: "e2",
+    email: "luffy@test.com",
+    name: "Monkey D",
+    description: "I decided to be Pirate King. I don’t care if I die for it.",
+    size: "5X8",
+    placement: "Upper Back",
+    budget: 650,
+    images: [
+      "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.deviantart.com%2Fb-a-i-o-r-e-t-t-o%2Fart%2FMonkey-D-Luffy-Gear-5-UPDATED-912797420&psig=AOvVaw0-VFae5qHwXbD9RKoJJS3X&ust=1693617672698000&source=images&cd=vfe&opi=89978449&ved=0CA8QjRxqFwoTCLjt4M-fiIEDFQAAAAAdAAAAABAE",
+      "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.cbr.com%2Fone-piece-luffy-gear-5-laugh-meaning%2F&psig=AOvVaw0-VFae5qHwXbD9RKoJJS3X&ust=1693617672698000&source=images&cd=vfe&opi=89978449&ved=0CA8QjRxqFwoTCLjt4M-fiIEDFQAAAAAdAAAAABAT",
+      "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.redbubble.com%2Fi%2Fsticker%2FGear-5-Monkey-D-luffy-by-SevenYero%2F141676301.EJUG5&psig=AOvVaw0-VFae5qHwXbD9RKoJJS3X&ust=1693617672698000&source=images&cd=vfe&opi=89978449&ved=0CA8QjRxqFwoTCLjt4M-fiIEDFQAAAAAdAAAAABAd",
+    ],
+    other1: "Zoro is a chad",
+    other2: "Usopp is a punk bitch",
+  },
+];
+
+type emailState = {
+  id: string;
+  name: string;
+  email: string;
+  description: string;
+  size: string;
+  placement: string;
+  budget: number;
+  images: string[];
+  other1: string;
+  other2: string;
 };
 
 /**
@@ -32,6 +66,20 @@ const DUMMY_EMAIL_SCREEN = {
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const EmailScreen = ({ navigation }: { navigation: any }) => {
+  const [emailInfo, setEmailInfo] = useState({} as emailState);
+  const [isLoading, setIsLoading] = useState(true);
+
+  let imagesDisplay;
+
+  useEffect(() => {
+    setIsLoading(true);
+    // FETCH ONE EMAIL AT A TIME???
+    if (DUMMY_EMAIL_SCREEN.length !== 0) {
+      setEmailInfo(DUMMY_EMAIL_SCREEN.shift()!);
+    }
+    setIsLoading(false);
+  }, [setEmailInfo, setIsLoading]);
+
   /**
    * Handle an image being pressed.
    *
@@ -46,53 +94,59 @@ const EmailScreen = ({ navigation }: { navigation: any }) => {
     });
   };
 
-  /**
-   * Map each image to an Image component.
-   *
-   * Create a unique key for each image and display the image in a reasonable format.
-   * TODO: Find a better way to create a unique key
-   */
-  const imagesDisplay = DUMMY_EMAIL_SCREEN.images.map((image) => {
-    const key = DUMMY_EMAIL_SCREEN.id + Math.random();
-    return (
-      <Pressable key={key} onPress={imagePressHandler.bind(this, image)}>
-        <Image style={styles.image} source={{ uri: image }} />
-      </Pressable>
-    );
-  });
+  if (!isLoading) {
+    /**
+     * Map each image to an Image component.
+     *
+     * Create a unique key for each image and display the image in a reasonable format.
+     * TODO: Find a better way to create a unique key
+     */
+    imagesDisplay = emailInfo.images.map((image) => {
+      const key = emailInfo.id + Math.random();
+      return (
+        <Pressable key={key} onPress={imagePressHandler.bind(this, image)}>
+          <Image style={styles.image} source={{ uri: image }} />
+        </Pressable>
+      );
+    });
+  }
+
+  if (isLoading) {
+    return <LoadingOverlay />;
+  }
 
   return (
     <View style={styles.rootContainer}>
       <View style={styles.emailInfoContainer}>
         <View style={styles.titleContainer}>
-          <Text style={styles.titleName}>{DUMMY_EMAIL_SCREEN.name} - </Text>
-          <Text style={styles.titleEmail}>{DUMMY_EMAIL_SCREEN.email}</Text>
+          <Text style={styles.titleName}>{emailInfo.name} - </Text>
+          <Text style={styles.titleEmail}>{emailInfo.email}</Text>
         </View>
         <ScrollView>
           <View style={styles.innerEmailContainer}>
             <View style={styles.infoContainer}>
               <Text style={styles.parameter}>Description</Text>
-              <Text style={styles.info}>{DUMMY_EMAIL_SCREEN.description}</Text>
+              <Text style={styles.info}>{emailInfo.description}</Text>
             </View>
             <View style={styles.infoContainer}>
               <Text style={styles.parameter}>Size</Text>
-              <Text style={styles.info}>{DUMMY_EMAIL_SCREEN.size}</Text>
+              <Text style={styles.info}>{emailInfo.size}</Text>
             </View>
             <View style={styles.infoContainer}>
               <Text style={styles.parameter}>Placement</Text>
-              <Text style={styles.info}>{DUMMY_EMAIL_SCREEN.placement}</Text>
+              <Text style={styles.info}>{emailInfo.placement}</Text>
             </View>
             <View style={styles.infoContainer}>
               <Text style={styles.parameter}>Budget</Text>
-              <Text style={styles.info}>${DUMMY_EMAIL_SCREEN.budget}</Text>
+              <Text style={styles.info}>${emailInfo.budget}</Text>
             </View>
             <View style={styles.infoContainer}>
               <Text style={styles.parameter}>Other Info</Text>
-              <Text style={styles.info}>{DUMMY_EMAIL_SCREEN.other1}</Text>
+              <Text style={styles.info}>{emailInfo.other1}</Text>
             </View>
             <View style={styles.infoContainer}>
               <Text style={styles.parameter}>Other Info 2</Text>
-              <Text style={styles.info}>{DUMMY_EMAIL_SCREEN.other2}</Text>
+              <Text style={styles.info}>{emailInfo.other2}</Text>
             </View>
             <View style={styles.infoContainer}>
               <Text style={styles.parameter}>Images</Text>

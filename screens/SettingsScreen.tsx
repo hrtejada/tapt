@@ -1,7 +1,7 @@
 import React from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { GlobalStyles } from "../constants/styles";
-import Button from "../components/Button";
+import Button from "../components/ui/Button";
 
 /**
  * Settings Screen where the user can perform various actions.
