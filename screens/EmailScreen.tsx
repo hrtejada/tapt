@@ -10,42 +10,8 @@ import { GlobalStyles } from "../constants/styles";
 import { useEffect, useLayoutEffect, useState } from "react";
 import LoadingOverlay from "../components/ui/LoadingOverlay";
 import Button from "../components/ui/Button";
-
-const DUMMY_EMAIL_SCREEN = [
-  {
-    id: "e1",
-    email: "test@test.com",
-    name: "Testy Tester",
-    description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Mollitia unde assumenda ad eveniet impedit molestiae repellat natus harum porro, fugit cumque iste molestias, tempore sed labore ipsa expedita saepe facere.",
-    size: "3x4",
-    placement: "Right forearm",
-    budget: 400,
-    images: [
-      "https://media.istockphoto.com/id/1367685099/vector/red-poppy-flower-hand-drawn-illustration-vintage-and-antique-flowers-red-field-poppy-flower.jpg?s=612x612&w=0&k=20&c=lqsQbq6ZVAjhMLxX_nkdzaLMkJGuLZShBVoNOgrUY9M=",
-      "https://i.redd.it/agmpul8a1lf11.jpg",
-    ],
-    other1:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Mollitia.",
-    other2: "Lorem ipsum, dolor sit amet consectetur.",
-  },
-  {
-    id: "e2",
-    email: "luffy@test.com",
-    name: "Monkey D",
-    description: "I decided to be Pirate King. I don’t care if I die for it.",
-    size: "5X8",
-    placement: "Upper Back",
-    budget: 650,
-    images: [
-      "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.deviantart.com%2Fb-a-i-o-r-e-t-t-o%2Fart%2FMonkey-D-Luffy-Gear-5-UPDATED-912797420&psig=AOvVaw0-VFae5qHwXbD9RKoJJS3X&ust=1693617672698000&source=images&cd=vfe&opi=89978449&ved=0CA8QjRxqFwoTCLjt4M-fiIEDFQAAAAAdAAAAABAE",
-      "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.cbr.com%2Fone-piece-luffy-gear-5-laugh-meaning%2F&psig=AOvVaw0-VFae5qHwXbD9RKoJJS3X&ust=1693617672698000&source=images&cd=vfe&opi=89978449&ved=0CA8QjRxqFwoTCLjt4M-fiIEDFQAAAAAdAAAAABAT",
-      "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.redbubble.com%2Fi%2Fsticker%2FGear-5-Monkey-D-luffy-by-SevenYero%2F141676301.EJUG5&psig=AOvVaw0-VFae5qHwXbD9RKoJJS3X&ust=1693617672698000&source=images&cd=vfe&opi=89978449&ved=0CA8QjRxqFwoTCLjt4M-fiIEDFQAAAAAdAAAAABAd",
-    ],
-    other1: "Zoro is a chad",
-    other2: "Usopp is a punk bitch",
-  },
-];
+import { DUMMY_EMAILS } from "../testData/DUMMY_EMAILS";
+import { useIsFocused } from "@react-navigation/native";
 
 type emailState = {
   id: string;
@@ -60,26 +26,49 @@ type emailState = {
   other2: string;
 };
 
+type Props = {
+  route: any;
+  navigation: any;
+};
+
 /**
  * Component that will display the parsed email information.
  *
- * @version 0.1.1
+ * TODO: Handle coming back from Reply screen to serve up a new email
+ * NOTE: Have a temp solution somewhat working for test data;  When retrieving data from API, we will
+ *        need to rework
+ *
+ * TODO: Should we display this modal if there are no new emails OR just disable the button on HOME?
+ *
+ * @version 0.1.2
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
-const EmailScreen = ({ navigation }: { navigation: any }) => {
+const EmailScreen = ({ route, navigation }: Props) => {
   const [emailInfo, setEmailInfo] = useState({} as emailState);
   const [isLoading, setIsLoading] = useState(true);
+  const isFocused = useIsFocused();
 
   let imagesDisplay;
 
   useEffect(() => {
     setIsLoading(true);
     // FETCH ONE EMAIL AT A TIME???
-    if (DUMMY_EMAIL_SCREEN.length !== 0) {
-      setEmailInfo(DUMMY_EMAIL_SCREEN.shift()!);
+    if (DUMMY_EMAILS.length !== 0) {
+      setEmailInfo((prevEmail) => {
+        if (route.params.email === "next") {
+          console.log(DUMMY_EMAILS[0]);
+          return DUMMY_EMAILS[0];
+        } else if (route.params.email === "new") {
+          return DUMMY_EMAILS[0];
+        } else {
+          return prevEmail;
+        }
+      });
+    } else {
+      navigation.pop();
     }
     setIsLoading(false);
-  }, [setEmailInfo, setIsLoading]);
+  }, [setEmailInfo, setIsLoading, isFocused]);
 
   /**
    * Handle an image being pressed.

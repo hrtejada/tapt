@@ -21,7 +21,7 @@ import ComposeReply from "./screens/ComposeReply";
  */
 type StackParamList = {
   Home: undefined;
-  Email: undefined;
+  Email: { email: string } | undefined;
   Ranked: undefined;
   Image: { image: string };
   Login: undefined;

@@ -35,7 +35,7 @@ const HomeScreen = ({ navigation }: StackNavProps) => {
   }
 
   const emailPressHandler = () => {
-    navigation.navigate("Email");
+    navigation.navigate("Email", { email: "new" });
     // TODO: Retrieve email data or handle it in the EmailScreen
   };
 
