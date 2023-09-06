@@ -104,7 +104,7 @@ export default function App() {
                 backgroundColor: GlobalStyles.colors.secondary500,
               },
               headerStyle: {
-                backgroundColor: GlobalStyles.colors.secondary300,
+                backgroundColor: GlobalStyles.colors.background100,
               },
             }}
           >

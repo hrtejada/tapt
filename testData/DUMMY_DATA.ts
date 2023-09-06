@@ -33,3 +33,12 @@ export const DUMMY_EMAILS = [
     other2: "Usopp is a punk bitch",
   },
 ];
+
+export const DUMMY_HOME = {
+  unreadCount: 0,
+  accepted: 50,
+  rejected: 50,
+  booking: true,
+  bookingStartDate: "8/23/2023",
+  bookingEndDate: "9/25/2023",
+};
