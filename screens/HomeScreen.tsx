@@ -83,22 +83,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "space-around",
-    backgroundColor: GlobalStyles.colors.background300,
+    backgroundColor: GlobalStyles.colors.background100,
   },
   firstRow: {
     flex: 2,
     justifyContent: "space-around",
-    backgroundColor: GlobalStyles.colors.background500,
+    // backgroundColor: GlobalStyles.colors.background500,
   },
   secondRow: {
     flex: 1,
-    backgroundColor: GlobalStyles.colors.background300,
+    // backgroundColor: GlobalStyles.colors.background300,
     justifyContent: "center",
   },
   thirdRow: {
     flex: 2,
     flexDirection: "row",
-    backgroundColor: GlobalStyles.colors.background500,
+    // backgroundColor: GlobalStyles.colors.background500,
     justifyContent: "center",
   },
   emailButtonContainer: {
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   cardText: {
-    color: GlobalStyles.colors.background500,
+    color: GlobalStyles.colors.background300,
     textAlign: "center",
     fontSize: 16,
   },
