@@ -33,8 +33,8 @@ const HomeScreen = ({ navigation }: StackNavProps) => {
   return (
     <View style={[styles.container, { paddingBottom: insets.bottom }]}>
       <View style={styles.firstRow}>
-        <View style={styles.bookingTextContainer}>
-          <Text style={styles.bookingText}>Booking Info</Text>
+        <View style={styles.headingContainer}>
+          <Text style={styles.headingText}>Booking Info</Text>
         </View>
         <BookingStatus
           status={DUMMY_HOME.booking}
@@ -47,7 +47,17 @@ const HomeScreen = ({ navigation }: StackNavProps) => {
         />
       </View>
       <View style={styles.secondRow}>
-        <Button onPress={rankedQueuePressHandler}>Ranked Queue</Button>
+        <View style={styles.headingContainer}>
+          <Text style={styles.headingText}>View Ranked Queue</Text>
+        </View>
+        <View style={styles.rankedQueueButtonContainer}>
+          <Button
+            buttonStyle={styles.rankedQueueButton}
+            onPress={rankedQueuePressHandler}
+          >
+            <FontAwesome5 name="clipboard-list" size={48} color="black" />
+          </Button>
+        </View>
       </View>
       <View style={styles.thirdRow}>
         <UnreadCountCard unreadCount={DUMMY_HOME.unreadCount} />
@@ -69,7 +79,7 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "space-around",
+    justifyContent: "space-between",
     backgroundColor: GlobalStyles.colors.background100,
   },
   firstRow: {
@@ -80,26 +90,20 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
   },
+  rankedQueueButtonContainer: {
+    alignItems: "center",
+  },
+  rankedQueueButton: {
+    paddingHorizontal: 32,
+    borderTopLeftRadius: 0,
+    borderTopRightRadius: 0,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+  },
   thirdRow: {
     flex: 2,
     flexDirection: "row",
     justifyContent: "center",
-  },
-  bookingText: {
-    color: GlobalStyles.colors.text,
-    textAlign: "center",
-    fontSize: 32,
-    fontWeight: "bold",
-    textDecorationLine: "underline",
-    marginVertical: 8,
-    transform: [{ skewX: "30deg" }],
-    textTransform: "uppercase",
-  },
-  bookingTextContainer: {
-    backgroundColor: GlobalStyles.colors.background300,
-    transform: [{ skewX: "-30deg" }],
-    marginHorizontal: 32,
-    marginBottom: 12,
   },
   emailButtonContainer: {
     flex: 1,
@@ -117,6 +121,19 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: GlobalStyles.colors.background100,
     marginTop: 16,
+  },
+  headingContainer: {
+    backgroundColor: GlobalStyles.colors.background300,
+    paddingTop: 32,
+  },
+  headingText: {
+    color: GlobalStyles.colors.text,
+    textAlign: "center",
+    fontSize: 32,
+    fontWeight: "bold",
+    textDecorationLine: "underline",
+    marginVertical: 8,
+    textTransform: "uppercase",
   },
   text: {
     color: GlobalStyles.colors.primary500,
