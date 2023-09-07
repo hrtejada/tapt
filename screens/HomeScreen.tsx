@@ -8,12 +8,13 @@ import Button from "../components/ui/Button";
 import { GlobalStyles } from "../constants/styles";
 import { DUMMY_HOME } from "../testData/DUMMY_DATA";
 import BookingStats from "../components/ui/BookingInfo/BookingStats";
+import Header from "../components/ui/Header";
 
 /**
  * Home Component displaying the main components of the app.
  *
  * TODO: Flesh out component - Will hold the main cards/buttons to deal with the email queue
- * @version 0.2.0
+ * @version 0.2.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 
@@ -33,9 +34,7 @@ const HomeScreen = ({ navigation }: StackNavProps) => {
   return (
     <View style={[styles.container, { paddingBottom: insets.bottom }]}>
       <View style={styles.firstRow}>
-        <View style={styles.headingContainer}>
-          <Text style={styles.headingText}>Booking Info</Text>
-        </View>
+        <Header>Booking Info</Header>
         <BookingStatus
           status={DUMMY_HOME.booking}
           startDate={DUMMY_HOME.bookingStartDate}
@@ -47,27 +46,36 @@ const HomeScreen = ({ navigation }: StackNavProps) => {
         />
       </View>
       <View style={styles.secondRow}>
-        <View style={styles.headingContainer}>
-          <Text style={styles.headingText}>View Ranked Queue</Text>
-        </View>
+        <Header>View Ranked Queue</Header>
         <View style={styles.rankedQueueButtonContainer}>
           <Button
             buttonStyle={styles.rankedQueueButton}
             onPress={rankedQueuePressHandler}
           >
-            <FontAwesome5 name="clipboard-list" size={48} color="black" />
+            <FontAwesome5
+              name="clipboard-list"
+              size={48}
+              color={GlobalStyles.colors.text}
+            />
           </Button>
         </View>
       </View>
       <View style={styles.thirdRow}>
-        <UnreadCountCard unreadCount={DUMMY_HOME.unreadCount} />
-        <View style={styles.emailButtonContainer}>
-          <Button onPress={emailPressHandler}>
-            <View style={styles.innerButtonContainer}>
-              <FontAwesome5 name="envelope-open-text" size={48} color="white" />
-              <Text style={styles.emailsButtonText}>Review Emails</Text>
-            </View>
-          </Button>
+        <Header>Emails</Header>
+        <View style={styles.emailsContainer}>
+          <UnreadCountCard unreadCount={DUMMY_HOME.unreadCount} />
+          <View style={styles.emailButtonContainer}>
+            <Button onPress={emailPressHandler}>
+              <View style={styles.innerButtonContainer}>
+                <FontAwesome5
+                  name="envelope-open-text"
+                  size={56}
+                  color={GlobalStyles.colors.text}
+                />
+                <Text style={styles.emailsButtonText}>Review Emails</Text>
+              </View>
+            </Button>
+          </View>
         </View>
       </View>
     </View>
@@ -102,42 +110,26 @@ const styles = StyleSheet.create({
   },
   thirdRow: {
     flex: 2,
+    justifyContent: "center",
+  },
+  emailsContainer: {
     flexDirection: "row",
     justifyContent: "center",
   },
   emailButtonContainer: {
     flex: 1,
-    justifyContent: "space-evenly",
+    justifyContent: "center",
     alignItems: "center",
-    marginHorizontal: 12,
     paddingVertical: 12,
   },
   innerButtonContainer: {
     padding: 8,
+    justifyContent: "center",
     alignItems: "center",
   },
   emailsButtonText: {
     fontWeight: "bold",
     fontSize: 24,
-    color: GlobalStyles.colors.background100,
     marginTop: 16,
-  },
-  headingContainer: {
-    backgroundColor: GlobalStyles.colors.background300,
-    paddingTop: 32,
-  },
-  headingText: {
-    color: GlobalStyles.colors.text,
-    textAlign: "center",
-    fontSize: 32,
-    fontWeight: "bold",
-    textDecorationLine: "underline",
-    marginVertical: 8,
-    textTransform: "uppercase",
-  },
-  text: {
-    color: GlobalStyles.colors.primary500,
-    fontSize: 24,
-    fontWeight: "bold",
   },
 });

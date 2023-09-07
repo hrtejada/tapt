@@ -32,6 +32,13 @@ export const GlobalStyles = {
   //   accept: "#44ffd2",
   // },
   colors: {
+    /*
+    text - #131712
+    background - #FCFDFC
+    primary - #AABBB0
+    secondary - #E0DCE0
+    accent - #856B7B
+    */
     text: "hsl(108, 12%, 8%)",
     background100: "hsl(120, 20%, 99%)",
     background200: "hsl(120, 20%, 96%)",
@@ -43,7 +50,7 @@ export const GlobalStyles = {
     primary700: "hsl(141, 11%, 61%)",
     secondary300: "hsl(300, 7%, 95%)",
     secondary400: "hsl(300, 7%, 91%)",
-    secondary500: "hsl(300, 7%, 87%)",
+    secondary500: "hsl(300, 6%, 87%)",
     secondary600: "hsl(300, 7%, 83%)",
     secondary700: "hsl(300, 7%, 78%)",
     accent100: "hsl(323, 11%, 66%)",
