@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
-import { GlobalStyles } from "../constants/styles";
+import { GlobalStyles } from "../../../constants/styles";
+import { setSyntheticLeadingComments } from "typescript";
 
 /**
  * @prop  {string}  title - Text to be displayed as the title of this component
@@ -13,12 +14,17 @@ type Props = {
 /**
  * Compontent to display stats related to the current booking session.
  *
- * @version 0.1.1
+ * @version 0.2.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const BookingNumberCard = ({ title, value }: Props) => {
   return (
-    <View style={styles.card}>
+    <View
+      style={[
+        styles.card,
+        title === "ACCEPTED" ? styles.accepted : styles.rejected,
+      ]}
+    >
       <Text style={styles.title}>{title}:</Text>
       <Text style={[styles.title, styles.number]}>{value}%</Text>
     </View>
@@ -29,22 +35,33 @@ export default BookingNumberCard;
 
 const styles = StyleSheet.create({
   card: {
-    borderColor: GlobalStyles.colors.accent700,
-    borderWidth: 2,
-    borderRadius: 6,
-    backgroundColor: GlobalStyles.colors.background500,
-    margin: 8,
-    padding: 8,
     height: 125,
     width: 100,
     justifyContent: "center",
     flex: 1,
+    marginTop: 12,
+  },
+  accepted: {
+    backgroundColor: GlobalStyles.colors.primary300,
+    borderLeftColor: GlobalStyles.colors.accent500,
+    borderLeftWidth: 1,
+    borderTopLeftRadius: 50,
+    borderBottomLeftRadius: 50,
+    marginLeft: 12,
+  },
+  rejected: {
+    backgroundColor: GlobalStyles.colors.secondary700,
+    borderRightColor: GlobalStyles.colors.accent500,
+    borderRightWidth: 1,
+    borderTopRightRadius: 50,
+    borderBottomRightRadius: 50,
+    marginRight: 12,
   },
   title: {
     fontSize: 18,
     fontWeight: "bold",
     fontStyle: "italic",
-    color: GlobalStyles.colors.primary500,
+    color: GlobalStyles.colors.text,
     textAlign: "center",
   },
   number: {

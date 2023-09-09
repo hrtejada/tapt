@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import { GlobalStyles } from "../constants/styles";
 import Button from "../components/ui/Button";
-import { DUMMY_EMAILS } from "../testData/DUMMY_EMAILS";
+import { DUMMY_EMAILS } from "../testData/DUMMY_DATA";
 
 /**
  * Component that will help the user build an simple email reply.

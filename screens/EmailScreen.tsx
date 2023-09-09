@@ -10,7 +10,7 @@ import { GlobalStyles } from "../constants/styles";
 import { useEffect, useLayoutEffect, useState } from "react";
 import LoadingOverlay from "../components/ui/LoadingOverlay";
 import Button from "../components/ui/Button";
-import { DUMMY_EMAILS } from "../testData/DUMMY_EMAILS";
+import { DUMMY_EMAILS } from "../testData/DUMMY_DATA";
 import { useIsFocused } from "@react-navigation/native";
 
 type emailState = {

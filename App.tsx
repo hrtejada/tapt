@@ -6,7 +6,7 @@ import {
   createNativeStackNavigator,
 } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { GlobalStyles } from "./constants/styles";
 import EmailScreen from "./screens/EmailScreen";
 import HomeScreen from "./screens/HomeScreen";
@@ -15,6 +15,14 @@ import SettingsScreen from "./screens/SettingsScreen";
 import RankedQueueScreen from "./screens/RankedQueueScreen";
 import ImageScreen from "./screens/ImageScreen";
 import ComposeReply from "./screens/ComposeReply";
+
+/**
+ * Main app component.
+ *
+ * TODO: Figure out how to style the bottom bar on iOS
+ * @version 0.1.5
+ * @author  Ralph Woiwode <https://github.com/RAWoiwode>
+ */
 
 /**
  * TODO: Need to make a separate file to manage the Navigation Typescript stuff :-)
@@ -34,6 +42,11 @@ const Stack = createNativeStackNavigator<StackParamList>();
 export type StackNavProps = NativeStackScreenProps<StackParamList, "Home">;
 export type ImageScreenProps = NativeStackScreenProps<StackParamList, "Image">;
 
+/**
+ * Stack to hold the Login Screens.
+ *
+ * Will be used to ensure screen protection when logging in is implemented
+ */
 const LoginStack = () => {
   return (
     <Stack.Navigator>
@@ -42,6 +55,11 @@ const LoginStack = () => {
   );
 };
 
+/**
+ * Stack to hold the Main Screens.
+ *
+ * Will be used to ensure screen protection when logging in is implemented
+ */
 const MainView = () => {
   return (
     <Stack.Navigator
@@ -73,20 +91,20 @@ const MainView = () => {
 export default function App() {
   return (
     <>
-      <StatusBar style="auto" />
-      <SafeAreaProvider>
+      <SafeAreaView style={{ flex: 1 }}>
+        <StatusBar style="auto" />
         <NavigationContainer>
           <Drawer.Navigator
             screenOptions={{
-              drawerActiveTintColor: GlobalStyles.colors.primary500,
-              drawerActiveBackgroundColor: GlobalStyles.colors.accent500,
-              drawerInactiveTintColor: GlobalStyles.colors.primary500,
-              drawerInactiveBackgroundColor: GlobalStyles.colors.background500,
+              drawerActiveTintColor: GlobalStyles.colors.background100,
+              drawerActiveBackgroundColor: GlobalStyles.colors.accent700,
+              drawerInactiveTintColor: GlobalStyles.colors.text,
+              drawerInactiveBackgroundColor: GlobalStyles.colors.background200,
               drawerStyle: {
-                backgroundColor: GlobalStyles.colors.background300,
+                backgroundColor: GlobalStyles.colors.secondary500,
               },
               headerStyle: {
-                backgroundColor: GlobalStyles.colors.background700,
+                backgroundColor: GlobalStyles.colors.background100,
               },
             }}
           >
@@ -100,7 +118,7 @@ export default function App() {
             <Drawer.Screen name="Settings" component={SettingsScreen} />
           </Drawer.Navigator>
         </NavigationContainer>
-      </SafeAreaProvider>
+      </SafeAreaView>
     </>
   );
 }

@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
   },
   buttonText: {
-    color: "white",
+    color: GlobalStyles.colors.text,
     textAlign: "center",
     fontSize: 18,
   },
