@@ -1,12 +1,12 @@
 import { Image, StyleSheet } from "react-native";
-import { ImageScreenProps } from "../App";
+import { ImageScreenProps } from "../util/screen-navigation";
 
 /**
  * Component that will display an image.
  *
  * Purpose is to give the user a bigger image to view more details.
  *
- * @version 0.1.1
+ * @version 0.1.2
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const ImageScreen = ({ route }: ImageScreenProps) => {

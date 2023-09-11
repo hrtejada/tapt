@@ -12,6 +12,9 @@ import LoadingOverlay from "../components/ui/LoadingOverlay";
 import Button from "../components/ui/Button";
 import { DUMMY_EMAILS } from "../testData/DUMMY_DATA";
 import { useIsFocused } from "@react-navigation/native";
+import SenderInfo from "../components/ui/EmailInfo/SenderInfo";
+import TextParameter from "../components/ui/EmailInfo/TextParameter";
+import ImageParameter from "../components/ui/EmailInfo/ImageParameter";
 
 type emailState = {
   id: string;
@@ -40,15 +43,13 @@ type Props = {
  *
  * TODO: Should we display this modal if there are no new emails OR just disable the button on HOME?
  *
- * @version 0.1.2
+ * @version 0.2.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const EmailScreen = ({ route, navigation }: Props) => {
   const [emailInfo, setEmailInfo] = useState({} as emailState);
   const [isLoading, setIsLoading] = useState(true);
   const isFocused = useIsFocused();
-
-  let imagesDisplay;
 
   useEffect(() => {
     setIsLoading(true);
@@ -70,20 +71,6 @@ const EmailScreen = ({ route, navigation }: Props) => {
     setIsLoading(false);
   }, [setEmailInfo, setIsLoading, isFocused]);
 
-  /**
-   * Handle an image being pressed.
-   *
-   * Bring up the Image Screen modal to show the image larger for the user to get
-   * a better look.
-   *
-   * @param {string} image - String to display the image larger on the modal
-   */
-  const imagePressHandler = (image: string) => {
-    navigation.navigate("Image", {
-      image: image,
-    });
-  };
-
   const acceptHandler = () => {
     navigation.navigate("Reply");
   };
@@ -92,23 +79,6 @@ const EmailScreen = ({ route, navigation }: Props) => {
     navigation.navigate("Reply");
   };
 
-  if (!isLoading) {
-    /**
-     * Map each image to an Image component.
-     *
-     * Create a unique key for each image and display the image in a reasonable format.
-     * TODO: Find a better way to create a unique key
-     */
-    imagesDisplay = emailInfo.images.map((image) => {
-      const key = emailInfo.id + Math.random();
-      return (
-        <Pressable key={key} onPress={imagePressHandler.bind(this, image)}>
-          <Image style={styles.image} source={{ uri: image }} />
-        </Pressable>
-      );
-    });
-  }
-
   if (isLoading) {
     return <LoadingOverlay />;
   }
@@ -116,40 +86,23 @@ const EmailScreen = ({ route, navigation }: Props) => {
   return (
     <View style={styles.rootContainer}>
       <View style={styles.emailInfoContainer}>
-        <View style={styles.titleContainer}>
-          <Text style={styles.titleName}>{emailInfo.name} - </Text>
-          <Text style={styles.titleEmail}>{emailInfo.email}</Text>
-        </View>
+        <SenderInfo name={emailInfo.name} email={emailInfo.email} />
         <ScrollView>
           <View style={styles.innerEmailContainer}>
-            <View style={styles.infoContainer}>
-              <Text style={styles.parameter}>Description</Text>
-              <Text style={styles.info}>{emailInfo.description}</Text>
-            </View>
-            <View style={styles.infoContainer}>
-              <Text style={styles.parameter}>Size</Text>
-              <Text style={styles.info}>{emailInfo.size}</Text>
-            </View>
-            <View style={styles.infoContainer}>
-              <Text style={styles.parameter}>Placement</Text>
-              <Text style={styles.info}>{emailInfo.placement}</Text>
-            </View>
-            <View style={styles.infoContainer}>
-              <Text style={styles.parameter}>Budget</Text>
-              <Text style={styles.info}>${emailInfo.budget}</Text>
-            </View>
-            <View style={styles.infoContainer}>
-              <Text style={styles.parameter}>Other Info</Text>
-              <Text style={styles.info}>{emailInfo.other1}</Text>
-            </View>
-            <View style={styles.infoContainer}>
-              <Text style={styles.parameter}>Other Info 2</Text>
-              <Text style={styles.info}>{emailInfo.other2}</Text>
-            </View>
-            <View style={styles.infoContainer}>
-              <Text style={styles.parameter}>Images</Text>
-              {imagesDisplay}
-            </View>
+            <TextParameter
+              parameter="Description"
+              info={emailInfo.description}
+            />
+            <TextParameter parameter="Size" info={emailInfo.size} />
+            <TextParameter parameter="Placement" info={emailInfo.placement} />
+            <TextParameter parameter="Budget" info={`$${emailInfo.budget}`} />
+            <TextParameter parameter="Other Info" info={emailInfo.other1} />
+            <TextParameter parameter="Other Info 2" info={emailInfo.other2} />
+            <ImageParameter
+              id={emailInfo.id}
+              parameter="Images"
+              images={emailInfo.images}
+            />
           </View>
         </ScrollView>
       </View>
@@ -179,48 +132,16 @@ const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
   },
-  titleContainer: {
-    flexDirection: "row",
-    padding: 8,
-    alignItems: "center",
-  },
-  titleName: {
-    fontSize: 24,
-    fontWeight: "bold",
-  },
-  titleEmail: {
-    fontSize: 20,
-  },
   emailInfoContainer: {
     flex: 3,
-    // margin: 8,
     padding: 8,
     justifyContent: "space-around",
-    alignItems: "flex-start",
-    // flexDirection: "row",
-    backgroundColor: GlobalStyles.colors.background500,
+    backgroundColor: GlobalStyles.colors.background200,
   },
   innerEmailContainer: {
-    flexDirection: "column",
-  },
-  parameter: {
-    color: GlobalStyles.colors.primary500,
-    fontSize: 18,
-    fontWeight: "bold",
-    paddingHorizontal: 12,
-    paddingVertical: 4,
-    textDecorationLine: "underline",
-  },
-  infoContainer: {
-    backgroundColor: GlobalStyles.colors.background300,
-    marginVertical: 4,
-  },
-  info: {
-    fontSize: 18,
-    color: GlobalStyles.colors.primary700,
-    margin: 4,
-    paddingLeft: 24,
-    paddingBottom: 8,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-around",
   },
   buttonsContainer: {
     flex: 1,
@@ -232,22 +153,16 @@ const styles = StyleSheet.create({
     borderTopColor: GlobalStyles.colors.accent700,
   },
   acceptButton: {
-    backgroundColor: GlobalStyles.colors.accept,
+    backgroundColor: GlobalStyles.colors.secondary700,
   },
   acceptText: {
     color: "black",
     fontWeight: "bold",
   },
   rejectButton: {
-    backgroundColor: GlobalStyles.colors.reject,
+    backgroundColor: GlobalStyles.colors.primary700,
   },
   rejectText: {
     fontWeight: "bold",
-  },
-  image: {
-    width: "100%",
-    height: 150,
-    resizeMode: "contain",
-    marginVertical: 8,
   },
 });

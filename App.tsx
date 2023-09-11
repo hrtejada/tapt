@@ -1,20 +1,19 @@
 import "react-native-gesture-handler"; // LEAVE AT THE TOP OF IMPORTS
+
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
-import {
-  NativeStackScreenProps,
-  createNativeStackNavigator,
-} from "@react-navigation/native-stack";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { GlobalStyles } from "./constants/styles";
+import ComposeReply from "./screens/ComposeReply";
 import EmailScreen from "./screens/EmailScreen";
 import HomeScreen from "./screens/HomeScreen";
-import LoginScreen from "./screens/LoginScreen";
-import SettingsScreen from "./screens/SettingsScreen";
-import RankedQueueScreen from "./screens/RankedQueueScreen";
 import ImageScreen from "./screens/ImageScreen";
-import ComposeReply from "./screens/ComposeReply";
+import LoginScreen from "./screens/LoginScreen";
+import RankedQueueScreen from "./screens/RankedQueueScreen";
+import SettingsScreen from "./screens/SettingsScreen";
+import { StackParamList } from "./util/screen-navigation";
 
 /**
  * Main app component.
@@ -24,23 +23,8 @@ import ComposeReply from "./screens/ComposeReply";
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 
-/**
- * TODO: Need to make a separate file to manage the Navigation Typescript stuff :-)
- */
-type StackParamList = {
-  Home: undefined;
-  Email: { email: string } | undefined;
-  Ranked: undefined;
-  Image: { image: string };
-  Login: undefined;
-  Reply: undefined;
-};
-
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator<StackParamList>();
-
-export type StackNavProps = NativeStackScreenProps<StackParamList, "Home">;
-export type ImageScreenProps = NativeStackScreenProps<StackParamList, "Image">;
 
 /**
  * Stack to hold the Login Screens.
