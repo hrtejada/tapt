@@ -8,7 +8,7 @@ interface Props {
 /**
  * Component that will display the email senders info.
  *
- * @version 0.1.0
+ * @version 0.1.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const SenderInfo = ({ name, email }: Props) => {
@@ -25,7 +25,8 @@ export default SenderInfo;
 const styles = StyleSheet.create({
   titleContainer: {
     flexDirection: "row",
-    padding: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
     alignItems: "center",
   },
   titleName: {

@@ -12,7 +12,7 @@ interface Props {
 /**
  * Component that will display an image parameter and info.
  *
- * @version 0.1.0
+ * @version 0.1.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const ImageParameter = ({ id, parameter, images }: Props) => {
@@ -60,7 +60,8 @@ export default ImageParameter;
 const styles = StyleSheet.create({
   infoContainer: {
     backgroundColor: GlobalStyles.colors.secondary400,
-    marginVertical: 4,
+    marginBottom: 4,
+    paddingTop: 4,
     width: "100%",
   },
   parameter: {

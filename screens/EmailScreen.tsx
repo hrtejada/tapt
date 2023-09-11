@@ -1,20 +1,13 @@
-import {
-  Image,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
-import { GlobalStyles } from "../constants/styles";
-import { useEffect, useLayoutEffect, useState } from "react";
-import LoadingOverlay from "../components/ui/LoadingOverlay";
-import Button from "../components/ui/Button";
-import { DUMMY_EMAILS } from "../testData/DUMMY_DATA";
 import { useIsFocused } from "@react-navigation/native";
+import { useEffect, useState } from "react";
+import { ScrollView, StyleSheet, View } from "react-native";
+import EmailButtons from "../components/ui/EmailInfo/EmailButtons";
+import ImageParameter from "../components/ui/EmailInfo/ImageParameter";
 import SenderInfo from "../components/ui/EmailInfo/SenderInfo";
 import TextParameter from "../components/ui/EmailInfo/TextParameter";
-import ImageParameter from "../components/ui/EmailInfo/ImageParameter";
+import LoadingOverlay from "../components/ui/LoadingOverlay";
+import { GlobalStyles } from "../constants/styles";
+import { DUMMY_EMAILS } from "../testData/DUMMY_DATA";
 
 type emailState = {
   id: string;
@@ -43,7 +36,7 @@ type Props = {
  *
  * TODO: Should we display this modal if there are no new emails OR just disable the button on HOME?
  *
- * @version 0.2.0
+ * @version 0.2.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const EmailScreen = ({ route, navigation }: Props) => {
@@ -86,42 +79,24 @@ const EmailScreen = ({ route, navigation }: Props) => {
   return (
     <View style={styles.rootContainer}>
       <View style={styles.emailInfoContainer}>
-        <SenderInfo name={emailInfo.name} email={emailInfo.email} />
+        <View style={styles.senderContainer}>
+          <SenderInfo name={emailInfo.name} email={emailInfo.email} />
+        </View>
         <ScrollView>
-          <View style={styles.innerEmailContainer}>
-            <TextParameter
-              parameter="Description"
-              info={emailInfo.description}
-            />
-            <TextParameter parameter="Size" info={emailInfo.size} />
-            <TextParameter parameter="Placement" info={emailInfo.placement} />
-            <TextParameter parameter="Budget" info={`$${emailInfo.budget}`} />
-            <TextParameter parameter="Other Info" info={emailInfo.other1} />
-            <TextParameter parameter="Other Info 2" info={emailInfo.other2} />
-            <ImageParameter
-              id={emailInfo.id}
-              parameter="Images"
-              images={emailInfo.images}
-            />
-          </View>
+          <TextParameter parameter="Description" info={emailInfo.description} />
+          <TextParameter parameter="Size" info={emailInfo.size} />
+          <TextParameter parameter="Placement" info={emailInfo.placement} />
+          <TextParameter parameter="Budget" info={`$${emailInfo.budget}`} />
+          <TextParameter parameter="Other Info" info={emailInfo.other1} />
+          <TextParameter parameter="Other Info 2" info={emailInfo.other2} />
+          <ImageParameter
+            id={emailInfo.id}
+            parameter="Images"
+            images={emailInfo.images}
+          />
         </ScrollView>
       </View>
-      <View style={styles.buttonsContainer}>
-        <Button
-          buttonStyle={styles.acceptButton}
-          textStyle={styles.acceptText}
-          onPress={acceptHandler}
-        >
-          Accept
-        </Button>
-        <Button
-          buttonStyle={styles.rejectButton}
-          textStyle={styles.rejectText}
-          onPress={rejectHandler}
-        >
-          Reject
-        </Button>
-      </View>
+      <EmailButtons onAccept={acceptHandler} onReject={rejectHandler} />
     </View>
   );
 };
@@ -134,35 +109,12 @@ const styles = StyleSheet.create({
   },
   emailInfoContainer: {
     flex: 3,
-    padding: 8,
-    justifyContent: "space-around",
-    backgroundColor: GlobalStyles.colors.background200,
-  },
-  innerEmailContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-around",
-  },
-  buttonsContainer: {
-    flex: 1,
-    flexDirection: "row",
     justifyContent: "space-evenly",
-    alignItems: "center",
-    backgroundColor: GlobalStyles.colors.primary300,
-    borderWidth: 2,
-    borderTopColor: GlobalStyles.colors.accent700,
+    backgroundColor: GlobalStyles.colors.accent500,
   },
-  acceptButton: {
-    backgroundColor: GlobalStyles.colors.secondary700,
-  },
-  acceptText: {
-    color: "black",
-    fontWeight: "bold",
-  },
-  rejectButton: {
-    backgroundColor: GlobalStyles.colors.primary700,
-  },
-  rejectText: {
-    fontWeight: "bold",
+  senderContainer: {
+    backgroundColor: GlobalStyles.colors.primary600,
+    borderBottomWidth: 1,
+    borderBottomColor: GlobalStyles.colors.accent900,
   },
 });

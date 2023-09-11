@@ -9,7 +9,7 @@ interface Props {
 /**
  * Component that will display a text parameter and info.
  *
- * @version 0.1.0
+ * @version 0.1.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const TextParameter = ({ parameter, info }: Props) => {
@@ -26,8 +26,9 @@ export default TextParameter;
 const styles = StyleSheet.create({
   infoContainer: {
     backgroundColor: GlobalStyles.colors.secondary400,
-    marginVertical: 4,
-    width: "auto",
+    marginBottom: 4,
+    paddingTop: 4,
+    width: "100%",
   },
   parameter: {
     color: GlobalStyles.colors.text,

@@ -20,6 +20,8 @@ export type StackParamList = {
 
 export type StackNavProps = NativeStackScreenProps<StackParamList, "Home">;
 export type ImageScreenProps = NativeStackScreenProps<StackParamList, "Image">;
+
+// Used to fix the type error when using the useNavigation hook
 export type ImageNavigationProps = NativeStackNavigationProp<
   StackParamList,
   "Image"
