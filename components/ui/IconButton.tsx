@@ -4,10 +4,10 @@ import { GlobalStyles } from "../../constants/styles";
 import { ACCEPT, REJECT } from "../../constants/words";
 
 // TODO: Look into issue with using constants in the Prop Types for a component
-type Props = {
+interface Props {
   type: typeof ACCEPT | typeof REJECT;
   onPress: () => void;
-};
+}
 
 const IconButton = ({ type, onPress }: Props) => {
   const icon = type === ACCEPT ? "check-circle" : "times";

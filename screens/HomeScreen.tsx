@@ -32,7 +32,12 @@ const HomeScreen = ({ navigation }: StackNavProps) => {
   };
 
   return (
-    <View style={[styles.container, { paddingBottom: insets.bottom }]}>
+    <View
+      style={[
+        styles.container,
+        { paddingTop: insets.top, paddingBottom: insets.bottom },
+      ]}
+    >
       <View style={styles.firstRow}>
         <Header>Booking Info</Header>
         <BookingStatus
@@ -88,15 +93,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "space-between",
-    backgroundColor: GlobalStyles.colors.background100,
+    backgroundColor: GlobalStyles.colors.background300,
   },
   firstRow: {
     flex: 2,
-    justifyContent: "center",
   },
   secondRow: {
     flex: 1,
-    justifyContent: "center",
   },
   rankedQueueButtonContainer: {
     alignItems: "center",
@@ -110,7 +113,6 @@ const styles = StyleSheet.create({
   },
   thirdRow: {
     flex: 2,
-    justifyContent: "center",
   },
   emailsContainer: {
     flexDirection: "row",

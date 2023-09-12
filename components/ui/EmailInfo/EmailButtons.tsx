@@ -1,8 +1,7 @@
 import { StyleSheet, View } from "react-native";
 import { GlobalStyles } from "../../../constants/styles";
-import Button from "../Button";
-import IconButton from "../IconButton";
 import { ACCEPT, REJECT } from "../../../constants/words";
+import IconButton from "../IconButton";
 
 interface Props {
   onAccept: () => void;
