@@ -1,5 +1,6 @@
 import "react-native-gesture-handler"; // LEAVE AT THE TOP OF IMPORTS
 
+import { FontAwesome5 } from "@expo/vector-icons";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -79,27 +80,54 @@ export default function App() {
         <StatusBar style="auto" />
         <NavigationContainer>
           <Drawer.Navigator
-            screenOptions={{
-              drawerActiveTintColor: GlobalStyles.colors.background100,
-              drawerActiveBackgroundColor: GlobalStyles.colors.accent700,
+            screenOptions={({ navigation }: { navigation: any }) => ({
+              drawerActiveTintColor: GlobalStyles.colors.text,
+              drawerActiveBackgroundColor: GlobalStyles.colors.secondary700,
               drawerInactiveTintColor: GlobalStyles.colors.text,
               drawerInactiveBackgroundColor: GlobalStyles.colors.background200,
+              drawerType: "front",
+              drawerLabelStyle: {
+                fontSize: 22,
+              },
               drawerStyle: {
-                backgroundColor: GlobalStyles.colors.secondary500,
+                backgroundColor: GlobalStyles.colors.primary700,
               },
+
               headerStyle: {
-                backgroundColor: GlobalStyles.colors.background100,
+                backgroundColor: GlobalStyles.colors.background300,
               },
-            }}
+              headerTintColor: GlobalStyles.colors.text,
+            })}
           >
             <Drawer.Screen
               name="Main"
               component={MainView}
               options={{
+                headerTitle: "",
                 title: "Home",
+                headerTransparent: true,
+                drawerIcon: () => (
+                  <FontAwesome5
+                    name="home"
+                    size={20}
+                    color={GlobalStyles.colors.text}
+                  />
+                ),
               }}
             />
-            <Drawer.Screen name="Settings" component={SettingsScreen} />
+            <Drawer.Screen
+              name="Settings"
+              component={SettingsScreen}
+              options={{
+                drawerIcon: () => (
+                  <FontAwesome5
+                    name="cogs"
+                    size={20}
+                    color={GlobalStyles.colors.text}
+                  />
+                ),
+              }}
+            />
           </Drawer.Navigator>
         </NavigationContainer>
       </SafeAreaView>
