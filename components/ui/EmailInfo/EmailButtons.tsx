@@ -1,6 +1,8 @@
 import { StyleSheet, View } from "react-native";
 import { GlobalStyles } from "../../../constants/styles";
 import Button from "../Button";
+import IconButton from "../IconButton";
+import { ACCEPT, REJECT } from "../../../constants/words";
 
 interface Props {
   onAccept: () => void;
@@ -17,20 +19,8 @@ interface Props {
 const EmailButtons = ({ onAccept, onReject }: Props) => {
   return (
     <View style={styles.buttonsContainer}>
-      <Button
-        buttonStyle={styles.acceptButton}
-        textStyle={styles.acceptText}
-        onPress={onAccept}
-      >
-        Accept
-      </Button>
-      <Button
-        buttonStyle={styles.rejectButton}
-        textStyle={styles.rejectText}
-        onPress={onReject}
-      >
-        Reject
-      </Button>
+      <IconButton type={ACCEPT} onPress={onAccept} />
+      <IconButton type={REJECT} onPress={onReject} />
     </View>
   );
 };
@@ -46,18 +36,5 @@ const styles = StyleSheet.create({
     backgroundColor: GlobalStyles.colors.primary300,
     borderWidth: 2,
     borderTopColor: GlobalStyles.colors.accent700,
-  },
-  acceptButton: {
-    backgroundColor: GlobalStyles.colors.secondary700,
-  },
-  acceptText: {
-    color: "black",
-    fontWeight: "bold",
-  },
-  rejectButton: {
-    backgroundColor: GlobalStyles.colors.primary700,
-  },
-  rejectText: {
-    fontWeight: "bold",
   },
 });

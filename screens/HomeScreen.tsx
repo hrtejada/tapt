@@ -1,14 +1,14 @@
 import { FontAwesome5 } from "@expo/vector-icons";
 import { StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { StackNavProps } from "../App";
 import UnreadCountCard from "../components/UnreadCountCard";
+import BookingStats from "../components/ui/BookingInfo/BookingStats";
 import BookingStatus from "../components/ui/BookingInfo/BookingStatus";
 import Button from "../components/ui/Button";
+import Header from "../components/ui/Header";
 import { GlobalStyles } from "../constants/styles";
 import { DUMMY_HOME } from "../testData/DUMMY_DATA";
-import BookingStats from "../components/ui/BookingInfo/BookingStats";
-import Header from "../components/ui/Header";
+import { StackNavProps } from "../util/screen-navigation";
 
 /**
  * Home Component displaying the main components of the app.
