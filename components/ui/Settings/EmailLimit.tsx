@@ -2,25 +2,28 @@ import { Alert, StyleSheet, Text, TextInput, View } from "react-native";
 import HeaderTwo from "../HeaderTwo";
 import { GlobalStyles } from "../../../constants/styles";
 import { DUMMY_SETTING } from "../../../testData/DUMMY_DATA";
-import { useState } from "react";
+import { useState, useRef, createRef } from "react";
 
 /**
  * Component that holds the email limit functionality.
  *
- * TODO: Finish fleshing this out. Check validation; Refocus after Alert;
+ * TODO: Finish fleshing this out.
  *
  * @version 0.1.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const EmailLimit = () => {
   const [limit, setLimit] = useState(DUMMY_SETTING.limit.toString() || "0");
+  const limitRef = createRef<TextInput>();
 
   const onChangeLimit = (enteredText: string) => {
     setLimit(enteredText);
   };
 
-  const resetLimit = () => {
-    setLimit("0");
+  const focusOnInput = () => {
+    // TODO: Look into slight lag
+    // TODO: Different way to acheive this other than refs?
+    limitRef.current?.focus();
   };
 
   const handleEndEditing = () => {
@@ -30,18 +33,21 @@ const EmailLimit = () => {
       Alert.alert("Invalid Input", "Please enter a valid number", [
         {
           text: "OK",
-          style: "destructive",
-          onPress: resetLimit,
+          style: "default",
+          onPress: focusOnInput,
         },
       ]);
-    } else if (newLimit < 0 || newLimit > 150) {
+      return;
+    }
+    if (newLimit < 0 || newLimit > 150) {
       Alert.alert("Limit out of range", "Range is 0 - 150", [
         {
           text: "OK",
-          style: "destructive",
-          onPress: resetLimit,
+          style: "default",
+          onPress: focusOnInput,
         },
       ]);
+      return;
     }
     console.log("Limit", limit);
   };
@@ -61,9 +67,9 @@ const EmailLimit = () => {
         inputMode="numeric"
         returnKeyType="done"
         textAlign="center"
-        // selectTextOnFocus={true}
         onChangeText={onChangeLimit}
         onEndEditing={handleEndEditing}
+        ref={limitRef}
       />
     </View>
   );
