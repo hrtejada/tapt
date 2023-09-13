@@ -2,12 +2,13 @@ import { StyleSheet, Text, View } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
 
 /**
- * Header component to display header text
+ * Header component to display text. (H1)
  *
- * @version 0.1.0
+ * TODO: Look into getting rid of the heading container. Background color should probably be set by the outside container
+ * @version 0.1.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
-const Header = ({ children }: { children: React.ReactNode }) => {
+const HeaderOne = ({ children }: { children: React.ReactNode }) => {
   return (
     <View style={styles.headingContainer}>
       <Text style={styles.headingText}>{children}</Text>
@@ -15,7 +16,7 @@ const Header = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default Header;
+export default HeaderOne;
 
 const styles = StyleSheet.create({
   headingContainer: {

@@ -1,5 +1,5 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { Pressable, StyleSheet } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
 import { ACCEPT, REJECT } from "../../constants/words";
 
@@ -9,6 +9,14 @@ interface Props {
   onPress: () => void;
 }
 
+/**
+ * Button to display only an Icon.
+ *
+ * Main use is for the Email Screen.
+ *
+ * @version 0.1.0
+ * @author  Ralph Woiwode <https://github.com/RAWoiwode>
+ */
 const IconButton = ({ type, onPress }: Props) => {
   const icon = type === ACCEPT ? "check-circle" : "times";
   const extraStyles =

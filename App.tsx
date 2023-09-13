@@ -15,6 +15,8 @@ import LoginScreen from "./screens/LoginScreen";
 import RankedQueueScreen from "./screens/RankedQueueScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 import { StackParamList } from "./util/screen-navigation";
+import IconButton from "./components/ui/IconButton";
+import LogoutButton from "./components/ui/LogoutButton";
 
 /**
  * Main app component.
@@ -126,6 +128,7 @@ export default function App() {
                     color={GlobalStyles.colors.text}
                   />
                 ),
+                headerRight: () => <LogoutButton />,
               }}
             />
           </Drawer.Navigator>
