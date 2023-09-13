@@ -2,6 +2,7 @@ import { ScrollView, StyleSheet, Text, View } from "react-native";
 import DeleteAccount from "../components/ui/Settings/DeleteAccount";
 import { GlobalStyles } from "../constants/styles";
 import EmailLimit from "../components/ui/Settings/EmailLimit";
+import DateRange from "../components/ui/Settings/DateRange";
 
 /**
  * Settings Screen where the user can perform various actions.
@@ -31,10 +32,7 @@ const SettingsScreen = () => {
         <View style={styles.container}>
           <Text style={styles.text}>Set data to parse from emails</Text>
         </View>
-        <View style={styles.container}>
-          <Text style={styles.text}>Set Date Range</Text>
-          <Text>Two date inputs, one for start, one for end</Text>
-        </View>
+        <DateRange />
         <EmailLimit />
         <DeleteAccount />
       </ScrollView>
