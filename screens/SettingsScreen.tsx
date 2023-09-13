@@ -1,7 +1,7 @@
-import React from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
+import DeleteAccount from "../components/ui/Settings/DeleteAccount";
 import { GlobalStyles } from "../constants/styles";
-import Button from "../components/ui/Button";
+import EmailLimit from "../components/ui/Settings/EmailLimit";
 
 /**
  * Settings Screen where the user can perform various actions.
@@ -14,22 +14,15 @@ import Button from "../components/ui/Button";
  *  - Limit how many emails they can accept
  *  - Delete their account
  *
- * @version 0.1.0
+ * @version 0.2.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const SettingsScreen = () => {
-  const pressHandler = () => {
-    // Placeholder
-  };
   return (
     <View style={styles.rootContainer}>
       <ScrollView>
         <View style={styles.container}>
           <Text style={styles.text}>About App</Text>
-        </View>
-        <View style={[styles.container, styles.logoutContainer]}>
-          <Text style={styles.text}>Logout</Text>
-          <Button onPress={pressHandler}>Logout</Button>
         </View>
         <View style={styles.container}>
           <Text style={styles.text}>Set data retrieval cadence</Text>
@@ -42,14 +35,8 @@ const SettingsScreen = () => {
           <Text style={styles.text}>Set Date Range</Text>
           <Text>Two date inputs, one for start, one for end</Text>
         </View>
-        <View style={styles.container}>
-          <Text style={styles.text}>Limit accepted emails</Text>
-          <Text>One text input to set a value</Text>
-        </View>
-        <View style={styles.container}>
-          <Text style={styles.text}>DELETE ACCOUNT</Text>
-          <Button onPress={pressHandler}>DELETE</Button>
-        </View>
+        <EmailLimit />
+        <DeleteAccount />
       </ScrollView>
     </View>
   );
@@ -60,6 +47,7 @@ export default SettingsScreen;
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
+    backgroundColor: GlobalStyles.colors.background300,
   },
   container: {
     flex: 1,
@@ -69,15 +57,15 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     borderBottomColor: GlobalStyles.colors.accent700,
   },
-  logoutContainer: {
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    alignItems: "center",
-    backgroundColor: GlobalStyles.colors.background500,
-  },
   text: {
-    color: GlobalStyles.colors.primary500,
+    color: GlobalStyles.colors.text,
     fontSize: 24,
     fontWeight: "bold",
+  },
+  deleteButton: {
+    backgroundColor: GlobalStyles.colors.accent700,
+  },
+  deleteButtonText: {
+    color: GlobalStyles.colors.background100,
   },
 });

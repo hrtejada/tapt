@@ -5,7 +5,7 @@ import UnreadCountCard from "../components/UnreadCountCard";
 import BookingStats from "../components/ui/BookingInfo/BookingStats";
 import BookingStatus from "../components/ui/BookingInfo/BookingStatus";
 import Button from "../components/ui/Button";
-import Header from "../components/ui/Header";
+import HeaderOne from "../components/ui/HeaderOne";
 import { GlobalStyles } from "../constants/styles";
 import { DUMMY_HOME } from "../testData/DUMMY_DATA";
 import { StackNavProps } from "../util/screen-navigation";
@@ -39,7 +39,7 @@ const HomeScreen = ({ navigation }: StackNavProps) => {
       ]}
     >
       <View style={styles.firstRow}>
-        <Header>Booking Info</Header>
+        <HeaderOne>Booking Info</HeaderOne>
         <BookingStatus
           status={DUMMY_HOME.booking}
           startDate={DUMMY_HOME.bookingStartDate}
@@ -51,7 +51,7 @@ const HomeScreen = ({ navigation }: StackNavProps) => {
         />
       </View>
       <View style={styles.secondRow}>
-        <Header>View Ranked Queue</Header>
+        <HeaderOne>View Ranked Queue</HeaderOne>
         <View style={styles.rankedQueueButtonContainer}>
           <Button
             buttonStyle={styles.rankedQueueButton}
@@ -66,7 +66,7 @@ const HomeScreen = ({ navigation }: StackNavProps) => {
         </View>
       </View>
       <View style={styles.thirdRow}>
-        <Header>Emails</Header>
+        <HeaderOne>Emails</HeaderOne>
         <View style={styles.emailsContainer}>
           <UnreadCountCard unreadCount={DUMMY_HOME.unreadCount} />
           <View style={styles.emailButtonContainer}>
