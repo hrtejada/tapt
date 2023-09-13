@@ -42,3 +42,7 @@ export const DUMMY_HOME = {
   bookingStartDate: "8/23/2023",
   bookingEndDate: "9/25/2023",
 };
+
+export const DUMMY_SETTING = {
+  limit: 0,
+};

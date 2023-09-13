@@ -40,11 +40,6 @@ const styles = StyleSheet.create({
     borderBottomColor: GlobalStyles.colors.accent700,
     backgroundColor: GlobalStyles.colors.secondary700,
   },
-  text: {
-    color: GlobalStyles.colors.text,
-    fontSize: 24,
-    fontWeight: "bold",
-  },
   deleteButton: {
     backgroundColor: "red",
   },

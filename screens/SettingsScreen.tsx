@@ -1,6 +1,7 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import DeleteAccount from "../components/ui/Settings/DeleteAccount";
 import { GlobalStyles } from "../constants/styles";
+import EmailLimit from "../components/ui/Settings/EmailLimit";
 
 /**
  * Settings Screen where the user can perform various actions.
@@ -34,10 +35,7 @@ const SettingsScreen = () => {
           <Text style={styles.text}>Set Date Range</Text>
           <Text>Two date inputs, one for start, one for end</Text>
         </View>
-        <View style={styles.container}>
-          <Text style={styles.text}>Limit accepted emails</Text>
-          <Text>One text input to set a value</Text>
-        </View>
+        <EmailLimit />
         <DeleteAccount />
       </ScrollView>
     </View>
