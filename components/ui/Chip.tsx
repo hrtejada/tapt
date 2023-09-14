@@ -10,7 +10,7 @@ interface Props {
 /**
  * Component to display text and have a delete funcitonality.
  *
- * @version 0.1.0
+ * @version 0.1.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const Chip = ({ text, onDelete }: Props) => {
@@ -35,17 +35,15 @@ export default Chip;
 
 const styles = StyleSheet.create({
   chip: {
-    flex: 1,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-evenly",
     backgroundColor: GlobalStyles.colors.primary300,
     margin: 4,
     paddingLeft: 10,
     borderWidth: 1,
     borderRadius: 3,
     borderColor: GlobalStyles.colors.text,
-    width: "auto",
+    height: 30,
   },
   text: {
     fontWeight: "bold",
