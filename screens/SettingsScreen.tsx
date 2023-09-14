@@ -3,6 +3,7 @@ import DeleteAccount from "../components/ui/Settings/DeleteAccount";
 import { GlobalStyles } from "../constants/styles";
 import EmailLimit from "../components/ui/Settings/EmailLimit";
 import DateRange from "../components/ui/Settings/DateRange";
+import Parameters from "../components/ui/Settings/Parameters";
 
 /**
  * Settings Screen where the user can perform various actions.
@@ -29,9 +30,7 @@ const SettingsScreen = () => {
           <Text style={styles.text}>Set data retrieval cadence</Text>
           <Text>Determine how to represent this</Text>
         </View>
-        <View style={styles.container}>
-          <Text style={styles.text}>Set data to parse from emails</Text>
-        </View>
+        <Parameters />
         <DateRange />
         <EmailLimit />
         <DeleteAccount />

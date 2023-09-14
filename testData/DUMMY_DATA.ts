@@ -47,4 +47,5 @@ export const DUMMY_SETTING = {
   limit: 0,
   startDate: "2023-09-01T00:00:00.000Z",
   endDate: "2023-09-08T00:00:00.000Z",
+  parameters: ["description", "size", "budget", "pictures", "placement"],
 };
