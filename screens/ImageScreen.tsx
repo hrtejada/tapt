@@ -1,5 +1,5 @@
 import { Image, StyleSheet } from "react-native";
-import { ImageScreenProps } from "../util/screen-navigation";
+import { ImageStackProps } from "../util/screen-navigation";
 
 /**
  * Component that will display an image.
@@ -9,7 +9,7 @@ import { ImageScreenProps } from "../util/screen-navigation";
  * @version 0.1.2
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
-const ImageScreen = ({ route }: ImageScreenProps) => {
+const ImageScreen = ({ route }: ImageStackProps) => {
   const image = route.params.image;
 
   return (

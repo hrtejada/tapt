@@ -1,9 +1,9 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import DeleteAccount from "../components/ui/Settings/DeleteAccount";
-import { GlobalStyles } from "../constants/styles";
-import EmailLimit from "../components/ui/Settings/EmailLimit";
 import DateRange from "../components/ui/Settings/DateRange";
+import DeleteAccount from "../components/ui/Settings/DeleteAccount";
+import EmailLimit from "../components/ui/Settings/EmailLimit";
 import Parameters from "../components/ui/Settings/Parameters";
+import { GlobalStyles } from "../constants/styles";
 
 /**
  * Settings Screen where the user can perform various actions.
@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: GlobalStyles.colors.background300,
   },
+  // TODO: Check 'container' styling on all children to see about simplifying
   container: {
     flex: 1,
     padding: 12,

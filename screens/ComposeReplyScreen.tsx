@@ -1,7 +1,8 @@
 import { StyleSheet, Text, View } from "react-native";
-import { GlobalStyles } from "../constants/styles";
 import Button from "../components/ui/Button";
+import { GlobalStyles } from "../constants/styles";
 import { DUMMY_EMAILS } from "../testData/DUMMY_DATA";
+import { ReplyStackProps } from "../util/screen-navigation";
 
 /**
  * Component that will help the user build an simple email reply.
@@ -9,12 +10,21 @@ import { DUMMY_EMAILS } from "../testData/DUMMY_DATA";
  * @version 0.1.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
-const ComposeReply = ({ navigation }: { navigation: any }) => {
+const ComposeReplyScreen = ({ navigation }: ReplyStackProps) => {
+  /**
+   * Handles the reply functionality.
+   *
+   * Send the reply email.
+   * Navigate back to the Email Screen.
+   */
   const replyHandler = () => {
     DUMMY_EMAILS.shift();
     navigation.navigate("Email", { email: "next" });
   };
 
+  /**
+   * Navigate back one screen on the Stack
+   */
   const cancleHandler = () => {
     navigation.pop();
   };
@@ -28,7 +38,7 @@ const ComposeReply = ({ navigation }: { navigation: any }) => {
   );
 };
 
-export default ComposeReply;
+export default ComposeReplyScreen;
 
 const styles = StyleSheet.create({
   container: {

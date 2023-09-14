@@ -8,25 +8,34 @@ import Button from "../components/ui/Button";
 import HeaderOne from "../components/ui/HeaderOne";
 import { GlobalStyles } from "../constants/styles";
 import { DUMMY_HOME } from "../testData/DUMMY_DATA";
-import { StackNavProps } from "../util/screen-navigation";
+import { HomeStackProps } from "../util/screen-navigation";
 
 /**
  * Home Component displaying the main components of the app.
+ *
+ * Currently broken up into 3 main rows
+ *  - Row for Booking Information
+ *  - Row for Ranked Queue
+ *  - Row for Email Information/Action
  *
  * TODO: Flesh out component - Will hold the main cards/buttons to deal with the email queue
  * @version 0.2.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
-
-// TODO: Understand what type 'navigation' is
-const HomeScreen = ({ navigation }: StackNavProps) => {
+const HomeScreen = ({ navigation }: HomeStackProps) => {
   const insets = useSafeAreaInsets();
 
+  /**
+   * Navigate to the Email Screen.
+   */
   const emailPressHandler = () => {
     navigation.navigate("Email", { email: "new" });
     // TODO: Retrieve email data or handle it in the EmailScreen
   };
 
+  /**
+   * Navigate to the Ranked Queue Screen
+   */
   const rankedQueuePressHandler = () => {
     navigation.navigate("Ranked");
   };
