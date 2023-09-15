@@ -10,7 +10,7 @@ interface Props {
 }
 
 /**
- * Component that will display an image parameter and info.
+ * Component that will display an image parameter.
  *
  * @version 0.1.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
@@ -23,8 +23,6 @@ const ImageParameter = ({ id, parameter, images }: Props) => {
    *
    * Bring up the Image Screen modal to show the image larger for the user to get
    * a better look.
-   *
-   * @param {string} image - String to display the image larger on the modal
    */
   const imagePressHandler = (image: string) => {
     navigation.navigate("Image", {
