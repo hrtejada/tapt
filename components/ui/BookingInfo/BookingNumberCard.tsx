@@ -1,20 +1,20 @@
 import { StyleSheet, Text, View } from "react-native";
 import { GlobalStyles } from "../../../constants/styles";
-import { setSyntheticLeadingComments } from "typescript";
+import { ACCEPTED, REJECTED } from "../../../constants/words";
 
-/**
- * @prop  {string}  title - Text to be displayed as the title of this component
- * @prop  {number}  value - Value to be displayed as the main content
- */
-type Props = {
-  title: "ACCEPTED" | "REJECTED";
+interface Props {
+  title: typeof ACCEPTED | typeof REJECTED;
   value: number;
-};
+}
 
 /**
  * Compontent to display stats related to the current booking session.
  *
- * @version 0.2.0
+ * NOTE - Possibly expand this component in the future to show more statistics
+ *
+ * @prop  {string}  title - Text to be displayed as the title of this component
+ * @prop  {number}  value - Value to be displayed as the main content
+ * @version 0.2.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const BookingNumberCard = ({ title, value }: Props) => {
@@ -22,7 +22,7 @@ const BookingNumberCard = ({ title, value }: Props) => {
     <View
       style={[
         styles.card,
-        title === "ACCEPTED" ? styles.accepted : styles.rejected,
+        title === ACCEPTED ? styles.accepted : styles.rejected,
       ]}
     >
       <Text style={styles.title}>{title}:</Text>
