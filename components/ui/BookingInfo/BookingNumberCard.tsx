@@ -12,8 +12,6 @@ interface Props {
  *
  * NOTE - Possibly expand this component in the future to show more statistics
  *
- * @prop  {string}  title - Text to be displayed as the title of this component
- * @prop  {number}  value - Value to be displayed as the main content
  * @version 0.2.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */

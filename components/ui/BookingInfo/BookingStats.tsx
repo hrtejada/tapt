@@ -10,8 +10,6 @@ interface Props {
 /**
  * Component to display the stat components of the most recent booking session.
  *
- * @prop {number} accepted  - Value for the percent of accepted emails.
- * @prop {number} rejected  - Value for the percent of rejected emails.
  * @version 0.1.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
