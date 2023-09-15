@@ -1,4 +1,3 @@
-import { useIsFocused } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import EmailButtons from "../components/ui/EmailInfo/EmailButtons";
@@ -8,8 +7,9 @@ import TextParameter from "../components/ui/EmailInfo/TextParameter";
 import LoadingOverlay from "../components/ui/LoadingOverlay";
 import { GlobalStyles } from "../constants/styles";
 import { DUMMY_EMAILS } from "../testData/DUMMY_DATA";
+import { EmailStackProps } from "../util/screen-navigation";
 
-type emailState = {
+interface emailState {
   id: string;
   name: string;
   email: string;
@@ -20,12 +20,7 @@ type emailState = {
   images: string[];
   other1: string;
   other2: string;
-};
-
-type Props = {
-  route: any;
-  navigation: any;
-};
+}
 
 /**
  * Component that will display the parsed email information.
@@ -36,23 +31,26 @@ type Props = {
  *
  * TODO: Should we display this modal if there are no new emails OR just disable the button on HOME?
  *
+ * TODO: Need to handle parameters dynamically
+ *
+ * TODO: Look into handling "'route.params' being undefined" properly
+ *
  * @version 0.2.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
-const EmailScreen = ({ route, navigation }: Props) => {
+const EmailScreen = ({ route, navigation }: EmailStackProps) => {
   const [emailInfo, setEmailInfo] = useState({} as emailState);
   const [isLoading, setIsLoading] = useState(true);
-  const isFocused = useIsFocused();
 
   useEffect(() => {
     setIsLoading(true);
     // FETCH ONE EMAIL AT A TIME???
     if (DUMMY_EMAILS.length !== 0) {
       setEmailInfo((prevEmail) => {
-        if (route.params.email === "next") {
+        if (route.params?.email === "next") {
           console.log(DUMMY_EMAILS[0]);
           return DUMMY_EMAILS[0];
-        } else if (route.params.email === "new") {
+        } else if (route.params?.email === "new") {
           return DUMMY_EMAILS[0];
         } else {
           return prevEmail;
@@ -62,12 +60,18 @@ const EmailScreen = ({ route, navigation }: Props) => {
       navigation.pop();
     }
     setIsLoading(false);
-  }, [setEmailInfo, setIsLoading, isFocused]);
+  }, [setEmailInfo, setIsLoading]);
 
+  /**
+   * Navigate to the Reply - Accept template
+   */
   const acceptHandler = () => {
     navigation.navigate("Reply");
   };
 
+  /**
+   * Navigate to the Reply - Reject template
+   */
   const rejectHandler = () => {
     navigation.navigate("Reply");
   };

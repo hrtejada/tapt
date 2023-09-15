@@ -1,19 +1,19 @@
 import { FontAwesome5 } from "@expo/vector-icons";
 import { useState } from "react";
-import { Modal, Pressable, StyleSheet, View, Text } from "react-native";
+import { Modal, Pressable, StyleSheet, Text, View } from "react-native";
+import { TextInput } from "react-native-gesture-handler";
 import { GlobalStyles } from "../../../constants/styles";
 import { DUMMY_SETTING } from "../../../testData/DUMMY_DATA";
+import Button from "../Button";
 import Chip from "../Chip";
 import HeaderTwo from "../HeaderTwo";
-import Button from "../Button";
-import { TextInput } from "react-native-gesture-handler";
 
 /**
  * Component for the Settings Screen that will hold the parameters setting.
  *
- * TODO: Add validation to the TextInput!!
+ * TODO: Determine where to validate TextInput
  *
- * @version 0.1.1
+ * @version 0.1.2
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const Parameters = () => {
@@ -24,22 +24,21 @@ const Parameters = () => {
   const [newParameter, setNewParameter] = useState("");
 
   /**
-   * Delete the parameter from the users parameters array.
-   *
-   * @param {string}  parameter Value to be removed from parameters
+   * Remove the parameter from the user's parameters array.
    */
   const deleteChipHandler = (parameter: string) => {
-    setParameters((prevParams) => {
-      const newParams = prevParams.filter((param) => param !== parameter);
-      return newParams;
-    });
+    setParameters((prevParams) =>
+      prevParams.filter((param) => param !== parameter)
+    );
   };
 
+  /**
+   * Add the parameter to the user's parameters array.
+   *
+   * Dismiss the Modal and reset the TextInput
+   */
   const addParamHandler = () => {
-    setParameters((prevParams) => {
-      const newParameters = [...prevParams, newParameter];
-      return newParameters;
-    });
+    setParameters((prevParams) => [...prevParams, newParameter]);
     setModalVisible(false);
     setNewParameter("");
   };
@@ -139,7 +138,6 @@ const styles = StyleSheet.create({
     padding: 12,
     margin: 8,
     height: 50,
-    // width: "20%",
     fontSize: 24,
     backgroundColor: GlobalStyles.colors.background200,
   },

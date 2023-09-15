@@ -1,31 +1,44 @@
+import { createRef, useState } from "react";
 import { Alert, StyleSheet, Text, TextInput, View } from "react-native";
-import HeaderTwo from "../HeaderTwo";
 import { GlobalStyles } from "../../../constants/styles";
 import { DUMMY_SETTING } from "../../../testData/DUMMY_DATA";
-import { useState, useRef, createRef } from "react";
+import HeaderTwo from "../HeaderTwo";
 
 /**
  * Component that holds the email limit functionality.
  *
  * TODO: Finish fleshing this out.
+ * TODO: Add SafeArewView somewhere to keep input in view properly
  *
- * @version 0.1.0
+ * @version 0.1.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const EmailLimit = () => {
   const [limit, setLimit] = useState(DUMMY_SETTING.limit.toString() || "0");
-  const limitRef = createRef<TextInput>();
+  const limitRef = createRef<TextInput>(); // Used to refocus on input when invalid input is entered.
 
+  /**
+   * Update the state so the correct value is reflected in the input.
+   */
   const onChangeLimit = (enteredText: string) => {
     setLimit(enteredText);
   };
 
+  /**
+   * Focus back on the input after user dismissed an Alert related to invalid input.
+   */
   const focusOnInput = () => {
     // TODO: Look into slight lag
     // TODO: Different way to acheive this other than refs?
     limitRef.current?.focus();
   };
 
+  /**
+   * Check the input entered by the user.
+   *
+   * If an invalid input is found, raise an Alert.
+   * TODO: VALIDATION LOGIC 😎
+   */
   const handleEndEditing = () => {
     const newLimit = parseInt(limit);
 
@@ -39,6 +52,7 @@ const EmailLimit = () => {
       ]);
       return;
     }
+    // TODO: Decide on the limit of limit 🤷‍♂️
     if (newLimit < 0 || newLimit > 150) {
       Alert.alert("Limit out of range", "Range is 0 - 150", [
         {

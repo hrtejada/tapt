@@ -10,7 +10,7 @@ import HeaderTwo from "../HeaderTwo";
  *
  * Using https://github.com/react-native-datetimepicker/datetimepicker.
  *
- * @version 0.1.0
+ * @version 0.1.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const DateRange = () => {
@@ -22,7 +22,7 @@ const DateRange = () => {
     new Date(DUMMY_SETTING.endDate) || new Date()
   );
 
-  // TODO: Review which way is better in the long run
+  // TODO: Review which way is better in the long run: Inline functions or function calls
   // const onStartDateChange = (event: DateTimePickerEvent, date: Date) => {
   //   setStartDate((prevDate) => date);
   // };

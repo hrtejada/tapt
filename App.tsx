@@ -6,8 +6,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native-safe-area-context";
+import LogoutButton from "./components/ui/LogoutButton";
 import { GlobalStyles } from "./constants/styles";
-import ComposeReply from "./screens/ComposeReply";
+import ComposeReplyScreen from "./screens/ComposeReplyScreen";
 import EmailScreen from "./screens/EmailScreen";
 import HomeScreen from "./screens/HomeScreen";
 import ImageScreen from "./screens/ImageScreen";
@@ -15,8 +16,6 @@ import LoginScreen from "./screens/LoginScreen";
 import RankedQueueScreen from "./screens/RankedQueueScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 import { StackParamList } from "./util/screen-navigation";
-import IconButton from "./components/ui/IconButton";
-import LogoutButton from "./components/ui/LogoutButton";
 
 /**
  * Main app component.
@@ -69,7 +68,7 @@ const MainView = () => {
           }}
         />
         <Stack.Screen name="Image" component={ImageScreen} />
-        <Stack.Screen name="Reply" component={ComposeReply} />
+        <Stack.Screen name="Reply" component={ComposeReplyScreen} />
       </Stack.Group>
     </Stack.Navigator>
   );

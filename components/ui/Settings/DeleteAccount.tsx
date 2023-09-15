@@ -1,16 +1,16 @@
-import { StyleSheet, Text, View } from "react-native";
-import Button from "../Button";
+import { StyleSheet, View } from "react-native";
 import { GlobalStyles } from "../../../constants/styles";
+import Button from "../Button";
 import HeaderTwo from "../HeaderTwo";
 
 /**
  * Component that holds the delete account functionality.
  *
- * @version 0.1.0
+ * @version 0.1.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const DeleteAccount = () => {
-  // TODO: Implement
+  // TODO: Implement when backend is setup
   const deleteHandler = () => {};
 
   return (

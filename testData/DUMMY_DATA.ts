@@ -1,3 +1,7 @@
+/**
+ * Dummy data used on the Email Screen.
+ * Data model subject to change depending on future changes.
+ */
 export const DUMMY_EMAILS = [
   {
     id: "e1",
@@ -34,6 +38,11 @@ export const DUMMY_EMAILS = [
   },
 ];
 
+/**
+ * Dummy data used on the Home Screen.
+ * Data model subject to change depending on future changes.
+ * TODO: Change Dates to proper JS Date format to handle it better in code
+ */
 export const DUMMY_HOME = {
   unreadCount: 0,
   accepted: 50,
@@ -43,6 +52,10 @@ export const DUMMY_HOME = {
   bookingEndDate: "9/25/2023",
 };
 
+/**
+ * Dummy data used on the Settings Screen.
+ * Data model subject to change depending on future changes.
+ */
 export const DUMMY_SETTING = {
   limit: 0,
   startDate: "2023-09-01T00:00:00.000Z",

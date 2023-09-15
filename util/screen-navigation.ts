@@ -18,8 +18,10 @@ export type StackParamList = {
   Reply: undefined;
 };
 
-export type StackNavProps = NativeStackScreenProps<StackParamList, "Home">;
-export type ImageScreenProps = NativeStackScreenProps<StackParamList, "Image">;
+export type HomeStackProps = NativeStackScreenProps<StackParamList, "Home">;
+export type EmailStackProps = NativeStackScreenProps<StackParamList, "Email">;
+export type ReplyStackProps = NativeStackScreenProps<StackParamList, "Reply">;
+export type ImageStackProps = NativeStackScreenProps<StackParamList, "Image">;
 
 // Used to fix the type error when using the useNavigation hook
 export type ImageNavigationProps = NativeStackNavigationProp<

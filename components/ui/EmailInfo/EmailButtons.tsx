@@ -12,7 +12,7 @@ interface Props {
  * Component that will display the accept and reject buttons
  * for the Email Screen.
  *
- * @version 0.1.0
+ * @version 0.1.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const EmailButtons = ({ onAccept, onReject }: Props) => {

@@ -1,6 +1,12 @@
 import { StyleSheet, Text, View } from "react-native";
 import { GlobalStyles } from "../constants/styles";
 
+/**
+ * Screen that will display the Ranked Queue.
+ *
+ * @version 0.1.0
+ * @author  Ralph Woiwode <https://github.com/RAWoiwode>
+ */
 const RankedQueueScreen = () => {
   return (
     <View style={styles.container}>

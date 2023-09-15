@@ -3,7 +3,6 @@ import { Pressable, StyleSheet } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
 import { ACCEPT, REJECT } from "../../constants/words";
 
-// TODO: Look into issue with using constants in the Prop Types for a component
 interface Props {
   type: typeof ACCEPT | typeof REJECT;
   onPress: () => void;
@@ -14,13 +13,11 @@ interface Props {
  *
  * Main use is for the Email Screen.
  *
- * @version 0.1.0
+ * @version 0.1.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const IconButton = ({ type, onPress }: Props) => {
   const icon = type === ACCEPT ? "check-circle" : "times";
-  const extraStyles =
-    type === ACCEPT ? { backgroundColor: "green" } : { backgroundColor: "red" };
 
   return (
     <Pressable
@@ -28,7 +25,7 @@ const IconButton = ({ type, onPress }: Props) => {
       style={({ pressed }) => [
         pressed && styles.pressed,
         styles.iconContainer,
-        extraStyles,
+        { backgroundColor: type === ACCEPT ? "green" : "red" }, // TODO: Replace when 'success' and 'error'/'danger' styling colors are picked
       ]}
     >
       <FontAwesome5 name={icon} size={56} color={GlobalStyles.colors.text} />
