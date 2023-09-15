@@ -1,10 +1,9 @@
 import { StyleSheet, Text, View } from "react-native";
-import { GlobalStyles } from "../constants/styles";
+import { GlobalStyles } from "../../../constants/styles";
 
 /**
  * Component that displays the count of unread emails from the users inbox that match the parameters.
  *
- * @prop {number}  unreadCount - Current number of unread emails
  * @version 0.1.3
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */

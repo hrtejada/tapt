@@ -1,7 +1,7 @@
 import { FontAwesome5 } from "@expo/vector-icons";
 import { StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import UnreadCountCard from "../components/UnreadCountCard";
+import UnreadCountCard from "../components/ui/EmailInfo/UnreadCountCard";
 import BookingStats from "../components/ui/BookingInfo/BookingStats";
 import BookingStatus from "../components/ui/BookingInfo/BookingStatus";
 import Button from "../components/ui/Button";

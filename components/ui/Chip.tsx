@@ -10,7 +10,9 @@ interface Props {
 /**
  * Component to display text and have a delete funcitonality.
  *
- * @version 0.1.1
+ * TODO: Extract generic Chip Component and have one for Pressable and one with Deleting
+ *
+ * @version 0.1.2
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const Chip = ({ text, onDelete }: Props) => {

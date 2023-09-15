@@ -13,3 +13,6 @@ export const REJECTED = "REJECTED";
 // BookingStatus
 export const ACTIVE = "ACTIVE";
 export const INACTIVE = "INACTIVE";
+
+// Button
+export const IS_FLAT = "isFlat";
