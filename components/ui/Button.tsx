@@ -12,7 +12,7 @@ interface Props {
 /**
  * Main button component
  *
- * TODO: Refine this. Might be overengineered
+ * TODO: Refine this. Might be overengineered ಠ_ಠ
  *
  * @version 0.1.2
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>

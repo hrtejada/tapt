@@ -120,5 +120,7 @@ const styles = StyleSheet.create({
     backgroundColor: GlobalStyles.colors.primary600,
     borderBottomWidth: 1,
     borderBottomColor: GlobalStyles.colors.accent900,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
   },
 });

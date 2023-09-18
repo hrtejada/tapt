@@ -1,3 +1,5 @@
+import { StringLiteral } from "typescript";
+
 /**
  * Dummy data used on the Email Screen.
  * Data model subject to change depending on future changes.
@@ -62,3 +64,26 @@ export const DUMMY_SETTING = {
   endDate: "2023-09-08T00:00:00.000Z",
   parameters: ["description", "size", "budget", "pictures", "placement"],
 };
+
+export interface RankedProps {
+  id: string;
+  email: string;
+  name: string;
+  description: string;
+}
+
+export const DUMMY_RANKED: RankedProps[] = [
+  {
+    id: "r1",
+    email: "test@test.com",
+    name: "Testy Tester",
+    description:
+      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Mollitia unde assumenda ad eveniet impedit molestiae repellat natus harum porro, fugit cumque iste molestias, tempore sed labore ipsa expedita saepe facere.",
+  },
+  {
+    id: "r2",
+    email: "luffy@test.com",
+    name: "Monkey D",
+    description: "I decided to be Pirate King. I don’t care if I die for it.",
+  },
+];
