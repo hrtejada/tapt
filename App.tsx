@@ -8,12 +8,12 @@ import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native-safe-area-context";
 import LogoutButton from "./components/ui/LogoutButton";
 import { GlobalStyles } from "./constants/styles";
-import ComposeReplyScreen from "./screens/ComposeReplyScreen";
 import EmailScreen from "./screens/EmailScreen";
 import HomeScreen from "./screens/HomeScreen";
 import ImageScreen from "./screens/ImageScreen";
 import LoginScreen from "./screens/LoginScreen";
 import RankedQueueScreen from "./screens/RankedQueueScreen";
+import ReplyScreen from "./screens/ReplyScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 import { StackParamList } from "./util/screen-navigation";
 
@@ -68,7 +68,7 @@ const MainView = () => {
           }}
         />
         <Stack.Screen name="Image" component={ImageScreen} />
-        <Stack.Screen name="Reply" component={ComposeReplyScreen} />
+        <Stack.Screen name="Reply" component={ReplyScreen} />
       </Stack.Group>
     </Stack.Navigator>
   );

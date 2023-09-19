@@ -6,15 +6,18 @@ import { ACCEPT } from "../../constants/words";
 interface Props {
   text: string;
   mode: null | string | undefined;
+  onPress: (param: string) => void;
 }
 
 /**
  * Component to display text and have a pressable functionality.
  *
- * @version 0.1.0
+ * TODO: Check to see if Chip can be combined
+ *
+ * @version 0.1.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
-const InfoChip = ({ text, mode }: Props) => {
+const InfoChip = ({ text, mode, onPress }: Props) => {
   const [modeStyle, setModeStyle] = useState({});
 
   /**
@@ -35,6 +38,7 @@ const InfoChip = ({ text, mode }: Props) => {
         backgroundColor: GlobalStyles.colors.primary300,
       };
     });
+    onPress(text);
   };
 
   return (
