@@ -8,6 +8,7 @@ import LoadingOverlay from "../components/ui/LoadingOverlay";
 import { GlobalStyles } from "../constants/styles";
 import { DUMMY_EMAILS } from "../testData/DUMMY_DATA";
 import { EmailStackProps } from "../util/screen-navigation";
+import { ACCEPT, REJECT } from "../constants/words";
 
 interface emailState {
   id: string;
@@ -35,7 +36,7 @@ interface emailState {
  *
  * TODO: Look into handling "'route.params' being undefined" properly
  *
- * @version 0.2.1
+ * @version 0.2.2
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const EmailScreen = ({ route, navigation }: EmailStackProps) => {
@@ -71,14 +72,14 @@ const EmailScreen = ({ route, navigation }: EmailStackProps) => {
    * Navigate to the Reply - Accept template
    */
   const acceptHandler = () => {
-    navigation.navigate("Reply");
+    navigation.navigate("Reply", { mode: ACCEPT });
   };
 
   /**
    * Navigate to the Reply - Reject template
    */
   const rejectHandler = () => {
-    navigation.navigate("Reply");
+    navigation.navigate("Reply", { mode: REJECT });
   };
 
   if (isLoading) {

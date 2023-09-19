@@ -1,4 +1,5 @@
-import { StringLiteral } from "typescript";
+// TODO: Work on the data model for the Cloud Firestore
+// TODO: Consolidate DUMMY DATA into one const that can be used throughout all Screens
 
 /**
  * Dummy data used on the Email Screen.
@@ -26,7 +27,7 @@ export const DUMMY_EMAILS = [
     id: "e2",
     email: "luffy@test.com",
     name: "Monkey D",
-    description: "I decided to be Pirate King. I don’t care if I die for it.",
+    description: "I decided to be Pirate King. I don't care if I die for it.",
     size: "5X8",
     placement: "Upper Back",
     budget: 650,
