@@ -47,11 +47,16 @@ const EmailScreen = ({ route, navigation }: EmailStackProps) => {
     // FETCH ONE EMAIL AT A TIME???
     if (DUMMY_EMAILS.length !== 0) {
       setEmailInfo((prevEmail) => {
-        if (route.params?.email === "next") {
+        if (route.params?.action === "next") {
           console.log(DUMMY_EMAILS[0]);
           return DUMMY_EMAILS[0];
-        } else if (route.params?.email === "new") {
+        } else if (route.params?.action === "new") {
           return DUMMY_EMAILS[0];
+        } else if (route.params?.action === "ranked") {
+          const index = DUMMY_EMAILS.findIndex(
+            (dummyEmail) => dummyEmail.id === route.params?.id
+          );
+          return DUMMY_EMAILS[index];
         } else {
           return prevEmail;
         }

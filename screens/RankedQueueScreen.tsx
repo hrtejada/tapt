@@ -1,19 +1,23 @@
-import { FlatList, StyleSheet, Text, View, StatusBar } from "react-native";
-import { GlobalStyles } from "../constants/styles";
-import HeaderOne from "../components/ui/HeaderOne";
-import { DUMMY_RANKED, RankedProps } from "../testData/DUMMY_DATA";
-import SenderInfo from "../components/ui/EmailInfo/SenderInfo";
-import Button from "../components/ui/Button";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { FlatList, StyleSheet, Text, View } from "react-native";
+import Button from "../components/ui/Button";
+import SenderInfo from "../components/ui/EmailInfo/SenderInfo";
+import HeaderOne from "../components/ui/HeaderOne";
+import { GlobalStyles } from "../constants/styles";
+import { DUMMY_RANKED, RankedProps } from "../testData/DUMMY_DATA";
+import { RankedStackProps } from "../util/screen-navigation";
 
 /**
  * Screen that will display the Ranked Queue.
  *
- * @version 0.1.0
+ * @version 0.1.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
-const RankedQueueScreen = () => {
+const RankedQueueScreen = ({ navigation }: RankedStackProps) => {
   const pressHandler = () => {};
+  const emailPressHandler = (id: string) => {
+    navigation.navigate("Email", { action: "ranked", id: id });
+  };
 
   const renderRankedItem = ({ item }: { item: RankedProps }) => {
     return (
@@ -22,31 +26,34 @@ const RankedQueueScreen = () => {
           <SenderInfo name={item.name} email={item.email} />
           <View>
             <Text style={styles.text} numberOfLines={2}>
-              {item.description}
+              Show the liked/disliked parameters associated to this email
             </Text>
           </View>
         </View>
         <View style={styles.buttonsContainer}>
           <View style={styles.buttonsInnerContainer}>
-            <Button onPress={pressHandler}>
+            <Button onPress={pressHandler} buttonStyle={styles.acceptButton}>
               <FontAwesome5
                 name="check"
-                size={20}
+                size={24}
                 color={GlobalStyles.colors.text}
               />
             </Button>
-            <Button onPress={pressHandler}>
+            <Button onPress={pressHandler} buttonStyle={styles.rejectButton}>
               <FontAwesome5
-                name="minus"
-                size={20}
+                name="times"
+                size={24}
                 color={GlobalStyles.colors.text}
               />
             </Button>
           </View>
-          <Button onPress={pressHandler}>
+          <Button
+            onPress={emailPressHandler.bind(this, item.id)}
+            buttonStyle={styles.emailScreenButton}
+          >
             <FontAwesome5
               name="envelope-open-text"
-              size={20}
+              size={32}
               color={GlobalStyles.colors.text}
             />
           </Button>
@@ -73,7 +80,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 12,
-    // justifyContent: "flex-start",
     backgroundColor: GlobalStyles.colors.accent100,
   },
   emailInfoContainer: {
@@ -99,5 +105,17 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     padding: 12,
     borderRadius: 15,
+  },
+  acceptButton: {
+    backgroundColor: "green",
+    flex: 1,
+  },
+  rejectButton: {
+    backgroundColor: "red",
+    flex: 1,
+  },
+  emailScreenButton: {
+    flex: 1,
+    marginTop: 4,
   },
 });
