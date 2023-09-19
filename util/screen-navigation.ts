@@ -15,7 +15,7 @@ export type StackParamList = {
   Ranked: undefined;
   Image: { image: string };
   Login: undefined;
-  Reply: undefined;
+  Reply: { mode: string } | undefined;
 };
 
 export type HomeStackProps = NativeStackScreenProps<StackParamList, "Home">;

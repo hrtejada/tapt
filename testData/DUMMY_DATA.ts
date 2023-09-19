@@ -1,3 +1,6 @@
+// TODO: Work on the data model for the Cloud Firestore
+// TODO: Consolidate DUMMY DATA into one const that can be used throughout all Screens
+
 /**
  * Dummy data used on the Email Screen.
  * Data model subject to change depending on future changes.
@@ -24,7 +27,7 @@ export const DUMMY_EMAILS = [
     id: "e2",
     email: "luffy@test.com",
     name: "Monkey D",
-    description: "I decided to be Pirate King. I don’t care if I die for it.",
+    description: "I decided to be Pirate King. I don't care if I die for it.",
     size: "5X8",
     placement: "Upper Back",
     budget: 650,
@@ -60,5 +63,15 @@ export const DUMMY_SETTING = {
   limit: 0,
   startDate: "2023-09-01T00:00:00.000Z",
   endDate: "2023-09-08T00:00:00.000Z",
-  parameters: ["description", "size", "budget", "pictures", "placement"],
+  parameters: [
+    "email",
+    "name",
+    "description",
+    "size",
+    "placement",
+    "budget",
+    "images",
+    "other1",
+    "other2",
+  ],
 };
