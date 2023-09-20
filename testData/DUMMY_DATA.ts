@@ -55,17 +55,6 @@ export const DUMMY_HOME = {
   bookingEndDate: "9/25/2023",
 };
 
-/**
- * Dummy data used on the Settings Screen.
- * Data model subject to change depending on future changes.
- */
-export const DUMMY_SETTING = {
-  limit: 0,
-  startDate: "2023-09-01T00:00:00.000Z",
-  endDate: "2023-09-08T00:00:00.000Z",
-  parameters: ["description", "size", "budget", "pictures", "placement"],
-};
-
 export interface RankedProps {
   messageId: string;
   rank: 1 | 2 | 3;

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Modal, Pressable, StyleSheet, Text, View } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { GlobalStyles } from "../../../constants/styles";
-import { DUMMY_SETTING } from "../../../testData/DUMMY_DATA";
+import { DUMMY_USER_1 } from "../../../testData/DUMMY_DATA";
 import Button from "../Button";
 import Chip from "../Chip";
 import HeaderTwo from "../HeaderTwo";
@@ -18,7 +18,7 @@ import HeaderTwo from "../HeaderTwo";
  */
 const Parameters = () => {
   const [parameters, setParameters] = useState<string[]>(
-    DUMMY_SETTING.parameters || []
+    DUMMY_USER_1.settings.parameters || []
   );
   const [modalVisible, setModalVisible] = useState(false);
   const [newParameter, setNewParameter] = useState("");

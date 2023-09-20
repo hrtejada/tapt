@@ -1,7 +1,7 @@
 import { createRef, useState } from "react";
 import { Alert, StyleSheet, Text, TextInput, View } from "react-native";
 import { GlobalStyles } from "../../../constants/styles";
-import { DUMMY_SETTING } from "../../../testData/DUMMY_DATA";
+import { DUMMY_USER_1 } from "../../../testData/DUMMY_DATA";
 import HeaderTwo from "../HeaderTwo";
 
 /**
@@ -14,7 +14,9 @@ import HeaderTwo from "../HeaderTwo";
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const EmailLimit = () => {
-  const [limit, setLimit] = useState(DUMMY_SETTING.limit.toString() || "0");
+  const [limit, setLimit] = useState(
+    DUMMY_USER_1.settings.limit.toString() || "0"
+  );
   const limitRef = createRef<TextInput>(); // Used to refocus on input when invalid input is entered.
 
   /**
