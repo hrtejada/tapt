@@ -1,11 +1,16 @@
-import { FontAwesome5 } from "@expo/vector-icons";
+import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import Button from "../components/ui/Button";
 import SenderInfo from "../components/ui/EmailInfo/SenderInfo";
 import HeaderOne from "../components/ui/HeaderOne";
 import { GlobalStyles } from "../constants/styles";
-import { DUMMY_RANKED, RankedProps } from "../testData/DUMMY_DATA";
+import {
+  DUMMY_EMAILS,
+  DUMMY_RANKED,
+  RankedProps,
+} from "../testData/DUMMY_DATA";
 import { RankedStackProps } from "../util/screen-navigation";
+import React from "react";
 
 /**
  * Screen that will display the Ranked Queue.
@@ -15,15 +20,26 @@ import { RankedStackProps } from "../util/screen-navigation";
  */
 const RankedQueueScreen = ({ navigation }: RankedStackProps) => {
   const pressHandler = () => {};
+
   const emailPressHandler = (id: string) => {
     navigation.navigate("Email", { action: "ranked", id: id });
   };
 
   const renderRankedItem = ({ item }: { item: RankedProps }) => {
+    const message = DUMMY_EMAILS.find((email) => email.id === item.messageId);
+
+    let rankedDisplay = [];
+    for (let i = 0; i < item.rank!; i++) {
+      rankedDisplay.push(
+        <FontAwesome name="star" size={24} color={GlobalStyles.colors.text} />
+      );
+    }
+
     return (
       <View style={styles.rankedContainer}>
         <View style={styles.emailInfoContainer}>
-          <SenderInfo name={item.name} email={item.email} />
+          <SenderInfo name={message!.name} email={message!.email} />
+          <View style={styles.rankedDisplay}>{rankedDisplay}</View>
           <View>
             <Text style={styles.text} numberOfLines={2}>
               Show the liked/disliked parameters associated to this email
@@ -48,7 +64,7 @@ const RankedQueueScreen = ({ navigation }: RankedStackProps) => {
             </Button>
           </View>
           <Button
-            onPress={emailPressHandler.bind(this, item.id)}
+            onPress={emailPressHandler.bind(this, item.messageId)}
             buttonStyle={styles.emailScreenButton}
           >
             <FontAwesome5
@@ -68,7 +84,7 @@ const RankedQueueScreen = ({ navigation }: RankedStackProps) => {
       <FlatList
         renderItem={renderRankedItem}
         data={DUMMY_RANKED}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.messageId}
       />
     </View>
   );
@@ -117,5 +133,8 @@ const styles = StyleSheet.create({
   emailScreenButton: {
     flex: 1,
     marginTop: 4,
+  },
+  rankedDisplay: {
+    flexDirection: "row",
   },
 });

@@ -67,24 +67,29 @@ export const DUMMY_SETTING = {
 };
 
 export interface RankedProps {
-  id: string;
-  email: string;
-  name: string;
-  description: string;
+  messageId: string;
+  rank: 1 | 2 | 3;
 }
 
 export const DUMMY_RANKED: RankedProps[] = [
   {
-    id: "e1",
-    email: "test@test.com",
-    name: "Testy Tester",
-    description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Mollitia unde assumenda ad eveniet impedit molestiae repellat natus harum porro, fugit cumque iste molestias, tempore sed labore ipsa expedita saepe facere.",
+    messageId: "e1",
+    rank: 2,
   },
   {
-    id: "e2",
-    email: "luffy@test.com",
-    name: "Monkey D",
-    description: "I decided to be Pirate King. I don’t care if I die for it.",
+    messageId: "e2",
+    rank: 3,
   },
 ];
+
+export const DUMMY_USER_1 = {
+  id: "u1",
+  accepted: 50,
+  rejected: 50,
+  settings: {
+    limit: 0,
+    startDate: "2023-09-01T00:00:00.000Z",
+    endDate: "2023-09-08T00:00:00.000Z",
+    parameters: ["description", "size", "budget", "pictures", "placement"],
+  },
+};
