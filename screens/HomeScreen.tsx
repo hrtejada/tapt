@@ -1,13 +1,13 @@
 import { FontAwesome5 } from "@expo/vector-icons";
 import { StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import UnreadCountCard from "../components/ui/EmailInfo/UnreadCountCard";
-import BookingStats from "../components/ui/BookingInfo/BookingStats";
-import BookingStatus from "../components/ui/BookingInfo/BookingStatus";
+import BookingStats from "../components/BookingInfo/BookingStats";
+import BookingStatus from "../components/BookingInfo/BookingStatus";
 import Button from "../components/ui/Button";
+import UnreadCountCard from "../components/EmailInfo/UnreadCountCard";
 import HeaderOne from "../components/ui/HeaderOne";
 import { GlobalStyles } from "../constants/styles";
-import { DUMMY_HOME } from "../testData/DUMMY_DATA";
+import { DUMMY_USER_1 } from "../testData/DUMMY_DATA";
 import { HomeStackProps } from "../util/screen-navigation";
 
 /**
@@ -24,6 +24,13 @@ import { HomeStackProps } from "../util/screen-navigation";
  */
 const HomeScreen = ({ navigation }: HomeStackProps) => {
   const insets = useSafeAreaInsets();
+
+  const now = new Date();
+  const startDate = new Date(DUMMY_USER_1.settings.startDate);
+  const endDate = new Date(DUMMY_USER_1.settings.endDate);
+  const startDateDisplay = startDate.toDateString();
+  const endDateDisplay = endDate.toDateString();
+  const isBooking = now >= startDate && now < endDate;
 
   /**
    * Navigate to the Email Screen.
@@ -50,13 +57,13 @@ const HomeScreen = ({ navigation }: HomeStackProps) => {
       <View style={styles.firstRow}>
         <HeaderOne>Booking Info</HeaderOne>
         <BookingStatus
-          status={DUMMY_HOME.booking}
-          startDate={DUMMY_HOME.bookingStartDate}
-          endDate={DUMMY_HOME.bookingEndDate}
+          status={isBooking}
+          startDate={startDateDisplay}
+          endDate={endDateDisplay}
         />
         <BookingStats
-          accepted={DUMMY_HOME.accepted}
-          rejected={DUMMY_HOME.rejected}
+          accepted={DUMMY_USER_1.accepted}
+          rejected={DUMMY_USER_1.rejected}
         />
       </View>
       <View style={styles.secondRow}>
@@ -77,7 +84,7 @@ const HomeScreen = ({ navigation }: HomeStackProps) => {
       <View style={styles.thirdRow}>
         <HeaderOne>Emails</HeaderOne>
         <View style={styles.emailsContainer}>
-          <UnreadCountCard unreadCount={DUMMY_HOME.unreadCount} />
+          <UnreadCountCard unreadCount={DUMMY_USER_1.unreadCount} />
           <View style={styles.emailButtonContainer}>
             <Button onPress={emailPressHandler}>
               <View style={styles.innerButtonContainer}>

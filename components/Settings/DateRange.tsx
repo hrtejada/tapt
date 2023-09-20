@@ -1,9 +1,9 @@
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { GlobalStyles } from "../../../constants/styles";
-import { DUMMY_SETTING } from "../../../testData/DUMMY_DATA";
-import HeaderTwo from "../HeaderTwo";
+import { GlobalStyles } from "../../constants/styles";
+import { DUMMY_USER_1 } from "../../testData/DUMMY_DATA";
+import HeaderTwo from "../ui/HeaderTwo";
 
 /**
  * Component to hold the datepickers for the Settings Screen.
@@ -15,11 +15,11 @@ import HeaderTwo from "../HeaderTwo";
  */
 const DateRange = () => {
   const [startDate, setStartDate] = useState<Date>(
-    new Date(DUMMY_SETTING.startDate) || new Date()
+    new Date(DUMMY_USER_1.settings.startDate) || new Date()
   );
   // TODO: Should we limit how far out users can put the End Date??
   const [endDate, setEndDate] = useState<Date>(
-    new Date(DUMMY_SETTING.endDate) || new Date()
+    new Date(DUMMY_USER_1.settings.endDate) || new Date()
   );
 
   // TODO: Review which way is better in the long run: Inline functions or function calls

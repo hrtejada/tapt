@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
-import { GlobalStyles } from "../../../constants/styles";
-import { ACTIVE, INACTIVE } from "../../../constants/words";
+import { GlobalStyles } from "../../constants/styles";
+import { ACTIVE, INACTIVE } from "../../constants/words";
 
 interface Props {
   status: boolean;
@@ -35,7 +35,6 @@ export default BookingStatus;
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
   },

@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
-import { GlobalStyles } from "../../../constants/styles";
-import { ImageNavigationProps } from "../../../util/screen-navigation";
+import { GlobalStyles } from "../../constants/styles";
+import { ImageNavigationProps } from "../../util/screen-navigation";
 
 interface Props {
   id: string;

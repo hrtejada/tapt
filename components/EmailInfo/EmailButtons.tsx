@@ -1,8 +1,8 @@
 import { StyleSheet, View } from "react-native";
-import { GlobalStyles } from "../../../constants/styles";
-import { ACCEPT, REJECT } from "../../../constants/words";
-import IconButton from "../IconButton";
-import Button from "../Button";
+import { GlobalStyles } from "../../constants/styles";
+import { ACCEPT, REJECT } from "../../constants/words";
+import IconButton from "../ui/IconButton";
+import Button from "../ui/Button";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { FontAwesome } from "@expo/vector-icons";
 import { useState } from "react";

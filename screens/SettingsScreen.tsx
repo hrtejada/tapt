@@ -1,8 +1,8 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import DateRange from "../components/ui/Settings/DateRange";
-import DeleteAccount from "../components/ui/Settings/DeleteAccount";
-import EmailLimit from "../components/ui/Settings/EmailLimit";
-import Parameters from "../components/ui/Settings/Parameters";
+import DateRange from "../components/Settings/DateRange";
+import DeleteAccount from "../components/Settings/DeleteAccount";
+import EmailLimit from "../components/Settings/EmailLimit";
+import Parameters from "../components/Settings/Parameters";
 import { GlobalStyles } from "../constants/styles";
 
 /**

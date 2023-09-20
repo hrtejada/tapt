@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
-import { GlobalStyles } from "../../../constants/styles";
-import { ACCEPTED, REJECTED } from "../../../constants/words";
+import { GlobalStyles } from "../../constants/styles";
+import { ACCEPTED, REJECTED } from "../../constants/words";
 
 interface Props {
   title: typeof ACCEPTED | typeof REJECTED;

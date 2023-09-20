@@ -1,5 +1,4 @@
 // TODO: Work on the data model for the Cloud Firestore
-// TODO: Consolidate DUMMY DATA into one const that can be used throughout all Screens
 
 /**
  * Dummy data used on the Email Screen.
@@ -41,31 +40,6 @@ export const DUMMY_EMAILS = [
   },
 ];
 
-/**
- * Dummy data used on the Home Screen.
- * Data model subject to change depending on future changes.
- * TODO: Change Dates to proper JS Date format to handle it better in code
- */
-export const DUMMY_HOME = {
-  unreadCount: 0,
-  accepted: 50,
-  rejected: 50,
-  booking: true,
-  bookingStartDate: "8/23/2023",
-  bookingEndDate: "9/25/2023",
-};
-
-/**
- * Dummy data used on the Settings Screen.
- * Data model subject to change depending on future changes.
- */
-export const DUMMY_SETTING = {
-  limit: 0,
-  startDate: "2023-09-01T00:00:00.000Z",
-  endDate: "2023-09-08T00:00:00.000Z",
-  parameters: ["description", "size", "budget", "pictures", "placement"],
-};
-
 export interface RankedProps {
   messageId: string;
   rank: 1 | 2 | 3;
@@ -82,14 +56,21 @@ export const DUMMY_RANKED: RankedProps[] = [
   },
 ];
 
+/**
+ * Dummy User data.
+ *
+ * Will try to represent a more realistic data model for the app
+ * TODO: Determine if we need to incorporate Ranked into this or have it be separate
+ */
 export const DUMMY_USER_1 = {
   id: "u1",
+  unreadCount: 0, // NOTE - We'll get this in realtime from the GMAIL API
   accepted: 50,
   rejected: 50,
   settings: {
     limit: 0,
     startDate: "2023-09-01T00:00:00.000Z",
-    endDate: "2023-09-08T00:00:00.000Z",
+    endDate: "2023-09-30T00:00:00.000Z",
     parameters: ["description", "size", "budget", "pictures", "placement"],
   },
 };
