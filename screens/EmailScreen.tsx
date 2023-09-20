@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
-import EmailButtons from "../components/ui/EmailInfo/EmailButtons";
-import ImageParameter from "../components/ui/EmailInfo/ImageParameter";
-import SenderInfo from "../components/ui/EmailInfo/SenderInfo";
-import TextParameter from "../components/ui/EmailInfo/TextParameter";
+import EmailButtons from "../components/EmailInfo/EmailButtons";
+import ImageParameter from "../components/EmailInfo/ImageParameter";
+import SenderInfo from "../components/EmailInfo/SenderInfo";
+import TextParameter from "../components/EmailInfo/TextParameter";
 import LoadingOverlay from "../components/ui/LoadingOverlay";
 import { GlobalStyles } from "../constants/styles";
 import { DUMMY_EMAILS } from "../testData/DUMMY_DATA";

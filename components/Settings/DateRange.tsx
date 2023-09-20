@@ -1,9 +1,9 @@
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { GlobalStyles } from "../../../constants/styles";
-import { DUMMY_USER_1 } from "../../../testData/DUMMY_DATA";
-import HeaderTwo from "../HeaderTwo";
+import { GlobalStyles } from "../../constants/styles";
+import { DUMMY_USER_1 } from "../../testData/DUMMY_DATA";
+import HeaderTwo from "../ui/HeaderTwo";
 
 /**
  * Component to hold the datepickers for the Settings Screen.

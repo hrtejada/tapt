@@ -1,5 +1,5 @@
 import { StyleSheet, View } from "react-native";
-import { ACCEPTED, REJECTED } from "../../../constants/words";
+import { ACCEPTED, REJECTED } from "../../constants/words";
 import BookingNumberCard from "./BookingNumberCard";
 
 interface Props {

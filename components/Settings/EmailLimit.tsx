@@ -1,8 +1,8 @@
 import { createRef, useState } from "react";
 import { Alert, StyleSheet, Text, TextInput, View } from "react-native";
-import { GlobalStyles } from "../../../constants/styles";
-import { DUMMY_USER_1 } from "../../../testData/DUMMY_DATA";
-import HeaderTwo from "../HeaderTwo";
+import { GlobalStyles } from "../../constants/styles";
+import { DUMMY_USER_1 } from "../../testData/DUMMY_DATA";
+import HeaderTwo from "../ui/HeaderTwo";
 
 /**
  * Component that holds the email limit functionality.

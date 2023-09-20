@@ -1,10 +1,10 @@
 import { FontAwesome5 } from "@expo/vector-icons";
 import { StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import BookingStats from "../components/ui/BookingInfo/BookingStats";
-import BookingStatus from "../components/ui/BookingInfo/BookingStatus";
+import BookingStats from "../components/BookingInfo/BookingStats";
+import BookingStatus from "../components/BookingInfo/BookingStatus";
 import Button from "../components/ui/Button";
-import UnreadCountCard from "../components/ui/EmailInfo/UnreadCountCard";
+import UnreadCountCard from "../components/EmailInfo/UnreadCountCard";
 import HeaderOne from "../components/ui/HeaderOne";
 import { GlobalStyles } from "../constants/styles";
 import { DUMMY_USER_1 } from "../testData/DUMMY_DATA";

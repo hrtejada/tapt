@@ -2,11 +2,11 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { useState } from "react";
 import { Modal, Pressable, StyleSheet, Text, View } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
-import { GlobalStyles } from "../../../constants/styles";
-import { DUMMY_USER_1 } from "../../../testData/DUMMY_DATA";
-import Button from "../Button";
-import Chip from "../Chip";
-import HeaderTwo from "../HeaderTwo";
+import { GlobalStyles } from "../../constants/styles";
+import { DUMMY_USER_1 } from "../../testData/DUMMY_DATA";
+import Button from "../ui/Button";
+import Chip from "../ui/Chip";
+import HeaderTwo from "../ui/HeaderTwo";
 
 /**
  * Component for the Settings Screen that will hold the parameters setting.

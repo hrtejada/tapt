@@ -1,7 +1,7 @@
 import { StyleSheet, View } from "react-native";
-import { GlobalStyles } from "../../../constants/styles";
-import Button from "../Button";
-import HeaderTwo from "../HeaderTwo";
+import { GlobalStyles } from "../../constants/styles";
+import Button from "../ui/Button";
+import HeaderTwo from "../ui/HeaderTwo";
 
 /**
  * Component that holds the delete account functionality.
