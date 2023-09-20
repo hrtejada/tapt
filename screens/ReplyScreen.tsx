@@ -11,7 +11,7 @@ import Button from "../components/ui/Button";
 import HeaderTwo from "../components/ui/HeaderTwo";
 import InfoChip from "../components/ui/InfoChip";
 import { GlobalStyles } from "../constants/styles";
-import { DUMMY_EMAILS, DUMMY_SETTING } from "../testData/DUMMY_DATA";
+import { DUMMY_EMAILS, DUMMY_USER_1 } from "../testData/DUMMY_DATA";
 import { ReplyStackProps } from "../util/screen-navigation";
 
 /**
@@ -25,7 +25,7 @@ import { ReplyStackProps } from "../util/screen-navigation";
 const ReplyScreen = ({ route, navigation }: ReplyStackProps) => {
   const [note, setNote] = useState("");
   const [selected, setSelected] = useState<string[]>([]);
-  const parameters = DUMMY_SETTING.parameters;
+  const parameters = DUMMY_USER_1.settings.parameters;
   const mode = route.params?.mode;
 
   /**
