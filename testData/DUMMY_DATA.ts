@@ -32,9 +32,9 @@ export const DUMMY_EMAILS = [
     placement: "Upper Back",
     budget: 650,
     images: [
-      "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.deviantart.com%2Fb-a-i-o-r-e-t-t-o%2Fart%2FMonkey-D-Luffy-Gear-5-UPDATED-912797420&psig=AOvVaw0-VFae5qHwXbD9RKoJJS3X&ust=1693617672698000&source=images&cd=vfe&opi=89978449&ved=0CA8QjRxqFwoTCLjt4M-fiIEDFQAAAAAdAAAAABAE",
-      "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.cbr.com%2Fone-piece-luffy-gear-5-laugh-meaning%2F&psig=AOvVaw0-VFae5qHwXbD9RKoJJS3X&ust=1693617672698000&source=images&cd=vfe&opi=89978449&ved=0CA8QjRxqFwoTCLjt4M-fiIEDFQAAAAAdAAAAABAT",
-      "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.redbubble.com%2Fi%2Fsticker%2FGear-5-Monkey-D-luffy-by-SevenYero%2F141676301.EJUG5&psig=AOvVaw0-VFae5qHwXbD9RKoJJS3X&ust=1693617672698000&source=images&cd=vfe&opi=89978449&ved=0CA8QjRxqFwoTCLjt4M-fiIEDFQAAAAAdAAAAABAd",
+      "https://m.media-amazon.com/images/I/61EEFbFD68S.jpg",
+      "https://assets.pikiran-rakyat.com/crop/0x0:0x0/x/photo/2023/05/24/1048085296.jpg",
+      "https://images.fineartamerica.com/images/artworkimages/mediumlarge/3/one-piece-wanted-poster-whitebeard-niklas-andersen.jpg",
     ],
     other1: "Zoro is a chad",
     other2: "Usopp is a punk bitch",
@@ -63,15 +63,33 @@ export const DUMMY_SETTING = {
   limit: 0,
   startDate: "2023-09-01T00:00:00.000Z",
   endDate: "2023-09-08T00:00:00.000Z",
-  parameters: [
-    "email",
-    "name",
-    "description",
-    "size",
-    "placement",
-    "budget",
-    "images",
-    "other1",
-    "other2",
-  ],
+  parameters: ["description", "size", "budget", "pictures", "placement"],
+};
+
+export interface RankedProps {
+  messageId: string;
+  rank: 1 | 2 | 3;
+}
+
+export const DUMMY_RANKED: RankedProps[] = [
+  {
+    messageId: "e1",
+    rank: 2,
+  },
+  {
+    messageId: "e2",
+    rank: 3,
+  },
+];
+
+export const DUMMY_USER_1 = {
+  id: "u1",
+  accepted: 50,
+  rejected: 50,
+  settings: {
+    limit: 0,
+    startDate: "2023-09-01T00:00:00.000Z",
+    endDate: "2023-09-08T00:00:00.000Z",
+    parameters: ["description", "size", "budget", "pictures", "placement"],
+  },
 };

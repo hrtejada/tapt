@@ -29,7 +29,7 @@ const HomeScreen = ({ navigation }: HomeStackProps) => {
    * Navigate to the Email Screen.
    */
   const emailPressHandler = () => {
-    navigation.navigate("Email", { email: "new" });
+    navigation.navigate("Email", { action: "new" });
     // TODO: Retrieve email data or handle it in the EmailScreen
   };
 

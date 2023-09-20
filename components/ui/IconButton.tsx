@@ -13,11 +13,13 @@ interface Props {
  *
  * Main use is for the Email Screen.
  *
+ * TODO: Look at Expo Icon Docs to see about simpler way to make icon buttons
+ *
  * @version 0.1.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const IconButton = ({ type, onPress }: Props) => {
-  const icon = type === ACCEPT ? "check-circle" : "times";
+  const icon = type === ACCEPT ? "check-circle" : "times-circle";
 
   return (
     <Pressable
@@ -28,7 +30,7 @@ const IconButton = ({ type, onPress }: Props) => {
         { backgroundColor: type === ACCEPT ? "green" : "red" }, // TODO: Replace when 'success' and 'error'/'danger' styling colors are picked
       ]}
     >
-      <FontAwesome5 name={icon} size={56} color={GlobalStyles.colors.text} />
+      <FontAwesome5 name={icon} size={48} color={GlobalStyles.colors.text} />
     </Pressable>
   );
 };
@@ -37,9 +39,9 @@ export default IconButton;
 
 const styles = StyleSheet.create({
   iconContainer: {
-    padding: 18,
+    padding: 10,
     borderRadius: 50,
-    width: 92,
+    width: "auto",
     alignItems: "center",
   },
   pressed: {

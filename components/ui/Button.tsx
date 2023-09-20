@@ -1,9 +1,8 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
 
 interface Props {
   onPress: () => void;
-  isFlat?: null | boolean;
   buttonStyle?: null | object;
   textStyle?: null | object;
   children: React.ReactNode;
@@ -12,18 +11,12 @@ interface Props {
 /**
  * Main button component
  *
- * TODO: Refine this. Might be overengineered
+ * TODO: Refine this. Might be overengineered ಠ_ಠ
  *
- * @version 0.1.2
+ * @version 0.2.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
-const Button = ({
-  onPress,
-  isFlat,
-  buttonStyle,
-  textStyle,
-  children,
-}: Props) => {
+const Button = ({ onPress, buttonStyle, textStyle, children }: Props) => {
   return (
     <Pressable
       onPress={onPress}
@@ -33,11 +26,7 @@ const Button = ({
         buttonStyle,
       ]}
     >
-      <View style={[isFlat && styles.flat]}>
-        <Text style={[styles.buttonText, textStyle, isFlat && styles.flatText]}>
-          {children}
-        </Text>
-      </View>
+      <Text style={[styles.buttonText, textStyle]}>{children}</Text>
     </Pressable>
   );
 };
@@ -46,26 +35,21 @@ export default Button;
 
 const styles = StyleSheet.create({
   button: {
-    borderRadius: 4,
-    padding: 12,
+    borderRadius: 6,
+    padding: 4,
     backgroundColor: GlobalStyles.colors.primary500,
     justifyContent: "center",
-    minHeight: 60,
-    shadowColor: GlobalStyles.colors.secondary500,
+    minHeight: 40,
+    minWidth: 40,
+    shadowColor: GlobalStyles.colors.accent500,
     shadowOffset: { width: 1, height: 1 },
-    shadowRadius: 4,
+    shadowRadius: 2,
     shadowOpacity: 0.75,
-  },
-  flat: {
-    backgroundColor: "transparent",
   },
   buttonText: {
     color: GlobalStyles.colors.text,
     textAlign: "center",
     fontSize: 18,
-  },
-  flatText: {
-    color: GlobalStyles.colors.primary300,
   },
   pressed: {
     opacity: 0.75,

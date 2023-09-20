@@ -42,7 +42,7 @@ const ReplyScreen = ({ route, navigation }: ReplyStackProps) => {
     console.log("Selected params:", selected); // See the selected params
     console.log("Note:", note); // See the note
     DUMMY_EMAILS.shift();
-    navigation.navigate("Email", { email: "next" });
+    navigation.navigate("Email", { action: "next" });
   };
 
   /**
