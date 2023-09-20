@@ -106,7 +106,9 @@ const EmailScreen = ({ route, navigation }: EmailStackProps) => {
           />
         </ScrollView>
       </View>
-      <EmailButtons onAccept={acceptHandler} onReject={rejectHandler} />
+      <View style={styles.buttonsContainer}>
+        <EmailButtons onAccept={acceptHandler} onReject={rejectHandler} />
+      </View>
     </View>
   );
 };
@@ -128,5 +130,8 @@ const styles = StyleSheet.create({
     borderBottomColor: GlobalStyles.colors.accent900,
     paddingHorizontal: 12,
     paddingVertical: 8,
+  },
+  buttonsContainer: {
+    flex: 1,
   },
 });
