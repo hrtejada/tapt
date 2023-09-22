@@ -21,6 +21,7 @@ import { StackParamList } from "./util/screen-navigation";
  * Main app component.
  *
  * TODO: Figure out how to style the bottom bar on iOS
+ * TODO: Go through and take out SafeAreaView and use the useSafeAreaInsets hook instead
  * @version 0.1.5
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
@@ -81,7 +82,7 @@ export default function App() {
         <StatusBar style="auto" />
         <NavigationContainer>
           <Drawer.Navigator
-            screenOptions={({ navigation }: { navigation: any }) => ({
+            screenOptions={{
               drawerActiveTintColor: GlobalStyles.colors.text,
               drawerActiveBackgroundColor: GlobalStyles.colors.secondary700,
               drawerInactiveTintColor: GlobalStyles.colors.text,
@@ -98,7 +99,7 @@ export default function App() {
                 backgroundColor: GlobalStyles.colors.background300,
               },
               headerTintColor: GlobalStyles.colors.text,
-            })}
+            }}
           >
             <Drawer.Screen
               name="Main"
