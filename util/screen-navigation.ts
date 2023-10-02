@@ -22,8 +22,10 @@ export type HomeStackParamList = {
 export type SettingsStackParamList = {
   Settings: undefined;
   Delete: undefined;
+  EmailLimit: undefined;
 };
 
+/***** HomeStackParamList *****/
 export type HomeStackProps = NativeStackScreenProps<HomeStackParamList, "Home">;
 export type EmailStackProps = NativeStackScreenProps<
   HomeStackParamList,
@@ -41,13 +43,31 @@ export type RankedStackProps = NativeStackScreenProps<
   HomeStackParamList,
   "Ranked"
 >;
+
+/***** SettingsStackParamList *****/
 export type SettingsStackProps = NativeStackScreenProps<
   SettingsStackParamList,
   "Settings"
+>;
+export type DeleteAccountStackProps = NativeStackScreenProps<
+  SettingsStackParamList,
+  "Delete"
+>;
+export type EmailLimitStackProps = NativeStackScreenProps<
+  SettingsStackParamList,
+  "EmailLimit"
 >;
 
 // Used to fix the type error when using the useNavigation hook
 export type ImageNavigationProps = NativeStackNavigationProp<
   HomeStackParamList,
   "Image"
+>;
+export type DeleteAccountNavigationProps = NativeStackNavigationProp<
+  SettingsStackParamList,
+  "Delete"
+>;
+export type EmailLimitNavigationProps = NativeStackNavigationProp<
+  SettingsStackParamList,
+  "EmailLimit"
 >;

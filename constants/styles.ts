@@ -58,5 +58,7 @@ export const GlobalStyles = {
     accent500: "hsl(323, 11%, 47%)",
     accent700: "hsl(323, 11%, 37%)",
     accent900: "hsl(323, 11%, 26%)",
+    success: "hsl(129, 57%, 33%)",
+    warning: "hsl(1, 100%, 29%)",
   },
 };

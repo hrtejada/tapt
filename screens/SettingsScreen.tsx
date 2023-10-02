@@ -1,11 +1,10 @@
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import DateRange from "../components/Settings/DateRange";
-import DeleteAccount from "../components/Settings/DeleteAccount";
-import EmailLimit from "../components/Settings/EmailLimit";
+import DeleteAccountButton from "../components/Settings/DeleteAccountButton";
+import EmailLimitButton from "../components/Settings/EmailLimitButton";
 import Parameters from "../components/Settings/Parameters";
 import { GlobalStyles } from "../constants/styles";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { FontAwesome5 } from "@expo/vector-icons";
+
 import FlatButton from "../components/Settings/FlatButton";
 import { SettingsStackProps } from "../util/screen-navigation";
 
@@ -20,14 +19,11 @@ import { SettingsStackProps } from "../util/screen-navigation";
  *  - Limit how many emails they can accept
  *  - Delete their account
  *
- * @version 0.2.0
+ * TODO: Need to user test the swiping back gesture when in this Stack (Keep or disabled)
+ * @version 0.3.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
-const SettingsScreen = ({ navigation }: SettingsStackProps) => {
-  const deleteNavigationHandler = () => {
-    navigation.navigate("Delete");
-  };
-
+const SettingsScreen = () => {
   return (
     <View style={styles.rootContainer}>
       <ScrollView>
@@ -40,24 +36,8 @@ const SettingsScreen = ({ navigation }: SettingsStackProps) => {
         </View>
         <Parameters />
         <DateRange />
-        <EmailLimit />
-        <DeleteAccount />
-        <FlatButton
-          leftIcon={
-            <MaterialCommunityIcons
-              name="account-remove"
-              size={28}
-              color="black"
-              style={{ paddingHorizontal: 10 }}
-            />
-          }
-          rightIcon={
-            <FontAwesome5 name="angle-right" size={28} color="black" />
-          }
-          onPress={deleteNavigationHandler}
-        >
-          Delete Account
-        </FlatButton>
+        <EmailLimitButton />
+        <DeleteAccountButton />
       </ScrollView>
     </View>
   );

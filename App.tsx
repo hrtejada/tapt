@@ -34,6 +34,7 @@ const HomeStack = createNativeStackNavigator<HomeStackParamList>();
 const SettingsStack = createNativeStackNavigator<SettingsStackParamList>();
 
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
+import EmailLimitScreen from "./screens/Settings/EmailLimitScreen";
 
 const getHeaderTitle = (route: Partial<Route<string>>) => {
   // If the focused route is not found, we need to assume it's the initial screen
@@ -98,11 +99,9 @@ const MainView = () => {
 const SettingsView = () => {
   return (
     <SettingsStack.Navigator
-      screenOptions={
-        {
-          // headerShown: false,
-        }
-      }
+      screenOptions={{
+        headerShown: false,
+      }}
     >
       <SettingsStack.Screen name="Settings" component={SettingsScreen} />
       <SettingsStack.Screen
@@ -110,6 +109,13 @@ const SettingsView = () => {
         component={DeleteAccountScreen}
         options={{
           title: "Delete Account",
+        }}
+      />
+      <SettingsStack.Screen
+        name="EmailLimit"
+        component={EmailLimitScreen}
+        options={{
+          title: "Email Limit",
         }}
       />
     </SettingsStack.Navigator>
@@ -159,7 +165,7 @@ export default function App() {
               }}
             />
             <Drawer.Screen
-              name="Settings"
+              name="SettingsStack"
               component={SettingsView}
               options={({ route }) => ({
                 drawerIcon: () => (
@@ -171,6 +177,7 @@ export default function App() {
                 ),
                 headerRight: () => <LogoutButton />,
                 headerTitle: getHeaderTitle(route),
+                title: "Settings",
               })}
             />
           </Drawer.Navigator>

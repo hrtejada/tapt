@@ -8,6 +8,14 @@ interface Props {
   children: React.ReactNode;
 }
 
+/**
+ * Flat button component.
+ *
+ * Used on SettingsScreen
+ *
+ * @version 0.1.0
+ * @author  Ralph Woiwode <https://github.com/RAWoiwode>
+ */
 const FlatButton = ({ leftIcon, rightIcon, onPress, children }: Props) => {
   return (
     <Pressable
@@ -48,6 +56,6 @@ const styles = StyleSheet.create({
     backgroundColor: GlobalStyles.colors.primary500,
   },
   pressed: {
-    opacity: 0.75,
+    opacity: 1.75,
   },
 });
