@@ -2,7 +2,7 @@ import "react-native-gesture-handler"; // LEAVE AT THE TOP OF IMPORTS
 
 import { FontAwesome5 } from "@expo/vector-icons";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, Route } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -15,7 +15,11 @@ import LoginScreen from "./screens/LoginScreen";
 import RankedQueueScreen from "./screens/RankedQueueScreen";
 import ReplyScreen from "./screens/ReplyScreen";
 import SettingsScreen from "./screens/SettingsScreen";
-import { StackParamList } from "./util/screen-navigation";
+import {
+  HomeStackParamList,
+  SettingsStackParamList,
+} from "./util/screen-navigation";
+import DeleteAccountScreen from "./screens/Settings/DeleteAccountScreen";
 
 /**
  * Main app component.
@@ -26,7 +30,24 @@ import { StackParamList } from "./util/screen-navigation";
  */
 
 const Drawer = createDrawerNavigator();
-const Stack = createNativeStackNavigator<StackParamList>();
+const HomeStack = createNativeStackNavigator<HomeStackParamList>();
+const SettingsStack = createNativeStackNavigator<SettingsStackParamList>();
+
+import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
+
+const getHeaderTitle = (route: Partial<Route<string>>) => {
+  // If the focused route is not found, we need to assume it's the initial screen
+  // This can happen during if there hasn't been any navigation inside the screen
+  // In our case, it's "Feed" as that's the first screen inside the navigator
+  const routeName = getFocusedRouteNameFromRoute(route) ?? "Settings";
+
+  switch (routeName) {
+    case "Settings":
+      return routeName;
+    case "Delete":
+      return "Delete Account";
+  }
+};
 
 /**
  * Stack to hold the Login Screens.
@@ -35,9 +56,9 @@ const Stack = createNativeStackNavigator<StackParamList>();
  */
 const LoginStack = () => {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="Login" component={LoginScreen} />
-    </Stack.Navigator>
+    <HomeStack.Navigator>
+      <HomeStack.Screen name="Login" component={LoginScreen} />
+    </HomeStack.Navigator>
   );
 };
 
@@ -48,29 +69,50 @@ const LoginStack = () => {
  */
 const MainView = () => {
   return (
-    <Stack.Navigator
+    <HomeStack.Navigator
       screenOptions={{
         headerShown: false,
       }}
     >
-      <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Group
+      <HomeStack.Screen name="Home" component={HomeScreen} />
+      <HomeStack.Group
         screenOptions={{
           presentation: "modal",
         }}
       >
-        <Stack.Screen name="Email" component={EmailScreen} />
-        <Stack.Screen
+        <HomeStack.Screen name="Email" component={EmailScreen} />
+        <HomeStack.Screen
           name="Ranked"
           component={RankedQueueScreen}
           options={{
             title: "Ranked Queue",
           }}
         />
-        <Stack.Screen name="Image" component={ImageScreen} />
-        <Stack.Screen name="Reply" component={ReplyScreen} />
-      </Stack.Group>
-    </Stack.Navigator>
+        <HomeStack.Screen name="Image" component={ImageScreen} />
+        <HomeStack.Screen name="Reply" component={ReplyScreen} />
+      </HomeStack.Group>
+    </HomeStack.Navigator>
+  );
+};
+
+const SettingsView = () => {
+  return (
+    <SettingsStack.Navigator
+      screenOptions={
+        {
+          // headerShown: false,
+        }
+      }
+    >
+      <SettingsStack.Screen name="Settings" component={SettingsScreen} />
+      <SettingsStack.Screen
+        name="Delete"
+        component={DeleteAccountScreen}
+        options={{
+          title: "Delete Account",
+        }}
+      />
+    </SettingsStack.Navigator>
   );
 };
 
@@ -81,7 +123,7 @@ export default function App() {
         <StatusBar style="auto" />
         <NavigationContainer>
           <Drawer.Navigator
-            screenOptions={({ navigation }: { navigation: any }) => ({
+            screenOptions={{
               drawerActiveTintColor: GlobalStyles.colors.text,
               drawerActiveBackgroundColor: GlobalStyles.colors.secondary700,
               drawerInactiveTintColor: GlobalStyles.colors.text,
@@ -98,10 +140,10 @@ export default function App() {
                 backgroundColor: GlobalStyles.colors.background300,
               },
               headerTintColor: GlobalStyles.colors.text,
-            })}
+            }}
           >
             <Drawer.Screen
-              name="Main"
+              name="MainView"
               component={MainView}
               options={{
                 headerTitle: "",
@@ -118,8 +160,8 @@ export default function App() {
             />
             <Drawer.Screen
               name="Settings"
-              component={SettingsScreen}
-              options={{
+              component={SettingsView}
+              options={({ route }) => ({
                 drawerIcon: () => (
                   <FontAwesome5
                     name="cogs"
@@ -128,7 +170,8 @@ export default function App() {
                   />
                 ),
                 headerRight: () => <LogoutButton />,
-              }}
+                headerTitle: getHeaderTitle(route),
+              })}
             />
           </Drawer.Navigator>
         </NavigationContainer>

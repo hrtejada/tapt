@@ -1,9 +1,13 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import DateRange from "../components/Settings/DateRange";
 import DeleteAccount from "../components/Settings/DeleteAccount";
 import EmailLimit from "../components/Settings/EmailLimit";
 import Parameters from "../components/Settings/Parameters";
 import { GlobalStyles } from "../constants/styles";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
+import FlatButton from "../components/Settings/FlatButton";
+import { SettingsStackProps } from "../util/screen-navigation";
 
 /**
  * Settings Screen where the user can perform various actions.
@@ -19,7 +23,11 @@ import { GlobalStyles } from "../constants/styles";
  * @version 0.2.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
-const SettingsScreen = () => {
+const SettingsScreen = ({ navigation }: SettingsStackProps) => {
+  const deleteNavigationHandler = () => {
+    navigation.navigate("Delete");
+  };
+
   return (
     <View style={styles.rootContainer}>
       <ScrollView>
@@ -34,6 +42,22 @@ const SettingsScreen = () => {
         <DateRange />
         <EmailLimit />
         <DeleteAccount />
+        <FlatButton
+          leftIcon={
+            <MaterialCommunityIcons
+              name="account-remove"
+              size={28}
+              color="black"
+              style={{ paddingHorizontal: 10 }}
+            />
+          }
+          rightIcon={
+            <FontAwesome5 name="angle-right" size={28} color="black" />
+          }
+          onPress={deleteNavigationHandler}
+        >
+          Delete Account
+        </FlatButton>
       </ScrollView>
     </View>
   );
@@ -65,5 +89,26 @@ const styles = StyleSheet.create({
   },
   deleteButtonText: {
     color: GlobalStyles.colors.background100,
+  },
+  flatButton: {
+    flexDirection: "row",
+    backgroundColor: GlobalStyles.colors.accent100,
+    padding: 12,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  flatButtonText: {
+    fontSize: 22,
+  },
+  buttonTitleContainer: {
+    flex: 8,
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: GlobalStyles.colors.primary300,
+  },
+  buttonRightContainer: {
+    flex: 1,
+    alignItems: "center",
+    backgroundColor: GlobalStyles.colors.primary500,
   },
 });
