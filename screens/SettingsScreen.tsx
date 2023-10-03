@@ -4,6 +4,8 @@ import DeleteAccountButton from "../components/Settings/DeleteAccountButton";
 import EmailLimitButton from "../components/Settings/EmailLimitButton";
 import ParametersButton from "../components/Settings/ParametersButton";
 import { GlobalStyles } from "../constants/styles";
+import NotificationCadenceButton from "../components/Settings/NotificationCadenceButton";
+import RankModeButton from "../components/Settings/RankModeButton";
 
 /**
  * Settings Screen where the user can perform various actions.
@@ -27,10 +29,8 @@ const SettingsScreen = () => {
         <View style={styles.container}>
           <Text style={styles.text}>About App</Text>
         </View>
-        <View style={styles.container}>
-          <Text style={styles.text}>Set data retrieval cadence</Text>
-          <Text>Determine how to represent this</Text>
-        </View>
+        <RankModeButton />
+        <NotificationCadenceButton />
         <ParametersButton />
         <DateRangeButton />
         <EmailLimitButton />

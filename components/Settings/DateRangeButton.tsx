@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import { DateRangeStackProps } from "../../util/screen-navigation";
 
 /**
- * Component to navigate to the DateRangeScreen.
+ * Button used to navigate to the DateRangeScreen.
  *
  * @version 0.2.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>

@@ -37,6 +37,8 @@ import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import EmailLimitScreen from "./screens/Settings/EmailLimitScreen";
 import DateRangeScreen from "./screens/Settings/DateRangeScreen";
 import ParametersScreen from "./screens/Settings/ParametersScreen";
+import NotificationCadenceScreen from "./screens/Settings/NotificationCadenceScreen";
+import RankModeScreen from "./screens/Settings/RankModeScreen";
 
 const getHeaderTitle = (route: Partial<Route<string>>) => {
   // If the focused route is not found, we need to assume it's the initial screen
@@ -132,6 +134,20 @@ const SettingsView = () => {
         component={ParametersScreen}
         options={{
           title: "Parameters",
+        }}
+      />
+      <SettingsStack.Screen
+        name="NotificationCadence"
+        component={NotificationCadenceScreen}
+        options={{
+          title: "Notification Cadence",
+        }}
+      />
+      <SettingsStack.Screen
+        name="RankMode"
+        component={RankModeScreen}
+        options={{
+          title: "Rank Mode",
         }}
       />
     </SettingsStack.Navigator>
