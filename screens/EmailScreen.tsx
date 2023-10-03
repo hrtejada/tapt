@@ -7,7 +7,7 @@ import TextParameter from "../components/EmailInfo/TextParameter";
 import LoadingOverlay from "../components/ui/LoadingOverlay";
 import { GlobalStyles } from "../constants/styles";
 import { DUMMY_EMAILS } from "../testData/DUMMY_DATA";
-import { EmailStackProps } from "../util/screen-navigation";
+import { EmailStackProps } from "../util/react-navigation";
 import { ACCEPT, REJECT } from "../constants/words";
 
 interface emailState {

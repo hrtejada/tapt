@@ -1,5 +1,5 @@
 import { Image, StyleSheet } from "react-native";
-import { ImageStackProps } from "../util/screen-navigation";
+import { ImageStackProps } from "../util/react-navigation";
 
 /**
  * Component that will display an image.

@@ -12,7 +12,7 @@ import HeaderTwo from "../components/ui/HeaderTwo";
 import InfoChip from "../components/ui/InfoChip";
 import { GlobalStyles } from "../constants/styles";
 import { DUMMY_EMAILS, DUMMY_USER_1 } from "../testData/DUMMY_DATA";
-import { ReplyStackProps } from "../util/screen-navigation";
+import { ReplyStackProps } from "../util/react-navigation";
 
 /**
  * Component that will help the user build an simple email reply.

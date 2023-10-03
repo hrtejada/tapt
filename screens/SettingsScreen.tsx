@@ -13,14 +13,14 @@ import AboutButton from "../components/Settings/AboutButton";
  *
  * The user can
  *  - Logout
- *  - Set how oftern data is retrieved from their email
+ *  - Set how often the receive notifications
  *  - Set what data to parse from what emails
  *  - Set date range to search through
  *  - Limit how many emails they can accept
  *  - Delete their account
  *
  * TODO: Need to user test the swiping back gesture when in this Stack (Keep or disabled)
- * @version 0.3.1
+ * @version 0.3.2
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const SettingsScreen = () => {
@@ -28,12 +28,14 @@ const SettingsScreen = () => {
     <View style={styles.rootContainer}>
       <ScrollView>
         <AboutButton />
-        <RankModeButton />
-        <NotificationCadenceButton />
-        <ParametersButton />
         <DateRangeButton />
         <EmailLimitButton />
-        <DeleteAccountButton />
+        <NotificationCadenceButton />
+        <ParametersButton />
+        <RankModeButton />
+        <View style={styles.deleteContainer}>
+          <DeleteAccountButton />
+        </View>
       </ScrollView>
     </View>
   );
@@ -46,45 +48,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: GlobalStyles.colors.background300,
   },
-  // TODO: Check 'container' styling on all children to see about simplifying
-  container: {
-    flex: 1,
-    padding: 12,
-    justifyContent: "center",
-    alignItems: "center",
-    borderBottomWidth: 2,
-    borderBottomColor: GlobalStyles.colors.accent700,
-  },
-  text: {
-    color: GlobalStyles.colors.text,
-    fontSize: 24,
-    fontWeight: "bold",
-  },
-  deleteButton: {
-    backgroundColor: GlobalStyles.colors.accent700,
-  },
-  deleteButtonText: {
-    color: GlobalStyles.colors.background100,
-  },
-  flatButton: {
-    flexDirection: "row",
-    backgroundColor: GlobalStyles.colors.accent100,
-    padding: 12,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  flatButtonText: {
-    fontSize: 22,
-  },
-  buttonTitleContainer: {
-    flex: 8,
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: GlobalStyles.colors.primary300,
-  },
-  buttonRightContainer: {
-    flex: 1,
-    alignItems: "center",
-    backgroundColor: GlobalStyles.colors.primary500,
+  deleteContainer: {
+    marginTop: 4,
   },
 });

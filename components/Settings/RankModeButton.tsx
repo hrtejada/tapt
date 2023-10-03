@@ -1,8 +1,10 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet } from "react-native";
-import { RankModeStackProps } from "../../util/screen-navigation";
+import { RankModeStackProps } from "../../util/react-navigation";
 import FlatButton from "./FlatButton";
+import { FLAT_BUTTON_ICON_SIZE } from "../../constants/sizes";
+import { RANK_MODE_TITLE } from "../../constants/words";
 
 /**
  * Button used to navigate to the RankModeScreen.
@@ -14,7 +16,11 @@ const RankModeButton = () => {
   const navigation = useNavigation<RankModeStackProps["navigation"]>();
 
   const leftIcon = (
-    <MaterialCommunityIcons name="star-settings" size={28} color="black" />
+    <MaterialCommunityIcons
+      name="star-settings"
+      size={FLAT_BUTTON_ICON_SIZE}
+      color="black"
+    />
   );
 
   const rankModeNavigationHandler = () => {
@@ -23,7 +29,7 @@ const RankModeButton = () => {
 
   return (
     <FlatButton leftIcon={leftIcon} onPress={rankModeNavigationHandler}>
-      Rank Mode
+      {RANK_MODE_TITLE}
     </FlatButton>
   );
 };

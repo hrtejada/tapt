@@ -9,7 +9,7 @@ import {
   DUMMY_RANKED,
   RankedProps,
 } from "../testData/DUMMY_DATA";
-import { RankedStackProps } from "../util/screen-navigation";
+import { RankedStackProps } from "../util/react-navigation";
 import React from "react";
 
 /**

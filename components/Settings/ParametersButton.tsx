@@ -1,8 +1,10 @@
 import { FontAwesome5 } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet } from "react-native";
-import { ParametersStackProps } from "../../util/screen-navigation";
+import { ParametersStackProps } from "../../util/react-navigation";
 import FlatButton from "./FlatButton";
+import { FLAT_BUTTON_ICON_SIZE } from "../../constants/sizes";
+import { PARAMETERS_TITLE } from "../../constants/words";
 
 /**
  * Component to navigate to the ParametersScreen.
@@ -13,14 +15,16 @@ import FlatButton from "./FlatButton";
 const ParametersButton = () => {
   const navigation = useNavigation<ParametersStackProps["navigation"]>();
 
-  const leftIcon = <FontAwesome5 name="keyboard" size={24} color="black" />;
+  const leftIcon = (
+    <FontAwesome5 name="keyboard" size={FLAT_BUTTON_ICON_SIZE} color="black" />
+  );
 
   const parametersNavigationHandler = () => {
     navigation.navigate("Parameters");
   };
   return (
     <FlatButton leftIcon={leftIcon} onPress={parametersNavigationHandler}>
-      Data Parameters
+      {PARAMETERS_TITLE}
     </FlatButton>
   );
 };

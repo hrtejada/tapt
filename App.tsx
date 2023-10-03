@@ -2,7 +2,7 @@ import "react-native-gesture-handler"; // LEAVE AT THE TOP OF IMPORTS
 
 import { FontAwesome5 } from "@expo/vector-icons";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { NavigationContainer, Route } from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -14,46 +14,32 @@ import ImageScreen from "./screens/ImageScreen";
 import LoginScreen from "./screens/LoginScreen";
 import RankedQueueScreen from "./screens/RankedQueueScreen";
 import ReplyScreen from "./screens/ReplyScreen";
+import AboutScreen from "./screens/Settings/AboutScreen";
+import DateRangeScreen from "./screens/Settings/DateRangeScreen";
+import DeleteAccountScreen from "./screens/Settings/DeleteAccountScreen";
+import EmailLimitScreen from "./screens/Settings/EmailLimitScreen";
+import NotificationCadenceScreen from "./screens/Settings/NotificationCadenceScreen";
+import ParametersScreen from "./screens/Settings/ParametersScreen";
+import RankModeScreen from "./screens/Settings/RankModeScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 import {
   HomeStackParamList,
   SettingsStackParamList,
-} from "./util/screen-navigation";
-import DeleteAccountScreen from "./screens/Settings/DeleteAccountScreen";
+  getHeaderTitle,
+} from "./util/react-navigation";
 
 /**
  * Main app component.
  *
  * TODO: Figure out how to style the bottom bar on iOS
- * @version 0.1.5
+ * TODO: Should SettingsStack use 'modal' as well to keep a theme going??
+ * @version 0.2.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 
-const Drawer = createDrawerNavigator();
+const Drawer = createDrawerNavigator(); // TODO: Do we need type checking for this?
 const HomeStack = createNativeStackNavigator<HomeStackParamList>();
 const SettingsStack = createNativeStackNavigator<SettingsStackParamList>();
-
-import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
-import EmailLimitScreen from "./screens/Settings/EmailLimitScreen";
-import DateRangeScreen from "./screens/Settings/DateRangeScreen";
-import ParametersScreen from "./screens/Settings/ParametersScreen";
-import NotificationCadenceScreen from "./screens/Settings/NotificationCadenceScreen";
-import RankModeScreen from "./screens/Settings/RankModeScreen";
-import AboutScreen from "./screens/Settings/AboutScreen";
-
-const getHeaderTitle = (route: Partial<Route<string>>) => {
-  // If the focused route is not found, we need to assume it's the initial screen
-  // This can happen during if there hasn't been any navigation inside the screen
-  // In our case, it's "Feed" as that's the first screen inside the navigator
-  const routeName = getFocusedRouteNameFromRoute(route) ?? "Settings";
-
-  switch (routeName) {
-    case "Settings":
-      return routeName;
-    case "Delete":
-      return "Delete Account";
-  }
-};
 
 /**
  * Stack to hold the Login Screens.
@@ -109,49 +95,16 @@ const SettingsView = () => {
       }}
     >
       <SettingsStack.Screen name="Settings" component={SettingsScreen} />
-      <SettingsStack.Screen
-        name="Delete"
-        component={DeleteAccountScreen}
-        options={{
-          title: "Delete Account",
-        }}
-      />
-      <SettingsStack.Screen
-        name="EmailLimit"
-        component={EmailLimitScreen}
-        options={{
-          title: "Email Limit",
-        }}
-      />
-      <SettingsStack.Screen
-        name="DateRange"
-        component={DateRangeScreen}
-        options={{
-          title: "Date Range",
-        }}
-      />
-      <SettingsStack.Screen
-        name="Parameters"
-        component={ParametersScreen}
-        options={{
-          title: "Parameters",
-        }}
-      />
+      <SettingsStack.Screen name="About" component={AboutScreen} />
+      <SettingsStack.Screen name="DateRange" component={DateRangeScreen} />
+      <SettingsStack.Screen name="Delete" component={DeleteAccountScreen} />
+      <SettingsStack.Screen name="EmailLimit" component={EmailLimitScreen} />
       <SettingsStack.Screen
         name="NotificationCadence"
         component={NotificationCadenceScreen}
-        options={{
-          title: "Notification Cadence",
-        }}
       />
-      <SettingsStack.Screen
-        name="RankMode"
-        component={RankModeScreen}
-        options={{
-          title: "Rank Mode",
-        }}
-      />
-      <SettingsStack.Screen name="About" component={AboutScreen} />
+      <SettingsStack.Screen name="Parameters" component={ParametersScreen} />
+      <SettingsStack.Screen name="RankMode" component={RankModeScreen} />
     </SettingsStack.Navigator>
   );
 };

@@ -1,6 +1,7 @@
 import { FontAwesome5 } from "@expo/vector-icons";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
+import { FLAT_BUTTON_ICON_SIZE } from "../../constants/sizes";
 
 interface Props {
   leftIcon: React.ReactNode;
@@ -17,7 +18,13 @@ interface Props {
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const FlatButton = ({ leftIcon, onPress, children }: Props) => {
-  const rightIcon = <FontAwesome5 name="angle-right" size={28} color="black" />;
+  const rightIcon = (
+    <FontAwesome5
+      name="angle-right"
+      size={FLAT_BUTTON_ICON_SIZE}
+      color="black"
+    />
+  );
 
   return (
     <Pressable
@@ -52,8 +59,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   leftIconContainer: {
-    paddingLeft: 10,
     paddingRight: 20,
+    minWidth: 60,
+    alignItems: "flex-end",
   },
   rightIconContainer: {
     flex: 1,

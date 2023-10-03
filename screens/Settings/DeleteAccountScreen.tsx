@@ -3,6 +3,7 @@ import GoBackButton from "../../components/Settings/GoBackButton";
 import Button from "../../components/ui/Button";
 import HeaderTwo from "../../components/ui/HeaderTwo";
 import { GlobalStyles } from "../../constants/styles";
+import { DELETE_TITLE } from "../../constants/words";
 
 /**
  * Screen containing the account deletion functionality.
@@ -33,7 +34,7 @@ const DeleteAccountScreen = () => {
           buttonStyle={styles.deleteButton}
           textStyle={styles.deleteText}
         >
-          DELETE ACCOUNT
+          {DELETE_TITLE.toUpperCase()}
         </Button>
       </View>
     </View>

@@ -1,10 +1,10 @@
-import { StyleSheet, Text, View } from "react-native";
-import HeaderTwo from "../../components/ui/HeaderTwo";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import { DUMMY_USER_1 } from "../../testData/DUMMY_DATA";
 import { useState } from "react";
-import { GlobalStyles } from "../../constants/styles";
+import { StyleSheet, Text, View } from "react-native";
 import GoBackButton from "../../components/Settings/GoBackButton";
+import HeaderTwo from "../../components/ui/HeaderTwo";
+import { GlobalStyles } from "../../constants/styles";
+import { DUMMY_USER_1 } from "../../testData/DUMMY_DATA";
 
 /**
  * Component that holds the datepickers.

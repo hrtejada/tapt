@@ -1,8 +1,10 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet } from "react-native";
-import { EmailLimitStackProps } from "../../util/screen-navigation";
+import { EmailLimitStackProps } from "../../util/react-navigation";
 import FlatButton from "./FlatButton";
+import { FLAT_BUTTON_ICON_SIZE } from "../../constants/sizes";
+import { EMAIL_LIMIT_TITLE } from "../../constants/words";
 
 /**
  * Button used to navigate to the EmailLimitScreen.
@@ -16,7 +18,7 @@ const EmailLimitButton = () => {
   const leftIcon = (
     <MaterialCommunityIcons
       name="email-open-multiple-outline"
-      size={28}
+      size={FLAT_BUTTON_ICON_SIZE}
       color="black"
     />
   );
@@ -27,7 +29,7 @@ const EmailLimitButton = () => {
 
   return (
     <FlatButton leftIcon={leftIcon} onPress={emailLimitNavigationHandler}>
-      Email Limit
+      {EMAIL_LIMIT_TITLE}
     </FlatButton>
   );
 };

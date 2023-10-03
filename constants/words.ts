@@ -18,3 +18,10 @@ export const INACTIVE = "INACTIVE";
 export const IS_FLAT = "isFlat";
 
 /***** SETTINGS CONSTANTS *****/
+export const ABOUT_TITLE = "About";
+export const DATE_RANGE_TITLE = "Date Range";
+export const DELETE_TITLE = "Delete Account";
+export const EMAIL_LIMIT_TITLE = "Email Limit";
+export const NOTIFICATION_TITLE = "Notification Cadence";
+export const PARAMETERS_TITLE = "Parameters";
+export const RANK_MODE_TITLE = "Rank Mode";

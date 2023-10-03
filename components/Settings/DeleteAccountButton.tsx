@@ -1,8 +1,10 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet } from "react-native";
-import { DeleteAccountStackProps } from "../../util/screen-navigation";
+import { DeleteAccountStackProps } from "../../util/react-navigation";
 import FlatButton from "./FlatButton";
+import { DELETE_TITLE } from "../../constants/words";
+import { FLAT_BUTTON_ICON_SIZE } from "../../constants/sizes";
 
 /**
  * Component that holds the button to navigate to the DeleteAccounScreen.
@@ -14,7 +16,11 @@ const DeleteAccountButton = () => {
   const navigation = useNavigation<DeleteAccountStackProps["navigation"]>();
 
   const leftIcon = (
-    <MaterialCommunityIcons name="account-remove" size={28} color="black" />
+    <MaterialCommunityIcons
+      name="account-remove"
+      size={FLAT_BUTTON_ICON_SIZE}
+      color="black"
+    />
   );
 
   const deleteNavigationHandler = () => {
@@ -23,7 +29,7 @@ const DeleteAccountButton = () => {
 
   return (
     <FlatButton leftIcon={leftIcon} onPress={deleteNavigationHandler}>
-      Delete Account
+      {DELETE_TITLE}
     </FlatButton>
   );
 };

@@ -1,7 +1,16 @@
+import { Route, getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import {
   NativeStackNavigationProp,
   NativeStackScreenProps,
 } from "@react-navigation/native-stack";
+import {
+  ABOUT_TITLE,
+  DATE_RANGE_TITLE,
+  DELETE_TITLE,
+  EMAIL_LIMIT_TITLE,
+  NOTIFICATION_TITLE,
+  RANK_MODE_TITLE,
+} from "../constants/words";
 
 /**
  * Holds the TypeScript definitions needed for React Navigation.
@@ -90,11 +99,27 @@ export type ImageNavigationProps = NativeStackNavigationProp<
   HomeStackParamList,
   "Image"
 >;
-export type DeleteAccountNavigationProps = NativeStackNavigationProp<
-  SettingsStackParamList,
-  "Delete"
->;
-export type EmailLimitNavigationProps = NativeStackNavigationProp<
-  SettingsStackParamList,
-  "EmailLimit"
->;
+
+/**
+ * Helper function to change the header title in the SettingsStack.
+ */
+export const getHeaderTitle = (route: Partial<Route<string>>) => {
+  const routeName = getFocusedRouteNameFromRoute(route) ?? "Settings";
+
+  switch (routeName) {
+    case ABOUT_TITLE:
+    case "Parameters":
+    case "Settings":
+      return routeName;
+    case "DateRange":
+      return DATE_RANGE_TITLE;
+    case "Delete":
+      return DELETE_TITLE;
+    case "EmailLimit":
+      return EMAIL_LIMIT_TITLE;
+    case "NotificationCadence":
+      return NOTIFICATION_TITLE;
+    case "RankMode":
+      return RANK_MODE_TITLE;
+  }
+};

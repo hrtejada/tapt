@@ -2,7 +2,9 @@ import { StyleSheet } from "react-native";
 import FlatButton from "./FlatButton";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { DateRangeStackProps } from "../../util/screen-navigation";
+import { DateRangeStackProps } from "../../util/react-navigation";
+import { DATE_RANGE_TITLE } from "../../constants/words";
+import { FLAT_BUTTON_ICON_SIZE } from "../../constants/sizes";
 
 /**
  * Button used to navigate to the DateRangeScreen.
@@ -13,7 +15,13 @@ import { DateRangeStackProps } from "../../util/screen-navigation";
 const DateRangeButton = () => {
   const navigation = useNavigation<DateRangeStackProps["navigation"]>();
 
-  const leftIcon = <FontAwesome5 name="calendar-alt" size={28} color="black" />;
+  const leftIcon = (
+    <FontAwesome5
+      name="calendar-alt"
+      size={FLAT_BUTTON_ICON_SIZE}
+      color="black"
+    />
+  );
 
   const dateRangeNavigationHandler = () => {
     navigation.navigate("DateRange");
@@ -21,7 +29,7 @@ const DateRangeButton = () => {
 
   return (
     <FlatButton leftIcon={leftIcon} onPress={dateRangeNavigationHandler}>
-      Date Range
+      {DATE_RANGE_TITLE}
     </FlatButton>
   );
 };
