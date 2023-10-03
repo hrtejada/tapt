@@ -5,6 +5,7 @@ import GoBackButton from "../../components/Settings/GoBackButton";
 import HeaderTwo from "../../components/ui/HeaderTwo";
 import { GlobalStyles } from "../../constants/styles";
 import { DUMMY_USER_1 } from "../../testData/DUMMY_DATA";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 /**
  * Component that holds the datepickers.
@@ -15,6 +16,7 @@ import { DUMMY_USER_1 } from "../../testData/DUMMY_DATA";
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const DateRangeScreen = () => {
+  const insets = useSafeAreaInsets();
   const [startDate, setStartDate] = useState<Date>(
     new Date(DUMMY_USER_1.settings.startDate) || new Date()
   );
@@ -36,7 +38,16 @@ const DateRangeScreen = () => {
   const minEndDate = startDate < today ? today : startDate;
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        {
+          paddingBottom: insets.bottom,
+          paddingLeft: insets.left,
+          paddingRight: insets.right,
+        },
+      ]}
+    >
       <GoBackButton />
       <HeaderTwo>Set Date Range</HeaderTwo>
       <View style={styles.innerContainer}>

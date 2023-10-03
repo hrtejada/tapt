@@ -7,6 +7,7 @@ import { GlobalStyles } from "../constants/styles";
 import NotificationCadenceButton from "../components/Settings/NotificationCadenceButton";
 import RankModeButton from "../components/Settings/RankModeButton";
 import AboutButton from "../components/Settings/AboutButton";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 /**
  * Settings Screen where the user can perform various actions.
@@ -24,8 +25,18 @@ import AboutButton from "../components/Settings/AboutButton";
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const SettingsScreen = () => {
+  const insets = useSafeAreaInsets();
   return (
-    <View style={styles.rootContainer}>
+    <View
+      style={[
+        styles.rootContainer,
+        {
+          paddingBottom: insets.bottom,
+          paddingLeft: insets.left,
+          paddingRight: insets.right,
+        },
+      ]}
+    >
       <ScrollView>
         <AboutButton />
         <DateRangeButton />

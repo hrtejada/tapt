@@ -4,6 +4,7 @@ import Button from "../../components/ui/Button";
 import HeaderTwo from "../../components/ui/HeaderTwo";
 import { GlobalStyles } from "../../constants/styles";
 import { DELETE_TITLE } from "../../constants/words";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 /**
  * Screen containing the account deletion functionality.
@@ -12,12 +13,23 @@ import { DELETE_TITLE } from "../../constants/words";
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const DeleteAccountScreen = () => {
+  const insets = useSafeAreaInsets();
+
   const deleteAccountHandler = () => {
     // TODO: Flesh out deletion process on backend
   };
 
   return (
-    <View style={styles.rootContainer}>
+    <View
+      style={[
+        styles.rootContainer,
+        {
+          paddingBottom: insets.bottom,
+          paddingLeft: insets.left,
+          paddingRight: insets.right,
+        },
+      ]}
+    >
       <GoBackButton />
       <View style={styles.infoContainer}>
         <HeaderTwo>Info</HeaderTwo>

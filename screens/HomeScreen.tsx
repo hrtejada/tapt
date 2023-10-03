@@ -51,7 +51,12 @@ const HomeScreen = ({ navigation }: HomeStackProps) => {
     <View
       style={[
         styles.container,
-        { paddingTop: insets.top, paddingBottom: insets.bottom },
+        {
+          paddingTop: insets.top,
+          paddingBottom: insets.bottom,
+          paddingLeft: insets.left,
+          paddingRight: insets.right,
+        },
       ]}
     >
       <View style={styles.firstRow}>
@@ -109,7 +114,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "space-between",
-    backgroundColor: GlobalStyles.colors.background300,
+    backgroundColor: GlobalStyles.colors.primary300,
   },
   firstRow: {
     flex: 2,

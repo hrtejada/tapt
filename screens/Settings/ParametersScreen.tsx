@@ -14,6 +14,7 @@ import HeaderTwo from "../../components/ui/HeaderTwo";
 import { GlobalStyles } from "../../constants/styles";
 import { DUMMY_USER_1 } from "../../testData/DUMMY_DATA";
 import GoBackButton from "../../components/Settings/GoBackButton";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 /**
  * Component for the parameters setting.
@@ -24,6 +25,7 @@ import GoBackButton from "../../components/Settings/GoBackButton";
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const ParametersScreen = () => {
+  const insets = useSafeAreaInsets();
   const [parameters, setParameters] = useState<string[]>(
     DUMMY_USER_1.settings.parameters || []
   );
@@ -51,7 +53,16 @@ const ParametersScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        {
+          paddingBottom: insets.bottom,
+          paddingLeft: insets.left,
+          paddingRight: insets.right,
+        },
+      ]}
+    >
       <GoBackButton />
       <HeaderTwo>Set data to parse from emails</HeaderTwo>
       <View style={styles.chipsContainer}>

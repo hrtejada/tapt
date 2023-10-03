@@ -9,6 +9,7 @@ import { GlobalStyles } from "../constants/styles";
 import { DUMMY_EMAILS } from "../testData/DUMMY_DATA";
 import { EmailStackProps } from "../util/react-navigation";
 import { ACCEPT, REJECT } from "../constants/words";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 interface emailState {
   id: string;
@@ -40,6 +41,7 @@ interface emailState {
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const EmailScreen = ({ route, navigation }: EmailStackProps) => {
+  const insets = useSafeAreaInsets();
   const [emailInfo, setEmailInfo] = useState({} as emailState);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -87,7 +89,16 @@ const EmailScreen = ({ route, navigation }: EmailStackProps) => {
   }
 
   return (
-    <View style={styles.rootContainer}>
+    <View
+      style={[
+        styles.rootContainer,
+        {
+          paddingBottom: insets.bottom,
+          paddingLeft: insets.left,
+          paddingRight: insets.right,
+        },
+      ]}
+    >
       <View style={styles.emailInfoContainer}>
         <View style={styles.senderContainer}>
           <SenderInfo name={emailInfo.name} email={emailInfo.email} />

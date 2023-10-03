@@ -1,5 +1,6 @@
 import { createRef, useState } from "react";
 import { Alert, StyleSheet, Text, TextInput, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import GoBackButton from "../../components/Settings/GoBackButton";
 import HeaderTwo from "../../components/ui/HeaderTwo";
 import { GlobalStyles } from "../../constants/styles";
@@ -12,6 +13,7 @@ import { DUMMY_USER_1 } from "../../testData/DUMMY_DATA";
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const EmailLimitScreen = () => {
+  const insets = useSafeAreaInsets();
   const [limit, setLimit] = useState(
     DUMMY_USER_1.settings.limit.toString() || "0"
   );
@@ -63,11 +65,19 @@ const EmailLimitScreen = () => {
       ]);
       return;
     }
-    console.log("Limit", limit);
   };
 
   return (
-    <View style={styles.rootContainer}>
+    <View
+      style={[
+        styles.rootContainer,
+        {
+          paddingBottom: insets.bottom,
+          paddingLeft: insets.left,
+          paddingRight: insets.right,
+        },
+      ]}
+    >
       <GoBackButton />
       <View style={styles.container}>
         <HeaderTwo>Limit accepted emails</HeaderTwo>

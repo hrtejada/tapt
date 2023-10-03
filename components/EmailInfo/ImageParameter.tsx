@@ -1,7 +1,8 @@
 import { useNavigation } from "@react-navigation/native";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
-import { ImageNavigationProps } from "../../util/react-navigation";
+import { ImageStackProps } from "../../util/react-navigation";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 interface Props {
   id: string;
@@ -16,7 +17,8 @@ interface Props {
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const ImageParameter = ({ id, parameter, images }: Props) => {
-  const navigation = useNavigation<ImageNavigationProps>();
+  const insets = useSafeAreaInsets();
+  const navigation = useNavigation<ImageStackProps["navigation"]>();
 
   /**
    * Handle an image being pressed.
@@ -46,7 +48,16 @@ const ImageParameter = ({ id, parameter, images }: Props) => {
   });
 
   return (
-    <View style={styles.infoContainer}>
+    <View
+      style={[
+        styles.infoContainer,
+        {
+          paddingBottom: insets.bottom,
+          paddingLeft: insets.left,
+          paddingRight: insets.right,
+        },
+      ]}
+    >
       <Text style={styles.parameter}>{parameter.toUpperCase()}</Text>
       {imagesDisplay}
     </View>

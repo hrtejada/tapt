@@ -1,12 +1,12 @@
 import { useState } from "react";
 import {
   KeyboardAvoidingView,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   TextInput,
   View,
 } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Button from "../components/ui/Button";
 import HeaderTwo from "../components/ui/HeaderTwo";
 import InfoChip from "../components/ui/InfoChip";
@@ -23,6 +23,7 @@ import { ReplyStackProps } from "../util/react-navigation";
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const ReplyScreen = ({ route, navigation }: ReplyStackProps) => {
+  const insets = useSafeAreaInsets();
   const [note, setNote] = useState("");
   const [selected, setSelected] = useState<string[]>([]);
   const parameters = DUMMY_USER_1.settings.parameters;
@@ -69,7 +70,16 @@ const ReplyScreen = ({ route, navigation }: ReplyStackProps) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        {
+          paddingBottom: insets.bottom,
+          paddingLeft: insets.left,
+          paddingRight: insets.right,
+        },
+      ]}
+    >
       <ScrollView>
         <HeaderTwo>Select parameters:</HeaderTwo>
         <View style={styles.chipContainer}>
@@ -101,7 +111,7 @@ const ReplyScreen = ({ route, navigation }: ReplyStackProps) => {
           <Button onPress={cancleHandler}>Cancel</Button>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 
