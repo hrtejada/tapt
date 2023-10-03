@@ -1,12 +1,9 @@
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
-import DateRange from "../components/Settings/DateRange";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
+import DateRangeButton from "../components/Settings/DateRangeButton";
 import DeleteAccountButton from "../components/Settings/DeleteAccountButton";
 import EmailLimitButton from "../components/Settings/EmailLimitButton";
-import Parameters from "../components/Settings/Parameters";
+import ParametersButton from "../components/Settings/ParametersButton";
 import { GlobalStyles } from "../constants/styles";
-
-import FlatButton from "../components/Settings/FlatButton";
-import { SettingsStackProps } from "../util/screen-navigation";
 
 /**
  * Settings Screen where the user can perform various actions.
@@ -20,7 +17,7 @@ import { SettingsStackProps } from "../util/screen-navigation";
  *  - Delete their account
  *
  * TODO: Need to user test the swiping back gesture when in this Stack (Keep or disabled)
- * @version 0.3.0
+ * @version 0.3.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const SettingsScreen = () => {
@@ -34,8 +31,8 @@ const SettingsScreen = () => {
           <Text style={styles.text}>Set data retrieval cadence</Text>
           <Text>Determine how to represent this</Text>
         </View>
-        <Parameters />
-        <DateRange />
+        <ParametersButton />
+        <DateRangeButton />
         <EmailLimitButton />
         <DeleteAccountButton />
       </ScrollView>

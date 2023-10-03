@@ -35,6 +35,8 @@ const SettingsStack = createNativeStackNavigator<SettingsStackParamList>();
 
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import EmailLimitScreen from "./screens/Settings/EmailLimitScreen";
+import DateRangeScreen from "./screens/Settings/DateRangeScreen";
+import ParametersScreen from "./screens/Settings/ParametersScreen";
 
 const getHeaderTitle = (route: Partial<Route<string>>) => {
   // If the focused route is not found, we need to assume it's the initial screen
@@ -116,6 +118,20 @@ const SettingsView = () => {
         component={EmailLimitScreen}
         options={{
           title: "Email Limit",
+        }}
+      />
+      <SettingsStack.Screen
+        name="DateRange"
+        component={DateRangeScreen}
+        options={{
+          title: "Date Range",
+        }}
+      />
+      <SettingsStack.Screen
+        name="Parameters"
+        component={ParametersScreen}
+        options={{
+          title: "Parameters",
         }}
       />
     </SettingsStack.Navigator>

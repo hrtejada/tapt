@@ -18,7 +18,6 @@ const EmailLimitButton = () => {
       name="email-open-multiple-outline"
       size={28}
       color="black"
-      style={{ paddingHorizontal: 10 }}
     />
   );
 

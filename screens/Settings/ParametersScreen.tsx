@@ -1,22 +1,29 @@
 import { FontAwesome5 } from "@expo/vector-icons";
 import { useState } from "react";
-import { Modal, Pressable, StyleSheet, Text, View } from "react-native";
-import { TextInput } from "react-native-gesture-handler";
+import {
+  Modal,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
+import Button from "../../components/ui/Button";
+import Chip from "../../components/ui/Chip";
+import HeaderTwo from "../../components/ui/HeaderTwo";
 import { GlobalStyles } from "../../constants/styles";
 import { DUMMY_USER_1 } from "../../testData/DUMMY_DATA";
-import Button from "../ui/Button";
-import Chip from "../ui/Chip";
-import HeaderTwo from "../ui/HeaderTwo";
+import GoBackButton from "../../components/Settings/GoBackButton";
 
 /**
- * Component for the Settings Screen that will hold the parameters setting.
+ * Component for the parameters setting.
  *
  * TODO: Determine where to validate TextInput
  *
- * @version 0.1.2
+ * @version 0.1.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
-const Parameters = () => {
+const ParametersScreen = () => {
   const [parameters, setParameters] = useState<string[]>(
     DUMMY_USER_1.settings.parameters || []
   );
@@ -45,6 +52,7 @@ const Parameters = () => {
 
   return (
     <View style={styles.container}>
+      <GoBackButton />
       <HeaderTwo>Set data to parse from emails</HeaderTwo>
       <View style={styles.chipsContainer}>
         {parameters.map((parameter) => (
@@ -97,7 +105,7 @@ const Parameters = () => {
   );
 };
 
-export default Parameters;
+export default ParametersScreen;
 
 const styles = StyleSheet.create({
   container: {

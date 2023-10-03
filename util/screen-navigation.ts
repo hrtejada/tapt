@@ -25,6 +25,8 @@ export type SettingsStackParamList = {
   Settings: undefined;
   Delete: undefined;
   EmailLimit: undefined;
+  DateRange: undefined;
+  Parameters: undefined;
 };
 
 /***** HomeStackParamList *****/
@@ -58,6 +60,14 @@ export type DeleteAccountStackProps = NativeStackScreenProps<
 export type EmailLimitStackProps = NativeStackScreenProps<
   SettingsStackParamList,
   "EmailLimit"
+>;
+export type DateRangeStackProps = NativeStackScreenProps<
+  SettingsStackParamList,
+  "DateRange"
+>;
+export type ParametersStackProps = NativeStackScreenProps<
+  SettingsStackParamList,
+  "Parameters"
 >;
 
 // Used to fix the type error when using the useNavigation hook

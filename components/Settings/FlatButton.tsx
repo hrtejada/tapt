@@ -13,7 +13,7 @@ interface Props {
  *
  * Used on SettingsScreen
  *
- * @version 0.1.1
+ * @version 0.1.2
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const FlatButton = ({ leftIcon, onPress, children }: Props) => {
@@ -25,7 +25,7 @@ const FlatButton = ({ leftIcon, onPress, children }: Props) => {
       style={({ pressed }) => [pressed && styles.pressed, styles.flatButton]}
     >
       <View style={styles.titleContainer}>
-        {leftIcon}
+        <View style={styles.leftIconContainer}>{leftIcon}</View>
         <Text style={styles.text}>{children}</Text>
       </View>
       <View style={styles.rightIconContainer}>{rightIcon}</View>
@@ -51,6 +51,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: GlobalStyles.colors.primary300,
+  },
+  leftIconContainer: {
+    paddingHorizontal: 10,
   },
   rightIconContainer: {
     flex: 1,

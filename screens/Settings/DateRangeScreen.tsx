@@ -1,19 +1,20 @@
-import DateTimePicker from "@react-native-community/datetimepicker";
-import { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { GlobalStyles } from "../../constants/styles";
+import HeaderTwo from "../../components/ui/HeaderTwo";
+import DateTimePicker from "@react-native-community/datetimepicker";
 import { DUMMY_USER_1 } from "../../testData/DUMMY_DATA";
-import HeaderTwo from "../ui/HeaderTwo";
+import { useState } from "react";
+import { GlobalStyles } from "../../constants/styles";
+import GoBackButton from "../../components/Settings/GoBackButton";
 
 /**
- * Component to hold the datepickers for the Settings Screen.
+ * Component that holds the datepickers.
  *
  * Using https://github.com/react-native-datetimepicker/datetimepicker.
  *
- * @version 0.1.1
+ * @version 0.1.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
-const DateRange = () => {
+const DateRangeScreen = () => {
   const [startDate, setStartDate] = useState<Date>(
     new Date(DUMMY_USER_1.settings.startDate) || new Date()
   );
@@ -36,6 +37,7 @@ const DateRange = () => {
 
   return (
     <View style={styles.container}>
+      <GoBackButton />
       <HeaderTwo>Set Date Range</HeaderTwo>
       <View style={styles.innerContainer}>
         <View style={styles.dateContainer}>
@@ -63,7 +65,7 @@ const DateRange = () => {
   );
 };
 
-export default DateRange;
+export default DateRangeScreen;
 
 const styles = StyleSheet.create({
   container: {
