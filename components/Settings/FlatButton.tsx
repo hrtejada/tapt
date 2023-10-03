@@ -38,7 +38,7 @@ export default FlatButton;
 const styles = StyleSheet.create({
   flatButton: {
     flexDirection: "row",
-    backgroundColor: GlobalStyles.colors.accent100,
+    backgroundColor: GlobalStyles.colors.background200,
     padding: 12,
     justifyContent: "center",
     alignItems: "center",
@@ -50,15 +50,14 @@ const styles = StyleSheet.create({
     flex: 8,
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: GlobalStyles.colors.primary300,
   },
   leftIconContainer: {
-    paddingHorizontal: 10,
+    paddingLeft: 10,
+    paddingRight: 20,
   },
   rightIconContainer: {
     flex: 1,
     alignItems: "center",
-    backgroundColor: GlobalStyles.colors.primary500,
   },
   pressed: {
     opacity: 0.75,

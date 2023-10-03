@@ -16,3 +16,5 @@ export const INACTIVE = "INACTIVE";
 
 // Button
 export const IS_FLAT = "isFlat";
+
+/***** SETTINGS CONSTANTS *****/

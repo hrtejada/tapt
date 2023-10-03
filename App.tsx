@@ -39,6 +39,7 @@ import DateRangeScreen from "./screens/Settings/DateRangeScreen";
 import ParametersScreen from "./screens/Settings/ParametersScreen";
 import NotificationCadenceScreen from "./screens/Settings/NotificationCadenceScreen";
 import RankModeScreen from "./screens/Settings/RankModeScreen";
+import AboutScreen from "./screens/Settings/AboutScreen";
 
 const getHeaderTitle = (route: Partial<Route<string>>) => {
   // If the focused route is not found, we need to assume it's the initial screen
@@ -150,6 +151,7 @@ const SettingsView = () => {
           title: "Rank Mode",
         }}
       />
+      <SettingsStack.Screen name="About" component={AboutScreen} />
     </SettingsStack.Navigator>
   );
 };
@@ -176,6 +178,8 @@ export default function App() {
 
               headerStyle: {
                 backgroundColor: GlobalStyles.colors.background300,
+                borderBottomColor: GlobalStyles.colors.secondary700,
+                borderBottomWidth: 1,
               },
               headerTintColor: GlobalStyles.colors.text,
             }}

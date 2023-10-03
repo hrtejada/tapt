@@ -17,12 +17,12 @@ const RankModeButton = () => {
     <MaterialCommunityIcons name="star-settings" size={28} color="black" />
   );
 
-  const dateRangeNavigationHandler = () => {
+  const rankModeNavigationHandler = () => {
     navigation.navigate("RankMode");
   };
 
   return (
-    <FlatButton leftIcon={leftIcon} onPress={dateRangeNavigationHandler}>
+    <FlatButton leftIcon={leftIcon} onPress={rankModeNavigationHandler}>
       Rank Mode
     </FlatButton>
   );

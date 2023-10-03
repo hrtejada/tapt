@@ -29,6 +29,7 @@ export type SettingsStackParamList = {
   Parameters: undefined;
   NotificationCadence: undefined;
   RankMode: undefined;
+  About: undefined;
 };
 
 /***** HomeStackParamList *****/
@@ -78,6 +79,10 @@ export type NotificationCadenceStackProps = NativeStackScreenProps<
 export type RankModeStackProps = NativeStackScreenProps<
   SettingsStackParamList,
   "RankMode"
+>;
+export type AboutStackProps = NativeStackScreenProps<
+  SettingsStackParamList,
+  "About"
 >;
 
 // Used to fix the type error when using the useNavigation hook

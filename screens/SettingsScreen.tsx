@@ -6,6 +6,7 @@ import ParametersButton from "../components/Settings/ParametersButton";
 import { GlobalStyles } from "../constants/styles";
 import NotificationCadenceButton from "../components/Settings/NotificationCadenceButton";
 import RankModeButton from "../components/Settings/RankModeButton";
+import AboutButton from "../components/Settings/AboutButton";
 
 /**
  * Settings Screen where the user can perform various actions.
@@ -26,9 +27,7 @@ const SettingsScreen = () => {
   return (
     <View style={styles.rootContainer}>
       <ScrollView>
-        <View style={styles.container}>
-          <Text style={styles.text}>About App</Text>
-        </View>
+        <AboutButton />
         <RankModeButton />
         <NotificationCadenceButton />
         <ParametersButton />
