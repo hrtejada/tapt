@@ -1,20 +1,21 @@
-import { Alert, StyleSheet, Text, View, TextInput } from "react-native";
-import { GlobalStyles } from "../../constants/styles";
-import HeaderTwo from "../../components/ui/HeaderTwo";
-import { DUMMY_USER_1 } from "../../testData/DUMMY_DATA";
 import { createRef, useState } from "react";
+import { Alert, StyleSheet, Text, TextInput, View } from "react-native";
 import GoBackButton from "../../components/Settings/GoBackButton";
-import { EmailLimitStackProps } from "../../util/screen-navigation";
+import HeaderTwo from "../../components/ui/HeaderTwo";
+import { GlobalStyles } from "../../constants/styles";
+import { DUMMY_USER_1 } from "../../testData/DUMMY_DATA";
 
-const EmailLimitScreen = ({ navigation }: EmailLimitStackProps) => {
+/**
+ * Component that holds the button to navigate to the DeleteAccounScreen.
+ *
+ * @version 0.2.0
+ * @author  Ralph Woiwode <https://github.com/RAWoiwode>
+ */
+const EmailLimitScreen = () => {
   const [limit, setLimit] = useState(
     DUMMY_USER_1.settings.limit.toString() || "0"
   );
   const limitRef = createRef<TextInput>(); // Used to refocus on input when invalid input is entered.
-
-  const goBackHandler = () => {
-    navigation.goBack();
-  };
 
   /**
    * Update the state so the correct value is reflected in the input.
@@ -67,7 +68,7 @@ const EmailLimitScreen = ({ navigation }: EmailLimitStackProps) => {
 
   return (
     <View style={styles.rootContainer}>
-      <GoBackButton onPress={goBackHandler} />
+      <GoBackButton />
       <View style={styles.container}>
         <HeaderTwo>Limit accepted emails</HeaderTwo>
         <Text>

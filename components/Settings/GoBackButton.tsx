@@ -1,11 +1,26 @@
-import { StyleSheet, Text, View } from "react-native";
-import Button from "../ui/Button";
+import { useNavigation } from "@react-navigation/native";
+import { StyleSheet, View } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
+import Button from "../ui/Button";
 
-const GoBackButton = ({ onPress }: { onPress: () => void }) => {
+/**
+ * Component that holds the button to navigate back to the SettingsScreen.
+ *
+ * TODO: Remove background color
+ *
+ * @version 0.1.0
+ * @author  Ralph Woiwode <https://github.com/RAWoiwode>
+ */
+const GoBackButton = () => {
+  const navigation = useNavigation();
+
+  const goBackHandler = () => {
+    navigation.goBack();
+  };
+
   return (
     <View style={styles.goBackContainer}>
-      <Button onPress={onPress}>Go Back</Button>
+      <Button onPress={goBackHandler}>Go Back</Button>
     </View>
   );
 };

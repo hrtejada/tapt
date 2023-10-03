@@ -1,27 +1,23 @@
 import { StyleSheet, Text, View } from "react-native";
+import GoBackButton from "../../components/Settings/GoBackButton";
 import Button from "../../components/ui/Button";
-import { DeleteAccountStackProps } from "../../util/screen-navigation";
 import HeaderTwo from "../../components/ui/HeaderTwo";
 import { GlobalStyles } from "../../constants/styles";
-import GoBackButton from "../../components/Settings/GoBackButton";
 
 /**
  * Screen containing the account deletion functionality.
  *
- * TODO: Flesh out deletion process on backend
  * @version 0.1.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
-const DeleteAccountScreen = ({ navigation }: DeleteAccountStackProps) => {
-  const goBackHandler = () => {
-    navigation.goBack();
+const DeleteAccountScreen = () => {
+  const deleteAccountHandler = () => {
+    // TODO: Flesh out deletion process on backend
   };
-
-  const deleteAccountHandler = () => {};
 
   return (
     <View style={styles.rootContainer}>
-      <GoBackButton onPress={goBackHandler} />
+      <GoBackButton />
       <View style={styles.infoContainer}>
         <HeaderTwo>Info</HeaderTwo>
         <Text style={styles.infoText}>

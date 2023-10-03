@@ -1,9 +1,9 @@
-import { StyleSheet, Text, View, Pressable } from "react-native";
+import { FontAwesome5 } from "@expo/vector-icons";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
 
 interface Props {
   leftIcon: React.ReactNode;
-  rightIcon: React.ReactNode;
   onPress: () => void;
   children: React.ReactNode;
 }
@@ -13,10 +13,12 @@ interface Props {
  *
  * Used on SettingsScreen
  *
- * @version 0.1.0
+ * @version 0.1.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
-const FlatButton = ({ leftIcon, rightIcon, onPress, children }: Props) => {
+const FlatButton = ({ leftIcon, onPress, children }: Props) => {
+  const rightIcon = <FontAwesome5 name="angle-right" size={28} color="black" />;
+
   return (
     <Pressable
       onPress={onPress}
@@ -56,6 +58,6 @@ const styles = StyleSheet.create({
     backgroundColor: GlobalStyles.colors.primary500,
   },
   pressed: {
-    opacity: 1.75,
+    opacity: 0.75,
   },
 });

@@ -1,21 +1,17 @@
-import { FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet } from "react-native";
-import { GlobalStyles } from "../../constants/styles";
-import { EmailLimitNavigationProps } from "../../util/screen-navigation";
+import { EmailLimitStackProps } from "../../util/screen-navigation";
 import FlatButton from "./FlatButton";
 
 /**
- * Component that holds the email limit functionality.
- *
- * TODO: Finish fleshing this out.
- * TODO: Add SafeArewView somewhere to keep input in view properly
+ * Button used to navigate to the EmailLimitScreen.
  *
  * @version 0.2.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const EmailLimitButton = () => {
-  const navigation = useNavigation<EmailLimitNavigationProps>();
+  const navigation = useNavigation<EmailLimitStackProps["navigation"]>();
 
   const leftIcon = (
     <MaterialCommunityIcons
@@ -25,18 +21,13 @@ const EmailLimitButton = () => {
       style={{ paddingHorizontal: 10 }}
     />
   );
-  const rightIcon = <FontAwesome5 name="angle-right" size={28} color="black" />;
 
   const emailLimitNavigationHandler = () => {
     navigation.navigate("EmailLimit");
   };
 
   return (
-    <FlatButton
-      leftIcon={leftIcon}
-      rightIcon={rightIcon}
-      onPress={emailLimitNavigationHandler}
-    >
+    <FlatButton leftIcon={leftIcon} onPress={emailLimitNavigationHandler}>
       Email Limit
     </FlatButton>
   );

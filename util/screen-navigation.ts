@@ -6,7 +6,9 @@ import {
 /**
  * Holds the TypeScript definitions needed for React Navigation.
  *
- * @version 0.1.0
+ * TODO: Refine the difference between NativeStackScreenProps & NativeStackNavigationProps
+ *
+ * @version 0.1.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 export type HomeStackParamList = {
