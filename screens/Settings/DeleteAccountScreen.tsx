@@ -3,8 +3,9 @@ import GoBackButton from "../../components/Settings/GoBackButton";
 import Button from "../../components/ui/Button";
 import HeaderTwo from "../../components/ui/HeaderTwo";
 import { GlobalStyles } from "../../constants/styles";
-import { DELETE_TITLE } from "../../constants/words";
+import { DELETE_TITLE, DUMMY_DETAILS } from "../../constants/words";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import InfoSection from "../../components/Settings/InfoSection";
 
 /**
  * Screen containing the account deletion functionality.
@@ -31,15 +32,7 @@ const DeleteAccountScreen = () => {
       ]}
     >
       <GoBackButton />
-      <View style={styles.infoContainer}>
-        <HeaderTwo>Info</HeaderTwo>
-        <Text style={styles.infoText}>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corrupti ex
-          fuga aut quos amet libero mollitia distinctio, aliquid maiores
-          voluptatum ut deleniti accusamus perferendis doloremque veniam cum.
-          Illo, laudantium sint.
-        </Text>
-      </View>
+      <InfoSection headerText="Info" details={DUMMY_DETAILS} />
       <View style={styles.deleteContainer}>
         <Button
           onPress={deleteAccountHandler}

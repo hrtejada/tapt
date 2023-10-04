@@ -8,20 +8,23 @@ import {
   TextInput,
   View,
 } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import GoBackButton from "../../components/Settings/GoBackButton";
+import InfoSection from "../../components/Settings/InfoSection";
 import Button from "../../components/ui/Button";
 import Chip from "../../components/ui/Chip";
-import HeaderTwo from "../../components/ui/HeaderTwo";
 import { GlobalStyles } from "../../constants/styles";
+import { DUMMY_DETAILS } from "../../constants/words";
 import { DUMMY_USER_1 } from "../../testData/DUMMY_DATA";
-import GoBackButton from "../../components/Settings/GoBackButton";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 /**
  * Component for the parameters setting.
  *
  * TODO: Determine where to validate TextInput
  *
- * @version 0.1.0
+ * TODO: Extract "Info Section" into it's own component
+ *
+ * @version 0.1.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const ParametersScreen = () => {
@@ -47,7 +50,11 @@ const ParametersScreen = () => {
    * Dismiss the Modal and reset the TextInput
    */
   const addParamHandler = () => {
-    setParameters((prevParams) => [...prevParams, newParameter]);
+    // TODO: Implement input validation for Front End
+    setParameters((prevParams) => {
+      const cleanedParam = newParameter.trim();
+      return [...prevParams, cleanedParam];
+    });
     setModalVisible(false);
     setNewParameter("");
   };
@@ -55,7 +62,7 @@ const ParametersScreen = () => {
   return (
     <View
       style={[
-        styles.container,
+        styles.rootContainer,
         {
           paddingBottom: insets.bottom,
           paddingLeft: insets.left,
@@ -64,53 +71,58 @@ const ParametersScreen = () => {
       ]}
     >
       <GoBackButton />
-      <HeaderTwo>Set data to parse from emails</HeaderTwo>
-      <View style={styles.chipsContainer}>
-        {parameters.map((parameter) => (
-          <Chip
-            key={parameter}
-            text={parameter}
-            onDelete={deleteChipHandler.bind(this, parameter)}
-          />
-        ))}
-      </View>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => setModalVisible(false)}
-      >
-        <View style={styles.centerModal}>
-          <View style={styles.modal}>
-            <Text>New Parameter to look for</Text>
-            <TextInput
-              style={styles.input}
-              value={newParameter}
-              maxLength={32}
-              keyboardType="default"
-              inputMode="text"
-              textAlign="center"
-              onChangeText={setNewParameter}
+      <View style={styles.innerContainer}>
+        <InfoSection
+          headerText="Set data to parse from Emails"
+          details={DUMMY_DETAILS}
+        />
+        <View style={styles.chipsContainer}>
+          {parameters.map((parameter) => (
+            <Chip
+              key={parameter}
+              text={parameter}
+              onDelete={deleteChipHandler.bind(this, parameter)}
             />
-            <Button onPress={addParamHandler}>Add</Button>
-            <Button onPress={() => setModalVisible(false)}>Cancel</Button>
-          </View>
+          ))}
         </View>
-      </Modal>
-      <View style={styles.buttonContainer}>
-        <Pressable
-          style={({ pressed }) => [
-            pressed && styles.pressed,
-            styles.addParamButton,
-          ]}
-          onPress={() => setModalVisible(true)}
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => setModalVisible(false)}
         >
-          <FontAwesome5
-            name="plus"
-            size={32}
-            color={GlobalStyles.colors.background100}
-          />
-        </Pressable>
+          <View style={styles.centerModal}>
+            <View style={styles.modal}>
+              <Text>New Parameter to look for</Text>
+              <TextInput
+                style={styles.input}
+                value={newParameter}
+                maxLength={32}
+                keyboardType="default"
+                inputMode="text"
+                textAlign="center"
+                onChangeText={setNewParameter}
+              />
+              <Button onPress={addParamHandler}>Add</Button>
+              <Button onPress={() => setModalVisible(false)}>Cancel</Button>
+            </View>
+          </View>
+        </Modal>
+        <View style={styles.buttonContainer}>
+          <Pressable
+            style={({ pressed }) => [
+              pressed && styles.pressed,
+              styles.addParamButton,
+            ]}
+            onPress={() => setModalVisible(true)}
+          >
+            <FontAwesome5
+              name="plus"
+              size={32}
+              color={GlobalStyles.colors.background100}
+            />
+          </Pressable>
+        </View>
       </View>
     </View>
   );
@@ -119,25 +131,34 @@ const ParametersScreen = () => {
 export default ParametersScreen;
 
 const styles = StyleSheet.create({
-  container: {
+  rootContainer: {
     flex: 1,
-    padding: 12,
-    justifyContent: "center",
-    alignItems: "center",
-    borderBottomWidth: 2,
-    borderBottomColor: GlobalStyles.colors.accent700,
+    backgroundColor: GlobalStyles.colors.background300,
+  },
+  innerContainer: {
+    flex: 1,
+    paddingHorizontal: 24,
+  },
+  infoContainer: {
+    flex: 2,
+    marginTop: 8,
+  },
+  infoText: {
+    fontSize: 18,
   },
   chipsContainer: {
+    flex: 3,
     flexDirection: "row",
     flexWrap: "wrap",
   },
   buttonContainer: {
-    marginTop: 12,
+    flex: 2,
+    alignItems: "center",
   },
   addParamButton: {
     backgroundColor: GlobalStyles.colors.primary500,
     padding: 10,
-    borderRadius: 50,
+    borderRadius: 25,
   },
   pressed: {
     opacity: 0.75,

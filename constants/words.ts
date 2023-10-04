@@ -25,3 +25,10 @@ export const EMAIL_LIMIT_TITLE = "Email Limit";
 export const NOTIFICATION_TITLE = "Notification Cadence";
 export const PARAMETERS_TITLE = "Parameters";
 export const RANK_MODE_TITLE = "Rank Mode";
+
+/***** SETTINGS DETAILS *****/
+export const DUMMY_DETAILS =
+  "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corrupti ex \
+fuga aut quos amet libero mollitia distinctio, aliquid maiores \
+voluptatum ut deleniti accusamus perferendis doloremque veniam cum. \
+Illo, laudantium sint.";
