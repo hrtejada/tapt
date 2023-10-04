@@ -34,7 +34,7 @@ import {
  * TODO: Figure out how to style the bottom bar on iOS
  * TODO: Should SettingsStack use 'modal' as well to keep a theme going??
  * TODO: Make sure when navigating from Home to Settings, that it shows the SettingsScreen
- * @version 0.2.0
+ * @version 0.2.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 
@@ -131,7 +131,7 @@ export default function App() {
 
             headerStyle: {
               backgroundColor: GlobalStyles.colors.background300,
-              borderBottomColor: GlobalStyles.colors.secondary700,
+              borderBottomColor: GlobalStyles.colors.accent500,
               borderBottomWidth: 1,
             },
             headerTintColor: GlobalStyles.colors.text,

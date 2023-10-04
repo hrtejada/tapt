@@ -9,7 +9,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 /**
  * Screen containing the account deletion functionality.
  *
- * @version 0.1.0
+ * @version 0.1.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const DeleteAccountScreen = () => {
@@ -58,18 +58,19 @@ export default DeleteAccountScreen;
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
-    justifyContent: "space-evenly",
+    backgroundColor: GlobalStyles.colors.background300,
   },
   infoContainer: {
     flex: 3,
-    padding: 8,
+    paddingHorizontal: 24,
+    marginTop: 8,
   },
   infoText: {
     fontSize: 18,
   },
   deleteContainer: {
     flex: 2,
-    paddingHorizontal: 20,
+    paddingHorizontal: 24,
   },
   deleteButton: {
     backgroundColor: GlobalStyles.colors.warning,
