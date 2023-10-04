@@ -53,17 +53,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: GlobalStyles.colors.background300,
   },
-  infoContainer: {
-    flex: 3,
-    paddingHorizontal: 24,
-    marginTop: 8,
-  },
-  infoText: {
-    fontSize: 18,
-  },
   deleteContainer: {
     flex: 2,
     paddingHorizontal: 24,
+    justifyContent: "center",
   },
   deleteButton: {
     backgroundColor: GlobalStyles.colors.warning,

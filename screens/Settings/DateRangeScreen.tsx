@@ -6,13 +6,15 @@ import HeaderTwo from "../../components/ui/HeaderTwo";
 import { GlobalStyles } from "../../constants/styles";
 import { DUMMY_USER_1 } from "../../testData/DUMMY_DATA";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import InfoSection from "../../components/Settings/InfoSection";
+import { DUMMY_DETAILS } from "../../constants/words";
 
 /**
  * Component that holds the datepickers.
  *
  * Using https://github.com/react-native-datetimepicker/datetimepicker.
  *
- * @version 0.1.0
+ * @version 0.1.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const DateRangeScreen = () => {
@@ -40,7 +42,7 @@ const DateRangeScreen = () => {
   return (
     <View
       style={[
-        styles.container,
+        styles.rootContainer,
         {
           paddingBottom: insets.bottom,
           paddingLeft: insets.left,
@@ -49,27 +51,35 @@ const DateRangeScreen = () => {
       ]}
     >
       <GoBackButton />
-      <HeaderTwo>Set Date Range</HeaderTwo>
       <View style={styles.innerContainer}>
-        <View style={styles.dateContainer}>
-          <Text style={styles.dateText}>Start Date</Text>
-          <DateTimePicker
-            mode="date"
-            display="calendar"
-            minimumDate={today}
-            onChange={(_, date) => date && setStartDate(date)}
-            value={startDate}
-          />
+        <InfoSection headerText="Set Date Range" details={DUMMY_DETAILS} />
+        <View style={styles.inputContainer}>
+          <View style={styles.labelContainer}>
+            <Text style={styles.dateText}>Start Date:</Text>
+          </View>
+          <View style={styles.datePickerContainer}>
+            <DateTimePicker
+              mode="date"
+              display="calendar"
+              minimumDate={today}
+              onChange={(_, date) => date && setStartDate(date)}
+              value={startDate}
+            />
+          </View>
         </View>
-        <View style={styles.dateContainer}>
-          <Text style={styles.dateText}>End Date</Text>
-          <DateTimePicker
-            mode="date"
-            display="calendar"
-            minimumDate={minEndDate}
-            onChange={(_, date) => date && setEndDate(date)}
-            value={endDate}
-          />
+        <View style={styles.inputContainer}>
+          <View style={styles.labelContainer}>
+            <Text style={styles.dateText}>End Date:</Text>
+          </View>
+          <View style={styles.datePickerContainer}>
+            <DateTimePicker
+              mode="date"
+              display="calendar"
+              minimumDate={minEndDate}
+              onChange={(_, date) => date && setEndDate(date)}
+              value={endDate}
+            />
+          </View>
         </View>
       </View>
     </View>
@@ -79,26 +89,35 @@ const DateRangeScreen = () => {
 export default DateRangeScreen;
 
 const styles = StyleSheet.create({
-  container: {
+  rootContainer: {
     flex: 1,
-    padding: 12,
-    justifyContent: "center",
-    alignItems: "center",
-    borderBottomWidth: 2,
-    borderBottomColor: GlobalStyles.colors.accent700,
+    backgroundColor: GlobalStyles.colors.background300,
   },
   innerContainer: {
-    flexDirection: "row",
-  },
-  dateContainer: {
     flex: 1,
-    backgroundColor: GlobalStyles.colors.background200,
-    alignItems: "center",
+    paddingHorizontal: 24,
+  },
+  inputContainer: {
+    flexDirection: "row",
+    marginVertical: 12,
+    minHeight: 50,
+  },
+  labelContainer: {
+    justifyContent: "center",
+    alignItems: "flex-end",
     padding: 8,
-    marginHorizontal: 6,
+    width: "40%",
+  },
+  datePickerContainer: {
+    // TODO: Figure out weird spacing issue with this
+    backgroundColor: GlobalStyles.colors.background100,
+    justifyContent: "space-around",
+    alignItems: "flex-end",
+    paddingRight: 10,
+    borderRadius: 15,
   },
   dateText: {
-    fontSize: 18,
-    padding: 4,
+    fontSize: 22,
+    textDecorationLine: "underline",
   },
 });

@@ -32,3 +32,5 @@ export const DUMMY_DETAILS =
 fuga aut quos amet libero mollitia distinctio, aliquid maiores \
 voluptatum ut deleniti accusamus perferendis doloremque veniam cum. \
 Illo, laudantium sint.";
+export const EMAIL_LIMIT_DETAILS =
+  "Change the amount of emails you would like to accept for the booking window (0 = No limit)";

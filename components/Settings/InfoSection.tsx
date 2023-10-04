@@ -19,7 +19,6 @@ export default InfoSection;
 
 const styles = StyleSheet.create({
   infoContainer: {
-    flex: 3,
     marginTop: 8,
   },
   infoText: {

@@ -139,17 +139,11 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 24,
   },
-  infoContainer: {
-    flex: 2,
-    marginTop: 8,
-  },
-  infoText: {
-    fontSize: 18,
-  },
   chipsContainer: {
     flex: 3,
     flexDirection: "row",
     flexWrap: "wrap",
+    marginTop: 12,
   },
   buttonContainer: {
     flex: 2,

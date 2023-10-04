@@ -5,11 +5,13 @@ import GoBackButton from "../../components/Settings/GoBackButton";
 import HeaderTwo from "../../components/ui/HeaderTwo";
 import { GlobalStyles } from "../../constants/styles";
 import { DUMMY_USER_1 } from "../../testData/DUMMY_DATA";
+import InfoSection from "../../components/Settings/InfoSection";
+import { EMAIL_LIMIT_DETAILS } from "../../constants/words";
 
 /**
  * Component that holds the button to navigate to the DeleteAccounScreen.
  *
- * @version 0.2.0
+ * @version 0.2.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const EmailLimitScreen = () => {
@@ -79,24 +81,25 @@ const EmailLimitScreen = () => {
       ]}
     >
       <GoBackButton />
-      <View style={styles.container}>
-        <HeaderTwo>Limit accepted emails</HeaderTwo>
-        <Text>
-          Change the amount of emails you would like to accept for the booking
-          window (0 = No limit)
-        </Text>
-        <TextInput
-          style={styles.input}
-          value={limit}
-          maxLength={3}
-          keyboardType="number-pad"
-          inputMode="numeric"
-          returnKeyType="done"
-          textAlign="center"
-          onChangeText={onChangeLimit}
-          onEndEditing={handleEndEditing}
-          ref={limitRef}
+      <View style={styles.innerContainer}>
+        <InfoSection
+          headerText="Limit accepted emails"
+          details={EMAIL_LIMIT_DETAILS}
         />
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            value={limit}
+            maxLength={3}
+            keyboardType="number-pad"
+            inputMode="numeric"
+            returnKeyType="done"
+            textAlign="center"
+            onChangeText={onChangeLimit}
+            onEndEditing={handleEndEditing}
+            ref={limitRef}
+          />
+        </View>
       </View>
     </View>
   );
@@ -107,22 +110,23 @@ export default EmailLimitScreen;
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
+    backgroundColor: GlobalStyles.colors.background300,
   },
-  container: {
+  innerContainer: {
     flex: 1,
-    padding: 12,
-    justifyContent: "center",
+    paddingHorizontal: 24,
+  },
+  inputContainer: {
     alignItems: "center",
-    borderBottomWidth: 2,
-    borderBottomColor: GlobalStyles.colors.accent700,
+    marginTop: 12,
   },
   input: {
     borderWidth: 1,
     padding: 12,
     margin: 8,
-    height: 50,
+    height: 55,
     width: "20%",
-    fontSize: 24,
+    fontSize: 28,
     backgroundColor: GlobalStyles.colors.background200,
   },
 });
