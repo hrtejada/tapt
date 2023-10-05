@@ -4,7 +4,7 @@ import { StyleSheet } from "react-native";
 import { RankModeStackProps } from "../../util/react-navigation";
 import FlatButton from "./FlatButton";
 import { FLAT_BUTTON_ICON_SIZE } from "../../constants/sizes";
-import { RANK_MODE_TITLE } from "../../constants/words";
+import { RANKING_TITLE } from "../../constants/words";
 
 /**
  * Button used to navigate to the RankModeScreen.
@@ -24,12 +24,12 @@ const RankModeButton = () => {
   );
 
   const rankModeNavigationHandler = () => {
-    navigation.navigate("RankMode");
+    navigation.navigate("Ranking");
   };
 
   return (
     <FlatButton leftIcon={leftIcon} onPress={rankModeNavigationHandler}>
-      {RANK_MODE_TITLE}
+      {RANKING_TITLE}
     </FlatButton>
   );
 };

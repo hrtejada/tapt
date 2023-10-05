@@ -5,7 +5,7 @@ import EmailLimitButton from "../components/Settings/EmailLimitButton";
 import ParametersButton from "../components/Settings/ParametersButton";
 import { GlobalStyles } from "../constants/styles";
 import NotificationCadenceButton from "../components/Settings/NotificationCadenceButton";
-import RankModeButton from "../components/Settings/RankModeButton";
+import RankingButton from "../components/Settings/RankingButton";
 import AboutButton from "../components/Settings/AboutButton";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -43,7 +43,7 @@ const SettingsScreen = () => {
         <EmailLimitButton />
         <NotificationCadenceButton />
         <ParametersButton />
-        <RankModeButton />
+        <RankingButton />
         <View style={styles.deleteContainer}>
           <DeleteAccountButton />
         </View>

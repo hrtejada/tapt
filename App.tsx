@@ -20,7 +20,7 @@ import DeleteAccountScreen from "./screens/Settings/DeleteAccountScreen";
 import EmailLimitScreen from "./screens/Settings/EmailLimitScreen";
 import NotificationCadenceScreen from "./screens/Settings/NotificationCadenceScreen";
 import ParametersScreen from "./screens/Settings/ParametersScreen";
-import RankModeScreen from "./screens/Settings/RankModeScreen";
+import RankingScreen from "./screens/Settings/RankingScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 import {
   HomeStackParamList,
@@ -105,7 +105,7 @@ const SettingsView = () => {
         component={NotificationCadenceScreen}
       />
       <SettingsStack.Screen name="Parameters" component={ParametersScreen} />
-      <SettingsStack.Screen name="RankMode" component={RankModeScreen} />
+      <SettingsStack.Screen name="Ranking" component={RankingScreen} />
     </SettingsStack.Navigator>
   );
 };

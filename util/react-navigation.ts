@@ -9,7 +9,6 @@ import {
   DELETE_TITLE,
   EMAIL_LIMIT_TITLE,
   NOTIFICATION_TITLE,
-  RANK_MODE_TITLE,
 } from "../constants/words";
 
 /**
@@ -37,7 +36,7 @@ export type SettingsStackParamList = {
   DateRange: undefined;
   Parameters: undefined;
   NotificationCadence: undefined;
-  RankMode: undefined;
+  Ranking: undefined;
   About: undefined;
 };
 
@@ -87,7 +86,7 @@ export type NotificationCadenceStackProps = NativeStackScreenProps<
 >;
 export type RankModeStackProps = NativeStackScreenProps<
   SettingsStackParamList,
-  "RankMode"
+  "Ranking"
 >;
 export type AboutStackProps = NativeStackScreenProps<
   SettingsStackParamList,
@@ -109,6 +108,7 @@ export const getHeaderTitle = (route: Partial<Route<string>>) => {
   switch (routeName) {
     case ABOUT_TITLE:
     case "Parameters":
+    case "Ranking":
     case "Settings":
       return routeName;
     case "DateRange":
@@ -119,7 +119,5 @@ export const getHeaderTitle = (route: Partial<Route<string>>) => {
       return EMAIL_LIMIT_TITLE;
     case "NotificationCadence":
       return NOTIFICATION_TITLE;
-    case "RankMode":
-      return RANK_MODE_TITLE;
   }
 };

@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
   senderContainer: {
     backgroundColor: GlobalStyles.colors.primary600,
     borderBottomWidth: 1,
-    borderBottomColor: GlobalStyles.colors.accent900,
+    borderBottomColor: GlobalStyles.colors.accent700,
     paddingHorizontal: 12,
     paddingVertical: 8,
   },

@@ -1,6 +1,8 @@
 import { StyleSheet, Text, View } from "react-native";
 import GoBackButton from "../../components/Settings/GoBackButton";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import InfoSection from "../../components/Settings/InfoSection";
+import { DUMMY_DETAILS } from "../../constants/words";
 
 /**
  * Component that holds rank mode setting.
@@ -10,7 +12,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
  * @version 0.1.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
-const RankModeScreen = () => {
+const RankingScreen = () => {
   const insets = useSafeAreaInsets();
 
   return (
@@ -25,15 +27,22 @@ const RankModeScreen = () => {
       ]}
     >
       <GoBackButton />
+      <View style={styles.innerContainer}>
+        <InfoSection headerText="Ranking" details={DUMMY_DETAILS} />
+      </View>
       <Text>RankModeScreen</Text>
     </View>
   );
 };
 
-export default RankModeScreen;
+export default RankingScreen;
 
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
+  },
+  innerContainer: {
+    flex: 1,
+    paddingHorizontal: 24,
   },
 });

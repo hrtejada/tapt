@@ -24,7 +24,7 @@ export const DELETE_TITLE = "Delete Account";
 export const EMAIL_LIMIT_TITLE = "Email Limit";
 export const NOTIFICATION_TITLE = "Notification Cadence";
 export const PARAMETERS_TITLE = "Parameters";
-export const RANK_MODE_TITLE = "Rank Mode";
+export const RANKING_TITLE = "Ranking";
 
 /***** SETTINGS DETAILS *****/
 export const DUMMY_DETAILS =
