@@ -110,6 +110,7 @@ const NotificationCadenceScreen = () => {
             keyExtractor={(item) => item.id}
             extraData={selected}
             ItemSeparatorComponent={() => <View style={styles.bar} />}
+            scrollEnabled={false}
           />
         </View>
       </View>
