@@ -1,5 +1,7 @@
 // TODO: Work on the data model for the Cloud Firestore
 
+import { OPTIONS } from "../constants/words";
+
 /**
  * Dummy data used on the Email Screen.
  * Data model subject to change depending on future changes.
@@ -73,4 +75,5 @@ export const DUMMY_USER_1 = {
     endDate: "2023-09-30T00:00:00.000Z",
     parameters: ["description", "size", "budget", "pictures", "placement"],
   },
+  notifications: OPTIONS.OFF.toString(),
 };

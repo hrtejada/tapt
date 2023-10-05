@@ -34,3 +34,14 @@ voluptatum ut deleniti accusamus perferendis doloremque veniam cum. \
 Illo, laudantium sint.";
 export const EMAIL_LIMIT_DETAILS =
   "Change the amount of emails you would like to accept for the booking window (0 = No limit)";
+export const NOTIFICATION_DETAILS =
+  "Choose how often you would like to receive an email notifying you of any new emails to work through.";
+
+/***** NOTIFICATION CADENCE VALUES *****/
+export enum OPTIONS {
+  OFF,
+  ONE_HOUR,
+  THREE_HOURS,
+  SIX_HOURS,
+  TWELVE_HOURS,
+}

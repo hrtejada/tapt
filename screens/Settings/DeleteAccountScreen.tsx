@@ -32,15 +32,17 @@ const DeleteAccountScreen = () => {
       ]}
     >
       <GoBackButton />
-      <InfoSection headerText="Info" details={DUMMY_DETAILS} />
-      <View style={styles.deleteContainer}>
-        <Button
-          onPress={deleteAccountHandler}
-          buttonStyle={styles.deleteButton}
-          textStyle={styles.deleteText}
-        >
-          {DELETE_TITLE.toUpperCase()}
-        </Button>
+      <View style={styles.innerContainer}>
+        <InfoSection headerText="Info" details={DUMMY_DETAILS} />
+        <View style={styles.deleteContainer}>
+          <Button
+            onPress={deleteAccountHandler}
+            buttonStyle={styles.deleteButton}
+            textStyle={styles.deleteText}
+          >
+            {DELETE_TITLE.toUpperCase()}
+          </Button>
+        </View>
       </View>
     </View>
   );
@@ -52,6 +54,10 @@ const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
     backgroundColor: GlobalStyles.colors.background300,
+  },
+  innerContainer: {
+    flex: 1,
+    paddingHorizontal: 24,
   },
   deleteContainer: {
     flex: 2,
