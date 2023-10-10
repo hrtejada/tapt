@@ -9,8 +9,9 @@ import {
   DUMMY_RANKED,
   RankedProps,
 } from "../testData/DUMMY_DATA";
-import { RankedStackProps } from "../util/screen-navigation";
+import { RankedStackProps } from "../util/react-navigation";
 import React from "react";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 /**
  * Screen that will display the Ranked Queue.
@@ -19,6 +20,7 @@ import React from "react";
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const RankedQueueScreen = ({ navigation }: RankedStackProps) => {
+  const insets = useSafeAreaInsets();
   const pressHandler = () => {};
 
   const emailPressHandler = (id: string) => {
@@ -79,7 +81,16 @@ const RankedQueueScreen = ({ navigation }: RankedStackProps) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        {
+          paddingBottom: insets.bottom,
+          paddingLeft: insets.left,
+          paddingRight: insets.right,
+        },
+      ]}
+    >
       <HeaderOne>Ranked Queue</HeaderOne>
       <FlatList
         renderItem={renderRankedItem}
@@ -96,7 +107,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 12,
-    backgroundColor: GlobalStyles.colors.accent100,
+    backgroundColor: GlobalStyles.colors.accent300,
   },
   emailInfoContainer: {
     flex: 3,

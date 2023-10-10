@@ -15,7 +15,7 @@ const LogoutButton = () => {
   return (
     <Pressable
       onPress={logoutHandler}
-      style={({ pressed }) => [pressed && styles.pressed, styles.button]}
+      style={({ pressed }) => [styles.button, pressed && styles.pressed]}
     >
       <Text style={styles.text}>LOGOUT</Text>
       <FontAwesome5
@@ -31,18 +31,22 @@ export default LogoutButton;
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: GlobalStyles.colors.secondary700,
+    backgroundColor: GlobalStyles.colors.secondary500,
     marginRight: 8,
     paddingHorizontal: 12,
     paddingVertical: 4,
     flexDirection: "row",
     alignItems: "center",
+    shadowColor: GlobalStyles.colors.text,
+    shadowOffset: { width: 1, height: 1 },
+    shadowOpacity: 0.5,
+    shadowRadius: 0,
   },
   text: {
     padding: 4,
     fontSize: 16,
   },
   pressed: {
-    opacity: 0.75,
+    backgroundColor: GlobalStyles.colors.secondary700,
   },
 });

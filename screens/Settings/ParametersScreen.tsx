@@ -1,22 +1,29 @@
 import { FontAwesome5 } from "@expo/vector-icons";
 import { useState } from "react";
-import { Modal, Pressable, StyleSheet, Text, View } from "react-native";
-import { TextInput } from "react-native-gesture-handler";
+import {
+  Modal,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
+import SettingsContainer from "../../components/Settings/SettingsContainer";
+import Button from "../../components/ui/Button";
+import Chip from "../../components/ui/Chip";
 import { GlobalStyles } from "../../constants/styles";
+import { PARAMETERS } from "../../constants/words";
 import { DUMMY_USER_1 } from "../../testData/DUMMY_DATA";
-import Button from "../ui/Button";
-import Chip from "../ui/Chip";
-import HeaderTwo from "../ui/HeaderTwo";
 
 /**
- * Component for the Settings Screen that will hold the parameters setting.
+ * Component for the parameters setting.
  *
  * TODO: Determine where to validate TextInput
  *
- * @version 0.1.2
+ * @version 0.1.4
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
-const Parameters = () => {
+const ParametersScreen = () => {
   const [parameters, setParameters] = useState<string[]>(
     DUMMY_USER_1.settings.parameters || []
   );
@@ -38,14 +45,17 @@ const Parameters = () => {
    * Dismiss the Modal and reset the TextInput
    */
   const addParamHandler = () => {
-    setParameters((prevParams) => [...prevParams, newParameter]);
+    // TODO: Implement input validation for Front End
+    setParameters((prevParams) => {
+      const cleanedParam = newParameter.trim();
+      return [...prevParams, cleanedParam];
+    });
     setModalVisible(false);
     setNewParameter("");
   };
 
   return (
-    <View style={styles.container}>
-      <HeaderTwo>Set data to parse from emails</HeaderTwo>
+    <SettingsContainer header={PARAMETERS.header} info={PARAMETERS.info}>
       <View style={styles.chipsContainer}>
         {parameters.map((parameter) => (
           <Chip
@@ -81,47 +91,47 @@ const Parameters = () => {
       <View style={styles.buttonContainer}>
         <Pressable
           style={({ pressed }) => [
-            pressed && styles.pressed,
             styles.addParamButton,
+            pressed && styles.pressed,
           ]}
           onPress={() => setModalVisible(true)}
         >
           <FontAwesome5
             name="plus"
-            size={32}
+            size={36}
             color={GlobalStyles.colors.background100}
           />
         </Pressable>
       </View>
-    </View>
+    </SettingsContainer>
   );
 };
 
-export default Parameters;
+export default ParametersScreen;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 12,
-    justifyContent: "center",
-    alignItems: "center",
-    borderBottomWidth: 2,
-    borderBottomColor: GlobalStyles.colors.accent700,
-  },
   chipsContainer: {
+    flex: 3,
     flexDirection: "row",
     flexWrap: "wrap",
+    marginTop: 12,
   },
   buttonContainer: {
-    marginTop: 12,
+    flex: 2,
+    // alignItems: "center",
   },
   addParamButton: {
     backgroundColor: GlobalStyles.colors.primary500,
     padding: 10,
-    borderRadius: 50,
+    borderRadius: 20,
+    alignItems: "center",
+    shadowColor: GlobalStyles.colors.text,
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.75,
+    shadowRadius: 2,
   },
   pressed: {
-    opacity: 0.75,
+    backgroundColor: GlobalStyles.colors.primary700,
   },
   centerModal: {
     flex: 1,

@@ -1,19 +1,17 @@
 import { createRef, useState } from "react";
-import { Alert, StyleSheet, Text, TextInput, View } from "react-native";
+import { Alert, StyleSheet, TextInput, View } from "react-native";
+import SettingsContainer from "../../components/Settings/SettingsContainer";
 import { GlobalStyles } from "../../constants/styles";
+import { EMAIL_LIMIT } from "../../constants/words";
 import { DUMMY_USER_1 } from "../../testData/DUMMY_DATA";
-import HeaderTwo from "../ui/HeaderTwo";
 
 /**
- * Component that holds the email limit functionality.
+ * Component that holds the button to navigate to the DeleteAccounScreen.
  *
- * TODO: Finish fleshing this out.
- * TODO: Add SafeArewView somewhere to keep input in view properly
- *
- * @version 0.1.1
+ * @version 0.2.4
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
-const EmailLimit = () => {
+const EmailLimitScreen = () => {
   const [limit, setLimit] = useState(
     DUMMY_USER_1.settings.limit.toString() || "0"
   );
@@ -65,50 +63,43 @@ const EmailLimit = () => {
       ]);
       return;
     }
-    console.log("Limit", limit);
   };
 
   return (
-    <View style={styles.container}>
-      <HeaderTwo>Limit accepted emails</HeaderTwo>
-      <Text>
-        Change the amount of emails you would like to accept for the booking
-        window (0 = No limit)
-      </Text>
-      <TextInput
-        style={styles.input}
-        value={limit}
-        maxLength={3}
-        keyboardType="number-pad"
-        inputMode="numeric"
-        returnKeyType="done"
-        textAlign="center"
-        onChangeText={onChangeLimit}
-        onEndEditing={handleEndEditing}
-        ref={limitRef}
-      />
-    </View>
+    <SettingsContainer header={EMAIL_LIMIT.header} info={EMAIL_LIMIT.info}>
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          value={limit}
+          maxLength={3}
+          keyboardType="number-pad"
+          inputMode="numeric"
+          returnKeyType="done"
+          textAlign="center"
+          onChangeText={onChangeLimit}
+          onEndEditing={handleEndEditing}
+          ref={limitRef}
+        />
+      </View>
+    </SettingsContainer>
   );
 };
 
-export default EmailLimit;
+export default EmailLimitScreen;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 12,
-    justifyContent: "center",
+  inputContainer: {
     alignItems: "center",
-    borderBottomWidth: 2,
-    borderBottomColor: GlobalStyles.colors.accent700,
+    marginTop: 12,
   },
   input: {
     borderWidth: 1,
+    borderColor: GlobalStyles.colors.accent500,
     padding: 12,
     margin: 8,
-    height: 50,
+    height: 55,
     width: "20%",
-    fontSize: 24,
-    backgroundColor: GlobalStyles.colors.background200,
+    fontSize: 28,
+    backgroundColor: GlobalStyles.colors.background100,
   },
 });

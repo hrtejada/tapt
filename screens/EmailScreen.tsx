@@ -7,8 +7,9 @@ import TextParameter from "../components/EmailInfo/TextParameter";
 import LoadingOverlay from "../components/ui/LoadingOverlay";
 import { GlobalStyles } from "../constants/styles";
 import { DUMMY_EMAILS } from "../testData/DUMMY_DATA";
-import { EmailStackProps } from "../util/screen-navigation";
+import { EmailStackProps } from "../util/react-navigation";
 import { ACCEPT, REJECT } from "../constants/words";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 interface emailState {
   id: string;
@@ -36,10 +37,11 @@ interface emailState {
  *
  * TODO: Look into handling "'route.params' being undefined" properly
  *
- * @version 0.2.2
+ * @version 0.2.3
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const EmailScreen = ({ route, navigation }: EmailStackProps) => {
+  const insets = useSafeAreaInsets();
   const [emailInfo, setEmailInfo] = useState({} as emailState);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -66,7 +68,13 @@ const EmailScreen = ({ route, navigation }: EmailStackProps) => {
       navigation.pop();
     }
     setIsLoading(false);
-  }, [setEmailInfo, setIsLoading]);
+  }, [
+    setEmailInfo,
+    setIsLoading,
+    navigation,
+    route.params?.action,
+    route.params?.id,
+  ]);
 
   /**
    * Navigate to the Reply - Accept template
@@ -87,7 +95,16 @@ const EmailScreen = ({ route, navigation }: EmailStackProps) => {
   }
 
   return (
-    <View style={styles.rootContainer}>
+    <View
+      style={[
+        styles.rootContainer,
+        {
+          paddingBottom: insets.bottom,
+          paddingLeft: insets.left,
+          paddingRight: insets.right,
+        },
+      ]}
+    >
       <View style={styles.emailInfoContainer}>
         <View style={styles.senderContainer}>
           <SenderInfo name={emailInfo.name} email={emailInfo.email} />
@@ -127,7 +144,7 @@ const styles = StyleSheet.create({
   senderContainer: {
     backgroundColor: GlobalStyles.colors.primary600,
     borderBottomWidth: 1,
-    borderBottomColor: GlobalStyles.colors.accent900,
+    borderBottomColor: GlobalStyles.colors.accent700,
     paddingHorizontal: 12,
     paddingVertical: 8,
   },
