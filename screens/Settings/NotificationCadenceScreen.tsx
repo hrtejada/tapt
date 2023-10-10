@@ -58,7 +58,7 @@ const Item = ({ item, onPress, backgroundColor }: Props) => (
  * Component that holds notification cadence setting.
  *
  *
- * @version 0.1.2
+ * @version 0.1.3
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const NotificationCadenceScreen = () => {
@@ -122,9 +122,10 @@ const styles = StyleSheet.create({
   optionText: {
     color: GlobalStyles.colors.text,
     fontSize: 18,
+    fontWeight: "bold",
   },
   bar: {
-    borderBottomColor: GlobalStyles.colors.accent300,
+    borderBottomColor: GlobalStyles.colors.text,
     borderBottomWidth: 1,
     marginHorizontal: 8,
   },

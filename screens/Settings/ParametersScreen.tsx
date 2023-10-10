@@ -20,9 +20,7 @@ import { DUMMY_USER_1 } from "../../testData/DUMMY_DATA";
  *
  * TODO: Determine where to validate TextInput
  *
- * TODO: Extract "Info Section" into it's own component
- *
- * @version 0.1.3
+ * @version 0.1.4
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const ParametersScreen = () => {
@@ -93,14 +91,14 @@ const ParametersScreen = () => {
       <View style={styles.buttonContainer}>
         <Pressable
           style={({ pressed }) => [
-            pressed && styles.pressed,
             styles.addParamButton,
+            pressed && styles.pressed,
           ]}
           onPress={() => setModalVisible(true)}
         >
           <FontAwesome5
             name="plus"
-            size={32}
+            size={36}
             color={GlobalStyles.colors.background100}
           />
         </Pressable>
@@ -120,15 +118,20 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flex: 2,
-    alignItems: "center",
+    // alignItems: "center",
   },
   addParamButton: {
     backgroundColor: GlobalStyles.colors.primary500,
     padding: 10,
-    borderRadius: 25,
+    borderRadius: 20,
+    alignItems: "center",
+    shadowColor: GlobalStyles.colors.text,
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.75,
+    shadowRadius: 2,
   },
   pressed: {
-    opacity: 0.75,
+    backgroundColor: GlobalStyles.colors.primary700,
   },
   centerModal: {
     flex: 1,

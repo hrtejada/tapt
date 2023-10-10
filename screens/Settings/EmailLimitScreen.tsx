@@ -8,7 +8,7 @@ import { DUMMY_USER_1 } from "../../testData/DUMMY_DATA";
 /**
  * Component that holds the button to navigate to the DeleteAccounScreen.
  *
- * @version 0.2.3
+ * @version 0.2.4
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const EmailLimitScreen = () => {
@@ -94,11 +94,12 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
+    borderColor: GlobalStyles.colors.accent500,
     padding: 12,
     margin: 8,
     height: 55,
     width: "20%",
     fontSize: 28,
-    backgroundColor: GlobalStyles.colors.background200,
+    backgroundColor: GlobalStyles.colors.background100,
   },
 });

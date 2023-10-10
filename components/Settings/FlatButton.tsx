@@ -29,7 +29,7 @@ const FlatButton = ({ leftIcon, onPress, children }: Props) => {
   return (
     <Pressable
       onPress={onPress}
-      style={({ pressed }) => [pressed && styles.pressed, styles.flatButton]}
+      style={({ pressed }) => [styles.flatButton, pressed && styles.pressed]}
     >
       <View style={styles.titleContainer}>
         <View style={styles.leftIconContainer}>{leftIcon}</View>
@@ -45,7 +45,7 @@ export default FlatButton;
 const styles = StyleSheet.create({
   flatButton: {
     flexDirection: "row",
-    backgroundColor: GlobalStyles.colors.background200,
+    backgroundColor: GlobalStyles.colors.background100,
     padding: 12,
     justifyContent: "center",
     alignItems: "center",
@@ -68,6 +68,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   pressed: {
-    opacity: 0.75,
+    backgroundColor: GlobalStyles.colors.background200,
   },
 });

@@ -1,18 +1,47 @@
-import DateTimePicker from "@react-native-community/datetimepicker";
+import DateTimePicker, {
+  DateTimePickerEvent,
+} from "@react-native-community/datetimepicker";
 import { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import InfoSection from "../../components/Settings/InfoSection";
 import SettingsContainer from "../../components/Settings/SettingsContainer";
 import { GlobalStyles } from "../../constants/styles";
-import { DATE_RANGE, DUMMY_DETAILS } from "../../constants/words";
+import { DATE_RANGE } from "../../constants/words";
 import { DUMMY_USER_1 } from "../../testData/DUMMY_DATA";
+
+interface Props {
+  text: string;
+  minDate: Date;
+  value: Date;
+  onChange: (event: DateTimePickerEvent, date?: Date | undefined) => void;
+}
+
+const DatePicker = ({ text, minDate, value, onChange }: Props) => {
+  return (
+    <View style={styles.inputContainer}>
+      <View style={styles.labelContainer}>
+        <Text style={styles.dateText}>{text}</Text>
+      </View>
+      <View style={styles.datePickerContainer}>
+        <DateTimePicker
+          mode="date"
+          display="calendar"
+          minimumDate={minDate}
+          onChange={onChange}
+          value={value}
+        />
+      </View>
+    </View>
+  );
+};
 
 /**
  * Component that holds the datepickers.
  *
  * Using https://github.com/react-native-datetimepicker/datetimepicker.
  *
- * @version 0.1.3
+ * TODO: Should we dismiss picker once use selects a date??
+ *
+ * @version 0.2.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const DateRangeScreen = () => {
@@ -38,34 +67,18 @@ const DateRangeScreen = () => {
 
   return (
     <SettingsContainer header={DATE_RANGE.header} info={DATE_RANGE.info}>
-      <View style={styles.inputContainer}>
-        <View style={styles.labelContainer}>
-          <Text style={styles.dateText}>Start Date:</Text>
-        </View>
-        <View style={styles.datePickerContainer}>
-          <DateTimePicker
-            mode="date"
-            display="calendar"
-            minimumDate={today}
-            onChange={(_, date) => date && setStartDate(date)}
-            value={startDate}
-          />
-        </View>
-      </View>
-      <View style={styles.inputContainer}>
-        <View style={styles.labelContainer}>
-          <Text style={styles.dateText}>End Date:</Text>
-        </View>
-        <View style={styles.datePickerContainer}>
-          <DateTimePicker
-            mode="date"
-            display="calendar"
-            minimumDate={minEndDate}
-            onChange={(_, date) => date && setEndDate(date)}
-            value={endDate}
-          />
-        </View>
-      </View>
+      <DatePicker
+        text="Start Date:"
+        minDate={today}
+        value={startDate}
+        onChange={(_, date) => date && setStartDate(date)}
+      />
+      <DatePicker
+        text="End Date:"
+        minDate={minEndDate}
+        value={endDate}
+        onChange={(_, date) => date && setEndDate(date)}
+      />
     </SettingsContainer>
   );
 };
@@ -77,6 +90,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginVertical: 12,
     minHeight: 50,
+    backgroundColor: GlobalStyles.colors.background100,
+    borderWidth: 1,
+    borderColor: GlobalStyles.colors.accent500,
   },
   labelContainer: {
     justifyContent: "center",
@@ -85,9 +101,7 @@ const styles = StyleSheet.create({
     width: "40%",
   },
   datePickerContainer: {
-    // TODO: Figure out weird spacing issue with this
-    backgroundColor: GlobalStyles.colors.background100,
-    justifyContent: "space-around",
+    justifyContent: "space-evenly",
     alignItems: "flex-end",
     paddingRight: 10,
     borderRadius: 15,
