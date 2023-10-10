@@ -1,11 +1,10 @@
-import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
-import GoBackButton from "../../components/Settings/GoBackButton";
-import { GlobalStyles } from "../../constants/styles";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import InfoSection from "../../components/Settings/InfoSection";
 import { useState } from "react";
-import { DUMMY_USER_1 } from "../../testData/DUMMY_DATA";
+import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
+import InfoSection from "../../components/Settings/InfoSection";
+import SettingsContainer from "../../components/Settings/SettingsContainer";
+import { GlobalStyles } from "../../constants/styles";
 import { NOTIFICATION_DETAILS, OPTIONS } from "../../constants/words";
+import { DUMMY_USER_1 } from "../../testData/DUMMY_DATA";
 
 // TODO: Is it worth putting this in its own component?
 interface ItemData {
@@ -64,7 +63,6 @@ const Item = ({ item, onPress, backgroundColor }: Props) => (
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const NotificationCadenceScreen = () => {
-  const insets = useSafeAreaInsets();
   const [selected, setSelected] = useState(DUMMY_USER_1.notifications || "0");
 
   const renderItem = ({ item }: { item: ItemData }) => {
@@ -87,47 +85,28 @@ const NotificationCadenceScreen = () => {
   };
 
   return (
-    <View
-      style={[
-        styles.rootContainer,
-        {
-          paddingBottom: insets.bottom,
-          paddingLeft: insets.left,
-          paddingRight: insets.right,
-        },
-      ]}
-    >
-      <GoBackButton />
-      <View style={styles.innerContainer}>
-        <InfoSection
-          headerText="Set data retrieval cadence"
-          details={NOTIFICATION_DETAILS}
+    <SettingsContainer>
+      <InfoSection
+        headerText="Set data retrieval cadence"
+        details={NOTIFICATION_DETAILS}
+      />
+      <View style={styles.optionsContainer}>
+        <FlatList
+          data={ITEMS}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+          extraData={selected}
+          ItemSeparatorComponent={() => <View style={styles.bar} />}
+          scrollEnabled={false}
         />
-        <View style={styles.optionsContainer}>
-          <FlatList
-            data={ITEMS}
-            renderItem={renderItem}
-            keyExtractor={(item) => item.id}
-            extraData={selected}
-            ItemSeparatorComponent={() => <View style={styles.bar} />}
-            scrollEnabled={false}
-          />
-        </View>
       </View>
-    </View>
+    </SettingsContainer>
   );
 };
 
 export default NotificationCadenceScreen;
 
 const styles = StyleSheet.create({
-  rootContainer: {
-    flex: 1,
-  },
-  innerContainer: {
-    flex: 1,
-    paddingHorizontal: 24,
-  },
   optionsContainer: {
     backgroundColor: GlobalStyles.colors.primary500,
     marginHorizontal: 8,

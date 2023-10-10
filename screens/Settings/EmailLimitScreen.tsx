@@ -1,21 +1,18 @@
 import { createRef, useState } from "react";
-import { Alert, StyleSheet, Text, TextInput, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import GoBackButton from "../../components/Settings/GoBackButton";
-import HeaderTwo from "../../components/ui/HeaderTwo";
-import { GlobalStyles } from "../../constants/styles";
-import { DUMMY_USER_1 } from "../../testData/DUMMY_DATA";
+import { Alert, StyleSheet, TextInput, View } from "react-native";
 import InfoSection from "../../components/Settings/InfoSection";
+import SettingsContainer from "../../components/Settings/SettingsContainer";
+import { GlobalStyles } from "../../constants/styles";
 import { EMAIL_LIMIT_DETAILS } from "../../constants/words";
+import { DUMMY_USER_1 } from "../../testData/DUMMY_DATA";
 
 /**
  * Component that holds the button to navigate to the DeleteAccounScreen.
  *
- * @version 0.2.1
+ * @version 0.2.2
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const EmailLimitScreen = () => {
-  const insets = useSafeAreaInsets();
   const [limit, setLimit] = useState(
     DUMMY_USER_1.settings.limit.toString() || "0"
   );
@@ -70,52 +67,32 @@ const EmailLimitScreen = () => {
   };
 
   return (
-    <View
-      style={[
-        styles.rootContainer,
-        {
-          paddingBottom: insets.bottom,
-          paddingLeft: insets.left,
-          paddingRight: insets.right,
-        },
-      ]}
-    >
-      <GoBackButton />
-      <View style={styles.innerContainer}>
-        <InfoSection
-          headerText="Limit accepted emails"
-          details={EMAIL_LIMIT_DETAILS}
+    <SettingsContainer>
+      <InfoSection
+        headerText="Limit accepted emails"
+        details={EMAIL_LIMIT_DETAILS}
+      />
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          value={limit}
+          maxLength={3}
+          keyboardType="number-pad"
+          inputMode="numeric"
+          returnKeyType="done"
+          textAlign="center"
+          onChangeText={onChangeLimit}
+          onEndEditing={handleEndEditing}
+          ref={limitRef}
         />
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.input}
-            value={limit}
-            maxLength={3}
-            keyboardType="number-pad"
-            inputMode="numeric"
-            returnKeyType="done"
-            textAlign="center"
-            onChangeText={onChangeLimit}
-            onEndEditing={handleEndEditing}
-            ref={limitRef}
-          />
-        </View>
       </View>
-    </View>
+    </SettingsContainer>
   );
 };
 
 export default EmailLimitScreen;
 
 const styles = StyleSheet.create({
-  rootContainer: {
-    flex: 1,
-    backgroundColor: GlobalStyles.colors.background300,
-  },
-  innerContainer: {
-    flex: 1,
-    paddingHorizontal: 24,
-  },
   inputContainer: {
     alignItems: "center",
     marginTop: 12,

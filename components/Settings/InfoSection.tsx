@@ -6,6 +6,12 @@ interface Props {
   details: string;
 }
 
+/**
+ * Component to display the specific setting header and info.
+ *
+ * @version 0.1.0
+ * @author  Ralph Woiwode <https://github.com/RAWoiwode>
+ */
 const InfoSection = ({ headerText, details }: Props) => {
   return (
     <View style={styles.infoContainer}>
@@ -19,7 +25,7 @@ export default InfoSection;
 
 const styles = StyleSheet.create({
   infoContainer: {
-    marginTop: 8,
+    marginBottom: 24,
   },
   infoText: {
     fontSize: 18,
