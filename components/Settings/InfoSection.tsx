@@ -3,7 +3,7 @@ import HeaderTwo from "../ui/HeaderTwo";
 
 interface Props {
   headerText: string;
-  details: string;
+  info: string;
 }
 
 /**
@@ -12,11 +12,11 @@ interface Props {
  * @version 0.1.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
-const InfoSection = ({ headerText, details }: Props) => {
+const InfoSection = ({ headerText, info }: Props) => {
   return (
     <View style={styles.infoContainer}>
       <HeaderTwo>{headerText}</HeaderTwo>
-      <Text style={styles.infoText}>{details}</Text>
+      <Text style={styles.infoText}>{info}</Text>
     </View>
   );
 };

@@ -1,14 +1,13 @@
 import { StyleSheet, View } from "react-native";
-import InfoSection from "../../components/Settings/InfoSection";
 import SettingsContainer from "../../components/Settings/SettingsContainer";
 import Button from "../../components/ui/Button";
 import { GlobalStyles } from "../../constants/styles";
-import { DELETE_TITLE, DUMMY_DETAILS } from "../../constants/words";
+import { DELETE_ACCOUNT, DELETE_TITLE } from "../../constants/words";
 
 /**
  * Screen containing the account deletion functionality.
  *
- * @version 0.1.2
+ * @version 0.1.3
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const DeleteAccountScreen = () => {
@@ -17,8 +16,10 @@ const DeleteAccountScreen = () => {
   };
 
   return (
-    <SettingsContainer>
-      <InfoSection headerText="Info" details={DUMMY_DETAILS} />
+    <SettingsContainer
+      header={DELETE_ACCOUNT.header}
+      info={DELETE_ACCOUNT.info}
+    >
       <View style={styles.deleteContainer}>
         <Button
           onPress={deleteAccountHandler}

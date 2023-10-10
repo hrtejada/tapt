@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { StyleSheet, Switch, Text, View } from "react-native";
-import InfoSection from "../../components/Settings/InfoSection";
 import SettingsContainer from "../../components/Settings/SettingsContainer";
 import { GlobalStyles } from "../../constants/styles";
-import { DUMMY_DETAILS } from "../../constants/words";
+import { RANKING } from "../../constants/words";
 
 /**
  * Component that holds rank mode setting.
@@ -11,7 +10,7 @@ import { DUMMY_DETAILS } from "../../constants/words";
  * TODO: Refine
  * TODO: Add section for 'Rank Mode' description.
  *
- * @version 0.1.2
+ * @version 0.1.3
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const RankingScreen = () => {
@@ -25,8 +24,7 @@ const RankingScreen = () => {
   const toggleRankMode = () => setInRankMode((prev) => !prev);
 
   return (
-    <SettingsContainer>
-      <InfoSection headerText="Ranking" details={DUMMY_DETAILS} />
+    <SettingsContainer header={RANKING.header} info={RANKING.info}>
       <View style={styles.rankingContainer}>
         <Text style={styles.rankingText}>Ranking Enabled</Text>
         <Switch

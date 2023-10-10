@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
-import InfoSection from "../../components/Settings/InfoSection";
 import SettingsContainer from "../../components/Settings/SettingsContainer";
 import { GlobalStyles } from "../../constants/styles";
-import { NOTIFICATION_DETAILS, OPTIONS } from "../../constants/words";
+import { NOTIFICATION_CADENCE, OPTIONS } from "../../constants/words";
 import { DUMMY_USER_1 } from "../../testData/DUMMY_DATA";
 
 // TODO: Is it worth putting this in its own component?
@@ -59,7 +58,7 @@ const Item = ({ item, onPress, backgroundColor }: Props) => (
  * Component that holds notification cadence setting.
  *
  *
- * @version 0.1.1
+ * @version 0.1.2
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const NotificationCadenceScreen = () => {
@@ -85,11 +84,10 @@ const NotificationCadenceScreen = () => {
   };
 
   return (
-    <SettingsContainer>
-      <InfoSection
-        headerText="Set data retrieval cadence"
-        details={NOTIFICATION_DETAILS}
-      />
+    <SettingsContainer
+      header={NOTIFICATION_CADENCE.header}
+      info={NOTIFICATION_CADENCE.info}
+    >
       <View style={styles.optionsContainer}>
         <FlatList
           data={ITEMS}

@@ -8,12 +8,11 @@ import {
   TextInput,
   View,
 } from "react-native";
-import InfoSection from "../../components/Settings/InfoSection";
 import SettingsContainer from "../../components/Settings/SettingsContainer";
 import Button from "../../components/ui/Button";
 import Chip from "../../components/ui/Chip";
 import { GlobalStyles } from "../../constants/styles";
-import { DUMMY_DETAILS } from "../../constants/words";
+import { PARAMETERS } from "../../constants/words";
 import { DUMMY_USER_1 } from "../../testData/DUMMY_DATA";
 
 /**
@@ -23,7 +22,7 @@ import { DUMMY_USER_1 } from "../../testData/DUMMY_DATA";
  *
  * TODO: Extract "Info Section" into it's own component
  *
- * @version 0.1.2
+ * @version 0.1.3
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const ParametersScreen = () => {
@@ -58,11 +57,7 @@ const ParametersScreen = () => {
   };
 
   return (
-    <SettingsContainer>
-      <InfoSection
-        headerText="Set data to parse from Emails"
-        details={DUMMY_DETAILS}
-      />
+    <SettingsContainer header={PARAMETERS.header} info={PARAMETERS.info}>
       <View style={styles.chipsContainer}>
         {parameters.map((parameter) => (
           <Chip

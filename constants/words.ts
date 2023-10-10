@@ -32,10 +32,30 @@ export const DUMMY_DETAILS =
 fuga aut quos amet libero mollitia distinctio, aliquid maiores \
 voluptatum ut deleniti accusamus perferendis doloremque veniam cum. \
 Illo, laudantium sint.";
-export const EMAIL_LIMIT_DETAILS =
-  "Change the amount of emails you would like to accept for the booking window (0 = No limit)";
-export const NOTIFICATION_DETAILS =
-  "Choose how often you would like to receive an email notifying you of any new emails to work through.";
+export const DATE_RANGE = {
+  header: "Set Date Range",
+  info: DUMMY_DETAILS,
+};
+export const DELETE_ACCOUNT = {
+  header: "Delete Account",
+  info: DUMMY_DETAILS,
+};
+export const EMAIL_LIMIT = {
+  header: "Limit accepted emails",
+  info: "Change the amount of emails you would like to accept for the booking window (0 = No limit)",
+};
+export const NOTIFICATION_CADENCE = {
+  header: "Set data retrieval cadence",
+  info: "Choose how often you would like to receive an email notifying you of any new emails to work through.",
+};
+export const PARAMETERS = {
+  header: "Set data to parse from Emails",
+  info: DUMMY_DETAILS,
+};
+export const RANKING = {
+  header: "Ranking",
+  info: DUMMY_DETAILS,
+};
 
 /***** NOTIFICATION CADENCE VALUES *****/
 export enum OPTIONS {

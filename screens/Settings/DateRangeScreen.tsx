@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from "react-native";
 import InfoSection from "../../components/Settings/InfoSection";
 import SettingsContainer from "../../components/Settings/SettingsContainer";
 import { GlobalStyles } from "../../constants/styles";
-import { DUMMY_DETAILS } from "../../constants/words";
+import { DATE_RANGE, DUMMY_DETAILS } from "../../constants/words";
 import { DUMMY_USER_1 } from "../../testData/DUMMY_DATA";
 
 /**
@@ -12,7 +12,7 @@ import { DUMMY_USER_1 } from "../../testData/DUMMY_DATA";
  *
  * Using https://github.com/react-native-datetimepicker/datetimepicker.
  *
- * @version 0.1.2
+ * @version 0.1.3
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const DateRangeScreen = () => {
@@ -37,8 +37,7 @@ const DateRangeScreen = () => {
   const minEndDate = startDate < today ? today : startDate;
 
   return (
-    <SettingsContainer>
-      <InfoSection headerText="Set Date Range" details={DUMMY_DETAILS} />
+    <SettingsContainer header={DATE_RANGE.header} info={DATE_RANGE.info}>
       <View style={styles.inputContainer}>
         <View style={styles.labelContainer}>
           <Text style={styles.dateText}>Start Date:</Text>

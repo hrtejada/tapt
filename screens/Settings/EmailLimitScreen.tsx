@@ -1,15 +1,14 @@
 import { createRef, useState } from "react";
 import { Alert, StyleSheet, TextInput, View } from "react-native";
-import InfoSection from "../../components/Settings/InfoSection";
 import SettingsContainer from "../../components/Settings/SettingsContainer";
 import { GlobalStyles } from "../../constants/styles";
-import { EMAIL_LIMIT_DETAILS } from "../../constants/words";
+import { EMAIL_LIMIT } from "../../constants/words";
 import { DUMMY_USER_1 } from "../../testData/DUMMY_DATA";
 
 /**
  * Component that holds the button to navigate to the DeleteAccounScreen.
  *
- * @version 0.2.2
+ * @version 0.2.3
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const EmailLimitScreen = () => {
@@ -67,11 +66,7 @@ const EmailLimitScreen = () => {
   };
 
   return (
-    <SettingsContainer>
-      <InfoSection
-        headerText="Limit accepted emails"
-        details={EMAIL_LIMIT_DETAILS}
-      />
+    <SettingsContainer header={EMAIL_LIMIT.header} info={EMAIL_LIMIT.info}>
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
