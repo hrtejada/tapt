@@ -37,7 +37,7 @@ interface emailState {
  *
  * TODO: Look into handling "'route.params' being undefined" properly
  *
- * @version 0.2.2
+ * @version 0.2.3
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const EmailScreen = ({ route, navigation }: EmailStackProps) => {
@@ -68,7 +68,13 @@ const EmailScreen = ({ route, navigation }: EmailStackProps) => {
       navigation.pop();
     }
     setIsLoading(false);
-  }, [setEmailInfo, setIsLoading]);
+  }, [
+    setEmailInfo,
+    setIsLoading,
+    navigation,
+    route.params?.action,
+    route.params?.id,
+  ]);
 
   /**
    * Navigate to the Reply - Accept template
