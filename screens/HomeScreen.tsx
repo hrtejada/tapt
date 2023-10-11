@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "space-between",
-    backgroundColor: GlobalStyles.colors.primary300,
+    backgroundColor: GlobalStyles.colors.background200,
   },
   firstRow: {
     flex: 2,
