@@ -21,7 +21,7 @@ const INIT_USER_STATE = {
   limit: "0",
   startDate: new Date(),
   endDate: new Date(),
-  parameters: [""],
+  parameters: [],
   notifications: OPTIONS.OFF.toString(),
 };
 
