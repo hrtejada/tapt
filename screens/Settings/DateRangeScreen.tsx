@@ -1,12 +1,11 @@
 import DateTimePicker, {
   DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
-import { useContext } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import SettingsContainer from "../../components/Settings/SettingsContainer";
 import { GlobalStyles } from "../../constants/styles";
 import { DATE_RANGE, TYPES } from "../../constants/words";
-import { UserContext } from "../../store/user-context";
+import { useUserContext } from "../../store/user-context";
 
 interface Props {
   text: string;
@@ -46,7 +45,7 @@ const DatePicker = ({ text, minDate, value, onChange }: Props) => {
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const DateRangeScreen = () => {
-  const { state, dispatch } = useContext(UserContext);
+  const { state, dispatch } = useUserContext();
 
   // TODO: Review which way is better in the long run: Inline functions or function calls
   // const onStartDateChange = (event: DateTimePickerEvent, date: Date) => {

@@ -1,26 +1,5 @@
-import { createContext, useReducer, useState } from "react";
+import { createContext, useContext, useReducer } from "react";
 import { OPTIONS, TYPES } from "../constants/words";
-
-interface UserContextProps {
-  id: string;
-  unreadCount: number;
-  accepted: number;
-  rejected: number;
-  limit: string;
-  startDate: Date;
-  endDate: Date;
-  parameters: string[];
-  notifications: string;
-  setId: (id: string) => void;
-  updateUnreadCount: (count: number) => void;
-  updateAccepted: (value: number) => void;
-  updateRejected: (value: number) => void;
-  setEmailLimit: (limit: string) => void;
-  setStartDate: (date: Date) => void;
-  setEndDate: (date: Date) => void;
-  addParameter: (param: string) => void;
-  removeParameter: (param: string) => void;
-}
 
 type INIT_USER_TYPE = {
   id: string;
@@ -46,6 +25,7 @@ const INIT_USER_STATE = {
   notifications: OPTIONS.OFF.toString(),
 };
 
+// Using Dis(something) Union
 type ACTION_TYPE =
   | { type: TYPES.USER_ID; payload: string }
   | { type: TYPES.UNREAD_COUNT; payload: number }
@@ -119,3 +99,18 @@ const UserContextProvider = ({ children }: ProviderProps) => {
 };
 
 export default UserContextProvider;
+
+/**
+ * Custom hook to make sure context is available and wrapping components properly.
+ */
+export const useUserContext = () => {
+  const context = useContext(UserContext);
+
+  if (!context) {
+    throw new Error(
+      "useUserContext has to be used within <UserContext.Provider>"
+    );
+  }
+
+  return context;
+};

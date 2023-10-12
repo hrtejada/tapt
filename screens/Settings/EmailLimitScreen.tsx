@@ -1,9 +1,9 @@
-import { createRef, useContext } from "react";
+import { createRef } from "react";
 import { Alert, StyleSheet, TextInput, View } from "react-native";
 import SettingsContainer from "../../components/Settings/SettingsContainer";
 import { GlobalStyles } from "../../constants/styles";
 import { EMAIL_LIMIT, TYPES } from "../../constants/words";
-import { UserContext } from "../../store/user-context";
+import { useUserContext } from "../../store/user-context";
 
 /**
  * Component that holds the button to navigate to the DeleteAccounScreen.
@@ -12,7 +12,7 @@ import { UserContext } from "../../store/user-context";
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const EmailLimitScreen = () => {
-  const { state, dispatch } = useContext(UserContext);
+  const { state, dispatch } = useUserContext();
   const limitRef = createRef<TextInput>(); // Used to refocus on input when invalid input is entered.
 
   /**
