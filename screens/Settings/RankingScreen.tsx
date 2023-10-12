@@ -1,8 +1,8 @@
-import { useState } from "react";
 import { StyleSheet, Switch, Text, View } from "react-native";
 import SettingsContainer from "../../components/Settings/SettingsContainer";
 import { GlobalStyles } from "../../constants/styles";
-import { RANKING } from "../../constants/words";
+import { RANKING, TYPES } from "../../constants/words";
+import { useUserContext } from "../../store/user-context";
 
 /**
  * Component that holds rank mode setting.
@@ -10,18 +10,26 @@ import { RANKING } from "../../constants/words";
  * TODO: Refine
  * TODO: Add section for 'Rank Mode' description.
  *
- * @version 0.1.3
+ * @version 0.1.4
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const RankingScreen = () => {
-  const [isRanking, setIsRanking] = useState(false);
-  const [inRankMode, setInRankMode] = useState(false);
+  const { state, dispatch } = useUserContext();
 
   const toggleIsRanking = () => {
-    setIsRanking((prev) => !prev);
-    setInRankMode(false);
+    if (state.isRanking) {
+      dispatch({ type: TYPES.RANKING_OFF });
+    } else {
+      dispatch({ type: TYPES.RANKING_ON });
+    }
   };
-  const toggleRankMode = () => setInRankMode((prev) => !prev);
+  const toggleRankMode = () => {
+    if (state.inRankMode) {
+      dispatch({ type: TYPES.RANK_MODE_OFF });
+    } else {
+      dispatch({ type: TYPES.RANK_MODE_ON });
+    }
+  };
 
   return (
     <SettingsContainer header={RANKING.header} info={RANKING.info}>
@@ -34,10 +42,10 @@ const RankingScreen = () => {
             false: GlobalStyles.colors.secondary500,
           }}
           onValueChange={toggleIsRanking}
-          value={isRanking}
+          value={state.isRanking}
         />
       </View>
-      {isRanking && (
+      {state.isRanking && (
         <View style={styles.rankModeContainer}>
           <Text style={styles.rankModeText}>Rank Mode</Text>
           <Switch
@@ -47,8 +55,8 @@ const RankingScreen = () => {
               false: GlobalStyles.colors.secondary500,
             }}
             onValueChange={toggleRankMode}
-            value={inRankMode}
-            disabled={!isRanking}
+            value={state.inRankMode}
+            disabled={!state.isRanking}
           />
         </View>
       )}

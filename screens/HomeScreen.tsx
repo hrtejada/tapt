@@ -9,6 +9,7 @@ import HeaderOne from "../components/ui/HeaderOne";
 import { GlobalStyles } from "../constants/styles";
 import { DUMMY_USER_1 } from "../testData/DUMMY_DATA";
 import { HomeStackProps } from "../util/react-navigation";
+import { useUserContext } from "../store/user-context";
 
 /**
  * Home Component displaying the main components of the app.
@@ -19,15 +20,16 @@ import { HomeStackProps } from "../util/react-navigation";
  *  - Row for Email Information/Action
  *
  * TODO: Flesh out component - Will hold the main cards/buttons to deal with the email queue
- * @version 0.2.1
+ * @version 0.2.2
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const HomeScreen = ({ navigation }: HomeStackProps) => {
   const insets = useSafeAreaInsets();
+  const { state } = useUserContext();
 
   const now = new Date();
-  const startDate = new Date(DUMMY_USER_1.settings.startDate);
-  const endDate = new Date(DUMMY_USER_1.settings.endDate);
+  const startDate = state.startDate;
+  const endDate = state.endDate;
   const startDateDisplay = startDate.toDateString();
   const endDateDisplay = endDate.toDateString();
   const isBooking = now >= startDate && now < endDate;

@@ -11,6 +11,8 @@ type INIT_USER_TYPE = {
   endDate: Date;
   parameters: string[];
   notifications: string;
+  isRanking: boolean;
+  inRankMode: boolean;
 };
 
 const INIT_USER_STATE = {
@@ -23,6 +25,8 @@ const INIT_USER_STATE = {
   endDate: new Date(),
   parameters: [],
   notifications: OPTIONS.OFF.toString(),
+  isRanking: false,
+  inRankMode: false,
 };
 
 // Using Dis(something) Union
@@ -36,7 +40,11 @@ type ACTION_TYPE =
   | { type: TYPES.END_DATE; payload: Date }
   | { type: TYPES.ADD; payload: string }
   | { type: TYPES.DELETE; payload: string }
-  | { type: TYPES.NOTIFICATION; payload: string };
+  | { type: TYPES.NOTIFICATION; payload: string }
+  | { type: TYPES.RANKING_ON }
+  | { type: TYPES.RANKING_OFF }
+  | { type: TYPES.RANK_MODE_ON }
+  | { type: TYPES.RANK_MODE_OFF };
 
 /**
  * Main user state context.
@@ -82,6 +90,14 @@ const reducer = (state: INIT_USER_TYPE, action: ACTION_TYPE) => {
       };
     case TYPES.NOTIFICATION:
       return { ...state, notifications: action.payload };
+    case TYPES.RANKING_ON:
+      return { ...state, isRanking: true };
+    case TYPES.RANKING_OFF:
+      return { ...state, isRanking: false, inRankMode: false };
+    case TYPES.RANK_MODE_ON:
+      return { ...state, inRankMode: true };
+    case TYPES.RANK_MODE_OFF:
+      return { ...state, inRankMode: false };
     default:
       throw new Error();
   }
