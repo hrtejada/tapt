@@ -38,22 +38,17 @@ const DatePicker = ({ text, minDate, value, onChange }: Props) => {
  *
  * Using https://github.com/react-native-datetimepicker/datetimepicker.
  *
+ * Using Inline function calls because the typing complains when put into
+ * a separate function call. Need to invesitgate more
+ *
  * TODO: Should we dismiss picker once use selects a date??
  * TODO: Should we limit how far out users can put the End Date??
  *
- * @version 0.2.0
+ * @version 0.2.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const DateRangeScreen = () => {
   const { state, dispatch } = useUserContext();
-
-  // TODO: Review which way is better in the long run: Inline functions or function calls
-  // const onStartDateChange = (event: DateTimePickerEvent, date: Date) => {
-  //   setStartDate((prevDate) => date);
-  // };
-  // const onEndDateChange = (_, date: Date) => {
-  //   setEndDate(date);
-  // };
 
   const startDate = state.startDate;
   const endDate = state.endDate;
@@ -66,17 +61,19 @@ const DateRangeScreen = () => {
         text="Start Date:"
         minDate={today}
         value={startDate}
-        onChange={(_, date) =>
-          date && dispatch({ type: TYPES.START_DATE, payload: date })
-        }
+        onChange={(_, date) => {
+          // Do Backend stuff...
+          date && dispatch({ type: TYPES.START_DATE, payload: date });
+        }}
       />
       <DatePicker
         text="End Date:"
         minDate={minEndDate}
         value={endDate}
-        onChange={(_, date) =>
-          date && dispatch({ type: TYPES.END_DATE, payload: date })
-        }
+        onChange={(_, date) => {
+          // Do Backend stuff...
+          date && dispatch({ type: TYPES.END_DATE, payload: date });
+        }}
       />
     </SettingsContainer>
   );

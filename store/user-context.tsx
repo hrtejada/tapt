@@ -16,9 +16,9 @@ type INIT_USER_TYPE = {
 const INIT_USER_STATE = {
   id: "",
   unreadCount: 0,
-  accepted: 50,
+  accepted: 10,
   rejected: 50,
-  limit: "10",
+  limit: "0",
   startDate: new Date(),
   endDate: new Date(),
   parameters: [""],
@@ -35,7 +35,8 @@ type ACTION_TYPE =
   | { type: TYPES.START_DATE; payload: Date }
   | { type: TYPES.END_DATE; payload: Date }
   | { type: TYPES.ADD; payload: string }
-  | { type: TYPES.DELETE; payload: string };
+  | { type: TYPES.DELETE; payload: string }
+  | { type: TYPES.NOTIFICATION; payload: string };
 
 /**
  * Main user state context.
@@ -79,6 +80,8 @@ const reducer = (state: INIT_USER_TYPE, action: ACTION_TYPE) => {
         ...state,
         parameters: newParams,
       };
+    case TYPES.NOTIFICATION:
+      return { ...state, notifications: action.payload };
     default:
       throw new Error();
   }
