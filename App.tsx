@@ -27,6 +27,7 @@ import {
   SettingsStackParamList,
   getHeaderTitle,
 } from "./util/react-navigation";
+import UserContextProvider from "./store/user-context";
 
 /**
  * Main app component.
@@ -114,63 +115,65 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <StatusBar style="auto" />
-      <NavigationContainer>
-        <Drawer.Navigator
-          screenOptions={{
-            drawerActiveTintColor: GlobalStyles.colors.text,
-            drawerActiveBackgroundColor: GlobalStyles.colors.secondary700,
-            drawerInactiveTintColor: GlobalStyles.colors.text,
-            drawerInactiveBackgroundColor: GlobalStyles.colors.background200,
-            drawerType: "front",
-            drawerLabelStyle: {
-              fontSize: 22,
-            },
-            drawerStyle: {
-              backgroundColor: GlobalStyles.colors.primary700,
-            },
+      <UserContextProvider>
+        <NavigationContainer>
+          <Drawer.Navigator
+            screenOptions={{
+              drawerActiveTintColor: GlobalStyles.colors.text,
+              drawerActiveBackgroundColor: GlobalStyles.colors.secondary700,
+              drawerInactiveTintColor: GlobalStyles.colors.text,
+              drawerInactiveBackgroundColor: GlobalStyles.colors.background200,
+              drawerType: "front",
+              drawerLabelStyle: {
+                fontSize: 22,
+              },
+              drawerStyle: {
+                backgroundColor: GlobalStyles.colors.primary700,
+              },
 
-            headerStyle: {
-              backgroundColor: GlobalStyles.colors.background300,
-              borderBottomColor: GlobalStyles.colors.accent500,
-              borderBottomWidth: 1,
-            },
-            headerTintColor: GlobalStyles.colors.text,
-          }}
-        >
-          <Drawer.Screen
-            name="MainView"
-            component={MainView}
-            options={{
-              headerTitle: "",
-              title: "Home",
-              headerTransparent: true,
-              drawerIcon: () => (
-                <FontAwesome5
-                  name="home"
-                  size={20}
-                  color={GlobalStyles.colors.text}
-                />
-              ),
+              headerStyle: {
+                backgroundColor: GlobalStyles.colors.background300,
+                borderBottomColor: GlobalStyles.colors.accent500,
+                borderBottomWidth: 1,
+              },
+              headerTintColor: GlobalStyles.colors.text,
             }}
-          />
-          <Drawer.Screen
-            name="SettingsStack"
-            component={SettingsView}
-            options={({ route }) => ({
-              drawerIcon: () => (
-                <FontAwesome5
-                  name="cogs"
-                  size={20}
-                  color={GlobalStyles.colors.text}
-                />
-              ),
-              headerRight: () => <LogoutButton />,
-              headerTitle: getHeaderTitle(route),
-              title: "Settings",
-            })}
-          />
-        </Drawer.Navigator>
-      </NavigationContainer>
+          >
+            <Drawer.Screen
+              name="MainView"
+              component={MainView}
+              options={{
+                headerTitle: "",
+                title: "Home",
+                headerTransparent: true,
+                drawerIcon: () => (
+                  <FontAwesome5
+                    name="home"
+                    size={20}
+                    color={GlobalStyles.colors.text}
+                  />
+                ),
+              }}
+            />
+            <Drawer.Screen
+              name="SettingsStack"
+              component={SettingsView}
+              options={({ route }) => ({
+                drawerIcon: () => (
+                  <FontAwesome5
+                    name="cogs"
+                    size={20}
+                    color={GlobalStyles.colors.text}
+                  />
+                ),
+                headerRight: () => <LogoutButton />,
+                headerTitle: getHeaderTitle(route),
+                title: "Settings",
+              })}
+            />
+          </Drawer.Navigator>
+        </NavigationContainer>
+      </UserContextProvider>
     </SafeAreaProvider>
   );
 }

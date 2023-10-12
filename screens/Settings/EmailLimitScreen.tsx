@@ -1,27 +1,25 @@
-import { createRef, useState } from "react";
+import { createRef, useContext } from "react";
 import { Alert, StyleSheet, TextInput, View } from "react-native";
 import SettingsContainer from "../../components/Settings/SettingsContainer";
 import { GlobalStyles } from "../../constants/styles";
-import { EMAIL_LIMIT } from "../../constants/words";
-import { DUMMY_USER_1 } from "../../testData/DUMMY_DATA";
+import { EMAIL_LIMIT, TYPES } from "../../constants/words";
+import { UserContext } from "../../store/user-context";
 
 /**
  * Component that holds the button to navigate to the DeleteAccounScreen.
  *
- * @version 0.2.4
+ * @version 0.2.5
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const EmailLimitScreen = () => {
-  const [limit, setLimit] = useState(
-    DUMMY_USER_1.settings.limit.toString() || "0"
-  );
+  const { state, dispatch } = useContext(UserContext);
   const limitRef = createRef<TextInput>(); // Used to refocus on input when invalid input is entered.
 
   /**
    * Update the state so the correct value is reflected in the input.
    */
   const onChangeLimit = (enteredText: string) => {
-    setLimit(enteredText);
+    dispatch({ type: TYPES.LIMIT, payload: enteredText });
   };
 
   /**
@@ -40,9 +38,9 @@ const EmailLimitScreen = () => {
    * TODO: VALIDATION LOGIC 😎
    */
   const handleEndEditing = () => {
-    const newLimit = parseInt(limit);
+    const limit = Number(state.limit);
 
-    if (isNaN(newLimit)) {
+    if (isNaN(limit)) {
       Alert.alert("Invalid Input", "Please enter a valid number", [
         {
           text: "OK",
@@ -53,7 +51,7 @@ const EmailLimitScreen = () => {
       return;
     }
     // TODO: Decide on the limit of limit 🤷‍♂️
-    if (newLimit < 0 || newLimit > 150) {
+    if (limit < 0 || limit > 150) {
       Alert.alert("Limit out of range", "Range is 0 - 150", [
         {
           text: "OK",
@@ -63,6 +61,13 @@ const EmailLimitScreen = () => {
       ]);
       return;
     }
+
+    // Update Backend...
+
+    // Update limit if it is 0 so UI properly reflects value
+    if (limit === 0) {
+      dispatch({ type: TYPES.LIMIT, payload: limit.toString() });
+    }
   };
 
   return (
@@ -70,7 +75,7 @@ const EmailLimitScreen = () => {
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
-          value={limit}
+          value={state.limit.toString()}
           maxLength={3}
           keyboardType="number-pad"
           inputMode="numeric"
