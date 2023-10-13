@@ -13,20 +13,20 @@ interface Props {
  *
  * Styled differently depending on the current status.
  *
- * @version 0.1.0
+ * @version 0.2.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const BookingStatus = ({ status, startDate, endDate }: Props) => {
   return (
-    <View style={styles.container}>
-      <Text
-        style={[styles.statusText, status ? styles.active : styles.inactive]}
-      >
+    <View style={[styles.container, status ? styles.active : styles.inactive]}>
+      <Text style={[styles.text, styles.statusText]}>
         {status ? ACTIVE : INACTIVE}
       </Text>
-      <Text style={styles.bookingDateRange}>
-        {status ? `${startDate} - ${endDate}` : ""}
-      </Text>
+      {status && (
+        <Text style={[styles.text, styles.dateRangeText]}>
+          {status ? `${startDate} - ${endDate}` : ""}
+        </Text>
+      )}
     </View>
   );
 };
@@ -37,28 +37,29 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
-  },
-  statusText: {
-    padding: 12,
-    borderRadius: 25,
-    fontSize: 20,
-    fontWeight: "bold",
-    overflow: "hidden",
+    padding: 6,
+    borderTopWidth: 2,
+    borderTopColor: GlobalStyles.colors.accent700,
+    borderBottomWidth: 2,
+    borderBottomColor: GlobalStyles.colors.accent700,
   },
   active: {
-    backgroundColor: "green",
-    color: GlobalStyles.colors.background100,
+    backgroundColor: GlobalStyles.colors.success,
   },
   inactive: {
-    backgroundColor: "red",
+    backgroundColor: GlobalStyles.colors.warning,
   },
-  bookingDateRange: {
-    color: GlobalStyles.colors.text,
-    fontSize: 24,
+  text: {
+    flex: 0,
+    color: GlobalStyles.colors.background100,
     fontWeight: "bold",
+  },
+  statusText: {
+    fontSize: 22,
+  },
+  dateRangeText: {
+    fontSize: 20,
     textAlign: "center",
-    marginVertical: 4,
-    padding: 8,
-    overflow: "hidden",
+    marginTop: 4,
   },
 });

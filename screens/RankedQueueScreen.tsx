@@ -1,7 +1,7 @@
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import Button from "../components/ui/Button";
-import SenderInfo from "../components/EmailInfo/SenderInfo";
+import SenderInfo from "../components/Emails/SenderInfo";
 import HeaderOne from "../components/ui/HeaderOne";
 import { GlobalStyles } from "../constants/styles";
 import {

@@ -69,11 +69,4 @@ export const DUMMY_USER_1 = {
   unreadCount: 0, // NOTE - We'll get this in realtime from the GMAIL API
   accepted: 50,
   rejected: 50,
-  settings: {
-    limit: 0,
-    startDate: "2023-09-01T00:00:00.000Z",
-    endDate: "2023-09-30T00:00:00.000Z",
-    parameters: ["description", "size", "budget", "pictures", "placement"],
-  },
-  notifications: OPTIONS.OFF.toString(),
 };

@@ -1,9 +1,8 @@
-import { useState } from "react";
 import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 import SettingsContainer from "../../components/Settings/SettingsContainer";
 import { GlobalStyles } from "../../constants/styles";
-import { NOTIFICATION_CADENCE, OPTIONS } from "../../constants/words";
-import { DUMMY_USER_1 } from "../../testData/DUMMY_DATA";
+import { NOTIFICATION_CADENCE, OPTIONS, TYPES } from "../../constants/words";
+import { useUserContext } from "../../store/user-context";
 
 // TODO: Is it worth putting this in its own component?
 interface ItemData {
@@ -57,21 +56,21 @@ const Item = ({ item, onPress, backgroundColor }: Props) => (
 /**
  * Component that holds notification cadence setting.
  *
- *
- * @version 0.1.3
+ * @version 0.1.4
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const NotificationCadenceScreen = () => {
-  const [selected, setSelected] = useState(DUMMY_USER_1.notifications || "0");
+  const { state, dispatch } = useUserContext();
 
   const renderItem = ({ item }: { item: ItemData }) => {
     const backgroundColor =
-      item.id === selected
+      item.id === state.notifications
         ? GlobalStyles.colors.primary700
         : GlobalStyles.colors.primary500;
 
     const selectItemHandler = () => {
-      setSelected(item.id);
+      // Do Backend stuff...
+      dispatch({ type: TYPES.NOTIFICATION, payload: item.id });
     };
 
     return (
@@ -93,7 +92,7 @@ const NotificationCadenceScreen = () => {
           data={ITEMS}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
-          extraData={selected}
+          extraData={state.notifications}
           ItemSeparatorComponent={() => <View style={styles.bar} />}
           scrollEnabled={false}
         />

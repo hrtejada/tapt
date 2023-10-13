@@ -12,21 +12,20 @@ import SettingsContainer from "../../components/Settings/SettingsContainer";
 import Button from "../../components/ui/Button";
 import Chip from "../../components/ui/Chip";
 import { GlobalStyles } from "../../constants/styles";
-import { PARAMETERS } from "../../constants/words";
-import { DUMMY_USER_1 } from "../../testData/DUMMY_DATA";
+import { PARAMETERS, TYPES } from "../../constants/words";
+import { useUserContext } from "../../store/user-context";
 
 /**
  * Component for the parameters setting.
  *
  * TODO: Determine where to validate TextInput
+ * TODO: Restyle this screen 🐱‍👤
  *
- * @version 0.1.4
+ * @version 0.1.5
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const ParametersScreen = () => {
-  const [parameters, setParameters] = useState<string[]>(
-    DUMMY_USER_1.settings.parameters || []
-  );
+  const { state, dispatch } = useUserContext();
   const [modalVisible, setModalVisible] = useState(false);
   const [newParameter, setNewParameter] = useState("");
 
@@ -34,9 +33,8 @@ const ParametersScreen = () => {
    * Remove the parameter from the user's parameters array.
    */
   const deleteChipHandler = (parameter: string) => {
-    setParameters((prevParams) =>
-      prevParams.filter((param) => param !== parameter)
-    );
+    // Do Backend stuff...
+    dispatch({ type: TYPES.DELETE, payload: parameter });
   };
 
   /**
@@ -46,10 +44,9 @@ const ParametersScreen = () => {
    */
   const addParamHandler = () => {
     // TODO: Implement input validation for Front End
-    setParameters((prevParams) => {
-      const cleanedParam = newParameter.trim();
-      return [...prevParams, cleanedParam];
-    });
+
+    // Do Backend stuff...
+    dispatch({ type: TYPES.ADD, payload: newParameter });
     setModalVisible(false);
     setNewParameter("");
   };
@@ -57,7 +54,7 @@ const ParametersScreen = () => {
   return (
     <SettingsContainer header={PARAMETERS.header} info={PARAMETERS.info}>
       <View style={styles.chipsContainer}>
-        {parameters.map((parameter) => (
+        {state.parameters.map((parameter) => (
           <Chip
             key={parameter}
             text={parameter}

@@ -1,12 +1,11 @@
 import DateTimePicker, {
   DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
-import { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import SettingsContainer from "../../components/Settings/SettingsContainer";
 import { GlobalStyles } from "../../constants/styles";
-import { DATE_RANGE } from "../../constants/words";
-import { DUMMY_USER_1 } from "../../testData/DUMMY_DATA";
+import { DATE_RANGE, TYPES } from "../../constants/words";
+import { useUserContext } from "../../store/user-context";
 
 interface Props {
   text: string;
@@ -39,29 +38,20 @@ const DatePicker = ({ text, minDate, value, onChange }: Props) => {
  *
  * Using https://github.com/react-native-datetimepicker/datetimepicker.
  *
- * TODO: Should we dismiss picker once use selects a date??
+ * Using Inline function calls because the typing complains when put into
+ * a separate function call. Need to invesitgate more
  *
- * @version 0.2.0
+ * TODO: Should we dismiss picker once use selects a date??
+ * TODO: Should we limit how far out users can put the End Date??
+ *
+ * @version 0.2.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const DateRangeScreen = () => {
-  const [startDate, setStartDate] = useState<Date>(
-    new Date(DUMMY_USER_1.settings.startDate) || new Date()
-  );
-  // TODO: Should we limit how far out users can put the End Date??
-  const [endDate, setEndDate] = useState<Date>(
-    new Date(DUMMY_USER_1.settings.endDate) || new Date()
-  );
+  const { state, dispatch } = useUserContext();
 
-  // TODO: Review which way is better in the long run: Inline functions or function calls
-  // const onStartDateChange = (event: DateTimePickerEvent, date: Date) => {
-  //   setStartDate((prevDate) => date);
-  // };
-
-  // const onEndDateChange = (_, date: Date) => {
-  //   setEndDate(date);
-  // };
-
+  const startDate = state.startDate;
+  const endDate = state.endDate;
   const today = new Date();
   const minEndDate = startDate < today ? today : startDate;
 
@@ -71,13 +61,19 @@ const DateRangeScreen = () => {
         text="Start Date:"
         minDate={today}
         value={startDate}
-        onChange={(_, date) => date && setStartDate(date)}
+        onChange={(_, date) => {
+          // Do Backend stuff...
+          date && dispatch({ type: TYPES.START_DATE, payload: date });
+        }}
       />
       <DatePicker
         text="End Date:"
         minDate={minEndDate}
         value={endDate}
-        onChange={(_, date) => date && setEndDate(date)}
+        onChange={(_, date) => {
+          // Do Backend stuff...
+          date && dispatch({ type: TYPES.END_DATE, payload: date });
+        }}
       />
     </SettingsContainer>
   );
