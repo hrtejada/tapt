@@ -21,7 +21,7 @@ const BookingNumberCard = ({ title, value, total }: Props) => {
   const percentage = (value / total) * 100;
   const formattedPercentage = percentage.toFixed(0);
   const acceptedStyling = {
-    color: GlobalStyles.colors.secondary700,
+    color: GlobalStyles.colors.text,
     justifyContent: "flex-end" as "flex-end",
   };
   const rejectedStyling = {
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     marginTop: 12,
   },
   accepted: {
-    backgroundColor: GlobalStyles.colors.primary500,
+    backgroundColor: GlobalStyles.colors.primary400,
     borderLeftColor: GlobalStyles.colors.accent500,
     borderLeftWidth: 1,
     borderTopColor: GlobalStyles.colors.accent500,

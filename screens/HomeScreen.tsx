@@ -1,12 +1,11 @@
 import { FontAwesome5 } from "@expo/vector-icons";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import BookingInfo from "../components/BookingInfo/BookingInfo";
-import UnreadCountCard from "../components/EmailInfo/UnreadCountCard";
+import EmailInfo from "../components/EmailInfo/EmailInfo";
 import Button from "../components/ui/Button";
 import HeaderOne from "../components/ui/HeaderOne";
 import { GlobalStyles } from "../constants/styles";
-import { DUMMY_USER_1 } from "../testData/DUMMY_DATA";
 import { HomeStackProps } from "../util/react-navigation";
 
 /**
@@ -23,14 +22,6 @@ import { HomeStackProps } from "../util/react-navigation";
  */
 const HomeScreen = ({ navigation }: HomeStackProps) => {
   const insets = useSafeAreaInsets();
-
-  /**
-   * Navigate to the Email Screen.
-   */
-  const emailPressHandler = () => {
-    navigation.navigate("Email", { action: "new" });
-    // TODO: Retrieve email data or handle it in the EmailScreen
-  };
 
   /**
    * Navigate to the Ranked Queue Screen
@@ -52,6 +43,7 @@ const HomeScreen = ({ navigation }: HomeStackProps) => {
       ]}
     >
       <BookingInfo />
+      <EmailInfo />
       <View style={styles.secondRow}>
         <HeaderOne>View Ranked Queue</HeaderOne>
         <View style={styles.rankedQueueButtonContainer}>
@@ -65,24 +57,6 @@ const HomeScreen = ({ navigation }: HomeStackProps) => {
               color={GlobalStyles.colors.text}
             />
           </Button>
-        </View>
-      </View>
-      <View style={styles.thirdRow}>
-        <HeaderOne>Emails</HeaderOne>
-        <View style={styles.emailsContainer}>
-          <UnreadCountCard unreadCount={DUMMY_USER_1.unreadCount} />
-          <View style={styles.emailButtonContainer}>
-            <Button onPress={emailPressHandler}>
-              <View style={styles.innerButtonContainer}>
-                <FontAwesome5
-                  name="envelope-open-text"
-                  size={56}
-                  color={GlobalStyles.colors.text}
-                />
-                <Text style={styles.emailsButtonText}>Review Emails</Text>
-              </View>
-            </Button>
-          </View>
         </View>
       </View>
     </View>
@@ -109,28 +83,5 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 0,
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
-  },
-  thirdRow: {
-    flex: 2,
-  },
-  emailsContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-  },
-  emailButtonContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    paddingVertical: 12,
-  },
-  innerButtonContainer: {
-    padding: 8,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  emailsButtonText: {
-    fontWeight: "bold",
-    fontSize: 24,
-    marginTop: 16,
   },
 });
