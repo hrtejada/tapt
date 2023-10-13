@@ -1,15 +1,13 @@
 import { FontAwesome5 } from "@expo/vector-icons";
 import { StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import BookingStats from "../components/BookingInfo/BookingStats";
-import BookingStatus from "../components/BookingInfo/BookingStatus";
-import Button from "../components/ui/Button";
+import BookingInfo from "../components/BookingInfo/BookingInfo";
 import UnreadCountCard from "../components/EmailInfo/UnreadCountCard";
+import Button from "../components/ui/Button";
 import HeaderOne from "../components/ui/HeaderOne";
 import { GlobalStyles } from "../constants/styles";
 import { DUMMY_USER_1 } from "../testData/DUMMY_DATA";
 import { HomeStackProps } from "../util/react-navigation";
-import { useUserContext } from "../store/user-context";
 
 /**
  * Home Component displaying the main components of the app.
@@ -20,19 +18,11 @@ import { useUserContext } from "../store/user-context";
  *  - Row for Email Information/Action
  *
  * TODO: Flesh out component - Will hold the main cards/buttons to deal with the email queue
- * @version 0.2.2
+ * @version 0.2.3
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const HomeScreen = ({ navigation }: HomeStackProps) => {
   const insets = useSafeAreaInsets();
-  const { state } = useUserContext();
-
-  const now = new Date();
-  const startDate = state.startDate;
-  const endDate = state.endDate;
-  const startDateDisplay = startDate.toDateString();
-  const endDateDisplay = endDate.toDateString();
-  const isBooking = now >= startDate && now < endDate;
 
   /**
    * Navigate to the Email Screen.
@@ -61,18 +51,7 @@ const HomeScreen = ({ navigation }: HomeStackProps) => {
         },
       ]}
     >
-      <View style={styles.firstRow}>
-        <HeaderOne>Booking Info</HeaderOne>
-        <BookingStatus
-          status={isBooking}
-          startDate={startDateDisplay}
-          endDate={endDateDisplay}
-        />
-        <BookingStats
-          accepted={DUMMY_USER_1.accepted}
-          rejected={DUMMY_USER_1.rejected}
-        />
-      </View>
+      <BookingInfo />
       <View style={styles.secondRow}>
         <HeaderOne>View Ranked Queue</HeaderOne>
         <View style={styles.rankedQueueButtonContainer}>
@@ -117,9 +96,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "space-between",
     backgroundColor: GlobalStyles.colors.background200,
-  },
-  firstRow: {
-    flex: 2,
   },
   secondRow: {
     flex: 1,

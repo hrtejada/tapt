@@ -5,6 +5,7 @@ import { ACCEPTED, REJECTED } from "../../constants/words";
 interface Props {
   title: typeof ACCEPTED | typeof REJECTED;
   value: number;
+  total: number;
 }
 
 /**
@@ -12,19 +13,30 @@ interface Props {
  *
  * NOTE - Possibly expand this component in the future to show more statistics
  *
- * @version 0.2.1
+ * @version 0.2.2
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
-const BookingNumberCard = ({ title, value }: Props) => {
+const BookingNumberCard = ({ title, value, total }: Props) => {
+  const isAccepted = title === ACCEPTED;
+  const percentage = (value / total) * 100;
+  const formattedPercentage = percentage.toFixed(0);
+  const acceptedStyling = {
+    color: GlobalStyles.colors.secondary700,
+    justifyContent: "flex-end" as "flex-end",
+  };
+  const rejectedStyling = {
+    color: GlobalStyles.colors.accent700,
+    justifyContent: "flex-start" as "flex-start",
+  };
+  const extraStyling = isAccepted ? acceptedStyling : rejectedStyling;
+
   return (
-    <View
-      style={[
-        styles.card,
-        title === ACCEPTED ? styles.accepted : styles.rejected,
-      ]}
-    >
-      <Text style={styles.title}>{title}:</Text>
-      <Text style={[styles.title, styles.number]}>{value}%</Text>
+    <View style={[styles.card, isAccepted ? styles.accepted : styles.rejected]}>
+      <Text style={[styles.text, styles.title]}>{title}:</Text>
+      <Text style={[styles.text, styles.number]}>{value}</Text>
+      <Text style={[styles.text, styles.percentage, extraStyling]}>
+        {formattedPercentage}%
+      </Text>
     </View>
   );
 };
@@ -33,10 +45,8 @@ export default BookingNumberCard;
 
 const styles = StyleSheet.create({
   card: {
-    height: 125,
-    width: 100,
-    justifyContent: "center",
     flex: 1,
+    justifyContent: "center",
     marginTop: 12,
   },
   accepted: {
@@ -47,9 +57,9 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderBottomColor: GlobalStyles.colors.accent500,
     borderBottomWidth: 1,
-    borderTopLeftRadius: 50,
-    borderBottomLeftRadius: 50,
-    marginLeft: 12,
+    borderTopLeftRadius: 25,
+    borderBottomLeftRadius: 25,
+    marginLeft: 24,
   },
   rejected: {
     backgroundColor: GlobalStyles.colors.secondary500,
@@ -59,19 +69,28 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderBottomColor: GlobalStyles.colors.accent500,
     borderBottomWidth: 1,
-    borderTopRightRadius: 50,
-    borderBottomRightRadius: 50,
-    marginRight: 12,
+    borderTopRightRadius: 25,
+    borderBottomRightRadius: 25,
+    marginRight: 24,
   },
-  title: {
-    fontSize: 18,
-    fontWeight: "bold",
-    fontStyle: "italic",
+  text: {
     color: GlobalStyles.colors.text,
+    fontWeight: "bold",
     textAlign: "center",
   },
+  title: {
+    fontSize: 20,
+    fontStyle: "italic",
+    paddingTop: 10,
+  },
   number: {
-    fontSize: 56,
+    fontSize: 60,
     fontStyle: "normal",
+    paddingVertical: 8,
+  },
+  percentage: {
+    fontSize: 20,
+    color: GlobalStyles.colors.accent700,
+    paddingBottom: 10,
   },
 });
