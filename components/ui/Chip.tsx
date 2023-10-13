@@ -26,7 +26,7 @@ const Chip = ({ text, onDelete }: Props) => {
         <FontAwesome5
           name="times"
           size={20}
-          color={GlobalStyles.colors.accent900}
+          color={GlobalStyles.colors.accent700}
         />
       </Pressable>
     </View>
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   button: {
-    backgroundColor: GlobalStyles.colors.accent100,
+    backgroundColor: GlobalStyles.colors.accent300,
     paddingVertical: 4,
     paddingHorizontal: 8,
   },

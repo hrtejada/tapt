@@ -1,10 +1,7 @@
-import { FontAwesome5 } from "@expo/vector-icons";
-import { StyleSheet, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import BookingInfo from "../components/BookingInfo/BookingInfo";
 import EmailInfo from "../components/EmailInfo/EmailInfo";
-import Button from "../components/ui/Button";
-import HeaderOne from "../components/ui/HeaderOne";
 import { GlobalStyles } from "../constants/styles";
 import { HomeStackProps } from "../util/react-navigation";
 
@@ -12,12 +9,12 @@ import { HomeStackProps } from "../util/react-navigation";
  * Home Component displaying the main components of the app.
  *
  * Currently broken up into 3 main rows
- *  - Row for Booking Information
- *  - Row for Ranked Queue
- *  - Row for Email Information/Action
+ *  - Booking Information
+ *  - Email Information/Action
+ *  - Ranked Queue
  *
  * TODO: Flesh out component - Will hold the main cards/buttons to deal with the email queue
- * @version 0.2.3
+ * @version 0.2.4
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const HomeScreen = ({ navigation }: HomeStackProps) => {
@@ -44,20 +41,16 @@ const HomeScreen = ({ navigation }: HomeStackProps) => {
     >
       <BookingInfo />
       <EmailInfo />
-      <View style={styles.secondRow}>
-        <HeaderOne>View Ranked Queue</HeaderOne>
-        <View style={styles.rankedQueueButtonContainer}>
-          <Button
-            buttonStyle={styles.rankedQueueButton}
-            onPress={rankedQueuePressHandler}
-          >
-            <FontAwesome5
-              name="clipboard-list"
-              size={48}
-              color={GlobalStyles.colors.text}
-            />
-          </Button>
-        </View>
+      <View style={styles.row}>
+        <Pressable
+          onPress={rankedQueuePressHandler}
+          style={({ pressed }) => [styles.button, pressed && styles.pressed]}
+        >
+          <Text style={styles.text}>View Ranked Queue</Text>
+        </Pressable>
+      </View>
+      <View>
+        <Text style={styles.bottomText}>Business stuff ©</Text>
       </View>
     </View>
   );
@@ -71,17 +64,32 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     backgroundColor: GlobalStyles.colors.background200,
   },
-  secondRow: {
+  row: {
     flex: 1,
   },
-  rankedQueueButtonContainer: {
+  button: {
     alignItems: "center",
+    backgroundColor: GlobalStyles.colors.secondary500,
+    marginHorizontal: 24,
+    padding: 12,
+    borderWidth: 1,
+    borderColor: GlobalStyles.colors.accent500,
+    borderRadius: 13,
+    shadowColor: GlobalStyles.colors.text,
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.75,
+    shadowRadius: 2,
   },
-  rankedQueueButton: {
-    paddingHorizontal: 32,
-    borderTopLeftRadius: 0,
-    borderTopRightRadius: 0,
-    borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 10,
+  text: {
+    fontSize: 24,
+    fontWeight: "bold",
+    textTransform: "uppercase",
+  },
+  bottomText: {
+    fontSize: 16,
+    textAlign: "center",
+  },
+  pressed: {
+    backgroundColor: GlobalStyles.colors.secondary700,
   },
 });
