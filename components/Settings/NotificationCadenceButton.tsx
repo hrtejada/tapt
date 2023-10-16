@@ -1,10 +1,9 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { StyleSheet } from "react-native";
-import { NotificationCadenceStackProps } from "../../util/react-navigation";
-import FlatButton from "./FlatButton";
 import { FLAT_BUTTON_ICON_SIZE } from "../../constants/sizes";
 import { NOTIFICATION_TITLE } from "../../constants/words";
+import { NotificationCadenceStackProps } from "../../util/react-navigation";
+import FlatButton from "./FlatButton";
 
 /**
  * Button used to navigate to the NotificationScreen.
@@ -36,5 +35,3 @@ const NotificationCadenceButton = () => {
 };
 
 export default NotificationCadenceButton;
-
-const styles = StyleSheet.create({});

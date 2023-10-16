@@ -1,10 +1,9 @@
 import { FontAwesome5 } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { StyleSheet } from "react-native";
-import { ParametersStackProps } from "../../util/react-navigation";
-import FlatButton from "./FlatButton";
 import { FLAT_BUTTON_ICON_SIZE } from "../../constants/sizes";
 import { PARAMETERS_TITLE } from "../../constants/words";
+import { ParametersStackProps } from "../../util/react-navigation";
+import FlatButton from "./FlatButton";
 
 /**
  * Component to navigate to the ParametersScreen.
@@ -30,5 +29,3 @@ const ParametersButton = () => {
 };
 
 export default ParametersButton;
-
-const styles = StyleSheet.create({});

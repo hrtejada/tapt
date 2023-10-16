@@ -1,13 +1,13 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import AboutButton from "../components/Settings/AboutButton";
 import DateRangeButton from "../components/Settings/DateRangeButton";
 import DeleteAccountButton from "../components/Settings/DeleteAccountButton";
 import EmailLimitButton from "../components/Settings/EmailLimitButton";
-import ParametersButton from "../components/Settings/ParametersButton";
-import { GlobalStyles } from "../constants/styles";
 import NotificationCadenceButton from "../components/Settings/NotificationCadenceButton";
+import ParametersButton from "../components/Settings/ParametersButton";
 import RankingButton from "../components/Settings/RankingButton";
-import AboutButton from "../components/Settings/AboutButton";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { GlobalStyles } from "../constants/styles";
 
 /**
  * Settings Screen where the user can perform various actions.
@@ -21,6 +21,8 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
  *  - Delete their account
  *
  * TODO: Need to user test the swiping back gesture when in this Stack (Keep or disabled)
+ * TODO: Need ot add Email Header setting!!!!!
+ *
  * @version 0.3.2
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */

@@ -94,6 +94,7 @@ export type AboutStackProps = NativeStackScreenProps<
 >;
 
 // Used to fix the type error when using the useNavigation hook
+// TODO: Get rid of this when going over the ImageScreen againa. Use ["navigation"] key on StackPropsz
 export type ImageNavigationProps = NativeStackNavigationProp<
   HomeStackParamList,
   "Image"

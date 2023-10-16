@@ -1,10 +1,9 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { StyleSheet } from "react-native";
-import { EmailLimitStackProps } from "../../util/react-navigation";
-import FlatButton from "./FlatButton";
 import { FLAT_BUTTON_ICON_SIZE } from "../../constants/sizes";
 import { EMAIL_LIMIT_TITLE } from "../../constants/words";
+import { EmailLimitStackProps } from "../../util/react-navigation";
+import FlatButton from "./FlatButton";
 
 /**
  * Button used to navigate to the EmailLimitScreen.
@@ -35,5 +34,3 @@ const EmailLimitButton = () => {
 };
 
 export default EmailLimitButton;
-
-const styles = StyleSheet.create({});

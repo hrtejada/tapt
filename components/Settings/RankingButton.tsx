@@ -1,10 +1,9 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { StyleSheet } from "react-native";
-import { RankModeStackProps } from "../../util/react-navigation";
-import FlatButton from "./FlatButton";
 import { FLAT_BUTTON_ICON_SIZE } from "../../constants/sizes";
 import { RANKING_TITLE } from "../../constants/words";
+import { RankModeStackProps } from "../../util/react-navigation";
+import FlatButton from "./FlatButton";
 
 /**
  * Button used to navigate to the RankModeScreen.
@@ -35,5 +34,3 @@ const RankModeButton = () => {
 };
 
 export default RankModeButton;
-
-const styles = StyleSheet.create({});

@@ -1,10 +1,9 @@
-import { StyleSheet } from "react-native";
-import FlatButton from "./FlatButton";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { DateRangeStackProps } from "../../util/react-navigation";
-import { DATE_RANGE_TITLE } from "../../constants/words";
 import { FLAT_BUTTON_ICON_SIZE } from "../../constants/sizes";
+import { DATE_RANGE_TITLE } from "../../constants/words";
+import { DateRangeStackProps } from "../../util/react-navigation";
+import FlatButton from "./FlatButton";
 
 /**
  * Button used to navigate to the DateRangeScreen.
@@ -35,5 +34,3 @@ const DateRangeButton = () => {
 };
 
 export default DateRangeButton;
-
-const styles = StyleSheet.create({});

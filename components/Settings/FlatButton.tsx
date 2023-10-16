@@ -1,7 +1,7 @@
 import { FontAwesome5 } from "@expo/vector-icons";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import { GlobalStyles } from "../../constants/styles";
 import { FLAT_BUTTON_ICON_SIZE } from "../../constants/sizes";
+import { GlobalStyles } from "../../constants/styles";
 
 interface Props {
   leftIcon: React.ReactNode;

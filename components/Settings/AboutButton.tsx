@@ -1,11 +1,9 @@
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { StyleSheet } from "react-native";
+import { FLAT_BUTTON_ICON_SIZE } from "../../constants/sizes";
+import { ABOUT_TITLE } from "../../constants/words";
 import { AboutStackProps } from "../../util/react-navigation";
 import FlatButton from "./FlatButton";
-import { FontAwesome5 } from "@expo/vector-icons";
-import { ABOUT_TITLE } from "../../constants/words";
-import { FLAT_BUTTON_ICON_SIZE } from "../../constants/sizes";
 
 /**
  * Button used to navigate to the About app info.
@@ -36,5 +34,3 @@ const AboutButton = () => {
 };
 
 export default AboutButton;
-
-const styles = StyleSheet.create({});
