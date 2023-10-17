@@ -1,6 +1,7 @@
 import { createContext, useContext, useReducer } from "react";
 import { OPTIONS, TYPES } from "../constants/words";
 
+// Structure for data when initializing a new user.
 type INIT_USER_TYPE = {
   id: string;
   unreadCount: number;
@@ -15,6 +16,7 @@ type INIT_USER_TYPE = {
   inRankMode: boolean;
 };
 
+// Data for initializing a new user.
 const INIT_USER_STATE = {
   id: "",
   unreadCount: 0,
@@ -29,7 +31,7 @@ const INIT_USER_STATE = {
   inRankMode: false,
 };
 
-// Using Dis(something) Union
+// Define the Actions that can occur in this context
 type ACTION_TYPE =
   | { type: TYPES.USER_ID; payload: string }
   | { type: TYPES.UNREAD_COUNT; payload: number }
@@ -107,6 +109,7 @@ interface ProviderProps {
   children: React.ReactNode;
 }
 
+// Context using a reducer to manage the state.
 const UserContextProvider = ({ children }: ProviderProps) => {
   const [state, dispatch] = useReducer(reducer, INIT_USER_STATE);
 
@@ -121,6 +124,8 @@ export default UserContextProvider;
 
 /**
  * Custom hook to make sure context is available and wrapping components properly.
+ *
+ * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 export const useUserContext = () => {
   const context = useContext(UserContext);

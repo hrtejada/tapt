@@ -22,19 +22,21 @@ import NotificationCadenceScreen from "./screens/Settings/NotificationCadenceScr
 import ParametersScreen from "./screens/Settings/ParametersScreen";
 import RankingScreen from "./screens/Settings/RankingScreen";
 import SettingsScreen from "./screens/SettingsScreen";
+import UserContextProvider from "./store/user-context";
 import {
   HomeStackParamList,
   SettingsStackParamList,
   getHeaderTitle,
 } from "./util/react-navigation";
-import UserContextProvider from "./store/user-context";
 
 /**
  * Main app component.
  *
- * TODO: Figure out how to style the bottom bar on iOS
+ * Holds the Drawer and Stack navigators. (https://reactnavigation.org/)
+ *
  * TODO: Should SettingsStack use 'modal' as well to keep a theme going??
  * TODO: Make sure when navigating from Home to Settings, that it shows the SettingsScreen
+ *
  * @version 0.2.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */

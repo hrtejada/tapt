@@ -13,7 +13,8 @@ import { HomeStackProps } from "../util/react-navigation";
  *  - Email Information/Action
  *  - Ranked Queue
  *
- * TODO: Flesh out component - Will hold the main cards/buttons to deal with the email queue
+ * TODO: Restyle a bit more. Still not 100% happy with the layout/data displayed
+ *
  * @version 0.2.4
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
@@ -50,7 +51,7 @@ const HomeScreen = ({ navigation }: HomeStackProps) => {
         </Pressable>
       </View>
       <View>
-        <Text style={styles.bottomText}>Business stuff ©</Text>
+        <Text style={styles.bottomText}>MPJ Labs, 2023 ©</Text>
       </View>
     </View>
   );
