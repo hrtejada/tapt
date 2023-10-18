@@ -13,11 +13,10 @@ interface Props {
 /**
  * Component that will display an image parameter.
  *
- * @version 0.1.1
+ * @version 0.1.2
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const ImageParameter = ({ id, parameter, images }: Props) => {
-  const insets = useSafeAreaInsets();
   const navigation = useNavigation<ImageStackProps["navigation"]>();
 
   /**
@@ -48,16 +47,7 @@ const ImageParameter = ({ id, parameter, images }: Props) => {
   });
 
   return (
-    <View
-      style={[
-        styles.infoContainer,
-        {
-          paddingBottom: insets.bottom,
-          paddingLeft: insets.left,
-          paddingRight: insets.right,
-        },
-      ]}
-    >
+    <View style={[styles.container]}>
       <Text style={styles.parameter}>{parameter.toUpperCase()}</Text>
       {imagesDisplay}
     </View>
@@ -67,8 +57,8 @@ const ImageParameter = ({ id, parameter, images }: Props) => {
 export default ImageParameter;
 
 const styles = StyleSheet.create({
-  infoContainer: {
-    backgroundColor: GlobalStyles.colors.secondary400,
+  container: {
+    backgroundColor: GlobalStyles.colors.background100,
     marginBottom: 4,
     paddingTop: 4,
     width: "100%",
@@ -82,9 +72,12 @@ const styles = StyleSheet.create({
     textDecorationLine: "underline",
   },
   image: {
-    width: "100%",
+    width: "80%",
     height: 150,
     resizeMode: "contain",
     marginVertical: 8,
+    borderWidth: 1,
+    borderColor: GlobalStyles.colors.text,
+    alignItems: "center",
   },
 });

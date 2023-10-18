@@ -15,7 +15,7 @@ export const DUMMY_EMAILS = [
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Mollitia unde assumenda ad eveniet impedit molestiae repellat natus harum porro, fugit cumque iste molestias, tempore sed labore ipsa expedita saepe facere.",
     size: "3x4",
     placement: "Right forearm",
-    budget: 400,
+    budget: "400",
     images: [
       "https://media.istockphoto.com/id/1367685099/vector/red-poppy-flower-hand-drawn-illustration-vintage-and-antique-flowers-red-field-poppy-flower.jpg?s=612x612&w=0&k=20&c=lqsQbq6ZVAjhMLxX_nkdzaLMkJGuLZShBVoNOgrUY9M=",
       "https://i.redd.it/agmpul8a1lf11.jpg",
@@ -31,7 +31,7 @@ export const DUMMY_EMAILS = [
     description: "I decided to be Pirate King. I don't care if I die for it.",
     size: "5X8",
     placement: "Upper Back",
-    budget: 650,
+    budget: "650",
     images: [
       "https://m.media-amazon.com/images/I/61EEFbFD68S.jpg",
       "https://assets.pikiran-rakyat.com/crop/0x0:0x0/x/photo/2023/05/24/1048085296.jpg",

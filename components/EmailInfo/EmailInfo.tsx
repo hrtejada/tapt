@@ -6,6 +6,9 @@ import { useUserContext } from "../../store/user-context";
 import { EmailStackProps } from "../../util/react-navigation";
 import HeaderOne from "../ui/HeaderOne";
 import UnreadCountCard from "./UnreadCountCard";
+import { useEffect } from "react";
+import { TYPES } from "../../constants/words";
+import { DUMMY_EMAILS } from "../../testData/DUMMY_DATA";
 
 /**
  * Email Info Component.
@@ -13,14 +16,17 @@ import UnreadCountCard from "./UnreadCountCard";
  * Button that displays the current unread count. Tapping button
  * takes user to the EmailScreen.
  *
- * @version 0.1.0
+ * @version 0.1.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const EmailInfo = () => {
   const navigation = useNavigation<EmailStackProps["navigation"]>();
-  const { state } = useUserContext();
+  const { state, dispatch } = useUserContext();
 
   // TODO: Is this where we call the Gmail servers periodically to retrieve the new unreadCount??
+  useEffect(() => {
+    dispatch({ type: TYPES.UNREAD_COUNT, payload: DUMMY_EMAILS.length });
+  }, [dispatch, DUMMY_EMAILS]);
 
   /**
    * Navigate to the Email Screen.

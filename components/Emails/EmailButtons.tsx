@@ -20,7 +20,9 @@ type IconProps = "star" | "star-o";
  *
  * TODO: Figure out 'name' error on icons; Using 'IconProps'. Not sure if temp solution or full.
  *
- * @version 0.1.2
+ * TODO: Rework Rank buttons
+ *
+ * @version 0.1.3
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const EmailButtons = ({ onAccept, onReject }: Props) => {
@@ -83,64 +85,60 @@ const EmailButtons = ({ onAccept, onReject }: Props) => {
   };
 
   return (
-    <>
-      <View style={styles.buttonsContainer}>
-        <IconButton type={ACCEPT} onPress={onAccept} />
-        <View style={styles.rankContainer}>
-          <Button
-            buttonStyle={styles.oneStarButton}
-            onPress={rankHandler.bind(this, 1)}
-          >
-            <FontAwesome
-              name={oneStar}
-              size={48}
-              color={GlobalStyles.colors.text}
-            />
-          </Button>
-          <Button
-            buttonStyle={styles.twoStarButton}
-            onPress={rankHandler.bind(this, 2)}
-          >
-            <FontAwesome
-              name={twoStar}
-              size={48}
-              color={GlobalStyles.colors.text}
-            />
-          </Button>
-          <Button
-            buttonStyle={styles.threeStarButton}
-            onPress={rankHandler.bind(this, 3)}
-          >
-            <FontAwesome
-              name={threeStar}
-              size={48}
-              color={GlobalStyles.colors.text}
-            />
-          </Button>
-        </View>
-        <IconButton type={REJECT} onPress={onReject} />
+    <View style={styles.rootContainer}>
+      <IconButton type={ACCEPT} onPress={onAccept} />
+      <View style={styles.innerContainer}>
+        <Button
+          buttonStyle={styles.oneStarButton}
+          onPress={rankHandler.bind(this, 1)}
+        >
+          <FontAwesome
+            name={oneStar}
+            size={48}
+            color={GlobalStyles.colors.text}
+          />
+        </Button>
+        <Button
+          buttonStyle={styles.twoStarButton}
+          onPress={rankHandler.bind(this, 2)}
+        >
+          <FontAwesome
+            name={twoStar}
+            size={48}
+            color={GlobalStyles.colors.text}
+          />
+        </Button>
+        <Button
+          buttonStyle={styles.threeStarButton}
+          onPress={rankHandler.bind(this, 3)}
+        >
+          <FontAwesome
+            name={threeStar}
+            size={48}
+            color={GlobalStyles.colors.text}
+          />
+        </Button>
       </View>
-    </>
+      <IconButton type={REJECT} onPress={onReject} />
+    </View>
   );
 };
 
 export default EmailButtons;
 
 const styles = StyleSheet.create({
-  buttonsContainer: {
+  rootContainer: {
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: "center",
-    backgroundColor: GlobalStyles.colors.primary300,
-    borderWidth: 2,
-    borderTopColor: GlobalStyles.colors.accent700,
+    borderTopWidth: 2,
+    borderTopColor: GlobalStyles.colors.accent500,
   },
-  rankContainer: {
+  innerContainer: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    // backgroundColor: GlobalStyles.colors.accent300,
   },
   oneStarButton: {
     borderTopRightRadius: 0,

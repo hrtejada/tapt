@@ -15,7 +15,7 @@ interface Props {
  *
  * TODO: Look at Expo Icon Docs to see about simpler way to make icon buttons
  *
- * @version 0.1.1
+ * @version 0.1.2
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const IconButton = ({ type, onPress }: Props) => {
@@ -27,7 +27,12 @@ const IconButton = ({ type, onPress }: Props) => {
       style={({ pressed }) => [
         pressed && styles.pressed,
         styles.iconContainer,
-        { backgroundColor: type === ACCEPT ? "green" : "red" }, // TODO: Replace when 'success' and 'error'/'danger' styling colors are picked
+        {
+          backgroundColor:
+            type === ACCEPT
+              ? GlobalStyles.colors.success
+              : GlobalStyles.colors.warning,
+        },
       ]}
     >
       <FontAwesome5 name={icon} size={48} color={GlobalStyles.colors.text} />
