@@ -25,7 +25,7 @@ const INIT_USER_STATE = {
   limit: "0",
   startDate: new Date(),
   endDate: new Date(),
-  parameters: [],
+  parameters: ["description", "budget", "size"], // TODO: Just adding init values to help with testing. REMOVE AFTERWARDS
   notifications: OPTIONS.OFF.toString(),
   isRanking: false,
   inRankMode: false,

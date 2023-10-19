@@ -46,7 +46,7 @@ const ParametersScreen = () => {
     // TODO: Implement input validation for Front End
 
     // Do Backend stuff...
-    dispatch({ type: TYPES.ADD, payload: newParameter });
+    dispatch({ type: TYPES.ADD, payload: newParameter.toLowerCase() });
     setModalVisible(false);
     setNewParameter("");
   };
