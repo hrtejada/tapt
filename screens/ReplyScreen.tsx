@@ -3,6 +3,7 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   StyleSheet,
+  Text,
   TextInput,
   View,
 } from "react-native";
@@ -11,6 +12,7 @@ import Button from "../components/ui/Button";
 import HeaderTwo from "../components/ui/HeaderTwo";
 import InfoChip from "../components/ui/InfoChip";
 import { GlobalStyles } from "../constants/styles";
+import { ACCEPT } from "../constants/words";
 import { useUserContext } from "../store/user-context";
 import { DUMMY_EMAILS } from "../testData/DUMMY_DATA";
 import { ReplyStackProps } from "../util/react-navigation";
@@ -20,7 +22,7 @@ import { ReplyStackProps } from "../util/react-navigation";
  *
  * TODO: Change how note State works to add validation/cleansing.
  *
- * @version 0.2.0
+ * @version 0.2.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const ReplyScreen = ({ route, navigation }: ReplyStackProps) => {
@@ -76,16 +78,23 @@ const ReplyScreen = ({ route, navigation }: ReplyStackProps) => {
   return (
     <View
       style={[
-        styles.container,
+        styles.rootContainer,
         {
+          backgroundColor:
+            mode === ACCEPT
+              ? GlobalStyles.colors.success
+              : GlobalStyles.colors.warning,
           paddingBottom: insets.bottom,
           paddingLeft: insets.left,
           paddingRight: insets.right,
         },
       ]}
     >
-      <ScrollView>
-        <HeaderTwo>Select parameters:</HeaderTwo>
+      <ScrollView style={styles.innerContainer}>
+        <HeaderTwo>Modify Reply Message:</HeaderTwo>
+        <Text style={styles.paramText}>
+          Select parameters to mention in message
+        </Text>
         <View style={styles.chipContainer}>
           {parameters.map((parameter) => (
             <InfoChip
@@ -121,32 +130,47 @@ const ReplyScreen = ({ route, navigation }: ReplyStackProps) => {
 export default ReplyScreen;
 
 const styles = StyleSheet.create({
-  container: {
+  rootContainer: {
     flex: 1,
-    padding: 12,
-    margin: 12,
+  },
+  innerContainer: {
+    margin: 6,
+    paddingHorizontal: 12,
+    paddingVertical: 24,
+    backgroundColor: GlobalStyles.colors.background300,
+    borderWidth: 2,
+    borderColor: GlobalStyles.colors.text,
+    borderTopStartRadius: 8,
+    borderTopEndRadius: 8,
+    borderBottomStartRadius: 16,
+    borderBottomEndRadius: 16,
+  },
+  paramText: {
+    fontSize: 20,
+    textAlign: "center",
+    paddingTop: 8,
+    fontStyle: "italic",
   },
   chipContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
+    margin: 16,
   },
   buttonsContainer: {
     flexDirection: "row",
-    justifyContent: "space-evenly",
   },
   noteContainer: {
     flexDirection: "row",
-    backgroundColor: GlobalStyles.colors.accent300,
+    backgroundColor: GlobalStyles.colors.secondary700,
     marginVertical: 16,
   },
   noteInput: {
     flex: 1,
     height: 255,
-    borderWidth: 1,
     padding: 10,
     margin: 4,
-    backgroundColor: GlobalStyles.colors.background200,
+    backgroundColor: GlobalStyles.colors.background100,
     fontSize: 18,
   },
 });

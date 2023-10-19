@@ -91,7 +91,6 @@ const EmailScreen = ({ route, navigation }: EmailStackProps) => {
 
       switch (route.params?.action) {
         case "next":
-          setEmailInfo(email);
         case "new":
           setEmailInfo(email);
         case "ranked":
