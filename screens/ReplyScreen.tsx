@@ -82,8 +82,8 @@ const ReplyScreen = ({ route, navigation }: ReplyStackProps) => {
         {
           backgroundColor:
             mode === ACCEPT
-              ? GlobalStyles.colors.success
-              : GlobalStyles.colors.warning,
+              ? GlobalStyles.colors.success500
+              : GlobalStyles.colors.warning500,
           paddingBottom: insets.bottom,
           paddingLeft: insets.left,
           paddingRight: insets.right,

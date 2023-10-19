@@ -19,19 +19,24 @@ interface Props {
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const IconButton = ({ type, onPress }: Props) => {
-  const icon = type === ACCEPT ? "check-circle" : "times-circle";
+  const icon = type === ACCEPT ? "check" : "times";
 
   return (
     <Pressable
       onPress={onPress}
       style={({ pressed }) => [
-        pressed && styles.pressed,
-        styles.iconContainer,
+        styles.button,
         {
           backgroundColor:
             type === ACCEPT
-              ? GlobalStyles.colors.success
-              : GlobalStyles.colors.warning,
+              ? GlobalStyles.colors.success500
+              : GlobalStyles.colors.warning500,
+        },
+        pressed && {
+          backgroundColor:
+            type === ACCEPT
+              ? GlobalStyles.colors.success700
+              : GlobalStyles.colors.warning700,
         },
       ]}
     >
@@ -43,13 +48,16 @@ const IconButton = ({ type, onPress }: Props) => {
 export default IconButton;
 
 const styles = StyleSheet.create({
-  iconContainer: {
+  button: {
     padding: 10,
+    margin: 6,
     borderRadius: 50,
-    width: "auto",
+    width: "40%",
+    height: 100,
+    justifyContent: "center",
     alignItems: "center",
   },
-  pressed: {
-    opacity: 0.75,
-  },
+  // pressed: {
+  //   opacity: 0.75,
+  // },
 });

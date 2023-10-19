@@ -5,6 +5,7 @@ interface Props {
   onPress: () => void;
   buttonStyle?: null | object;
   textStyle?: null | object;
+  disabled?: boolean;
   children: React.ReactNode;
 }
 
@@ -16,7 +17,13 @@ interface Props {
  * @version 0.2.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
-const Button = ({ onPress, buttonStyle, textStyle, children }: Props) => {
+const Button = ({
+  onPress,
+  buttonStyle,
+  textStyle,
+  disabled = false,
+  children,
+}: Props) => {
   return (
     <Pressable
       onPress={onPress}
@@ -25,6 +32,7 @@ const Button = ({ onPress, buttonStyle, textStyle, children }: Props) => {
         styles.button,
         buttonStyle,
       ]}
+      disabled={disabled}
     >
       <Text style={[styles.buttonText, textStyle]}>{children}</Text>
     </Pressable>
