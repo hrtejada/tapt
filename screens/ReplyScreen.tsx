@@ -11,7 +11,8 @@ import Button from "../components/ui/Button";
 import HeaderTwo from "../components/ui/HeaderTwo";
 import InfoChip from "../components/ui/InfoChip";
 import { GlobalStyles } from "../constants/styles";
-import { DUMMY_EMAILS, DUMMY_USER_1 } from "../testData/DUMMY_DATA";
+import { useUserContext } from "../store/user-context";
+import { DUMMY_EMAILS } from "../testData/DUMMY_DATA";
 import { ReplyStackProps } from "../util/react-navigation";
 
 /**
@@ -19,15 +20,18 @@ import { ReplyStackProps } from "../util/react-navigation";
  *
  * TODO: Change how note State works to add validation/cleansing.
  *
- * @version 0.1.2
+ * @version 0.2.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const ReplyScreen = ({ route, navigation }: ReplyStackProps) => {
   const insets = useSafeAreaInsets();
+  const { state } = useUserContext();
+  const mode = route.params?.mode;
+
   const [note, setNote] = useState("");
   const [selected, setSelected] = useState<string[]>([]);
-  const parameters = DUMMY_USER_1.settings.parameters;
-  const mode = route.params?.mode;
+
+  const parameters = state.parameters;
 
   /**
    * Handles the reply functionality.
@@ -42,7 +46,7 @@ const ReplyScreen = ({ route, navigation }: ReplyStackProps) => {
     */
     console.log("Selected params:", selected); // See the selected params
     console.log("Note:", note); // See the note
-    DUMMY_EMAILS.shift();
+    DUMMY_EMAILS.shift(); // TODO: Just for testing; Shouldn't need this when retrieving one email at a time from API
     navigation.navigate("Email", { action: "next" });
   };
 
@@ -61,7 +65,7 @@ const ReplyScreen = ({ route, navigation }: ReplyStackProps) => {
    */
   const chipPressHandler = (param: string) => {
     setSelected((prevSelected) => {
-      if (param in prevSelected) {
+      if (prevSelected.includes(param)) {
         return prevSelected.filter((s) => s !== param);
       } else {
         return [...prevSelected, param];
@@ -87,7 +91,6 @@ const ReplyScreen = ({ route, navigation }: ReplyStackProps) => {
             <InfoChip
               key={parameter}
               text={parameter}
-              mode={mode}
               onPress={chipPressHandler}
             />
           ))}

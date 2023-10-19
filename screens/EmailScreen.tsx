@@ -38,7 +38,7 @@ type emailDynamic = {
  * TODO: Once we figure out how Gmail attachments are retrieved we can determine how to check for them and how to figure out typing
  * TODO: Look into handling "'route.params' being undefined" properly
  *
- * @version 0.2.3
+ * @version 0.2.4
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const EmailScreen = ({ route, navigation }: EmailStackProps) => {

@@ -16,7 +16,7 @@ import { DUMMY_EMAILS } from "../../testData/DUMMY_DATA";
  * Button that displays the current unread count. Tapping button
  * takes user to the EmailScreen.
  *
- * @version 0.1.1
+ * @version 0.1.2
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const EmailInfo = () => {
@@ -26,7 +26,7 @@ const EmailInfo = () => {
   // TODO: Is this where we call the Gmail servers periodically to retrieve the new unreadCount??
   useEffect(() => {
     dispatch({ type: TYPES.UNREAD_COUNT, payload: DUMMY_EMAILS.length });
-  }, [dispatch, DUMMY_EMAILS]);
+  }, [dispatch, DUMMY_EMAILS.length]);
 
   /**
    * Navigate to the Email Screen.

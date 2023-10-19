@@ -21,7 +21,7 @@ import { useUserContext } from "../../store/user-context";
  * TODO: Determine where to validate TextInput
  * TODO: Restyle this screen 🐱‍👤
  *
- * @version 0.1.5
+ * @version 0.1.6
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const ParametersScreen = () => {
@@ -46,6 +46,7 @@ const ParametersScreen = () => {
     // TODO: Implement input validation for Front End
 
     // Do Backend stuff...
+    // Convert to lowercase so keys match up when retrieving on EmailScreen
     dispatch({ type: TYPES.ADD, payload: newParameter.toLowerCase() });
     setModalVisible(false);
     setNewParameter("");
