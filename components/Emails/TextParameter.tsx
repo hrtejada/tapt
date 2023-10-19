@@ -3,7 +3,7 @@ import { GlobalStyles } from "../../constants/styles";
 
 interface Props {
   parameter: string;
-  info: string;
+  info: string | string[];
 }
 
 /**
@@ -25,7 +25,7 @@ export default TextParameter;
 
 const styles = StyleSheet.create({
   infoContainer: {
-    backgroundColor: GlobalStyles.colors.secondary400,
+    backgroundColor: GlobalStyles.colors.background100,
     marginBottom: 4,
     paddingTop: 4,
     width: "100%",

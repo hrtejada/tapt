@@ -1,4 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
+import { GlobalStyles } from "../../constants/styles";
 
 interface Props {
   name: string;
@@ -13,9 +14,9 @@ interface Props {
  */
 const SenderInfo = ({ name, email }: Props) => {
   return (
-    <View style={styles.titleContainer}>
-      <Text style={styles.titleName}>{name} - </Text>
-      <Text style={styles.titleEmail} numberOfLines={1}>
+    <View style={styles.container}>
+      <Text style={styles.name}>{name} - </Text>
+      <Text style={styles.email} numberOfLines={1}>
         {email}
       </Text>
     </View>
@@ -25,15 +26,20 @@ const SenderInfo = ({ name, email }: Props) => {
 export default SenderInfo;
 
 const styles = StyleSheet.create({
-  titleContainer: {
+  container: {
     flexDirection: "row",
     alignItems: "center",
+    backgroundColor: GlobalStyles.colors.primary500,
+    borderBottomWidth: 1,
+    borderBottomColor: GlobalStyles.colors.accent700,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
   },
-  titleName: {
+  name: {
     fontSize: 24,
     fontWeight: "bold",
   },
-  titleEmail: {
+  email: {
     fontSize: 20,
   },
 });

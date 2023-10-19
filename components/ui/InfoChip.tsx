@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { Pressable, StyleSheet, Text } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
-import { ACCEPT } from "../../constants/words";
 
 interface Props {
   text: string;
-  mode: null | string | undefined;
   onPress: (param: string) => void;
 }
 
@@ -14,11 +12,13 @@ interface Props {
  *
  * TODO: Check to see if Chip can be combined
  *
- * @version 0.1.1
+ * @version 0.1.2
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
-const InfoChip = ({ text, mode, onPress }: Props) => {
-  const [modeStyle, setModeStyle] = useState({});
+const InfoChip = ({ text, onPress }: Props) => {
+  const [modeStyle, setModeStyle] = useState({
+    backgroundColor: GlobalStyles.colors.primary300,
+  });
 
   /**
    * Change the backgroundColor on press.
@@ -27,16 +27,9 @@ const InfoChip = ({ text, mode, onPress }: Props) => {
    */
   const pressHandler = () => {
     setModeStyle((prevModeStyle) => {
-      if (!prevModeStyle.hasOwnProperty("backgroundColor")) {
-        return {
-          ...prevModeStyle,
-          backgroundColor: mode === ACCEPT ? "#00CC00" : "#CC0000",
-        };
-      }
-      return {
-        ...prevModeStyle,
-        backgroundColor: GlobalStyles.colors.primary300,
-      };
+      return prevModeStyle["backgroundColor"] === GlobalStyles.colors.primary300
+        ? { backgroundColor: GlobalStyles.colors.primary700 }
+        : { backgroundColor: GlobalStyles.colors.primary300 };
     });
     onPress(text);
   };
@@ -44,9 +37,9 @@ const InfoChip = ({ text, mode, onPress }: Props) => {
   return (
     <Pressable
       style={({ pressed }) => [
-        pressed && styles.pressed,
         styles.chip,
         modeStyle,
+        pressed && styles.pressed,
       ]}
       onPress={pressHandler}
     >
@@ -76,6 +69,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   pressed: {
-    opacity: 0.75,
+    backgroundColor: GlobalStyles.colors.primary500,
   },
 });

@@ -44,10 +44,10 @@ const styles = StyleSheet.create({
     borderBottomColor: GlobalStyles.colors.accent700,
   },
   active: {
-    backgroundColor: GlobalStyles.colors.success,
+    backgroundColor: GlobalStyles.colors.success500,
   },
   inactive: {
-    backgroundColor: GlobalStyles.colors.warning,
+    backgroundColor: GlobalStyles.colors.warning500,
   },
   text: {
     flex: 0,
