@@ -7,7 +7,7 @@ import { DELETE_ACCOUNT, DELETE_TITLE } from "../../constants/words";
 /**
  * Screen containing the account deletion functionality.
  *
- * @version 0.1.3
+ * @version 0.2.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const DeleteAccountScreen = () => {
@@ -37,17 +37,16 @@ export default DeleteAccountScreen;
 
 const styles = StyleSheet.create({
   deleteContainer: {
-    flex: 2,
-    paddingHorizontal: 24,
+    height: 50,
     justifyContent: "center",
+    top: "50%",
   },
   deleteButton: {
-    backgroundColor: GlobalStyles.colors.warning,
-    paddingVertical: 16,
+    backgroundColor: GlobalStyles.colors.warning500,
   },
   deleteText: {
     color: "white",
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: "bold",
   },
 });
