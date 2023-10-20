@@ -22,7 +22,7 @@ import { useUserContext } from "../../store/user-context";
  * TODO: Determine where to validate TextInput
  * TODO: Restyle this screen 🐱‍👤
  *
- * @version 0.2.0
+ * @version 0.2.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const ParametersScreen = () => {
@@ -153,6 +153,7 @@ const styles = StyleSheet.create({
     flex: 3,
     flexDirection: "row",
     flexWrap: "wrap",
+    justifyContent: "center",
     marginTop: 12,
   },
   buttonContainer: {
