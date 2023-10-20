@@ -8,6 +8,8 @@ import { useUserContext } from "../../store/user-context";
 /**
  * Component that holds the button to navigate to the DeleteAccounScreen.
  *
+ * TODO: Check to see if input automatically gets selected on error (no need for ref??)
+ *
  * @version 0.2.5
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */

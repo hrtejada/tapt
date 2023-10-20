@@ -12,7 +12,7 @@ interface Props {
  *
  * TODO: Extract generic Chip Component and have one for Pressable and one with Deleting
  *
- * @version 0.1.2
+ * @version 0.1.3
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const Chip = ({ text, onDelete }: Props) => {
@@ -20,12 +20,12 @@ const Chip = ({ text, onDelete }: Props) => {
     <View style={styles.chip}>
       <Text style={styles.text}>{text}</Text>
       <Pressable
-        style={({ pressed }) => [pressed && styles.pressed, styles.button]}
+        style={({ pressed }) => [styles.button, pressed && styles.pressed]}
         onPress={onDelete}
       >
         <FontAwesome5
           name="times"
-          size={20}
+          size={22}
           color={GlobalStyles.colors.accent700}
         />
       </Pressable>
@@ -39,13 +39,13 @@ const styles = StyleSheet.create({
   chip: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: GlobalStyles.colors.primary300,
+    backgroundColor: GlobalStyles.colors.secondary500,
     margin: 4,
     paddingLeft: 10,
     borderWidth: 1,
     borderRadius: 3,
     borderColor: GlobalStyles.colors.text,
-    height: 30,
+    height: 32,
   },
   text: {
     fontWeight: "bold",
@@ -54,11 +54,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   button: {
-    backgroundColor: GlobalStyles.colors.accent300,
-    paddingVertical: 4,
+    backgroundColor: GlobalStyles.colors.primary500,
+    paddingVertical: 5,
     paddingHorizontal: 8,
   },
   pressed: {
-    opacity: 0.75,
+    backgroundColor: GlobalStyles.colors.primary700,
   },
 });

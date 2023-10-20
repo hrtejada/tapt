@@ -1,19 +1,14 @@
 import { FontAwesome5 } from "@expo/vector-icons";
 import { useState } from "react";
-import {
-  Modal,
-  Pressable,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import { Alert, Pressable, StyleSheet, View } from "react-native";
+import HeaderInput from "../../components/Settings/Parameters/HeaderInput";
+import ParameterModal from "../../components/Settings/Parameters/ParameterModal";
+import Parameters from "../../components/Settings/Parameters/Parameters";
 import SettingsContainer from "../../components/Settings/SettingsContainer";
-import Button from "../../components/ui/Button";
-import Chip from "../../components/ui/Chip";
 import { GlobalStyles } from "../../constants/styles";
 import { PARAMETERS, TYPES } from "../../constants/words";
 import { useUserContext } from "../../store/user-context";
+import { validateParameter } from "../../util/parameterHelpers";
 
 /**
  * Component for the parameters setting.
@@ -21,21 +16,13 @@ import { useUserContext } from "../../store/user-context";
  * TODO: Determine where to validate TextInput
  * TODO: Restyle this screen 🐱‍👤
  *
- * @version 0.1.6
+ * @version 0.2.2
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const ParametersScreen = () => {
   const { state, dispatch } = useUserContext();
-  const [modalVisible, setModalVisible] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [newParameter, setNewParameter] = useState("");
-
-  /**
-   * Remove the parameter from the user's parameters array.
-   */
-  const deleteChipHandler = (parameter: string) => {
-    // Do Backend stuff...
-    dispatch({ type: TYPES.DELETE, payload: parameter });
-  };
 
   /**
    * Add the parameter to the user's parameters array.
@@ -43,56 +30,50 @@ const ParametersScreen = () => {
    * Dismiss the Modal and reset the TextInput
    */
   const addParamHandler = () => {
+    // Convert to lowercase so keys match up when retrieving on EmailScreen
+    const newParameter_LC = newParameter.toLowerCase();
+
     // TODO: Implement input validation for Front End
+    const { error, title, message } = validateParameter(
+      newParameter_LC,
+      state.parameters
+    );
+
+    if (error) {
+      Alert.alert(title, message, [
+        {
+          text: "OK",
+          style: "default",
+        },
+      ]);
+
+      return;
+    }
 
     // Do Backend stuff...
-    // Convert to lowercase so keys match up when retrieving on EmailScreen
-    dispatch({ type: TYPES.ADD, payload: newParameter.toLowerCase() });
-    setModalVisible(false);
+    dispatch({ type: TYPES.ADD, payload: newParameter_LC });
+    setIsModalVisible(false);
     setNewParameter("");
   };
 
   return (
     <SettingsContainer header={PARAMETERS.header} info={PARAMETERS.info}>
-      <View style={styles.chipsContainer}>
-        {state.parameters.map((parameter) => (
-          <Chip
-            key={parameter}
-            text={parameter}
-            onDelete={deleteChipHandler.bind(this, parameter)}
-          />
-        ))}
-      </View>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => setModalVisible(false)}
-      >
-        <View style={styles.centerModal}>
-          <View style={styles.modal}>
-            <Text>New Parameter to look for</Text>
-            <TextInput
-              style={styles.input}
-              value={newParameter}
-              maxLength={32}
-              keyboardType="default"
-              inputMode="text"
-              textAlign="center"
-              onChangeText={setNewParameter}
-            />
-            <Button onPress={addParamHandler}>Add</Button>
-            <Button onPress={() => setModalVisible(false)}>Cancel</Button>
-          </View>
-        </View>
-      </Modal>
+      <ParameterModal
+        isVisible={isModalVisible}
+        param={newParameter}
+        modalHandler={setIsModalVisible}
+        setParam={setNewParameter}
+        submitParam={addParamHandler}
+      />
+      <HeaderInput />
+      <Parameters />
       <View style={styles.buttonContainer}>
         <Pressable
           style={({ pressed }) => [
             styles.addParamButton,
             pressed && styles.pressed,
           ]}
-          onPress={() => setModalVisible(true)}
+          onPress={() => setIsModalVisible(true)}
         >
           <FontAwesome5
             name="plus"
@@ -108,15 +89,8 @@ const ParametersScreen = () => {
 export default ParametersScreen;
 
 const styles = StyleSheet.create({
-  chipsContainer: {
-    flex: 3,
-    flexDirection: "row",
-    flexWrap: "wrap",
-    marginTop: 12,
-  },
   buttonContainer: {
     flex: 2,
-    // alignItems: "center",
   },
   addParamButton: {
     backgroundColor: GlobalStyles.colors.primary500,
@@ -130,23 +104,5 @@ const styles = StyleSheet.create({
   },
   pressed: {
     backgroundColor: GlobalStyles.colors.primary700,
-  },
-  centerModal: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  modal: {
-    backgroundColor: GlobalStyles.colors.background200,
-    padding: 25,
-    width: "80%",
-  },
-  input: {
-    borderWidth: 1,
-    padding: 12,
-    margin: 8,
-    height: 50,
-    fontSize: 24,
-    backgroundColor: GlobalStyles.colors.background200,
   },
 });
