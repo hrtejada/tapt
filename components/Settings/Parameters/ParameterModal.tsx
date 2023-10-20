@@ -1,7 +1,7 @@
 import { Modal, Pressable, StyleSheet, TextInput, View } from "react-native";
-import { GlobalStyles } from "../../constants/styles";
-import Button from "../ui/Button";
-import HeaderThree from "../ui/HeaderThree";
+import { GlobalStyles } from "../../../constants/styles";
+import Button from "../../ui/Button";
+import HeaderThree from "../../ui/HeaderThree";
 
 interface Props {
   isVisible: boolean;
