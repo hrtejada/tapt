@@ -87,6 +87,13 @@ const ParametersScreen = () => {
 
   return (
     <SettingsContainer header={PARAMETERS.header} info={PARAMETERS.info}>
+      <ParameterModal
+        isVisible={isModalVisible}
+        param={newParameter}
+        modalHandler={setIsModalVisible}
+        setParam={setNewParameter}
+        submitParam={addParamHandler}
+      />
       <View style={styles.headerContainer}>
         <HeaderThree>Email header to look for:</HeaderThree>
         <KeyboardAvoidingView>
@@ -113,13 +120,6 @@ const ParametersScreen = () => {
           ))}
         </View>
       </View>
-      <ParameterModal
-        isVisible={isModalVisible}
-        param={newParameter}
-        modalHandler={setIsModalVisible}
-        setParam={setNewParameter}
-        submitParam={addParamHandler}
-      />
       <View style={styles.buttonContainer}>
         <Pressable
           style={({ pressed }) => [

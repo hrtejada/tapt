@@ -41,8 +41,8 @@ const ParameterModal = ({
       visible={isVisible}
       onRequestClose={() => modalHandler(false)}
     >
-      <Pressable style={styles.modalOverlay} onPress={dismissModalHandler} />
       <View style={styles.centerModal}>
+        <Pressable style={styles.modalOverlay} onPress={dismissModalHandler} />
         <View style={styles.modal}>
           <HeaderThree>New Parameter to look for:</HeaderThree>
           <TextInput
