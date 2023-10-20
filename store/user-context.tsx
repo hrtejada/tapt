@@ -10,6 +10,7 @@ type INIT_USER_TYPE = {
   limit: string;
   startDate: Date;
   endDate: Date;
+  header: string;
   parameters: string[];
   notifications: string;
   isRanking: boolean;
@@ -25,6 +26,7 @@ const INIT_USER_STATE = {
   limit: "0",
   startDate: new Date(),
   endDate: new Date(),
+  header: "",
   parameters: ["description", "budget", "size"], // TODO: Just adding init values to help with testing. REMOVE AFTERWARDS
   notifications: OPTIONS.OFF.toString(),
   isRanking: false,
@@ -40,6 +42,7 @@ type ACTION_TYPE =
   | { type: TYPES.LIMIT; payload: string }
   | { type: TYPES.START_DATE; payload: Date }
   | { type: TYPES.END_DATE; payload: Date }
+  | { type: TYPES.HEADER; payload: string }
   | { type: TYPES.ADD; payload: string }
   | { type: TYPES.DELETE; payload: string }
   | { type: TYPES.NOTIFICATION; payload: string }
@@ -77,6 +80,8 @@ const reducer = (state: INIT_USER_TYPE, action: ACTION_TYPE) => {
       return { ...state, startDate: action.payload };
     case TYPES.END_DATE:
       return { ...state, endDate: action.payload };
+    case TYPES.HEADER:
+      return { ...state, header: action.payload };
     case TYPES.ADD:
       return {
         ...state,

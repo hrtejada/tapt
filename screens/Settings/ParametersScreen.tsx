@@ -1,16 +1,17 @@
 import { FontAwesome5 } from "@expo/vector-icons";
 import { useState } from "react";
 import {
-  Modal,
+  Alert,
+  KeyboardAvoidingView,
   Pressable,
   StyleSheet,
-  Text,
   TextInput,
   View,
 } from "react-native";
+import ParameterModal from "../../components/Settings/ParameterModal";
 import SettingsContainer from "../../components/Settings/SettingsContainer";
-import Button from "../../components/ui/Button";
 import Chip from "../../components/ui/Chip";
+import HeaderThree from "../../components/ui/HeaderThree";
 import { GlobalStyles } from "../../constants/styles";
 import { PARAMETERS, TYPES } from "../../constants/words";
 import { useUserContext } from "../../store/user-context";
@@ -21,13 +22,21 @@ import { useUserContext } from "../../store/user-context";
  * TODO: Determine where to validate TextInput
  * TODO: Restyle this screen 🐱‍👤
  *
- * @version 0.1.6
+ * @version 0.2.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const ParametersScreen = () => {
   const { state, dispatch } = useUserContext();
-  const [modalVisible, setModalVisible] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [newParameter, setNewParameter] = useState("");
+
+  /**
+   * Set the email header value.
+   */
+  const setHeader = (enteredText: string) => {
+    // TODO: Implement input validation for Front End
+    dispatch({ type: TYPES.HEADER, payload: enteredText });
+  };
 
   /**
    * Remove the parameter from the user's parameters array.
@@ -44,55 +53,80 @@ const ParametersScreen = () => {
    */
   const addParamHandler = () => {
     // TODO: Implement input validation for Front End
-
-    // Do Backend stuff...
     // Convert to lowercase so keys match up when retrieving on EmailScreen
-    dispatch({ type: TYPES.ADD, payload: newParameter.toLowerCase() });
-    setModalVisible(false);
+    const newParameter_LC = newParameter.toLowerCase();
+
+    // Check if input is empty
+    if (newParameter_LC === "") {
+      Alert.alert("Invalid Input", "Parameter can't be empty", [
+        {
+          text: "OK",
+          style: "default",
+        },
+      ]);
+
+      return;
+    }
+
+    //Check if input already exists
+    if (state.parameters.includes(newParameter_LC)) {
+      Alert.alert("Invalid Input", "Parameter already exists", [
+        {
+          text: "OK",
+          style: "default",
+        },
+      ]);
+
+      return;
+    }
+    // Do Backend stuff...
+    dispatch({ type: TYPES.ADD, payload: newParameter_LC });
+    setIsModalVisible(false);
     setNewParameter("");
   };
 
   return (
     <SettingsContainer header={PARAMETERS.header} info={PARAMETERS.info}>
-      <View style={styles.chipsContainer}>
-        {state.parameters.map((parameter) => (
-          <Chip
-            key={parameter}
-            text={parameter}
-            onDelete={deleteChipHandler.bind(this, parameter)}
+      <View style={styles.headerContainer}>
+        <HeaderThree>Email header to look for:</HeaderThree>
+        <KeyboardAvoidingView>
+          <TextInput
+            style={styles.input}
+            value={state.header}
+            keyboardType="default"
+            inputMode="text"
+            returnKeyType="done"
+            maxLength={128}
+            onChangeText={setHeader}
           />
-        ))}
+        </KeyboardAvoidingView>
       </View>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => setModalVisible(false)}
-      >
-        <View style={styles.centerModal}>
-          <View style={styles.modal}>
-            <Text>New Parameter to look for</Text>
-            <TextInput
-              style={styles.input}
-              value={newParameter}
-              maxLength={32}
-              keyboardType="default"
-              inputMode="text"
-              textAlign="center"
-              onChangeText={setNewParameter}
+      <View style={styles.parametersContainer}>
+        <HeaderThree>Email data to look for:</HeaderThree>
+        <View style={styles.chipsContainer}>
+          {state.parameters.map((parameter) => (
+            <Chip
+              key={parameter}
+              text={parameter}
+              onDelete={deleteChipHandler.bind(this, parameter)}
             />
-            <Button onPress={addParamHandler}>Add</Button>
-            <Button onPress={() => setModalVisible(false)}>Cancel</Button>
-          </View>
+          ))}
         </View>
-      </Modal>
+      </View>
+      <ParameterModal
+        isVisible={isModalVisible}
+        param={newParameter}
+        modalHandler={setIsModalVisible}
+        setParam={setNewParameter}
+        submitParam={addParamHandler}
+      />
       <View style={styles.buttonContainer}>
         <Pressable
           style={({ pressed }) => [
             styles.addParamButton,
             pressed && styles.pressed,
           ]}
-          onPress={() => setModalVisible(true)}
+          onPress={() => setIsModalVisible(true)}
         >
           <FontAwesome5
             name="plus"
@@ -108,6 +142,13 @@ const ParametersScreen = () => {
 export default ParametersScreen;
 
 const styles = StyleSheet.create({
+  headerContainer: {
+    flex: 1,
+    marginBottom: 12,
+  },
+  parametersContainer: {
+    flex: 2,
+  },
   chipsContainer: {
     flex: 3,
     flexDirection: "row",
@@ -116,7 +157,6 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flex: 2,
-    // alignItems: "center",
   },
   addParamButton: {
     backgroundColor: GlobalStyles.colors.primary500,
@@ -130,16 +170,6 @@ const styles = StyleSheet.create({
   },
   pressed: {
     backgroundColor: GlobalStyles.colors.primary700,
-  },
-  centerModal: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  modal: {
-    backgroundColor: GlobalStyles.colors.background200,
-    padding: 25,
-    width: "80%",
   },
   input: {
     borderWidth: 1,
