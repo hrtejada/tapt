@@ -4,7 +4,7 @@ import { GlobalStyles } from "../../constants/styles";
 /**
  * Component that displays the count of unread emails from the users inbox that match the parameters.
  *
- * @version 0.2.0
+ * @version 0.2.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const UnreadCountCard = ({ unreadCount }: { unreadCount: number }) => {
@@ -20,10 +20,12 @@ export default UnreadCountCard;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    padding: 8,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
     backgroundColor: GlobalStyles.colors.primary300,
     borderRadius: 8,
+    borderWidth: 1,
+    borderColor: GlobalStyles.colors.accent500,
   },
   count: {
     fontSize: 72,

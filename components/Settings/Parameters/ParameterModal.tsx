@@ -55,13 +55,13 @@ const ParameterModal = ({
             onChangeText={setParamHandler}
           />
           <View style={styles.buttonsContainer}>
-            <Button onPress={submitParam}>Add</Button>
+            <Button title="Add" onPress={submitParam} type="primary" />
             <Button
-              buttonStyle={styles.cancelButton}
+              title="Cancel"
+              style={styles.cancelButton}
               onPress={() => modalHandler(false)}
-            >
-              Cancel
-            </Button>
+              type="secondary"
+            />
           </View>
         </View>
       </View>

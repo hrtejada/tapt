@@ -20,7 +20,7 @@ const BookingStatus = ({ status, startDate, endDate }: Props) => {
   return (
     <View style={[styles.container, status ? styles.active : styles.inactive]}>
       <Text style={[styles.text, styles.statusText]}>
-        {status ? ACTIVE : INACTIVE}
+        {status ? `${ACTIVE} — ` : INACTIVE}
       </Text>
       {status && (
         <Text style={[styles.text, styles.dateRangeText]}>
@@ -35,6 +35,7 @@ export default BookingStatus;
 
 const styles = StyleSheet.create({
   container: {
+    flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
     padding: 6,
@@ -59,7 +60,5 @@ const styles = StyleSheet.create({
   },
   dateRangeText: {
     fontSize: 20,
-    textAlign: "center",
-    marginTop: 4,
   },
 });

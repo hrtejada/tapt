@@ -37,12 +37,12 @@ const EmailButtons = ({ onAccept, onReject }: Props) => {
         {!state.inRankMode && <IconButton type={ACCEPT} onPress={onAccept} />}
         {state.inRankMode && (
           <Button
-            buttonStyle={styles.queueButton}
+            title="QUEUE"
+            style={styles.queueButton}
             onPress={onAccept}
             disabled={rank === 0}
-          >
-            QUEUE
-          </Button>
+            type="secondary"
+          />
         )}
         <IconButton type={REJECT} onPress={onReject} />
       </View>
