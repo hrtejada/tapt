@@ -1,14 +1,15 @@
 import { FontAwesome5 } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { Pressable, StyleSheet, View } from "react-native";
+import { useEffect } from "react";
+import { StyleSheet, View } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
+import { TYPES } from "../../constants/words";
 import { useUserContext } from "../../store/user-context";
+import { DUMMY_EMAILS } from "../../testData/DUMMY_DATA";
 import { EmailStackProps } from "../../util/react-navigation";
+import AnimatedButton from "../ui/AnimatedButton";
 import HeaderOne from "../ui/HeaderOne";
 import UnreadCountCard from "./UnreadCountCard";
-import { useEffect } from "react";
-import { TYPES } from "../../constants/words";
-import { DUMMY_EMAILS } from "../../testData/DUMMY_DATA";
 
 /**
  * Email Info Component.
@@ -16,7 +17,7 @@ import { DUMMY_EMAILS } from "../../testData/DUMMY_DATA";
  * Button that displays the current unread count. Tapping button
  * takes user to the EmailScreen.
  *
- * @version 0.1.2
+ * @version 0.2.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const EmailInfo = () => {
@@ -39,24 +40,23 @@ const EmailInfo = () => {
   return (
     <View style={styles.row}>
       <HeaderOne>Emails</HeaderOne>
-      <Pressable
+      <AnimatedButton
+        title="Open Emails"
         onPress={emailPressHandler}
-        style={({ pressed }) => [
-          styles.buttonContainer,
-          pressed && styles.pressed,
-        ]}
+        type="primary"
+        style={styles.buttonContainer}
       >
         <View style={styles.innerContainer}>
           <UnreadCountCard unreadCount={state.unreadCount} />
           <View style={styles.iconContainer}>
             <FontAwesome5
               name="envelope-open-text"
-              size={64}
+              size={72}
               color={GlobalStyles.colors.text}
             />
           </View>
         </View>
-      </Pressable>
+      </AnimatedButton>
     </View>
   );
 };
@@ -66,26 +66,19 @@ export default EmailInfo;
 const styles = StyleSheet.create({
   row: {
     flex: 2,
+    alignItems: "center",
   },
   buttonContainer: {
     backgroundColor: GlobalStyles.colors.primary500,
     marginHorizontal: 24,
     borderRadius: 8,
-    borderWidth: 1,
-    borderColor: GlobalStyles.colors.accent700,
-    shadowColor: GlobalStyles.colors.text,
-    shadowOffset: { width: 3, height: 3 },
-    shadowOpacity: 0.75,
-    shadowRadius: 2,
-    // padding: 10,
+    width: "70%",
   },
   innerContainer: {
     flexDirection: "row",
-    justifyContent: "center",
   },
   iconContainer: {
     flex: 1,
-    flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
   },

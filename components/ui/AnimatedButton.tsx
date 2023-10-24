@@ -7,6 +7,7 @@ interface Props {
   onPress: () => void;
   style?: null | object;
   textStyle?: null | object;
+  type?: "primary" | "secondary";
   children?: React.ReactNode;
 }
 
@@ -23,15 +24,33 @@ const AnimatedButton = ({
   onPress,
   style,
   textStyle,
+  type,
   children,
 }: Props) => {
   const [scaleValue] = useState(new Animated.Value(1));
 
+  const backgroundColor = {
+    backgroundColor:
+      type === "primary"
+        ? GlobalStyles.colors.primary500
+        : GlobalStyles.colors.secondary500,
+  };
+
+  const pressedBG = {
+    backgroundColor:
+      type === "primary"
+        ? GlobalStyles.colors.primary700
+        : GlobalStyles.colors.secondary700,
+  };
+
+  /**
+   * Function to scale down the button
+   */
   const handlePressIn = () => {
     Animated.timing(scaleValue, {
-      toValue: 0.95,
+      toValue: 0.975,
       duration: 25,
-      easing: Easing.bounce,
+      easing: Easing.ease,
       useNativeDriver: true, // Use native driver for performance
     }).start();
   };
@@ -40,7 +59,7 @@ const AnimatedButton = ({
     Animated.timing(scaleValue, {
       toValue: 1,
       duration: 25,
-      easing: Easing.bounce,
+      easing: Easing.ease,
       useNativeDriver: true,
     }).start();
   };
@@ -57,7 +76,8 @@ const AnimatedButton = ({
             styles.button,
             { transform: [{ scale: scaleValue }] },
             style,
-            pressed && styles.pressed,
+            backgroundColor,
+            pressed && pressedBG,
           ]}
         >
           {children || <Text style={[styles.text, textStyle]}>{title}</Text>}
@@ -71,7 +91,7 @@ export default AnimatedButton;
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: GlobalStyles.colors.secondary500,
+    backgroundColor: GlobalStyles.colors.primary500,
     padding: 8,
     borderRadius: 10,
     alignItems: "center",
@@ -82,7 +102,7 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
   },
   pressed: {
-    backgroundColor: GlobalStyles.colors.secondary700,
+    backgroundColor: GlobalStyles.colors.primary700,
   },
   text: {
     color: GlobalStyles.colors.text,
