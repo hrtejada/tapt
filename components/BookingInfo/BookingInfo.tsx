@@ -20,7 +20,7 @@ const BookingInfo = () => {
   const now = new Date();
   // TODO: Different way to TS this?
   const options = {
-    weekday: "long" as "long",
+    // weekday: "short" as "short",
     year: "2-digit" as "2-digit",
     month: "numeric" as "numeric",
     day: "numeric" as "numeric",
