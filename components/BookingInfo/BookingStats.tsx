@@ -14,7 +14,7 @@ interface Props {
  *
  * TODO: Rework this; I don't like the current display
  *
- * @version 0.1.3
+ * @version 0.1.4
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const BookingStats = ({ accepted, rejected }: Props) => {
@@ -44,17 +44,18 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   cardContainer: {
-    flex: 4,
+    // flex: 4,
     flexDirection: "row",
   },
   limitContainer: {
-    flex: 1,
+    // flex: 1,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: GlobalStyles.colors.accent300,
     marginHorizontal: "25%",
     borderBottomStartRadius: 8,
     borderBottomEndRadius: 8,
+    padding: 6,
   },
   text: {
     fontSize: 20,

@@ -9,7 +9,7 @@ import BookingStatus from "./BookingStatus";
  *
  * Displays any relevant information pertaining to booking.
  *
- * @version 0.1.0
+ * @version 0.1.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const BookingInfo = () => {
@@ -46,7 +46,8 @@ export default BookingInfo;
 
 const styles = StyleSheet.create({
   row: {
-    flex: 2,
-    marginTop: 32,
+    flex: 1,
+    paddingVertical: 32,
+    justifyContent: "center",
   },
 });

@@ -17,7 +17,7 @@ import UnreadCountCard from "./UnreadCountCard";
  * Button that displays the current unread count. Tapping button
  * takes user to the EmailScreen.
  *
- * @version 0.2.0
+ * @version 0.2.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const EmailInfo = () => {
@@ -65,8 +65,9 @@ export default EmailInfo;
 
 const styles = StyleSheet.create({
   row: {
-    flex: 2,
+    flex: 1,
     alignItems: "center",
+    justifyContent: "center",
   },
   buttonContainer: {
     backgroundColor: GlobalStyles.colors.primary500,
