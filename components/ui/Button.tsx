@@ -2,11 +2,13 @@ import { Pressable, StyleSheet, Text } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
 
 interface Props {
+  title: string;
   onPress: () => void;
-  buttonStyle?: null | object;
+  type: "primary" | "secondary";
+  style?: null | object;
   textStyle?: null | object;
   disabled?: boolean;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 /**
@@ -14,27 +16,43 @@ interface Props {
  *
  * TODO: Refine this. Might be overengineered ಠ_ಠ
  *
- * @version 0.2.1
+ * @version 0.3.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const Button = ({
+  title,
   onPress,
-  buttonStyle,
+  type,
+  style,
   textStyle,
   disabled = false,
   children,
 }: Props) => {
+  const backgroundColor = {
+    backgroundColor:
+      type === "primary"
+        ? GlobalStyles.colors.primary500
+        : GlobalStyles.colors.secondary500,
+  };
+
+  const pressedBG = {
+    backgroundColor:
+      type === "primary"
+        ? GlobalStyles.colors.primary700
+        : GlobalStyles.colors.secondary700,
+  };
   return (
     <Pressable
       onPress={onPress}
       style={({ pressed }) => [
-        pressed && styles.pressed,
         styles.button,
-        buttonStyle,
+        backgroundColor,
+        style,
+        pressed && pressedBG,
       ]}
       disabled={disabled}
     >
-      <Text style={[styles.buttonText, textStyle]}>{children}</Text>
+      {children || <Text style={[styles.text, textStyle]}>{title}</Text>}
     </Pressable>
   );
 };
@@ -55,7 +73,7 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     shadowOpacity: 0.75,
   },
-  buttonText: {
+  text: {
     color: GlobalStyles.colors.text,
     textAlign: "center",
     fontSize: 18,

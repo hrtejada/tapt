@@ -119,8 +119,8 @@ const ReplyScreen = ({ route, navigation }: ReplyStackProps) => {
           </View>
         </KeyboardAvoidingView>
         <View style={styles.buttonsContainer}>
-          <Button onPress={replyHandler}>Send</Button>
-          <Button onPress={cancleHandler}>Cancel</Button>
+          <Button title="Send" onPress={replyHandler} type="primary" />
+          <Button title="Cancel" onPress={cancleHandler} type="secondary" />
         </View>
       </ScrollView>
     </View>

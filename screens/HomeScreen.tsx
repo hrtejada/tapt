@@ -4,6 +4,7 @@ import BookingInfo from "../components/BookingInfo/BookingInfo";
 import EmailInfo from "../components/EmailInfo/EmailInfo";
 import { GlobalStyles } from "../constants/styles";
 import { HomeStackProps } from "../util/react-navigation";
+import AnimatedButton from "../components/ui/AnimatedButton";
 
 /**
  * Home Component displaying the main components of the app.
@@ -43,12 +44,12 @@ const HomeScreen = ({ navigation }: HomeStackProps) => {
       <BookingInfo />
       <EmailInfo />
       <View style={styles.row}>
-        <Pressable
+        <AnimatedButton
+          title="View Ranked Queue"
           onPress={rankedQueuePressHandler}
-          style={({ pressed }) => [styles.button, pressed && styles.pressed]}
-        >
-          <Text style={styles.text}>View Ranked Queue</Text>
-        </Pressable>
+          style={styles.button}
+          textStyle={styles.text}
+        />
       </View>
       <View>
         <Text style={styles.bottomText}>MPJ Labs, 2023 ©</Text>
@@ -69,17 +70,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   button: {
+    borderColor: GlobalStyles.colors.accent500,
     alignItems: "center",
-    backgroundColor: GlobalStyles.colors.secondary500,
     marginHorizontal: 24,
     padding: 12,
     borderWidth: 1,
-    borderColor: GlobalStyles.colors.accent500,
     borderRadius: 13,
-    shadowColor: GlobalStyles.colors.text,
-    shadowOffset: { width: 2, height: 2 },
-    shadowOpacity: 0.75,
-    shadowRadius: 2,
   },
   text: {
     fontSize: 24,
