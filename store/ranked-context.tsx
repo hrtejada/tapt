@@ -48,10 +48,6 @@ const reducer = (state: INIT_RANKED_TYPE, action: RANK_ACTIONS) => {
   }
 };
 
-interface ProviderProps {
-  children: React.ReactNode;
-}
-
 // Context using a reducer to manage the state.
 const RankedContextProvider = ({ children }: React.PropsWithChildren) => {
   const [state, dispatch] = useReducer(reducer, INIT_RANKED_STATE);

@@ -91,6 +91,7 @@ export default AnimatedButton;
 
 const styles = StyleSheet.create({
   button: {
+    flex: 1,
     backgroundColor: GlobalStyles.colors.primary500,
     padding: 8,
     borderRadius: 10,

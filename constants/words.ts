@@ -2,7 +2,7 @@
  * Constants used in multiple locations to avoid typos
  */
 
-// IconButton
+// Email Button Actions
 export const ACCEPT = "ACCEPT";
 export const REJECT = "REJECT";
 

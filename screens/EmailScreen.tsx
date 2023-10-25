@@ -38,7 +38,7 @@ type emailDynamic = {
  * TODO: Once we figure out how Gmail attachments are retrieved we can determine how to check for them and how to figure out typing
  * TODO: Look into handling "'route.params' being undefined" properly
  *
- * @version 0.2.4
+ * @version 0.2.5
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const EmailScreen = ({ route, navigation }: EmailStackProps) => {
@@ -164,25 +164,13 @@ const EmailScreen = ({ route, navigation }: EmailStackProps) => {
           paddingBottom: insets.bottom,
           paddingLeft: insets.left,
           paddingRight: insets.right,
+          flexDirection: "column",
         },
       ]}
     >
       <View style={styles.emailInfoContainer}>
         <SenderInfo name={emailInfo.name} email={emailInfo.email} />
-        <ScrollView>
-          {/* <TextParameter parameter="Description" info={emailInfo.description} />
-          <TextParameter parameter="Size" info={emailInfo.size} />
-          <TextParameter parameter="Placement" info={emailInfo.placement} />
-          <TextParameter parameter="Budget" info={`$${emailInfo.budget}`} />
-          <TextParameter parameter="Other Info" info={emailInfo.other1} />
-          <TextParameter parameter="Other Info 2" info={emailInfo.other2} />
-          <ImageParameter
-            id={emailInfo.id}
-            parameter="Images"
-            images={emailInfo.images}
-          /> */}
-          {renderParameters()}
-        </ScrollView>
+        <ScrollView>{renderParameters()}</ScrollView>
       </View>
       <EmailButtons onAccept={acceptHandler} onReject={rejectHandler} />
     </View>
@@ -197,12 +185,7 @@ const styles = StyleSheet.create({
     backgroundColor: GlobalStyles.colors.primary500,
   },
   emailInfoContainer: {
-    flex: 3,
-    justifyContent: "space-evenly",
+    flex: 4,
     backgroundColor: GlobalStyles.colors.secondary700,
-  },
-
-  buttonsContainer: {
-    flex: 1,
   },
 });
