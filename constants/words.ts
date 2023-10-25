@@ -58,7 +58,7 @@ export const RANKING = {
 };
 
 /***** NOTIFICATION CADENCE VALUES *****/
-export enum OPTIONS {
+export enum NOTIFICATION_OPTIONS {
   OFF,
   ONE_HOUR,
   THREE_HOURS,
@@ -67,7 +67,7 @@ export enum OPTIONS {
 }
 
 /***** CONTEXT/REDUCER *****/
-export enum TYPES {
+export enum USER_ACTION_TYPES {
   USER_ID = "SET_USER_ID",
   UNREAD_COUNT = "UPDATE_UNREAD_COUNT",
   ACCEPTED = "UPDATE_ACCEPTED",

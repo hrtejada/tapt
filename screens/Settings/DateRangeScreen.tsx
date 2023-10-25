@@ -4,7 +4,7 @@ import DateTimePicker, {
 import { StyleSheet, Text, View } from "react-native";
 import SettingsContainer from "../../components/Settings/SettingsContainer";
 import { GlobalStyles } from "../../constants/styles";
-import { DATE_RANGE, TYPES } from "../../constants/words";
+import { DATE_RANGE, USER_ACTION_TYPES } from "../../constants/words";
 import { useUserContext } from "../../store/user-context";
 
 interface Props {
@@ -63,7 +63,8 @@ const DateRangeScreen = () => {
         value={startDate}
         onChange={(_, date) => {
           // Do Backend stuff...
-          date && dispatch({ type: TYPES.START_DATE, payload: date });
+          date &&
+            dispatch({ type: USER_ACTION_TYPES.START_DATE, payload: date });
         }}
       />
       <DatePicker
@@ -72,7 +73,7 @@ const DateRangeScreen = () => {
         value={endDate}
         onChange={(_, date) => {
           // Do Backend stuff...
-          date && dispatch({ type: TYPES.END_DATE, payload: date });
+          date && dispatch({ type: USER_ACTION_TYPES.END_DATE, payload: date });
         }}
       />
     </SettingsContainer>

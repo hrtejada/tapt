@@ -1,7 +1,5 @@
 // TODO: Work on the data model for the Cloud Firestore
 
-import { OPTIONS } from "../constants/words";
-
 /**
  * Dummy data used on the Email Screen.
  * Data model subject to change depending on future changes.
@@ -57,16 +55,3 @@ export const DUMMY_RANKED: RankedProps[] = [
     rank: 3,
   },
 ];
-
-/**
- * Dummy User data.
- *
- * Will try to represent a more realistic data model for the app
- * TODO: Determine if we need to incorporate Ranked into this or have it be separate
- */
-export const DUMMY_USER_1 = {
-  id: "u1",
-  unreadCount: 0, // NOTE - We'll get this in realtime from the GMAIL API
-  accepted: 50,
-  rejected: 50,
-};

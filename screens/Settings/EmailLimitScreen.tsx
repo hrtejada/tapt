@@ -2,7 +2,7 @@ import { createRef } from "react";
 import { Alert, StyleSheet, TextInput, View } from "react-native";
 import SettingsContainer from "../../components/Settings/SettingsContainer";
 import { GlobalStyles } from "../../constants/styles";
-import { EMAIL_LIMIT, TYPES } from "../../constants/words";
+import { EMAIL_LIMIT, USER_ACTION_TYPES } from "../../constants/words";
 import { useUserContext } from "../../store/user-context";
 
 /**
@@ -21,7 +21,7 @@ const EmailLimitScreen = () => {
    * Update the state so the correct value is reflected in the input.
    */
   const onChangeLimit = (enteredText: string) => {
-    dispatch({ type: TYPES.LIMIT, payload: enteredText });
+    dispatch({ type: USER_ACTION_TYPES.LIMIT, payload: enteredText });
   };
 
   /**
@@ -68,7 +68,7 @@ const EmailLimitScreen = () => {
 
     // Update limit if it is 0 so UI properly reflects value
     if (limit === 0) {
-      dispatch({ type: TYPES.LIMIT, payload: limit.toString() });
+      dispatch({ type: USER_ACTION_TYPES.LIMIT, payload: limit.toString() });
     }
   };
 
