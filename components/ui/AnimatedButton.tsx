@@ -74,9 +74,9 @@ const AnimatedButton = ({
         <Animated.View
           style={[
             styles.button,
+            backgroundColor,
             { transform: [{ scale: scaleValue }] },
             style,
-            backgroundColor,
             pressed && pressedBG,
           ]}
         >
@@ -100,9 +100,6 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 2, height: 2 },
     shadowOpacity: 0.75,
     shadowRadius: 2,
-  },
-  pressed: {
-    backgroundColor: GlobalStyles.colors.primary700,
   },
   text: {
     color: GlobalStyles.colors.text,
