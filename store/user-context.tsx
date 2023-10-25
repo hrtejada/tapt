@@ -29,12 +29,12 @@ const INIT_USER_STATE = {
   header: "",
   parameters: ["description", "budget", "size"], // TODO: Just adding init values to help with testing. REMOVE AFTERWARDS
   notifications: NOTIFICATION_OPTIONS.OFF.toString(),
-  isRanking: false,
-  inRankMode: false,
+  isRanking: true, // TODO: Just adding init values to help with testing. REMOVE AFTERWARDS
+  inRankMode: true, // TODO: Just adding init values to help with testing. REMOVE AFTERWARDS
 };
 
 // Define the Actions that can occur in this context
-type ACTION_TYPE =
+type USER_ACTIONS =
   | { type: USER_ACTION_TYPES.USER_ID; payload: string }
   | { type: USER_ACTION_TYPES.UNREAD_COUNT; payload: number }
   | { type: USER_ACTION_TYPES.ACCEPTED; payload: number }
@@ -61,10 +61,10 @@ type ACTION_TYPE =
  */
 export const UserContext = createContext<{
   state: INIT_USER_TYPE;
-  dispatch: React.Dispatch<ACTION_TYPE>;
+  dispatch: React.Dispatch<USER_ACTIONS>;
 }>({ state: INIT_USER_STATE, dispatch: () => {} });
 
-const reducer = (state: INIT_USER_TYPE, action: ACTION_TYPE) => {
+const reducer = (state: INIT_USER_TYPE, action: USER_ACTIONS) => {
   switch (action.type) {
     case USER_ACTION_TYPES.USER_ID:
       return { ...state, id: action.payload };
@@ -109,10 +109,6 @@ const reducer = (state: INIT_USER_TYPE, action: ACTION_TYPE) => {
       throw new Error(`Unhandled action: ${action}`);
   }
 };
-
-interface ProviderProps {
-  children: React.ReactNode;
-}
 
 // Context using a reducer to manage the state.
 const UserContextProvider = ({ children }: React.PropsWithChildren) => {
