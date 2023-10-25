@@ -1,11 +1,10 @@
-import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
-import { StyleSheet, Text, View } from "react-native";
-import AnimatedButton from "../ui/AnimatedButton";
-import React from "react";
-import { GlobalStyles } from "../../constants/styles";
+import { FontAwesome5 } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import React from "react";
+import { StyleSheet, View } from "react-native";
+import { GlobalStyles } from "../../constants/styles";
 import { RankedStackProps } from "../../util/react-navigation";
-import { RankedProps } from "../../testData/DUMMY_DATA";
+import AnimatedButton from "../ui/AnimatedButton";
 
 interface Props {
   messageId: string;
@@ -14,7 +13,7 @@ interface Props {
 /**
  * Component to hold the action buttons for a Ranked booking.
  *
- * @version 0.1.0
+ * @version 0.1.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const RankedFooter = ({ messageId }: Props) => {
@@ -63,7 +62,8 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     justifyContent: "space-between",
-    // backgroundColor: GlobalStyles.colors.background100,
+    marginHorizontal: 12,
+    marginBottom: 12,
   },
   button: {
     paddingHorizontal: "12%",

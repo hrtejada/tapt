@@ -84,7 +84,8 @@ const styles = StyleSheet.create({
     backgroundColor: GlobalStyles.colors.primary300,
     marginVertical: 4,
     marginHorizontal: 16,
-    padding: 12,
     borderRadius: 8,
+    borderWidth: 1,
+    borderColor: GlobalStyles.colors.accent500,
   },
 });

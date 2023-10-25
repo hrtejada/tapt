@@ -11,7 +11,7 @@ interface Props {
  * Component that will display the email senders info inside
  * the RankedQueueScreen.
  *
- * @version 0.1.0
+ * @version 0.1.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const RankedHeader = ({ name, email, children }: Props) => {
@@ -23,7 +23,6 @@ const RankedHeader = ({ name, email, children }: Props) => {
           {email}
         </Text>
       </View>
-      <View style={styles.bar} />
       <View style={styles.rankedDisplay}>{children}</View>
     </View>
   );
@@ -38,11 +37,12 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     backgroundColor: GlobalStyles.colors.background200,
-    borderWidth: 1,
-    borderColor: GlobalStyles.colors.accent700,
+    borderBottomWidth: 1,
+    borderBottomColor: GlobalStyles.colors.accent700,
     paddingHorizontal: 8,
-    paddingVertical: 6,
-    borderRadius: 5,
+    paddingVertical: 4,
+    borderTopStartRadius: 8,
+    borderTopEndRadius: 8,
   },
   bar: {
     width: 3,
