@@ -28,6 +28,7 @@ import {
   SettingsStackParamList,
   getHeaderTitle,
 } from "./util/react-navigation";
+import QueueScreen from "./screens/QueueScreen";
 
 /**
  * Main app component.
@@ -86,6 +87,7 @@ const MainView = () => {
         />
         <HomeStack.Screen name="Image" component={ImageScreen} />
         <HomeStack.Screen name="Reply" component={ReplyScreen} />
+        <HomeStack.Screen name="Queue" component={QueueScreen} />
       </HomeStack.Group>
     </HomeStack.Navigator>
   );

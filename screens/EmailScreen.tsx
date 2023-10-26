@@ -8,7 +8,7 @@ import LoadingOverlay from "../components/ui/LoadingOverlay";
 import { GlobalStyles } from "../constants/styles";
 import { DUMMY_EMAILS } from "../testData/DUMMY_DATA";
 import { EmailStackProps } from "../util/react-navigation";
-import { ACCEPT, REJECT } from "../constants/words";
+import { EMAIL_ACTIONS } from "../constants/words";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useUserContext } from "../store/user-context";
 
@@ -48,6 +48,7 @@ const EmailScreen = ({ route, navigation }: EmailStackProps) => {
   // TODO: Figure out how to dynamically set the useState type!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   const [emailInfo, setEmailInfo] = useState<any>();
   const [isLoading, setIsLoading] = useState(true);
+  const [rank, setRank] = useState(0);
 
   useEffect(() => {
     setIsLoading(true);
@@ -109,14 +110,25 @@ const EmailScreen = ({ route, navigation }: EmailStackProps) => {
    * Navigate to the Reply - Accept template
    */
   const acceptHandler = () => {
-    navigation.navigate("Reply", { mode: ACCEPT });
+    navigation.navigate("Reply", { mode: EMAIL_ACTIONS.ACCEPT });
   };
 
   /**
    * Navigate to the Reply - Reject template
    */
   const rejectHandler = () => {
-    navigation.navigate("Reply", { mode: REJECT });
+    navigation.navigate("Reply", { mode: EMAIL_ACTIONS.REJECT });
+  };
+
+  const queueHandler = () => {
+    navigation.navigate("Queue", {
+      rank: rank,
+      messageId: emailInfo.id,
+    });
+  };
+
+  const rankHandler = (value: number) => {
+    setRank(value);
   };
 
   if (isLoading) {
@@ -172,7 +184,13 @@ const EmailScreen = ({ route, navigation }: EmailStackProps) => {
         <SenderInfo name={emailInfo.name} email={emailInfo.email} />
         <ScrollView>{renderParameters()}</ScrollView>
       </View>
-      <EmailButtons onAccept={acceptHandler} onReject={rejectHandler} />
+      <EmailButtons
+        rank={rank}
+        onAccept={acceptHandler}
+        onReject={rejectHandler}
+        onQueue={queueHandler}
+        onRank={rankHandler}
+      />
     </View>
   );
 };

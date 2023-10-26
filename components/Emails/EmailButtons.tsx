@@ -7,8 +7,11 @@ import AnimatedButton from "../ui/AnimatedButton";
 import RankButtons from "./RankButtons";
 
 interface Props {
+  rank: number;
   onAccept: () => void;
   onReject: () => void;
+  onQueue: () => void;
+  onRank: (value: number) => void;
 }
 
 /**
@@ -19,15 +22,16 @@ interface Props {
  *
  * TODO: Rework Rank buttons
  *
+ * TODO: Come back and fix the buttons. Something going on with containers and flex
+ *
  * @version 0.3.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
-const EmailButtons = ({ onAccept, onReject }: Props) => {
+const EmailButtons = ({ rank, onAccept, onReject, onQueue, onRank }: Props) => {
   const { state } = useUserContext();
-  const [rank, setRank] = useState(0);
 
   const rankButtonPress = (value: number) => {
-    setRank(value);
+    onRank(value);
   };
 
   // Using this because using StyleSheet wasn't working properly
@@ -62,7 +66,7 @@ const EmailButtons = ({ onAccept, onReject }: Props) => {
         {state.inRankMode && (
           <AnimatedButton
             title="QUEUE"
-            onPress={() => {}}
+            onPress={onQueue}
             style={[styles.button, styles.queueButton, buttonWidth]}
           >
             <MaterialIcons name="queue" size={64} color="black" />

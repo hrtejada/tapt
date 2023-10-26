@@ -3,8 +3,11 @@
  */
 
 // Email Button Actions
-export const ACCEPT = "ACCEPT";
-export const REJECT = "REJECT";
+export enum EMAIL_ACTIONS {
+  ACCEPT = "ACCEPT",
+  REJECT = "REJECT",
+  QUEUE = "QUEUE",
+}
 
 // BookingNumberCard, BookingStats
 export const ACCEPTED = "ACCEPTED";
@@ -89,4 +92,5 @@ export enum USER_ACTION_TYPES {
 export enum RANKED_ACTION_TYPES {
   USER_ID = "SET_USER_ID",
   RANKED_EMAILS = "SET_RANKED_EMAILS",
+  ADD_EMAIL = "ADD_RANKED_EMAIL",
 }
