@@ -16,7 +16,7 @@ type INIT_RANKED_TYPE = {
 
 // Data for initializing a new user.
 const INIT_RANKED_STATE = {
-  userId: "u1",
+  userId: "",
   rankedEmails: [],
 };
 
@@ -24,7 +24,10 @@ const INIT_RANKED_STATE = {
 type RANK_ACTIONS =
   | { type: RANKED_ACTION_TYPES.USER_ID; payload: string }
   | { type: RANKED_ACTION_TYPES.RANKED_EMAILS; payload: RankedEmail[] }
-  | { type: RANKED_ACTION_TYPES.ADD_EMAIL; payload: INIT_RANKED_TYPE };
+  | {
+      type: RANKED_ACTION_TYPES.ADD_EMAIL;
+      payload: { userId: string; email: RankedEmail };
+    };
 
 /**
  * Main user state context.
@@ -39,19 +42,16 @@ export const RankedContext = createContext<{
   dispatch: React.Dispatch<RANK_ACTIONS>;
 }>({ state: INIT_RANKED_STATE, dispatch: () => {} });
 
-const reducer = (state: INIT_RANKED_TYPE, action: RANK_ACTIONS) => {
+const reducer = (
+  state: INIT_RANKED_TYPE,
+  action: RANK_ACTIONS
+): INIT_RANKED_TYPE => {
   switch (action.type) {
-    case RANKED_ACTION_TYPES.USER_ID:
-      return { ...state, userId: action.payload };
-    case RANKED_ACTION_TYPES.RANKED_EMAILS:
-      return {
-        ...state,
-        rankedEmails: [...state.rankedEmails, action.payload],
-      };
     case RANKED_ACTION_TYPES.ADD_EMAIL:
       return {
+        ...state,
         userId: action.payload.userId,
-        rankedEmails: action.payload.rankedEmails,
+        rankedEmails: [...state.rankedEmails, action.payload.email],
       };
     default:
       throw new Error(`Unhandled action: ${action}`);
