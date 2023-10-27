@@ -1,9 +1,11 @@
 import { createContext, useContext, useReducer } from "react";
 import { RANKED_ACTION_TYPES } from "../constants/words";
 
-interface RankedEmail {
+export interface RankedEmail {
   messageId: string;
-  rank: string;
+  name: string;
+  email: string;
+  rank: number;
   parameters: string[];
   note: string;
 }
@@ -16,7 +18,7 @@ type INIT_RANKED_TYPE = {
 
 // Data for initializing a new user.
 const INIT_RANKED_STATE = {
-  userId: "",
+  userId: "u1", // TODO: Just adding init values to help with testing. REMOVE AFTERWARDS
   rankedEmails: [],
 };
 
@@ -26,7 +28,7 @@ type RANK_ACTIONS =
   | { type: RANKED_ACTION_TYPES.RANKED_EMAILS; payload: RankedEmail[] }
   | {
       type: RANKED_ACTION_TYPES.ADD_EMAIL;
-      payload: { userId: string; email: RankedEmail };
+      payload: RankedEmail;
     };
 
 /**
@@ -47,11 +49,12 @@ const reducer = (
   action: RANK_ACTIONS
 ): INIT_RANKED_TYPE => {
   switch (action.type) {
+    case RANKED_ACTION_TYPES.USER_ID:
+      return { ...state, userId: action.payload };
     case RANKED_ACTION_TYPES.ADD_EMAIL:
       return {
         ...state,
-        userId: action.payload.userId,
-        rankedEmails: [...state.rankedEmails, action.payload.email],
+        rankedEmails: [...state.rankedEmails, action.payload],
       };
     default:
       throw new Error(`Unhandled action: ${action}`);

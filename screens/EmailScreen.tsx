@@ -52,6 +52,7 @@ const EmailScreen = ({ route, navigation }: EmailStackProps) => {
 
   useEffect(() => {
     setIsLoading(true);
+    console.log("Email useEffect");
     // FETCH ONE EMAIL AT A TIME???
     const fetchEmail = () => {
       // Use User defined parameters to build the API call to retrieve certain data from email messages
@@ -94,6 +95,7 @@ const EmailScreen = ({ route, navigation }: EmailStackProps) => {
         case "next":
         case "new":
           setEmailInfo(email);
+          setRank((prev) => (prev !== 0 ? 0 : prev));
         case "ranked":
           break;
         default:
@@ -120,8 +122,15 @@ const EmailScreen = ({ route, navigation }: EmailStackProps) => {
     navigation.navigate("Reply", { mode: EMAIL_ACTIONS.REJECT });
   };
 
+  /**
+   * Navigate to the Queue
+   *
+   * TODO: See about passing data a 'better' way
+   */
   const queueHandler = () => {
     navigation.navigate("Queue", {
+      name: emailInfo.name,
+      email: emailInfo.email,
       rank: rank,
       messageId: emailInfo.id,
     });

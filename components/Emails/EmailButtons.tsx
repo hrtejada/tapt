@@ -29,6 +29,7 @@ interface Props {
  */
 const EmailButtons = ({ rank, onAccept, onReject, onQueue, onRank }: Props) => {
   const { state } = useUserContext();
+  console.log("rank", rank);
 
   const rankButtonPress = (value: number) => {
     onRank(value);

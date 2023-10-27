@@ -19,7 +19,7 @@ type INIT_USER_TYPE = {
 
 // Data for initializing a new user.
 const INIT_USER_STATE = {
-  id: "",
+  id: "u1", // TODO: Just adding init values to help with testing. REMOVE AFTERWARDS
   unreadCount: 0,
   accepted: 10,
   rejected: 50,

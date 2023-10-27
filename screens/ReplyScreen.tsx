@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { StyleSheet } from "react-native";
-import HeaderDisplay from "../components/Reply-Queue/HeaderDisplay";
+import RQ_Info from "../components/Reply-Queue/RQ_Info";
 import NoteDisplay from "../components/Reply-Queue/NoteDisplay";
 import ParameterDisplay from "../components/Reply-Queue/ParameterDisplay";
 import RQ_Buttons from "../components/Reply-Queue/RQ_Buttons";
@@ -76,9 +76,9 @@ const ReplyScreen = ({ route, navigation }: ReplyStackProps) => {
 
   return (
     <RQ_Container rootStyle={backgroundStyle}>
-      <HeaderDisplay header="Modify Reply Message:">
+      <RQ_Info header="Modify Reply Message:">
         Optional: Select parameters to mention in message
-      </HeaderDisplay>
+      </RQ_Info>
       <ParameterDisplay onChipPress={chipPressHandler} />
       <NoteDisplay note={note} onNoteChange={noteHandler} />
       <RQ_Buttons actionButtonText="Send" actionHandler={replyHandler} />

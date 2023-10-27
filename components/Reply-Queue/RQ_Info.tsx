@@ -6,10 +6,7 @@ interface Props {
 }
 
 // TODO: Is this the 'best practice' for typing children with extra props???
-const HeaderDisplay = ({
-  header,
-  children,
-}: React.PropsWithChildren<Props>) => {
+const RQ_Info = ({ header, children }: React.PropsWithChildren<Props>) => {
   return (
     <>
       <HeaderTwo>{header}</HeaderTwo>
@@ -18,7 +15,7 @@ const HeaderDisplay = ({
   );
 };
 
-export default HeaderDisplay;
+export default RQ_Info;
 
 const styles = StyleSheet.create({
   text: {
