@@ -8,12 +8,23 @@ import RQ_Container from "../components/Reply-Queue/RQ_Container";
 import { DUMMY_EMAILS } from "../testData/DUMMY_DATA";
 import { QueueStackProps } from "../util/react-navigation";
 import { useRankedContext } from "../store/ranked-context";
-import { RANKED_ACTION_TYPES } from "../constants/words";
+import { RANKED_ACTION_TYPES, USER_ACTION_TYPES } from "../constants/words";
+import { useUserContext } from "../store/user-context";
 
+/**
+ * `QueueScreen` Component.
+ *
+ * Screen that allows the user to select parameters and add a note to
+ * the email they queued.
+ *
+ * @version 0.1.1
+ * @author  Ralph Woiwode <https://github.com/RAWoiwode>
+ */
 const QueueScreen = ({ navigation, route }: QueueStackProps) => {
   const [note, setNote] = useState("");
   const [selected, setSelected] = useState<string[]>([]);
-  const { dispatch } = useRankedContext();
+  const { dispatch: rankedDispatch } = useRankedContext();
+  const { dispatch: userDispatch } = useUserContext();
 
   /**
    * Handles the queue functionality.
@@ -34,9 +45,13 @@ const QueueScreen = ({ navigation, route }: QueueStackProps) => {
       note: note,
     };
     console.log(payload);
-    dispatch({ type: RANKED_ACTION_TYPES.ADD_EMAIL, payload: payload });
 
+    rankedDispatch({ type: RANKED_ACTION_TYPES.ADD_EMAIL, payload: payload });
     DUMMY_EMAILS.shift(); // TODO: Just for testing; Shouldn't need this when retrieving one email at a time from API
+    userDispatch({
+      type: USER_ACTION_TYPES.UNREAD_COUNT,
+      payload: DUMMY_EMAILS.length,
+    });
     navigation.navigate("Email", { action: "next" });
   };
 
