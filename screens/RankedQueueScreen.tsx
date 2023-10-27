@@ -7,11 +7,6 @@ import RankedFooter from "../components/RankedQueue/RankedFooter";
 import RankedHeader from "../components/RankedQueue/RankedHeader";
 import HeaderOne from "../components/ui/HeaderOne";
 import { GlobalStyles } from "../constants/styles";
-import {
-  DUMMY_EMAILS,
-  DUMMY_RANKED,
-  RankedProps,
-} from "../testData/DUMMY_DATA";
 import { RankedEmail, useRankedContext } from "../store/ranked-context";
 
 /**
@@ -31,7 +26,7 @@ const RankedQueueScreen = () => {
     let rankedDisplay = [];
     for (let i = 0; i < item.rank!; i++) {
       rankedDisplay.push(
-        <View key={`start-${i}`} style={styles.rankSpace}>
+        <View key={`star-${i}`} style={styles.rankSpace}>
           <FontAwesome name="star" size={24} color={GlobalStyles.colors.text} />
         </View>
       );
@@ -42,7 +37,7 @@ const RankedQueueScreen = () => {
         <RankedHeader name={item.name} email={item.email}>
           {rankedDisplay}
         </RankedHeader>
-        <RankedBody />
+        <RankedBody messageId={item.messageId} />
         <RankedFooter messageId={item.messageId} />
       </View>
     );
