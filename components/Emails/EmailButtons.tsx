@@ -7,11 +7,11 @@ import AnimatedButton from "../ui/AnimatedButton";
 import RankButtons from "./RankButtons";
 
 interface Props {
-  rank: number;
+  // rank: number;
   onAccept: () => void;
   onReject: () => void;
   onQueue: () => void;
-  onRank: (value: number) => void;
+  // onRank: (value: number) => void;
 }
 
 /**
@@ -27,13 +27,12 @@ interface Props {
  * @version 0.3.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
-const EmailButtons = ({ rank, onAccept, onReject, onQueue, onRank }: Props) => {
+const EmailButtons = ({ onAccept, onReject, onQueue }: Props) => {
   const { state } = useUserContext();
-  console.log("rank", rank);
 
-  const rankButtonPress = (value: number) => {
-    onRank(value);
-  };
+  // const rankButtonPress = (value: number) => {
+  //   onRank(value);
+  // };
 
   // Using this because using StyleSheet wasn't working properly
   const windowWidth = Dimensions.get("window").width;
@@ -61,7 +60,7 @@ const EmailButtons = ({ rank, onAccept, onReject, onQueue, onRank }: Props) => {
 
   return (
     <View style={styles.rootContainer}>
-      {state.isRanking && <RankButtons rank={rank} onPress={rankButtonPress} />}
+      {state.isRanking && <RankButtons />}
       <View style={styles.innerContainer}>
         {!state.inRankMode && acceptButton}
         {state.inRankMode && (

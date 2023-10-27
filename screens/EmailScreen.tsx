@@ -8,9 +8,10 @@ import LoadingOverlay from "../components/ui/LoadingOverlay";
 import { GlobalStyles } from "../constants/styles";
 import { DUMMY_EMAILS } from "../testData/DUMMY_DATA";
 import { EmailStackProps } from "../util/react-navigation";
-import { EMAIL_ACTIONS } from "../constants/words";
+import { EMAIL_ACTIONS, RANKED_ACTION_TYPES } from "../constants/words";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useUserContext } from "../store/user-context";
+import { useRankedContext } from "../store/ranked-context";
 
 type emailDynamic = {
   id: string;
@@ -43,16 +44,16 @@ type emailDynamic = {
  */
 const EmailScreen = ({ route, navigation }: EmailStackProps) => {
   const insets = useSafeAreaInsets();
-  const { state } = useUserContext();
+  const { state: userState } = useUserContext();
+  const { state: rankedState, dispatch: rankedDispatch } = useRankedContext();
 
   // TODO: Figure out how to dynamically set the useState type!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   const [emailInfo, setEmailInfo] = useState<any>();
   const [isLoading, setIsLoading] = useState(true);
-  const [rank, setRank] = useState(0);
+  // const [rank, setRank] = useState(0);
 
   useEffect(() => {
     setIsLoading(true);
-    console.log("Email useEffect");
     // FETCH ONE EMAIL AT A TIME???
     const fetchEmail = () => {
       // Use User defined parameters to build the API call to retrieve certain data from email messages
@@ -70,7 +71,7 @@ const EmailScreen = ({ route, navigation }: EmailStackProps) => {
         email.id = message.id;
         email.name = message.name;
         email.email = message.email;
-        state.parameters.map((param: string) => {
+        userState.parameters.map((param: string) => {
           // TODO: Figure out how to dynamically set the message type!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
           // console.log(param);
           // console.log(message[param]);
@@ -94,8 +95,9 @@ const EmailScreen = ({ route, navigation }: EmailStackProps) => {
       switch (route.params?.action) {
         case "next":
         case "new":
+          rankedDispatch({ type: RANKED_ACTION_TYPES.TEMP_RANK, payload: 0 });
           setEmailInfo(email);
-          setRank((prev) => (prev !== 0 ? 0 : prev));
+          break;
         case "ranked":
           break;
         default:
@@ -131,14 +133,15 @@ const EmailScreen = ({ route, navigation }: EmailStackProps) => {
     navigation.navigate("Queue", {
       name: emailInfo.name,
       email: emailInfo.email,
-      rank: rank,
+      rank: rankedState.tempRank,
       messageId: emailInfo.id,
     });
   };
 
-  const rankHandler = (value: number) => {
-    setRank(value);
-  };
+  // const rankHandler = (value: number) => {
+  //   // setRank(value);
+  //   rankedDispatch({ type: RANKED_ACTION_TYPES.TEMP_RANK, payload: value });
+  // };
 
   if (isLoading) {
     return <LoadingOverlay />;
@@ -194,11 +197,9 @@ const EmailScreen = ({ route, navigation }: EmailStackProps) => {
         <ScrollView>{renderParameters()}</ScrollView>
       </View>
       <EmailButtons
-        rank={rank}
         onAccept={acceptHandler}
         onReject={rejectHandler}
         onQueue={queueHandler}
-        onRank={rankHandler}
       />
     </View>
   );

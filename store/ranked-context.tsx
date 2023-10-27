@@ -10,21 +10,24 @@ export interface RankedEmail {
   note: string;
 }
 
-// Structure for data when initializing a new user.
+// Structure for data when initializing a new Ranked Email.
 type INIT_RANKED_TYPE = {
   userId: string;
+  tempRank: number;
   rankedEmails: RankedEmail[];
 };
 
-// Data for initializing a new user.
+// Data for initializing a new Ranked Email.
 const INIT_RANKED_STATE = {
   userId: "u1", // TODO: Just adding init values to help with testing. REMOVE AFTERWARDS
+  tempRank: 0,
   rankedEmails: [],
 };
 
 // Define the Actions that can occur in this context
 type RANK_ACTIONS =
   | { type: RANKED_ACTION_TYPES.USER_ID; payload: string }
+  | { type: RANKED_ACTION_TYPES.TEMP_RANK; payload: number }
   | { type: RANKED_ACTION_TYPES.RANKED_EMAILS; payload: RankedEmail[] }
   | {
       type: RANKED_ACTION_TYPES.ADD_EMAIL;
@@ -32,7 +35,7 @@ type RANK_ACTIONS =
     };
 
 /**
- * Main user state context.
+ * Main ranked state context.
  *
  * TODO: Re-evaluate the data structure
  *
@@ -44,6 +47,7 @@ export const RankedContext = createContext<{
   dispatch: React.Dispatch<RANK_ACTIONS>;
 }>({ state: INIT_RANKED_STATE, dispatch: () => {} });
 
+// Main reducer for this context
 const reducer = (
   state: INIT_RANKED_TYPE,
   action: RANK_ACTIONS
@@ -51,6 +55,8 @@ const reducer = (
   switch (action.type) {
     case RANKED_ACTION_TYPES.USER_ID:
       return { ...state, userId: action.payload };
+    case RANKED_ACTION_TYPES.TEMP_RANK:
+      return { ...state, tempRank: action.payload };
     case RANKED_ACTION_TYPES.ADD_EMAIL:
       return {
         ...state,
