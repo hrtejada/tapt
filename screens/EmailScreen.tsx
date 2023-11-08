@@ -99,6 +99,7 @@ const EmailScreen = ({ route, navigation }: EmailStackProps) => {
           setEmailInfo(email);
           break;
         case "ranked":
+          // TODO: Handle coming from Ranked Queue for testing
           break;
         default:
           navigation.pop();
@@ -190,8 +191,7 @@ const EmailScreen = ({ route, navigation }: EmailStackProps) => {
           paddingRight: insets.right,
           flexDirection: "column",
         },
-      ]}
-    >
+      ]}>
       <View style={styles.emailInfoContainer}>
         <SenderInfo name={emailInfo.name} email={emailInfo.email} />
         <ScrollView>{renderParameters()}</ScrollView>
