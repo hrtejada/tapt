@@ -6,7 +6,7 @@ import ParameterModal from "../../components/Settings/Parameters/ParameterModal"
 import Parameters from "../../components/Settings/Parameters/Parameters";
 import SettingsContainer from "../../components/Settings/SettingsContainer";
 import { GlobalStyles } from "../../constants/styles";
-import { PARAMETERS, TYPES } from "../../constants/words";
+import { PARAMETERS, USER_ACTION_TYPES } from "../../constants/words";
 import { useUserContext } from "../../store/user-context";
 import { validateParameter } from "../../util/parameterHelpers";
 
@@ -51,7 +51,7 @@ const ParametersScreen = () => {
     }
 
     // Do Backend stuff...
-    dispatch({ type: TYPES.ADD, payload: newParameter_LC });
+    dispatch({ type: USER_ACTION_TYPES.ADD, payload: newParameter_LC });
     setIsModalVisible(false);
     setNewParameter("");
   };

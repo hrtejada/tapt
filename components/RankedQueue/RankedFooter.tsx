@@ -21,6 +21,7 @@ const RankedFooter = ({ messageId }: Props) => {
 
   const pressHandler = () => {};
 
+  // TODO: Does not currently work because still using one fetchData function for testing
   const emailPressHandler = (id: string) => {
     navigation.navigate("Email", { action: "ranked", id: id });
   };
@@ -30,15 +31,13 @@ const RankedFooter = ({ messageId }: Props) => {
       <AnimatedButton
         title="Accept"
         onPress={pressHandler}
-        style={[styles.button, styles.acceptButton]}
-      >
+        style={[styles.button, styles.acceptButton]}>
         <FontAwesome5 name="check" size={24} color={GlobalStyles.colors.text} />
       </AnimatedButton>
       <AnimatedButton
         title="Open Email"
         onPress={emailPressHandler.bind(this, messageId)}
-        style={[styles.button]}
-      >
+        style={[styles.button]}>
         <FontAwesome5
           name="envelope-open-text"
           size={24}
@@ -48,8 +47,7 @@ const RankedFooter = ({ messageId }: Props) => {
       <AnimatedButton
         title="Reject"
         onPress={pressHandler}
-        style={[styles.button, styles.rejectButton]}
-      >
+        style={[styles.button, styles.rejectButton]}>
         <FontAwesome5 name="times" size={24} color={GlobalStyles.colors.text} />
       </AnimatedButton>
     </View>

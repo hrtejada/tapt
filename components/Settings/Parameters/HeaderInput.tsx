@@ -5,7 +5,7 @@ import {
   View,
 } from "react-native";
 import { GlobalStyles } from "../../../constants/styles";
-import { TYPES } from "../../../constants/words";
+import { USER_ACTION_TYPES } from "../../../constants/words";
 import { useUserContext } from "../../../store/user-context";
 import HeaderThree from "../../ui/HeaderThree";
 
@@ -25,7 +25,7 @@ const HeaderInput = () => {
    */
   const setHeader = (enteredText: string) => {
     // TODO: Implement input validation for Front End
-    dispatch({ type: TYPES.HEADER, payload: enteredText });
+    dispatch({ type: USER_ACTION_TYPES.HEADER, payload: enteredText });
   };
 
   return (

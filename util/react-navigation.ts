@@ -25,7 +25,8 @@ export type HomeStackParamList = {
   Ranked: undefined;
   Image: { image: string };
   Login: undefined;
-  Reply: { mode: string } | undefined;
+  Reply: { mode: "ACCEPT" | "REJECT" };
+  Queue: { name: string; email: string; rank: number; messageId: string };
   Settings: undefined;
 };
 
@@ -49,6 +50,10 @@ export type EmailStackProps = NativeStackScreenProps<
 export type ReplyStackProps = NativeStackScreenProps<
   HomeStackParamList,
   "Reply"
+>;
+export type QueueStackProps = NativeStackScreenProps<
+  HomeStackParamList,
+  "Queue"
 >;
 export type ImageStackProps = NativeStackScreenProps<
   HomeStackParamList,

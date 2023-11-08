@@ -3,7 +3,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
-import { TYPES } from "../../constants/words";
+import { USER_ACTION_TYPES } from "../../constants/words";
 import { useUserContext } from "../../store/user-context";
 import { DUMMY_EMAILS } from "../../testData/DUMMY_DATA";
 import { EmailStackProps } from "../../util/react-navigation";
@@ -26,7 +26,10 @@ const EmailInfo = () => {
 
   // TODO: Is this where we call the Gmail servers periodically to retrieve the new unreadCount??
   useEffect(() => {
-    dispatch({ type: TYPES.UNREAD_COUNT, payload: DUMMY_EMAILS.length });
+    dispatch({
+      type: USER_ACTION_TYPES.UNREAD_COUNT,
+      payload: DUMMY_EMAILS.length,
+    });
   }, [dispatch, DUMMY_EMAILS.length]);
 
   /**

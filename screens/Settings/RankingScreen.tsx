@@ -1,7 +1,7 @@
 import { StyleSheet, Switch, Text, View } from "react-native";
 import SettingsContainer from "../../components/Settings/SettingsContainer";
 import { GlobalStyles } from "../../constants/styles";
-import { RANKING, TYPES } from "../../constants/words";
+import { RANKING, USER_ACTION_TYPES } from "../../constants/words";
 import { useUserContext } from "../../store/user-context";
 
 /**
@@ -18,16 +18,16 @@ const RankingScreen = () => {
 
   const toggleIsRanking = () => {
     if (state.isRanking) {
-      dispatch({ type: TYPES.RANKING_OFF });
+      dispatch({ type: USER_ACTION_TYPES.RANKING_OFF });
     } else {
-      dispatch({ type: TYPES.RANKING_ON });
+      dispatch({ type: USER_ACTION_TYPES.RANKING_ON });
     }
   };
   const toggleRankMode = () => {
     if (state.inRankMode) {
-      dispatch({ type: TYPES.RANK_MODE_OFF });
+      dispatch({ type: USER_ACTION_TYPES.RANK_MODE_OFF });
     } else {
-      dispatch({ type: TYPES.RANK_MODE_ON });
+      dispatch({ type: USER_ACTION_TYPES.RANK_MODE_ON });
     }
   };
 

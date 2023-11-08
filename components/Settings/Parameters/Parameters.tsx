@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 import HeaderThree from "../../ui/HeaderThree";
 import Chip from "../../ui/Chip";
 import { useUserContext } from "../../../store/user-context";
-import { TYPES } from "../../../constants/words";
+import { USER_ACTION_TYPES } from "../../../constants/words";
 
 /**
  * Component to display and delete parameter chips.
@@ -18,7 +18,7 @@ const Parameters = () => {
    */
   const deleteChipHandler = (parameter: string) => {
     // Do Backend stuff...
-    dispatch({ type: TYPES.DELETE, payload: parameter });
+    dispatch({ type: USER_ACTION_TYPES.DELETE, payload: parameter });
   };
 
   return (

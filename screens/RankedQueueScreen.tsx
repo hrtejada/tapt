@@ -7,11 +7,7 @@ import RankedFooter from "../components/RankedQueue/RankedFooter";
 import RankedHeader from "../components/RankedQueue/RankedHeader";
 import HeaderOne from "../components/ui/HeaderOne";
 import { GlobalStyles } from "../constants/styles";
-import {
-  DUMMY_EMAILS,
-  DUMMY_RANKED,
-  RankedProps,
-} from "../testData/DUMMY_DATA";
+import { RankedEmail, useRankedContext } from "../store/ranked-context";
 
 /**
  * Screen that will display the Ranked Queue.
@@ -23,14 +19,14 @@ import {
  */
 const RankedQueueScreen = () => {
   const insets = useSafeAreaInsets();
+  const { state } = useRankedContext();
 
-  const renderRankedItem = ({ item }: { item: RankedProps }) => {
-    const message = DUMMY_EMAILS.find((email) => email.id === item.messageId);
-
+  const renderRankedItem = ({ item }: { item: RankedEmail }) => {
+    // const message = DUMMY_EMAILS.find((email) => email.id === item.messageId);
     let rankedDisplay = [];
     for (let i = 0; i < item.rank!; i++) {
       rankedDisplay.push(
-        <View key={`start-${i}`} style={styles.rankSpace}>
+        <View key={`star-${i}`} style={styles.rankSpace}>
           <FontAwesome name="star" size={24} color={GlobalStyles.colors.text} />
         </View>
       );
@@ -38,10 +34,10 @@ const RankedQueueScreen = () => {
 
     return (
       <View style={styles.innerContainer}>
-        <RankedHeader name={message!.name} email={message!.email}>
+        <RankedHeader name={item.name} email={item.email}>
           {rankedDisplay}
         </RankedHeader>
-        <RankedBody />
+        <RankedBody messageId={item.messageId} />
         <RankedFooter messageId={item.messageId} />
       </View>
     );
@@ -62,7 +58,7 @@ const RankedQueueScreen = () => {
       <FlatList
         keyExtractor={(item) => item.messageId}
         renderItem={renderRankedItem}
-        data={DUMMY_RANKED}
+        data={state.rankedEmails}
         style={{ flex: 1 }}
       />
     </View>

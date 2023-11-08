@@ -1,7 +1,11 @@
 import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 import SettingsContainer from "../../components/Settings/SettingsContainer";
 import { GlobalStyles } from "../../constants/styles";
-import { NOTIFICATION_CADENCE, OPTIONS, TYPES } from "../../constants/words";
+import {
+  NOTIFICATION_CADENCE,
+  NOTIFICATION_OPTIONS,
+  USER_ACTION_TYPES,
+} from "../../constants/words";
 import { useUserContext } from "../../store/user-context";
 
 // TODO: Is it worth putting this in its own component?
@@ -13,23 +17,23 @@ interface ItemData {
 // TODO: See if there will be an issue with creating an id this way
 const ITEMS: ItemData[] = [
   {
-    id: OPTIONS.OFF.toString(),
+    id: NOTIFICATION_OPTIONS.OFF.toString(),
     title: "OFF",
   },
   {
-    id: OPTIONS.ONE_HOUR.toString(),
+    id: NOTIFICATION_OPTIONS.ONE_HOUR.toString(),
     title: "HOURLY",
   },
   {
-    id: OPTIONS.THREE_HOURS.toString(),
+    id: NOTIFICATION_OPTIONS.THREE_HOURS.toString(),
     title: "EVERY 3 HOURS",
   },
   {
-    id: OPTIONS.SIX_HOURS.toString(),
+    id: NOTIFICATION_OPTIONS.SIX_HOURS.toString(),
     title: "EVERY 6 HOURS",
   },
   {
-    id: OPTIONS.TWELVE_HOURS.toString(),
+    id: NOTIFICATION_OPTIONS.TWELVE_HOURS.toString(),
     title: "EVERY 12 HOURS",
   },
 ];
@@ -70,7 +74,7 @@ const NotificationCadenceScreen = () => {
 
     const selectItemHandler = () => {
       // Do Backend stuff...
-      dispatch({ type: TYPES.NOTIFICATION, payload: item.id });
+      dispatch({ type: USER_ACTION_TYPES.NOTIFICATION, payload: item.id });
     };
 
     return (

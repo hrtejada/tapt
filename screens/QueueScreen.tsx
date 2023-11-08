@@ -5,52 +5,53 @@ import NoteDisplay from "../components/Reply-Queue/NoteDisplay";
 import ParameterDisplay from "../components/Reply-Queue/ParameterDisplay";
 import RQ_Buttons from "../components/Reply-Queue/RQ_Buttons";
 import RQ_Container from "../components/Reply-Queue/RQ_Container";
-import { GlobalStyles } from "../constants/styles";
-import { EMAIL_ACTIONS } from "../constants/words";
 import { DUMMY_EMAILS } from "../testData/DUMMY_DATA";
-import { ReplyStackProps } from "../util/react-navigation";
+import { QueueStackProps } from "../util/react-navigation";
+import { useRankedContext } from "../store/ranked-context";
+import { RANKED_ACTION_TYPES, USER_ACTION_TYPES } from "../constants/words";
+import { useUserContext } from "../store/user-context";
 
 /**
- * Component that will help the user build an simple email reply.
+ * `QueueScreen` Component.
  *
- * TODO: Change how note State works to add validation/cleansing.
+ * Screen that allows the user to select parameters and add a note to
+ * the email they queued.
  *
- * @version 0.3.0
+ * @version 0.1.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
-const ReplyScreen = ({ route, navigation }: ReplyStackProps) => {
-  const mode = route.params?.mode;
-
+const QueueScreen = ({ navigation, route }: QueueStackProps) => {
   const [note, setNote] = useState("");
   const [selected, setSelected] = useState<string[]>([]);
-
-  let backgroundStyle;
-
-  switch (mode) {
-    case EMAIL_ACTIONS.ACCEPT:
-      backgroundStyle = { backgroundColor: GlobalStyles.colors.success500 };
-      break;
-    case EMAIL_ACTIONS.REJECT:
-      backgroundStyle = { backgroundColor: GlobalStyles.colors.warning500 };
-      break;
-    default:
-      break;
-  }
+  const { dispatch: rankedDispatch } = useRankedContext();
+  const { dispatch: userDispatch } = useUserContext();
 
   /**
-   * Handles the reply functionality.
+   * Handles the queue functionality.
    *
-   * Send the reply email.
+   * Add the email to the Ranked Queue.
    * Navigate back to the Email Screen.
    */
-  const replyHandler = () => {
-    /*
-    Create email template and include the selected parameters and note.
-    Send the email via Gmail API
-    */
+  const queueHandler = () => {
     console.log("Selected params:", selected); // See the selected params
     console.log("Note:", note); // See the note
+
+    const payload = {
+      messageId: route.params.messageId,
+      name: route.params.name,
+      email: route.params.email,
+      rank: route.params.rank,
+      parameters: selected,
+      note: note,
+    };
+    console.log(payload);
+
+    rankedDispatch({ type: RANKED_ACTION_TYPES.ADD_EMAIL, payload: payload });
     DUMMY_EMAILS.shift(); // TODO: Just for testing; Shouldn't need this when retrieving one email at a time from API
+    userDispatch({
+      type: USER_ACTION_TYPES.UNREAD_COUNT,
+      payload: DUMMY_EMAILS.length,
+    });
     navigation.navigate("Email", { action: "next" });
   };
 
@@ -75,17 +76,17 @@ const ReplyScreen = ({ route, navigation }: ReplyStackProps) => {
   };
 
   return (
-    <RQ_Container rootStyle={backgroundStyle}>
-      <RQ_Info header="Modify Reply Message:">
-        Optional: Select parameters to mention in message
+    <RQ_Container>
+      <RQ_Info header="Queue Ranked Booking:">
+        Optional: Select parameters you liked
       </RQ_Info>
       <ParameterDisplay onChipPress={chipPressHandler} />
       <NoteDisplay note={note} onNoteChange={noteHandler} />
-      <RQ_Buttons actionButtonText="Send" actionHandler={replyHandler} />
+      <RQ_Buttons actionButtonText="Queue" actionHandler={queueHandler} />
     </RQ_Container>
   );
 };
 
-export default ReplyScreen;
+export default QueueScreen;
 
 const styles = StyleSheet.create({});

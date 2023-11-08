@@ -28,6 +28,8 @@ import {
   SettingsStackParamList,
   getHeaderTitle,
 } from "./util/react-navigation";
+import QueueScreen from "./screens/QueueScreen";
+import RankedContextProvider from "./store/ranked-context";
 
 /**
  * Main app component.
@@ -86,6 +88,7 @@ const MainView = () => {
         />
         <HomeStack.Screen name="Image" component={ImageScreen} />
         <HomeStack.Screen name="Reply" component={ReplyScreen} />
+        <HomeStack.Screen name="Queue" component={QueueScreen} />
       </HomeStack.Group>
     </HomeStack.Navigator>
   );
@@ -118,63 +121,66 @@ export default function App() {
     <SafeAreaProvider>
       <StatusBar style="auto" />
       <UserContextProvider>
-        <NavigationContainer>
-          <Drawer.Navigator
-            screenOptions={{
-              drawerActiveTintColor: GlobalStyles.colors.text,
-              drawerActiveBackgroundColor: GlobalStyles.colors.secondary700,
-              drawerInactiveTintColor: GlobalStyles.colors.text,
-              drawerInactiveBackgroundColor: GlobalStyles.colors.background200,
-              drawerType: "front",
-              drawerLabelStyle: {
-                fontSize: 22,
-              },
-              drawerStyle: {
-                backgroundColor: GlobalStyles.colors.primary700,
-              },
+        <RankedContextProvider>
+          <NavigationContainer>
+            <Drawer.Navigator
+              screenOptions={{
+                drawerActiveTintColor: GlobalStyles.colors.text,
+                drawerActiveBackgroundColor: GlobalStyles.colors.secondary700,
+                drawerInactiveTintColor: GlobalStyles.colors.text,
+                drawerInactiveBackgroundColor:
+                  GlobalStyles.colors.background200,
+                drawerType: "front",
+                drawerLabelStyle: {
+                  fontSize: 22,
+                },
+                drawerStyle: {
+                  backgroundColor: GlobalStyles.colors.primary700,
+                },
 
-              headerStyle: {
-                backgroundColor: GlobalStyles.colors.background300,
-                borderBottomColor: GlobalStyles.colors.accent500,
-                borderBottomWidth: 1,
-              },
-              headerTintColor: GlobalStyles.colors.text,
-            }}
-          >
-            <Drawer.Screen
-              name="MainView"
-              component={MainView}
-              options={{
-                headerTitle: "",
-                title: "Home",
-                headerTransparent: true,
-                drawerIcon: () => (
-                  <FontAwesome5
-                    name="home"
-                    size={20}
-                    color={GlobalStyles.colors.text}
-                  />
-                ),
+                headerStyle: {
+                  backgroundColor: GlobalStyles.colors.background300,
+                  borderBottomColor: GlobalStyles.colors.accent500,
+                  borderBottomWidth: 1,
+                },
+                headerTintColor: GlobalStyles.colors.text,
               }}
-            />
-            <Drawer.Screen
-              name="SettingsStack"
-              component={SettingsView}
-              options={({ route }) => ({
-                drawerIcon: () => (
-                  <FontAwesome5
-                    name="cogs"
-                    size={20}
-                    color={GlobalStyles.colors.text}
-                  />
-                ),
-                headerRight: () => <LogoutButton />,
-                headerTitle: getHeaderTitle(route),
-                title: "Settings",
-              })}
-            />
-          </Drawer.Navigator>
-        </NavigationContainer>
+            >
+              <Drawer.Screen
+                name="MainView"
+                component={MainView}
+                options={{
+                  headerTitle: "",
+                  title: "Home",
+                  headerTransparent: true,
+                  drawerIcon: () => (
+                    <FontAwesome5
+                      name="home"
+                      size={20}
+                      color={GlobalStyles.colors.text}
+                    />
+                  ),
+                }}
+              />
+              <Drawer.Screen
+                name="SettingsStack"
+                component={SettingsView}
+                options={({ route }) => ({
+                  drawerIcon: () => (
+                    <FontAwesome5
+                      name="cogs"
+                      size={20}
+                      color={GlobalStyles.colors.text}
+                    />
+                  ),
+                  headerRight: () => <LogoutButton />,
+                  headerTitle: getHeaderTitle(route),
+                  title: "Settings",
+                })}
+              />
+            </Drawer.Navigator>
+          </NavigationContainer>
+        </RankedContextProvider>
       </UserContextProvider>
     </SafeAreaProvider>
   );
