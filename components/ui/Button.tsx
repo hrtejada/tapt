@@ -1,49 +1,58 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
 
-/**
- * @prop  {Function}  onPress - Function to be called when user presses the button
- * @prop  {string}    mode - (optional) - Used to change appearance of the button
- * @prop  {object}    buttonStyle - (optional) - Style object used to passed additional styling to the button
- * @prop  {object}    textStyle - (optional) - Style object used to passed additional styling to the button text
- */
-type ButtonProps = {
+interface Props {
+  title: string;
   onPress: () => void;
-  mode?: "isFlat" | "";
-  buttonStyle?: object;
-  textStyle?: object;
-  children: React.ReactNode;
-};
+  type: "primary" | "secondary";
+  style?: null | object;
+  textStyle?: null | object;
+  disabled?: boolean;
+  children?: React.ReactNode;
+}
 
 /**
  * Main button component
  *
- * @version 0.1.1
+ * TODO: Refine this. Might be overengineered ಠ_ಠ
+ *
+ * @version 0.3.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const Button = ({
+  title,
   onPress,
-  mode,
-  buttonStyle,
+  type,
+  style,
   textStyle,
+  disabled = false,
   children,
-}: ButtonProps) => {
-  const isFlat = mode === "isFlat";
+}: Props) => {
+  const backgroundColor = {
+    backgroundColor:
+      type === "primary"
+        ? GlobalStyles.colors.primary500
+        : GlobalStyles.colors.secondary500,
+  };
 
+  const pressedBG = {
+    backgroundColor:
+      type === "primary"
+        ? GlobalStyles.colors.primary700
+        : GlobalStyles.colors.secondary700,
+  };
   return (
     <Pressable
       onPress={onPress}
       style={({ pressed }) => [
-        pressed && styles.pressed,
         styles.button,
-        buttonStyle,
+        backgroundColor,
+        style,
+        pressed && pressedBG,
       ]}
+      disabled={disabled}
     >
-      <View style={[isFlat && styles.flat]}>
-        <Text style={[styles.buttonText, textStyle, isFlat && styles.flatText]}>
-          {children}
-        </Text>
-      </View>
+      {children || <Text style={[styles.text, textStyle]}>{title}</Text>}
     </Pressable>
   );
 };
@@ -52,26 +61,22 @@ export default Button;
 
 const styles = StyleSheet.create({
   button: {
-    borderRadius: 4,
-    padding: 12,
+    flex: 1,
+    borderRadius: 6,
+    padding: 4,
+    marginHorizontal: 8,
     backgroundColor: GlobalStyles.colors.primary500,
     justifyContent: "center",
-    minHeight: 60,
-    shadowColor: GlobalStyles.colors.secondary500,
-    shadowOffset: { width: 1, height: 1 },
-    shadowRadius: 4,
+    minHeight: 40,
+    shadowColor: GlobalStyles.colors.accent700,
+    shadowOffset: { width: 2, height: 2 },
+    shadowRadius: 2,
     shadowOpacity: 0.75,
   },
-  flat: {
-    backgroundColor: "transparent",
-  },
-  buttonText: {
-    color: "white",
+  text: {
+    color: GlobalStyles.colors.text,
     textAlign: "center",
     fontSize: 18,
-  },
-  flatText: {
-    color: GlobalStyles.colors.primary300,
   },
   pressed: {
     opacity: 0.75,

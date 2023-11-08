@@ -1,34 +1,24 @@
-import {
-  Image,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
-import { GlobalStyles } from "../constants/styles";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { ScrollView, StyleSheet, View } from "react-native";
+import EmailButtons from "../components/Emails/EmailButtons";
+import ImageParameter from "../components/Emails/ImageParameter";
+import SenderInfo from "../components/Emails/SenderInfo";
+import TextParameter from "../components/Emails/TextParameter";
 import LoadingOverlay from "../components/ui/LoadingOverlay";
-import Button from "../components/ui/Button";
-import { DUMMY_EMAILS } from "../testData/DUMMY_EMAILS";
-import { useIsFocused } from "@react-navigation/native";
+import { GlobalStyles } from "../constants/styles";
+import { DUMMY_EMAILS } from "../testData/DUMMY_DATA";
+import { EmailStackProps } from "../util/react-navigation";
+import { ACCEPT, REJECT } from "../constants/words";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useUserContext } from "../store/user-context";
 
-type emailState = {
+type emailDynamic = {
   id: string;
-  name: string;
   email: string;
-  description: string;
-  size: string;
-  placement: string;
-  budget: number;
+  name: string;
   images: string[];
-  other1: string;
-  other2: string;
-};
-
-type Props = {
-  route: any;
-  navigation: any;
+} & {
+  [key: string]: string;
 };
 
 /**
@@ -40,135 +30,161 @@ type Props = {
  *
  * TODO: Should we display this modal if there are no new emails OR just disable the button on HOME?
  *
- * @version 0.1.2
+ * TODO: Check for images by
+ * - Option 1: Have check box on settings for user to specify
+ * - Option 2: Have a master string array of synonyms for Images and check param name against it
+ * - Option 3: Check param value for "https://" & image extension to see if value is an image
+ *
+ * TODO: Once we figure out how Gmail attachments are retrieved we can determine how to check for them and how to figure out typing
+ * TODO: Look into handling "'route.params' being undefined" properly
+ *
+ * @version 0.2.4
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
-const EmailScreen = ({ route, navigation }: Props) => {
-  const [emailInfo, setEmailInfo] = useState({} as emailState);
-  const [isLoading, setIsLoading] = useState(true);
-  const isFocused = useIsFocused();
+const EmailScreen = ({ route, navigation }: EmailStackProps) => {
+  const insets = useSafeAreaInsets();
+  const { state } = useUserContext();
 
-  let imagesDisplay;
+  // TODO: Figure out how to dynamically set the useState type!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  const [emailInfo, setEmailInfo] = useState<any>();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setIsLoading(true);
     // FETCH ONE EMAIL AT A TIME???
-    if (DUMMY_EMAILS.length !== 0) {
-      setEmailInfo((prevEmail) => {
-        if (route.params.email === "next") {
-          console.log(DUMMY_EMAILS[0]);
-          return DUMMY_EMAILS[0];
-        } else if (route.params.email === "new") {
-          return DUMMY_EMAILS[0];
-        } else {
-          return prevEmail;
-        }
-      });
-    } else {
-      navigation.pop();
-    }
+    const fetchEmail = () => {
+      // Use User defined parameters to build the API call to retrieve certain data from email messages
+      /*
+       * id
+       * name
+       * email
+       * UserParams
+       */
+      let email = { id: "", name: "", email: "" };
+      if (DUMMY_EMAILS.length !== 0) {
+        const message: any = DUMMY_EMAILS[0];
+        // console.log("-------------------------------------------------");
+        // console.log(message);
+        email.id = message.id;
+        email.name = message.name;
+        email.email = message.email;
+        state.parameters.map((param: string) => {
+          // TODO: Figure out how to dynamically set the message type!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          // console.log(param);
+          // console.log(message[param]);
+          const value = message[param];
+          email = {
+            ...email,
+            [param]: value,
+          };
+        });
+      } else {
+        // DO SOMETHING????
+        // email = {};
+      }
+      type Email = typeof email;
+
+      if (email === null) {
+        setEmailInfo("");
+        return;
+      }
+
+      switch (route.params?.action) {
+        case "next":
+        case "new":
+          setEmailInfo(email);
+        case "ranked":
+          break;
+        default:
+          navigation.pop();
+          break;
+      }
+    };
+
+    fetchEmail();
     setIsLoading(false);
-  }, [setEmailInfo, setIsLoading, isFocused]);
+  }, [setEmailInfo, setIsLoading, navigation, route.params?.action]);
 
   /**
-   * Handle an image being pressed.
-   *
-   * Bring up the Image Screen modal to show the image larger for the user to get
-   * a better look.
-   *
-   * @param {string} image - String to display the image larger on the modal
+   * Navigate to the Reply - Accept template
    */
-  const imagePressHandler = (image: string) => {
-    navigation.navigate("Image", {
-      image: image,
-    });
-  };
-
   const acceptHandler = () => {
-    navigation.navigate("Reply");
+    navigation.navigate("Reply", { mode: ACCEPT });
   };
 
+  /**
+   * Navigate to the Reply - Reject template
+   */
   const rejectHandler = () => {
-    navigation.navigate("Reply");
+    navigation.navigate("Reply", { mode: REJECT });
   };
-
-  if (!isLoading) {
-    /**
-     * Map each image to an Image component.
-     *
-     * Create a unique key for each image and display the image in a reasonable format.
-     * TODO: Find a better way to create a unique key
-     */
-    imagesDisplay = emailInfo.images.map((image) => {
-      const key = emailInfo.id + Math.random();
-      return (
-        <Pressable key={key} onPress={imagePressHandler.bind(this, image)}>
-          <Image style={styles.image} source={{ uri: image }} />
-        </Pressable>
-      );
-    });
-  }
 
   if (isLoading) {
     return <LoadingOverlay />;
   }
 
+  const renderParameters = () => {
+    const display = [];
+
+    for (const property in emailInfo) {
+      const value = emailInfo[property];
+
+      // TODO: Work on ImageParameter
+      if (/^(https?:\/\/).*(.jpg).*/.test(value)) {
+        display.push(
+          <ImageParameter
+            key={emailInfo.id + property}
+            id={emailInfo.id}
+            parameter={property}
+            images={value}
+          />
+        );
+      } else {
+        if (property === "id" || property === "name" || property === "email") {
+          continue;
+        }
+        display.push(
+          <TextParameter
+            key={emailInfo.id + property}
+            parameter={property}
+            info={value}
+          />
+        );
+      }
+    }
+
+    return display;
+  };
+
   return (
-    <View style={styles.rootContainer}>
+    <View
+      style={[
+        styles.rootContainer,
+        {
+          paddingBottom: insets.bottom,
+          paddingLeft: insets.left,
+          paddingRight: insets.right,
+        },
+      ]}
+    >
       <View style={styles.emailInfoContainer}>
-        <View style={styles.titleContainer}>
-          <Text style={styles.titleName}>{emailInfo.name} - </Text>
-          <Text style={styles.titleEmail}>{emailInfo.email}</Text>
-        </View>
+        <SenderInfo name={emailInfo.name} email={emailInfo.email} />
         <ScrollView>
-          <View style={styles.innerEmailContainer}>
-            <View style={styles.infoContainer}>
-              <Text style={styles.parameter}>Description</Text>
-              <Text style={styles.info}>{emailInfo.description}</Text>
-            </View>
-            <View style={styles.infoContainer}>
-              <Text style={styles.parameter}>Size</Text>
-              <Text style={styles.info}>{emailInfo.size}</Text>
-            </View>
-            <View style={styles.infoContainer}>
-              <Text style={styles.parameter}>Placement</Text>
-              <Text style={styles.info}>{emailInfo.placement}</Text>
-            </View>
-            <View style={styles.infoContainer}>
-              <Text style={styles.parameter}>Budget</Text>
-              <Text style={styles.info}>${emailInfo.budget}</Text>
-            </View>
-            <View style={styles.infoContainer}>
-              <Text style={styles.parameter}>Other Info</Text>
-              <Text style={styles.info}>{emailInfo.other1}</Text>
-            </View>
-            <View style={styles.infoContainer}>
-              <Text style={styles.parameter}>Other Info 2</Text>
-              <Text style={styles.info}>{emailInfo.other2}</Text>
-            </View>
-            <View style={styles.infoContainer}>
-              <Text style={styles.parameter}>Images</Text>
-              {imagesDisplay}
-            </View>
-          </View>
+          {/* <TextParameter parameter="Description" info={emailInfo.description} />
+          <TextParameter parameter="Size" info={emailInfo.size} />
+          <TextParameter parameter="Placement" info={emailInfo.placement} />
+          <TextParameter parameter="Budget" info={`$${emailInfo.budget}`} />
+          <TextParameter parameter="Other Info" info={emailInfo.other1} />
+          <TextParameter parameter="Other Info 2" info={emailInfo.other2} />
+          <ImageParameter
+            id={emailInfo.id}
+            parameter="Images"
+            images={emailInfo.images}
+          /> */}
+          {renderParameters()}
         </ScrollView>
       </View>
-      <View style={styles.buttonsContainer}>
-        <Button
-          buttonStyle={styles.acceptButton}
-          textStyle={styles.acceptText}
-          onPress={acceptHandler}
-        >
-          Accept
-        </Button>
-        <Button
-          buttonStyle={styles.rejectButton}
-          textStyle={styles.rejectText}
-          onPress={rejectHandler}
-        >
-          Reject
-        </Button>
-      </View>
+      <EmailButtons onAccept={acceptHandler} onReject={rejectHandler} />
     </View>
   );
 };
@@ -178,76 +194,15 @@ export default EmailScreen;
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
-  },
-  titleContainer: {
-    flexDirection: "row",
-    padding: 8,
-    alignItems: "center",
-  },
-  titleName: {
-    fontSize: 24,
-    fontWeight: "bold",
-  },
-  titleEmail: {
-    fontSize: 20,
+    backgroundColor: GlobalStyles.colors.primary500,
   },
   emailInfoContainer: {
     flex: 3,
-    // margin: 8,
-    padding: 8,
-    justifyContent: "space-around",
-    alignItems: "flex-start",
-    // flexDirection: "row",
-    backgroundColor: GlobalStyles.colors.background500,
+    justifyContent: "space-evenly",
+    backgroundColor: GlobalStyles.colors.secondary700,
   },
-  innerEmailContainer: {
-    flexDirection: "column",
-  },
-  parameter: {
-    color: GlobalStyles.colors.primary500,
-    fontSize: 18,
-    fontWeight: "bold",
-    paddingHorizontal: 12,
-    paddingVertical: 4,
-    textDecorationLine: "underline",
-  },
-  infoContainer: {
-    backgroundColor: GlobalStyles.colors.background300,
-    marginVertical: 4,
-  },
-  info: {
-    fontSize: 18,
-    color: GlobalStyles.colors.primary700,
-    margin: 4,
-    paddingLeft: 24,
-    paddingBottom: 8,
-  },
+
   buttonsContainer: {
     flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    alignItems: "center",
-    backgroundColor: GlobalStyles.colors.primary300,
-    borderWidth: 2,
-    borderTopColor: GlobalStyles.colors.accent700,
-  },
-  acceptButton: {
-    backgroundColor: GlobalStyles.colors.accept,
-  },
-  acceptText: {
-    color: "black",
-    fontWeight: "bold",
-  },
-  rejectButton: {
-    backgroundColor: GlobalStyles.colors.reject,
-  },
-  rejectText: {
-    fontWeight: "bold",
-  },
-  image: {
-    width: "100%",
-    height: 150,
-    resizeMode: "contain",
-    marginVertical: 8,
   },
 });
