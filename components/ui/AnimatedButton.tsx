@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useRef } from "react";
 import { Animated, Easing, Pressable, StyleSheet, Text } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
 
@@ -16,7 +16,7 @@ interface Props {
  *
  * TODO: Maybe make different types of animated buttons?
  *
- * @version 0.1.0
+ * @version 0.2.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const AnimatedButton = ({
@@ -24,24 +24,30 @@ const AnimatedButton = ({
   onPress,
   style,
   textStyle,
-  type,
+  type = "primary",
   children,
 }: Props) => {
-  const [scaleValue] = useState(new Animated.Value(1));
+  const scaleValue = useRef(new Animated.Value(1)).current; // Don't trigger a re-render
 
-  const backgroundColor = {
-    backgroundColor:
-      type === "primary"
-        ? GlobalStyles.colors.primary500
-        : GlobalStyles.colors.secondary500,
-  };
+  const backgroundColor = useMemo(
+    () => ({
+      backgroundColor:
+        type === "primary"
+          ? GlobalStyles.colors.primary500
+          : GlobalStyles.colors.secondary500,
+    }),
+    [type]
+  );
 
-  const pressedBG = {
-    backgroundColor:
-      type === "primary"
-        ? GlobalStyles.colors.primary700
-        : GlobalStyles.colors.secondary700,
-  };
+  const pressedBG = useMemo(
+    () => ({
+      backgroundColor:
+        type === "primary"
+          ? GlobalStyles.colors.primary700
+          : GlobalStyles.colors.secondary700,
+    }),
+    [type]
+  );
 
   /**
    * Function to scale down the button
@@ -68,8 +74,7 @@ const AnimatedButton = ({
     <Pressable
       onPress={onPress}
       onPressIn={handlePressIn}
-      onPressOut={handlePressOut}
-    >
+      onPressOut={handlePressOut}>
       {({ pressed }) => (
         <Animated.View
           style={[
@@ -79,7 +84,7 @@ const AnimatedButton = ({
             style,
             pressed && pressedBG,
           ]}
-        >
+          testID="animated-button">
           {children || <Text style={[styles.text, textStyle]}>{title}</Text>}
         </Animated.View>
       )}
@@ -91,7 +96,6 @@ export default AnimatedButton;
 
 const styles = StyleSheet.create({
   button: {
-    // flex: 1,
     backgroundColor: GlobalStyles.colors.primary500,
     padding: 8,
     borderRadius: 10,
