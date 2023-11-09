@@ -1,13 +1,13 @@
 import { RenderAPI, render } from "@testing-library/react-native";
 import "react-native";
 import { GlobalStyles } from "../../../constants/styles";
-import HeaderTwo from "../HeaderTwo";
+import HeaderThree from "../HeaderThree";
 
-describe("HeaderTwo", () => {
+describe("HeaderThree", () => {
   let renderedComponent: RenderAPI;
 
   beforeEach(() => {
-    renderedComponent = render(<HeaderTwo>Test Header</HeaderTwo>);
+    renderedComponent = render(<HeaderThree>Test Header</HeaderThree>);
   });
 
   it("renders correctly with children", () => {
@@ -22,11 +22,10 @@ describe("HeaderTwo", () => {
 
     expect(header.props.style).toMatchObject({
       color: GlobalStyles.colors.text,
-      fontSize: 24,
+      fontSize: 20,
       fontWeight: "bold",
-      marginBottom: 8,
+      marginBottom: 4,
       textAlign: "center",
-      textTransform: "uppercase",
     });
   });
 
@@ -39,7 +38,7 @@ describe("HeaderTwo", () => {
 
   it("uses the text as the accessibilityHint if no hint is provided", () => {
     const testText = "Test Header";
-    const { getByText } = render(<HeaderTwo>{testText}</HeaderTwo>);
+    const { getByText } = render(<HeaderThree>{testText}</HeaderThree>);
     const header = getByText(testText);
 
     expect(header.props.accessibilityHint).toBe(testText);
@@ -48,7 +47,7 @@ describe("HeaderTwo", () => {
   it("accepts and applies custom accessibilityHint", () => {
     const a11yHint = "Custom Hint";
     const { getByAccessibilityHint } = render(
-      <HeaderTwo accessibilityHint={a11yHint}>Test Header</HeaderTwo>
+      <HeaderThree accessibilityHint={a11yHint}>Test Header</HeaderThree>
     );
 
     expect(getByAccessibilityHint(a11yHint)).toBeTruthy();
