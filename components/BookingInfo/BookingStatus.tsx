@@ -13,19 +13,24 @@ interface Props {
  *
  * Styled differently depending on the current status.
  *
- * @version 0.2.0
+ * @version 0.3.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const BookingStatus = ({ status, startDate, endDate }: Props) => {
+  const statusText = status ? ACTIVE : INACTIVE;
+  const dateRangeText = status ? `${startDate} - ${endDate}` : "";
+  const accessibilityHint = `Booking Status: ${statusText}. ${dateRangeText}`;
+
   return (
-    <View style={[styles.container, status ? styles.active : styles.inactive]}>
-      <Text style={[styles.text, styles.statusText]}>
-        {status ? `${ACTIVE} — ` : INACTIVE}
-      </Text>
+    <View
+      style={[styles.container, status ? styles.active : styles.inactive]}
+      accessibilityRole="text"
+      accessibilityHint={accessibilityHint}
+      accessibilityLiveRegion="polite"
+    >
+      <Text style={[styles.text, styles.statusText]}>{statusText}</Text>
       {status && (
-        <Text style={[styles.text, styles.dateRangeText]}>
-          {status ? `${startDate} - ${endDate}` : ""}
-        </Text>
+        <Text style={[styles.text, styles.dateRangeText]}>{dateRangeText}</Text>
       )}
     </View>
   );
@@ -40,9 +45,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 6,
     borderTopWidth: 2,
-    borderTopColor: GlobalStyles.colors.accent700,
     borderBottomWidth: 2,
-    borderBottomColor: GlobalStyles.colors.accent700,
+    borderColor: GlobalStyles.colors.accent700,
   },
   active: {
     backgroundColor: GlobalStyles.colors.success500,

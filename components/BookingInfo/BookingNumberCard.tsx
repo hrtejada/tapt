@@ -1,9 +1,10 @@
 import { StyleSheet, Text, View } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
-import { ACCEPTED, REJECTED } from "../../constants/words";
+import { STATUS } from "../../constants/words";
+import { useMemo } from "react";
 
 interface Props {
-  title: typeof ACCEPTED | typeof REJECTED;
+  title: STATUS;
   value: number;
   total: number;
 }
@@ -13,28 +14,38 @@ interface Props {
  *
  * NOTE - Possibly expand this component in the future to show more statistics
  *
- * @version 0.2.2
+ * @version 0.3.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const BookingNumberCard = ({ title, value, total }: Props) => {
-  const isAccepted = title === ACCEPTED;
-  const percentage = (value / total) * 100;
-  const formattedPercentage = percentage.toFixed(0);
-  const acceptedStyling = {
-    color: GlobalStyles.colors.text,
-    justifyContent: "flex-end" as "flex-end",
-  };
-  const rejectedStyling = {
-    color: GlobalStyles.colors.accent700,
-    justifyContent: "flex-start" as "flex-start",
-  };
-  const extraStyling = isAccepted ? acceptedStyling : rejectedStyling;
+  const isAccepted = title === STATUS.ACCEPTED;
+
+  const formattedPercentage = useMemo(() => {
+    const percentage = (value / total) * 100;
+    return percentage.toFixed(0);
+  }, [value, total]);
+
+  const accessibilityHint = useMemo(() => {
+    const hintBase = `This card shows the number of ${title.toLowerCase()} bookings.`;
+
+    return `${hintBase} ${value} ${isAccepted ? "accepted" : "rejected"}`;
+  }, []);
 
   return (
-    <View style={[styles.card, isAccepted ? styles.accepted : styles.rejected]}>
+    <View
+      style={[styles.card, isAccepted ? styles.accepted : styles.rejected]}
+      accessibilityRole="text"
+      accessibilityHint={accessibilityHint}
+    >
       <Text style={[styles.text, styles.title]}>{title}:</Text>
       <Text style={[styles.text, styles.number]}>{value}</Text>
-      <Text style={[styles.text, styles.percentage, extraStyling]}>
+      <Text
+        style={[
+          styles.text,
+          styles.percentage,
+          isAccepted ? styles.justifyEnd : styles.justifyStart,
+        ]}
+      >
         {formattedPercentage}%
       </Text>
     </View>
@@ -92,5 +103,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: GlobalStyles.colors.accent700,
     paddingBottom: 10,
+  },
+  justifyEnd: {
+    justifyContent: "flex-end",
+  },
+  justifyStart: {
+    justifyContent: "flex-start",
   },
 });
