@@ -10,8 +10,10 @@ export enum EMAIL_ACTIONS {
 }
 
 // BookingNumberCard, BookingStats
-export const ACCEPTED = "ACCEPTED";
-export const REJECTED = "REJECTED";
+export enum STATUS {
+  ACCEPTED = "ACCEPTED",
+  REJECTED = "REJECTED",
+}
 
 // BookingStatus
 export const ACTIVE = "ACTIVE";
