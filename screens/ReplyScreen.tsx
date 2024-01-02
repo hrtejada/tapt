@@ -6,10 +6,15 @@ import ParameterDisplay from "../components/Reply-Queue/ParameterDisplay";
 import RQ_Buttons from "../components/Reply-Queue/RQ_Buttons";
 import RQ_Container from "../components/Reply-Queue/RQ_Container";
 import { GlobalStyles } from "../constants/styles";
-import { EMAIL_ACTIONS, USER_ACTION_TYPES } from "../constants/words";
+import {
+  EMAIL_ACTIONS,
+  RANKED_ACTION_TYPES,
+  USER_ACTION_TYPES,
+} from "../constants/words";
 import { DUMMY_EMAILS } from "../testData/DUMMY_DATA";
 import { ReplyStackProps } from "../util/react-navigation";
 import { useUserContext } from "../store/user-context";
+import { useRankedContext } from "../store/ranked-context";
 
 /**
  * Component that will help the user build an simple email reply.
@@ -24,15 +29,18 @@ const ReplyScreen = ({ route, navigation }: ReplyStackProps) => {
 
   const [note, setNote] = useState("");
   const [selected, setSelected] = useState<string[]>([]);
-  const { state, dispatch } = useUserContext();
+  const { state: userState, dispatch: userDispatch } = useUserContext();
+  const { state: rankedState, dispatch: rankedDispatch } = useRankedContext();
 
   let backgroundStyle;
 
   switch (mode) {
     case EMAIL_ACTIONS.ACCEPT:
+    case EMAIL_ACTIONS.RANKED_ACCEPT:
       backgroundStyle = { backgroundColor: GlobalStyles.colors.success500 };
       break;
     case EMAIL_ACTIONS.REJECT:
+    case EMAIL_ACTIONS.RANKED_REJECT:
       backgroundStyle = { backgroundColor: GlobalStyles.colors.warning500 };
       break;
     default:
@@ -46,18 +54,24 @@ const ReplyScreen = ({ route, navigation }: ReplyStackProps) => {
    * Navigate back to the Email Screen.
    */
   const replyHandler = () => {
-    /*
-    Create email template and include the selected parameters and note.
-    Send the email via Gmail API
-    */
+    // TODO: Create email template and include the selected parameters and note. Send the email via Gmail API
     console.log("Selected params:", selected); // See the selected params
     console.log("Note:", note); // See the note
-    DUMMY_EMAILS.shift(); // TODO: Just for testing; Shouldn't need this when retrieving one email at a time from API
-    dispatch({
-      type: USER_ACTION_TYPES.UNREAD_COUNT,
-      payload: DUMMY_EMAILS.length,
-    });
-    navigation.navigate("Email", { action: "next" });
+
+    if (mode === EMAIL_ACTIONS.RANKED_ACCEPT && route.params.messageId) {
+      rankedDispatch({
+        type: RANKED_ACTION_TYPES.REMOVE_EMAIL,
+        payload: route.params.messageId,
+      });
+      navigation.navigate("Ranked");
+    } else {
+      DUMMY_EMAILS.shift(); // TODO: Just for testing; Shouldn't need this when retrieving one email at a time from API
+      userDispatch({
+        type: USER_ACTION_TYPES.UNREAD_COUNT,
+        payload: DUMMY_EMAILS.length,
+      });
+      navigation.navigate("Email", { action: "next" });
+    }
   };
 
   /**

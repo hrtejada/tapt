@@ -141,13 +141,26 @@ const EmailScreen = ({ route, navigation }: EmailStackProps) => {
 
     fetchEmail();
     setIsLoading(false);
-  }, [setEmailInfo, setIsLoading, navigation, route.params?.action]);
+  }, [
+    setEmailInfo,
+    setIsLoading,
+    navigation,
+    route.params?.action,
+    route.params?.id,
+  ]);
 
   /**
    * Navigate to the Reply - Accept template
    */
   const acceptHandler = () => {
-    navigation.navigate("Reply", { mode: EMAIL_ACTIONS.ACCEPT });
+    if (emailInfo.hasOwnProperty("rank")) {
+      navigation.navigate("Reply", {
+        mode: EMAIL_ACTIONS.RANKED_ACCEPT,
+        messageId: emailInfo.id,
+      });
+    } else {
+      navigation.navigate("Reply", { mode: EMAIL_ACTIONS.ACCEPT });
+    }
   };
 
   /**
