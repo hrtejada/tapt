@@ -39,7 +39,7 @@ type emailDynamic = {
  * TODO: Once we figure out how Gmail attachments are retrieved we can determine how to check for them and how to figure out typing
  * TODO: Look into handling "'route.params' being undefined" properly
  *
- * @version 0.2.5
+ * @version 0.2.6
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const EmailScreen = ({ route, navigation }: EmailStackProps) => {
@@ -59,6 +59,9 @@ const EmailScreen = ({ route, navigation }: EmailStackProps) => {
       switch (route.params?.action) {
         case "next":
         case "new":
+          if (userState.unreadCount === 0) {
+            navigation.pop();
+          }
           // Use User defined parameters to build the API call to retrieve certain data from email messages
           /*
            * id
@@ -235,6 +238,7 @@ const EmailScreen = ({ route, navigation }: EmailStackProps) => {
         onAccept={acceptHandler}
         onReject={rejectHandler}
         onQueue={queueHandler}
+        ranked={emailInfo.hasOwnProperty("rank")}
       />
     </View>
   );

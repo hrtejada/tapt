@@ -6,16 +6,17 @@ import ParameterDisplay from "../components/Reply-Queue/ParameterDisplay";
 import RQ_Buttons from "../components/Reply-Queue/RQ_Buttons";
 import RQ_Container from "../components/Reply-Queue/RQ_Container";
 import { GlobalStyles } from "../constants/styles";
-import { EMAIL_ACTIONS } from "../constants/words";
+import { EMAIL_ACTIONS, USER_ACTION_TYPES } from "../constants/words";
 import { DUMMY_EMAILS } from "../testData/DUMMY_DATA";
 import { ReplyStackProps } from "../util/react-navigation";
+import { useUserContext } from "../store/user-context";
 
 /**
  * Component that will help the user build an simple email reply.
  *
  * TODO: Change how note State works to add validation/cleansing.
  *
- * @version 0.3.0
+ * @version 0.3.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const ReplyScreen = ({ route, navigation }: ReplyStackProps) => {
@@ -23,6 +24,7 @@ const ReplyScreen = ({ route, navigation }: ReplyStackProps) => {
 
   const [note, setNote] = useState("");
   const [selected, setSelected] = useState<string[]>([]);
+  const { state, dispatch } = useUserContext();
 
   let backgroundStyle;
 
@@ -51,6 +53,10 @@ const ReplyScreen = ({ route, navigation }: ReplyStackProps) => {
     console.log("Selected params:", selected); // See the selected params
     console.log("Note:", note); // See the note
     DUMMY_EMAILS.shift(); // TODO: Just for testing; Shouldn't need this when retrieving one email at a time from API
+    dispatch({
+      type: USER_ACTION_TYPES.UNREAD_COUNT,
+      payload: DUMMY_EMAILS.length,
+    });
     navigation.navigate("Email", { action: "next" });
   };
 
