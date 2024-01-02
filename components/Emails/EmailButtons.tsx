@@ -11,6 +11,7 @@ interface Props {
   onAccept: () => void;
   onReject: () => void;
   onQueue: () => void;
+  ranked: boolean; // TODO: Temp to tell the difference between RankedQueue and Regular Email
   // onRank: (value: number) => void;
 }
 
@@ -27,7 +28,7 @@ interface Props {
  * @version 0.3.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
-const EmailButtons = ({ onAccept, onReject, onQueue }: Props) => {
+const EmailButtons = ({ onAccept, onReject, onQueue, ranked }: Props) => {
   const { state } = useUserContext();
 
   // const rankButtonPress = (value: number) => {
@@ -58,20 +59,27 @@ const EmailButtons = ({ onAccept, onReject, onQueue }: Props) => {
     </AnimatedButton>
   );
 
+  let leftMajorButtonDisplay = state.inRankMode ? (
+    <AnimatedButton
+      title="QUEUE"
+      onPress={onQueue}
+      style={[styles.button, styles.queueButton, buttonWidth]}
+    >
+      <MaterialIcons name="queue" size={64} color="black" />
+    </AnimatedButton>
+  ) : (
+    acceptButton
+  );
+
+  if (ranked) {
+    leftMajorButtonDisplay = acceptButton;
+  }
+
   return (
     <View style={styles.rootContainer}>
       {state.isRanking && <RankButtons />}
       <View style={styles.innerContainer}>
-        {!state.inRankMode && acceptButton}
-        {state.inRankMode && (
-          <AnimatedButton
-            title="QUEUE"
-            onPress={onQueue}
-            style={[styles.button, styles.queueButton, buttonWidth]}
-          >
-            <MaterialIcons name="queue" size={64} color="black" />
-          </AnimatedButton>
-        )}
+        {leftMajorButtonDisplay}
         {rejectButton}
       </View>
     </View>

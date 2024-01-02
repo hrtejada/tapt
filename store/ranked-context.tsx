@@ -29,10 +29,8 @@ type RANK_ACTIONS =
   | { type: RANKED_ACTION_TYPES.USER_ID; payload: string }
   | { type: RANKED_ACTION_TYPES.TEMP_RANK; payload: number }
   | { type: RANKED_ACTION_TYPES.RANKED_EMAILS; payload: RankedEmail[] }
-  | {
-      type: RANKED_ACTION_TYPES.ADD_EMAIL;
-      payload: RankedEmail;
-    };
+  | { type: RANKED_ACTION_TYPES.ADD_EMAIL; payload: RankedEmail }
+  | { type: RANKED_ACTION_TYPES.REMOVE_EMAIL; payload: string };
 
 /**
  * Main ranked state context.
@@ -61,6 +59,14 @@ const reducer = (
       return {
         ...state,
         rankedEmails: [...state.rankedEmails, action.payload],
+      };
+    case RANKED_ACTION_TYPES.REMOVE_EMAIL:
+      const newRankedEmails = state.rankedEmails.filter(
+        (email) => email.messageId !== action.payload
+      );
+      return {
+        ...state,
+        rankedEmails: [...newRankedEmails],
       };
     default:
       throw new Error(`Unhandled action: ${action}`);

@@ -5,7 +5,7 @@ import NoteDisplay from "../components/Reply-Queue/NoteDisplay";
 import ParameterDisplay from "../components/Reply-Queue/ParameterDisplay";
 import RQ_Buttons from "../components/Reply-Queue/RQ_Buttons";
 import RQ_Container from "../components/Reply-Queue/RQ_Container";
-import { DUMMY_EMAILS } from "../testData/DUMMY_DATA";
+import { DUMMY_EMAILS, RANKED_EMAILS } from "../testData/DUMMY_DATA";
 import { QueueStackProps } from "../util/react-navigation";
 import { useRankedContext } from "../store/ranked-context";
 import { RANKED_ACTION_TYPES, USER_ACTION_TYPES } from "../constants/words";
@@ -44,7 +44,12 @@ const QueueScreen = ({ navigation, route }: QueueStackProps) => {
       parameters: selected,
       note: note,
     };
-    console.log(payload);
+
+    // TODO: Hardcoded Ranked. Remove once backend in place
+    console.log("queueHandler", payload);
+    RANKED_EMAILS[
+      RANKED_EMAILS.findIndex((email) => email.id === payload.messageId)
+    ].rank = payload.rank;
 
     rankedDispatch({ type: RANKED_ACTION_TYPES.ADD_EMAIL, payload: payload });
     DUMMY_EMAILS.shift(); // TODO: Just for testing; Shouldn't need this when retrieving one email at a time from API

@@ -48,6 +48,7 @@ const EmailInfo = () => {
         onPress={emailPressHandler}
         type="primary"
         style={styles.buttonContainer}
+        disabled={state.unreadCount === 0}
       >
         <View style={styles.innerContainer}>
           <UnreadCountCard unreadCount={state.unreadCount} />

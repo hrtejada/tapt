@@ -8,6 +8,7 @@ interface Props {
   style?: null | object;
   textStyle?: null | object;
   type?: "primary" | "secondary";
+  disabled?: true | false;
   children?: React.ReactNode;
 }
 
@@ -15,6 +16,7 @@ interface Props {
  * Animated button to give more of a button push feel.
  *
  * TODO: Maybe make different types of animated buttons?
+ * TODO: Style disabled
  *
  * @version 0.2.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
@@ -25,6 +27,7 @@ const AnimatedButton = ({
   style,
   textStyle,
   type = "primary",
+  disabled = false,
   children,
 }: Props) => {
   const scaleValue = useRef(new Animated.Value(1)).current; // Don't trigger a re-render
@@ -74,7 +77,9 @@ const AnimatedButton = ({
     <Pressable
       onPress={onPress}
       onPressIn={handlePressIn}
-      onPressOut={handlePressOut}>
+      onPressOut={handlePressOut}
+      disabled={disabled}
+    >
       {({ pressed }) => (
         <Animated.View
           style={[
@@ -84,7 +89,8 @@ const AnimatedButton = ({
             style,
             pressed && pressedBG,
           ]}
-          testID="animated-button">
+          testID="animated-button"
+        >
           {children || <Text style={[styles.text, textStyle]}>{title}</Text>}
         </Animated.View>
       )}
