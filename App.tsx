@@ -31,6 +31,11 @@ import {
 import QueueScreen from "./screens/QueueScreen";
 import RankedContextProvider from "./store/ranked-context";
 
+// TODO OVERALL
+/**
+ *  - Make a current email context??
+ */
+
 /**
  * Main app component.
  *

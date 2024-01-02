@@ -6,7 +6,7 @@ import SenderInfo from "../components/Emails/SenderInfo";
 import TextParameter from "../components/Emails/TextParameter";
 import LoadingOverlay from "../components/ui/LoadingOverlay";
 import { GlobalStyles } from "../constants/styles";
-import { DUMMY_EMAILS } from "../testData/DUMMY_DATA";
+import { DUMMY_EMAILS, RANKED_EMAILS } from "../testData/DUMMY_DATA";
 import { EmailStackProps } from "../util/react-navigation";
 import { EMAIL_ACTIONS, RANKED_ACTION_TYPES } from "../constants/words";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -56,50 +56,79 @@ const EmailScreen = ({ route, navigation }: EmailStackProps) => {
     setIsLoading(true);
     // FETCH ONE EMAIL AT A TIME???
     const fetchEmail = () => {
-      // Use User defined parameters to build the API call to retrieve certain data from email messages
-      /*
-       * id
-       * name
-       * email
-       * UserParams
-       */
-      let email = { id: "", name: "", email: "" };
-      if (DUMMY_EMAILS.length !== 0) {
-        const message: any = DUMMY_EMAILS[0];
-        // console.log("-------------------------------------------------");
-        // console.log(message);
-        email.id = message.id;
-        email.name = message.name;
-        email.email = message.email;
-        userState.parameters.map((param: string) => {
-          // TODO: Figure out how to dynamically set the message type!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-          // console.log(param);
-          // console.log(message[param]);
-          const value = message[param];
-          email = {
-            ...email,
-            [param]: value,
-          };
-        });
-      } else {
-        // DO SOMETHING????
-        // email = {};
-      }
-      type Email = typeof email;
-
-      if (email === null) {
-        setEmailInfo("");
-        return;
-      }
-
       switch (route.params?.action) {
         case "next":
         case "new":
+          // Use User defined parameters to build the API call to retrieve certain data from email messages
+          /*
+           * id
+           * name
+           * email
+           * UserParams
+           */
+          let email = { id: "", name: "", email: "" };
+          if (DUMMY_EMAILS.length !== 0) {
+            const message: any = DUMMY_EMAILS[0];
+            // console.log("-------------------------------------------------");
+            // console.log(message);
+            email.id = message.id;
+            email.name = message.name;
+            email.email = message.email;
+            userState.parameters.map((param: string) => {
+              // TODO: Figure out how to dynamically set the message type!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+              // console.log(param);
+              // console.log(message[param]);
+              const value = message[param];
+              email = {
+                ...email,
+                [param]: value,
+              };
+            });
+          } else {
+            // DO SOMETHING????
+            // email = {};
+          }
+          type Email = typeof email;
+
+          if (email === null) {
+            setEmailInfo("");
+            return;
+          }
+
           rankedDispatch({ type: RANKED_ACTION_TYPES.TEMP_RANK, payload: 0 });
           setEmailInfo(email);
           break;
         case "ranked":
           // TODO: Handle coming from Ranked Queue for testing
+          // TODO: Extract the parameter checking stuff
+          const messageId = route.params?.id;
+          let rankedEmail = { id: "", name: "", email: "", rank: 0 };
+          const currentEmail: any =
+            RANKED_EMAILS[
+              RANKED_EMAILS.findIndex((email) => email.id === messageId)
+            ];
+          console.log("INSIDE EMAIL SCREEN", rankedEmail);
+
+          rankedEmail.id = currentEmail.id;
+          rankedEmail.name = currentEmail.name;
+          rankedEmail.email = currentEmail.email;
+          rankedEmail.rank = currentEmail.rank;
+
+          userState.parameters.map((param: string) => {
+            // TODO: Figure out how to dynamically set the message type!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            // console.log(param);
+            // console.log(message[param]);
+            const value = currentEmail[param];
+            rankedEmail = {
+              ...rankedEmail,
+              [param]: value,
+            };
+          });
+          rankedDispatch({
+            type: RANKED_ACTION_TYPES.TEMP_RANK,
+            payload: rankedEmail.rank,
+          });
+          setEmailInfo(rankedEmail);
           break;
         default:
           navigation.pop();
@@ -165,7 +194,12 @@ const EmailScreen = ({ route, navigation }: EmailStackProps) => {
           />
         );
       } else {
-        if (property === "id" || property === "name" || property === "email") {
+        if (
+          property === "id" ||
+          property === "name" ||
+          property === "email" ||
+          property === "rank"
+        ) {
           continue;
         }
         display.push(
@@ -191,7 +225,8 @@ const EmailScreen = ({ route, navigation }: EmailStackProps) => {
           paddingRight: insets.right,
           flexDirection: "column",
         },
-      ]}>
+      ]}
+    >
       <View style={styles.emailInfoContainer}>
         <SenderInfo name={emailInfo.name} email={emailInfo.email} />
         <ScrollView>{renderParameters()}</ScrollView>
