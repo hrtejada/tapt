@@ -49,7 +49,7 @@ export const DELETE_ACCOUNT = {
 };
 export const EMAIL_LIMIT = {
   header: "Limit accepted emails",
-  info: "Change the amount of emails you would like to accept for the booking window (0 = No limit)",
+  info: "Change the amount of emails you would like to accept for the booking window",
 };
 export const NOTIFICATION_CADENCE = {
   header: "Set data retrieval cadence",
