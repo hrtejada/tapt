@@ -1,22 +1,25 @@
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, Text, View } from "react-native";
-import { GlobalStyles } from "../../constants/styles";
 import { RankedStackProps } from "../../util/react-navigation";
 import AnimatedButton from "../ui/AnimatedButton";
 
 /**
- * Ranked Info Component.
+ * RankedInfo Component.
  *
- * Button to view Ranked Queue and displays info related to Ranked Queue
+ * This component renders a button that navigates to the Ranked Queue Screen.
+ * It potentially displays additional information related to the Ranked Queue.
  *
- * @version 0.1.0
+ * @component
+ * @version 0.1.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const RankedInfo = () => {
   const navigation = useNavigation<RankedStackProps["navigation"]>();
 
   /**
-   * Navigate to the Ranked Queue Screen
+   * Handle the press event on the Ranked Queue Button.
+   *
+   * Navigates the User to the Ranked Queue Screen.
    */
   const rankedQueuePressHandler = () => {
     navigation.navigate("Ranked");
@@ -47,11 +50,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   button: {
-    borderColor: GlobalStyles.colors.accent500,
     alignItems: "center",
     marginHorizontal: 24,
     padding: 12,
-    borderWidth: 1,
     borderRadius: 13,
   },
   rankedContainer: {

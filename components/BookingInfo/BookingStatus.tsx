@@ -9,11 +9,13 @@ interface Props {
 }
 
 /**
- * Component to display the current status of the users booking dates.
+ * BookingStatus Component.
  *
+ * This component renders the current status of the Users booking dates.
  * Styled differently depending on the current status.
  *
- * @version 0.3.0
+ * @component
+ * @version 0.3.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const BookingStatus = ({ status, startDate, endDate }: Props) => {
@@ -44,15 +46,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 6,
-    borderTopWidth: 2,
-    borderBottomWidth: 2,
-    borderColor: GlobalStyles.colors.accent700,
   },
   active: {
-    backgroundColor: GlobalStyles.colors.success500,
+    backgroundColor: GlobalStyles.colors.primary300,
   },
   inactive: {
-    backgroundColor: GlobalStyles.colors.warning500,
+    backgroundColor: GlobalStyles.colors.secondary300,
   },
   text: {
     flex: 0,

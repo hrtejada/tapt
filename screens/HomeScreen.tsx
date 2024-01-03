@@ -6,7 +6,9 @@ import RankedInfo from "../components/RankedInfo/RankedInfo";
 import { GlobalStyles } from "../constants/styles";
 
 /**
- * Home Component displaying the main components of the app.
+ * Home Component.
+ *
+ * This component renders the main aspects of the app.
  *
  * Currently broken up into 3 main rows
  *  - Booking Information
@@ -15,10 +17,12 @@ import { GlobalStyles } from "../constants/styles";
  *
  * TODO: Restyle a bit more. Still not 100% happy with the layout/data displayed
  *
- * @version 0.3.0
+ * @component
+ * @version 0.3.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const HomeScreen = () => {
+  // When using insets, need to style the View directly
   const insets = useSafeAreaInsets();
 
   return (

@@ -6,16 +6,19 @@ import BookingStats from "./BookingStats";
 import BookingStatus from "./BookingStatus";
 
 /**
- * Booking Info component.
+ * BookingInfo Component.
  *
- * Displays any relevant information pertaining to booking.
+ * This component renders info related to the Users booking session.
  *
- * @version 0.2.0
+ * @component
+ * @version 0.2.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const BookingInfo = () => {
   const { state } = useUserContext();
 
+  // Display the Booking Date Range in nice format
+  // TODO: Rework to be useful internationally??
   const options: Intl.DateTimeFormatOptions = {
     // weekday: "short" as "short",
     year: "2-digit",
@@ -30,7 +33,6 @@ const BookingInfo = () => {
     () => state.endDate.toLocaleDateString("en-US", options),
     [state.endDate]
   );
-
   const now = new Date();
   const isBooking = now >= state.startDate && now < state.endDate;
 

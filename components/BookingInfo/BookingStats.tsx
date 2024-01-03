@@ -11,17 +11,20 @@ interface Props {
 }
 
 /**
- * Component to display the stat components of the most recent booking session.
+ * BookingStats Component.
+ *
+ * This component renders the stats of the most recent booking session.
  *
  * TODO: Rework this; I don't like the current display
  *
- * @version 0.2.0
+ * @component
+ * @version 0.2.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const BookingStats = React.memo(({ accepted, rejected }: Props) => {
   const { state } = useUserContext();
 
-  const total = useMemo(() => accepted + rejected, [accepted, rejected]);
+  const total = useMemo(() => accepted + rejected, [accepted, rejected]); // Used to help get percentage
   const limitDisplay = `Current Limit: ${
     state.limit === "0" ? "∞" : state.limit
   }`;
@@ -64,7 +67,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
-    backgroundColor: GlobalStyles.colors.accent300,
+    backgroundColor: GlobalStyles.colors.accent600,
     paddingHorizontal: 24,
     borderBottomStartRadius: 8,
     borderBottomEndRadius: 8,

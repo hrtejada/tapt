@@ -12,12 +12,13 @@ import HeaderOne from "../ui/HeaderOne";
 import UnreadCountCard from "./UnreadCountCard";
 
 /**
- * Email Info Component.
+ * EmailInfo Component.
  *
- * Button that displays the current unread count. Tapping button
- * takes user to the EmailScreen.
+ * This component renders a button the displays the current Unread Count and
+ * navigates to the Email Screen when pressed.
  *
- * @version 0.2.1
+ * @component
+ * @version 0.2.2
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const EmailInfo = () => {
@@ -33,7 +34,9 @@ const EmailInfo = () => {
   }, [dispatch, DUMMY_EMAILS.length]);
 
   /**
-   * Navigate to the Email Screen.
+   * Handle the press event on the Email button.
+   *
+   * Navigate the User to the Email Screen.
    */
   const emailPressHandler = () => {
     navigation.navigate("Email", { action: "new" });
@@ -86,8 +89,5 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "space-around",
     alignItems: "center",
-  },
-  pressed: {
-    backgroundColor: GlobalStyles.colors.primary700,
   },
 });
