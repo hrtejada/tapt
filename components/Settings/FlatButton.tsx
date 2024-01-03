@@ -10,10 +10,11 @@ interface Props {
 }
 
 /**
- * Flat button component.
+ * FlatButton Component.
  *
- * Used on SettingsScreen
+ * This component renders a flat button with a passable onPress action.
  *
+ * @component
  * @version 0.1.2
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
@@ -68,6 +69,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   pressed: {
-    backgroundColor: GlobalStyles.colors.background200,
+    backgroundColor: GlobalStyles.colors.background400,
   },
 });

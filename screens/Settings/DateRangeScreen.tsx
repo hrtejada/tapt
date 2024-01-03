@@ -16,25 +16,28 @@ interface Props {
 
 const DatePicker = ({ text, minDate, value, onChange }: Props) => {
   return (
-    <View style={styles.inputContainer}>
+    <View>
       <View style={styles.labelContainer}>
         <Text style={styles.dateText}>{text}</Text>
       </View>
-      <View style={styles.datePickerContainer}>
-        <DateTimePicker
-          mode="date"
-          display="calendar"
-          minimumDate={minDate}
-          onChange={onChange}
-          value={value}
-        />
-      </View>
+      <DateTimePicker
+        mode="date"
+        display="calendar"
+        minimumDate={minDate}
+        onChange={onChange}
+        value={value}
+        style={{
+          marginTop: 8,
+        }}
+      />
     </View>
   );
 };
 
 /**
- * Component that holds the datepickers.
+ * DateRangeScreen Component.
+ *
+ * This component renders the screen that holds the datepickers.
  *
  * Using https://github.com/react-native-datetimepicker/datetimepicker.
  *
@@ -44,7 +47,8 @@ const DatePicker = ({ text, minDate, value, onChange }: Props) => {
  * TODO: Should we dismiss picker once use selects a date??
  * TODO: Should we limit how far out users can put the End Date??
  *
- * @version 0.2.1
+ * @component
+ * @version 0.3.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const DateRangeScreen = () => {
@@ -57,25 +61,28 @@ const DateRangeScreen = () => {
 
   return (
     <SettingsContainer header={DATE_RANGE.header} info={DATE_RANGE.info}>
-      <DatePicker
-        text="Start Date:"
-        minDate={today}
-        value={startDate}
-        onChange={(_, date) => {
-          // Do Backend stuff...
-          date &&
-            dispatch({ type: USER_ACTION_TYPES.START_DATE, payload: date });
-        }}
-      />
-      <DatePicker
-        text="End Date:"
-        minDate={minEndDate}
-        value={endDate}
-        onChange={(_, date) => {
-          // Do Backend stuff...
-          date && dispatch({ type: USER_ACTION_TYPES.END_DATE, payload: date });
-        }}
-      />
+      <View style={styles.mainContainer}>
+        <DatePicker
+          text="Start Date:"
+          minDate={today}
+          value={startDate}
+          onChange={(_, date) => {
+            // Do Backend stuff...
+            date &&
+              dispatch({ type: USER_ACTION_TYPES.START_DATE, payload: date });
+          }}
+        />
+        <DatePicker
+          text="End Date:"
+          minDate={minEndDate}
+          value={endDate}
+          onChange={(_, date) => {
+            // Do Backend stuff...
+            date &&
+              dispatch({ type: USER_ACTION_TYPES.END_DATE, payload: date });
+          }}
+        />
+      </View>
     </SettingsContainer>
   );
 };
@@ -83,25 +90,17 @@ const DateRangeScreen = () => {
 export default DateRangeScreen;
 
 const styles = StyleSheet.create({
-  inputContainer: {
+  mainContainer: {
+    backgroundColor: GlobalStyles.colors.background200,
+    borderRadius: 8,
+    paddingVertical: 16,
+    justifyContent: "space-evenly",
+    alignItems: "center",
     flexDirection: "row",
-    marginVertical: 12,
-    minHeight: 50,
-    backgroundColor: GlobalStyles.colors.background100,
-    borderWidth: 1,
-    borderColor: GlobalStyles.colors.accent500,
+    borderWidth: 2,
   },
   labelContainer: {
-    justifyContent: "center",
-    alignItems: "flex-end",
-    padding: 8,
-    width: "40%",
-  },
-  datePickerContainer: {
-    justifyContent: "space-evenly",
-    alignItems: "flex-end",
-    paddingRight: 10,
-    borderRadius: 15,
+    marginLeft: 12,
   },
   dateText: {
     fontSize: 22,
