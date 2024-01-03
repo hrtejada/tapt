@@ -1,9 +1,26 @@
 import { createRef } from "react";
-import { Alert, StyleSheet, TextInput, View } from "react-native";
+import {
+  Alert,
+  FlatList,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import SettingsContainer from "../../components/Settings/SettingsContainer";
 import { GlobalStyles } from "../../constants/styles";
 import { EMAIL_LIMIT, USER_ACTION_TYPES } from "../../constants/words";
 import { useUserContext } from "../../store/user-context";
+import { MAX_EMAIL_LIMIT, TEXT_LIST_BULLET } from "../../constants/constants";
+
+interface ConstraintData {
+  key: string;
+}
+
+const CONTRAINTS = [
+  { key: "For No Limit, enter zero(0)" },
+  { key: `Max email limit is ${MAX_EMAIL_LIMIT}` },
+];
 
 /**
  * Component that holds the button to navigate to the DeleteAccounScreen.
@@ -54,7 +71,7 @@ const EmailLimitScreen = () => {
     }
     // TODO: Decide on the limit of limit 🤷‍♂️
     if (limit < 0 || limit > 150) {
-      Alert.alert("Limit out of range", "Range is 0 - 150", [
+      Alert.alert("Limit out of range", `Range is 0 - ${MAX_EMAIL_LIMIT}`, [
         {
           text: "OK",
           style: "default",
@@ -72,9 +89,25 @@ const EmailLimitScreen = () => {
     }
   };
 
+  const renderConstraints = ({ item }: { item: ConstraintData }) => {
+    return (
+      <View style={{ marginBottom: 10 }}>
+        <Text style={{ fontSize: 18 }}>
+          {`${TEXT_LIST_BULLET} ${item.key}`}
+        </Text>
+      </View>
+    );
+  };
+
   return (
     <SettingsContainer header={EMAIL_LIMIT.header} info={EMAIL_LIMIT.info}>
       <View style={styles.inputContainer}>
+        <FlatList
+          data={CONTRAINTS}
+          keyExtractor={(item) => item.key}
+          renderItem={renderConstraints}
+          style={{ marginBottom: 10 }}
+        />
         <TextInput
           style={styles.input}
           value={state.limit.toString()}
