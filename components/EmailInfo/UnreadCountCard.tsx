@@ -2,9 +2,13 @@ import { StyleSheet, Text, View } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
 
 /**
- * Component that displays the count of unread emails from the users inbox that match the parameters.
+ * UnreadCountCard Component.
  *
- * @version 0.2.1
+ * This component renders the count of unread emails from the users inbox that
+ * match the set parameters.
+ *
+ * @component
+ * @version 0.2.2
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const UnreadCountCard = ({ unreadCount }: { unreadCount: number }) => {
@@ -24,8 +28,10 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     backgroundColor: GlobalStyles.colors.primary300,
     borderRadius: 8,
-    borderWidth: 1,
-    borderColor: GlobalStyles.colors.accent500,
+    shadowColor: GlobalStyles.colors.primary400,
+    shadowOffset: { width: 1, height: 1 },
+    shadowOpacity: 1,
+    shadowRadius: 5,
   },
   count: {
     fontSize: 72,

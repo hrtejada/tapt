@@ -10,9 +10,11 @@ import RankingButton from "../components/Settings/RankingButton";
 import { GlobalStyles } from "../constants/styles";
 
 /**
- * Settings Screen where the user can perform various actions.
+ * SettingsScreen Component.
  *
- * The user can
+ * This component renders the main Settings Screen where the User can perform various actions.
+ *
+ * The User can
  *  - Logout
  *  - Set how often the receive notifications
  *  - Set what data to parse from what emails
@@ -21,9 +23,9 @@ import { GlobalStyles } from "../constants/styles";
  *  - Delete their account
  *
  * TODO: Need to user test the swiping back gesture when in this Stack (Keep or disabled)
- * TODO: Need ot add Email Header setting!!!!!
  *
- * @version 0.3.2
+ * @component
+ * @version 0.3.3
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const SettingsScreen = () => {
@@ -39,7 +41,7 @@ const SettingsScreen = () => {
         },
       ]}
     >
-      <ScrollView>
+      <ScrollView style={styles.scrollContainer}>
         <AboutButton />
         <DateRangeButton />
         <EmailLimitButton />
@@ -61,7 +63,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: GlobalStyles.colors.background300,
   },
+  scrollContainer: {
+    marginHorizontal: 16,
+    marginTop: 8,
+  },
   deleteContainer: {
-    marginTop: 4,
+    marginTop: 24,
   },
 });

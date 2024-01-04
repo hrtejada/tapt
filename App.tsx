@@ -12,6 +12,7 @@ import EmailScreen from "./screens/EmailScreen";
 import HomeScreen from "./screens/HomeScreen";
 import ImageScreen from "./screens/ImageScreen";
 import LoginScreen from "./screens/LoginScreen";
+import QueueScreen from "./screens/QueueScreen";
 import RankedQueueScreen from "./screens/RankedQueueScreen";
 import ReplyScreen from "./screens/ReplyScreen";
 import AboutScreen from "./screens/Settings/AboutScreen";
@@ -22,30 +23,21 @@ import NotificationCadenceScreen from "./screens/Settings/NotificationCadenceScr
 import ParametersScreen from "./screens/Settings/ParametersScreen";
 import RankingScreen from "./screens/Settings/RankingScreen";
 import SettingsScreen from "./screens/SettingsScreen";
+import RankedContextProvider from "./store/ranked-context";
 import UserContextProvider from "./store/user-context";
 import {
   HomeStackParamList,
   SettingsStackParamList,
   getHeaderTitle,
 } from "./util/react-navigation";
-import QueueScreen from "./screens/QueueScreen";
-import RankedContextProvider from "./store/ranked-context";
 
-// TODO OVERALL
-/**
- *  - Make a current email context??
- */
-
-/**
- * Main app component.
- *
- * Holds the Drawer and Stack navigators. (https://reactnavigation.org/)
- *
- * TODO: Should SettingsStack use 'modal' as well to keep a theme going??
- * TODO: Make sure when navigating from Home to Settings, that it shows the SettingsScreen
- *
- * @version 0.2.1
- * @author  Ralph Woiwode <https://github.com/RAWoiwode>
+/*
+  TODO: OVERALL LIST
+  
+  TODO: Make a current email context??
+  TODO: Go through styling and make sure all the flexs and appropriate.
+  TODO: Go through Context/State and see if it is all needed i.e. Things can be derived
+  TODO: Possible closures for the Setting navigation button i.e. DateRangeButton, EmailLimitButton
  */
 
 const Drawer = createDrawerNavigator(); // TODO: Do we need type checking for this?
@@ -53,9 +45,15 @@ const HomeStack = createNativeStackNavigator<HomeStackParamList>();
 const SettingsStack = createNativeStackNavigator<SettingsStackParamList>();
 
 /**
- * Stack to hold the Login Screens.
+ * LoginStack Component.
  *
- * Will be used to ensure screen protection when logging in is implemented
+ * This component renders the LogingStack.
+ *
+ * Users who are not logged in will be navigated here.
+ *
+ * @component
+ * @version 0.1.0
+ * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const LoginStack = () => {
   return (
@@ -66,9 +64,16 @@ const LoginStack = () => {
 };
 
 /**
- * Stack to hold the Main Screens.
+ * MainView Component.
  *
- * Will be used to ensure screen protection when logging in is implemented
+ * Thie component renders the MainStack used in the
+ * main Drawer navigation.
+ *
+ * Only accessed if the user is successfully V&V'd
+ *
+ * @component
+ * @version 0.2.0
+ * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const MainView = () => {
   return (
@@ -99,6 +104,16 @@ const MainView = () => {
   );
 };
 
+/**
+ * SettingsView Component.
+ *
+ * This component renders the SettingsStack that is used in the
+ * main Drawer navigation.
+ *
+ * @component
+ * @version 0.2.0
+ * @author  Ralph Woiwode <https://github.com/RAWoiwode>
+ */
 const SettingsView = () => {
   return (
     <SettingsStack.Navigator
@@ -121,6 +136,18 @@ const SettingsView = () => {
   );
 };
 
+/**
+ * App Component.
+ *
+ * This component render the main screen depending on the sessoin.
+ * Holds the Drawer and Stack navigators. (https://reactnavigation.org/)
+ *
+ * TODO: Should SettingsStack use 'modal' as well to keep a theme going??
+ * TODO: Make sure when navigating from Home to Settings, that it shows the SettingsScreen
+ *
+ * @version 0.2.2
+ * @author  Ralph Woiwode <https://github.com/RAWoiwode>
+ */
 export default function App() {
   return (
     <SafeAreaProvider>

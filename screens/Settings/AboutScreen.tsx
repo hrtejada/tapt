@@ -1,12 +1,15 @@
 import { StyleSheet, Text, View } from "react-native";
-import GoBackButton from "../../components/Settings/GoBackButton";
+import BackButton from "../../components/Settings/BackButton";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 /**
- * Component that holds About App information.
+ * AboutScreen Component.
+ *
+ * This component renders the screen that holds About information.
  *
  * TODO: Flesh Out
  *
+ * @component
  * @version 0.1.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
@@ -24,7 +27,7 @@ const AboutScreen = () => {
         },
       ]}
     >
-      <GoBackButton />
+      <BackButton />
       <Text>AboutScreen</Text>
     </View>
   );

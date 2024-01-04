@@ -1,7 +1,7 @@
+import { useMemo } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
 import { STATUS } from "../../constants/words";
-import { useMemo } from "react";
 
 interface Props {
   title: STATUS;
@@ -10,11 +10,15 @@ interface Props {
 }
 
 /**
- * Compontent to display stats related to the current booking session.
+ * BookingNumberCard Compontent.
+ *
+ * This component renders the number of accepted/rejected emails
+ * for the current/previous booking session.
  *
  * NOTE - Possibly expand this component in the future to show more statistics
  *
- * @version 0.3.0
+ * @component
+ * @version 0.3.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const BookingNumberCard = ({ title, value, total }: Props) => {
@@ -61,25 +65,13 @@ const styles = StyleSheet.create({
     marginTop: 12,
   },
   accepted: {
-    backgroundColor: GlobalStyles.colors.primary400,
-    borderLeftColor: GlobalStyles.colors.accent500,
-    borderLeftWidth: 1,
-    borderTopColor: GlobalStyles.colors.accent500,
-    borderTopWidth: 1,
-    borderBottomColor: GlobalStyles.colors.accent500,
-    borderBottomWidth: 1,
+    backgroundColor: GlobalStyles.colors.secondary400,
     borderTopLeftRadius: 25,
     borderBottomLeftRadius: 25,
     marginLeft: 24,
   },
   rejected: {
-    backgroundColor: GlobalStyles.colors.secondary500,
-    borderRightColor: GlobalStyles.colors.accent500,
-    borderRightWidth: 1,
-    borderTopColor: GlobalStyles.colors.accent500,
-    borderTopWidth: 1,
-    borderBottomColor: GlobalStyles.colors.accent500,
-    borderBottomWidth: 1,
+    backgroundColor: GlobalStyles.colors.secondary600,
     borderTopRightRadius: 25,
     borderBottomRightRadius: 25,
     marginRight: 24,
@@ -101,7 +93,7 @@ const styles = StyleSheet.create({
   },
   percentage: {
     fontSize: 20,
-    color: GlobalStyles.colors.accent700,
+    color: GlobalStyles.colors.text,
     paddingBottom: 10,
   },
   justifyEnd: {

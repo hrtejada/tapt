@@ -6,8 +6,11 @@ import { EmailLimitStackProps } from "../../util/react-navigation";
 import FlatButton from "./FlatButton";
 
 /**
- * Button used to navigate to the EmailLimitScreen.
+ * EmailLimitButton Component.
  *
+ * This component renders a flat button used to navigate to the EmailLimitScreen.
+ *
+ * @component
  * @version 0.2.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
