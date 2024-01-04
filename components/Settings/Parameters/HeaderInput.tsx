@@ -10,18 +10,24 @@ import { useUserContext } from "../../../store/user-context";
 import HeaderThree from "../../ui/HeaderThree";
 
 /**
- * Component for the parameters setting.
+ * HeaderInput Component.
+ *
+ * This component renders the Email Header input for the email
+ * data setting.
  *
  * TODO: Look into extracting TextInput
+ * TODO: Same issue as Email Limit of hitting Back Button to exit with set data no matter what.
+ * TODO: Determine max length of email header
  *
- * @version 0.1.0
+ * @component
+ * @version 0.1.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const HeaderInput = () => {
   const { state, dispatch } = useUserContext();
 
   /**
-   * Set the email header value.
+   * Function to set the email header value.
    */
   const setHeader = (enteredText: string) => {
     // TODO: Implement input validation for Front End
@@ -57,8 +63,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 12,
     margin: 8,
-    height: 50,
     fontSize: 24,
-    backgroundColor: GlobalStyles.colors.background200,
+    backgroundColor: GlobalStyles.colors.background100,
   },
 });

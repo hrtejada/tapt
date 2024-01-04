@@ -5,11 +5,14 @@
  *
  * Check if empty
  * Check if parameter already exists
- *
- * @version 0.1.0
+ * @function
+ * @version 0.1.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
-export const validateParameter = (parameter: string, parameters: string[]) => {
+export const validateParameter = (
+  parameter: string,
+  parameterArray: string[]
+) => {
   if (isParameterEmpty(parameter)) {
     return {
       error: true,
@@ -17,7 +20,7 @@ export const validateParameter = (parameter: string, parameters: string[]) => {
       message: "Please enter a valid parameter",
     };
   }
-  if (parameterExists(parameter, parameters)) {
+  if (parameterExists(parameter, parameterArray)) {
     return {
       error: true,
       title: "Parameter already exists",
@@ -36,6 +39,6 @@ const isParameterEmpty = (parameter: string) => {
   return parameter === "";
 };
 
-const parameterExists = (parameter: string, parameters: string[]) => {
-  return parameters.includes(parameter);
+const parameterExists = (parameter: string, parameterArray: string[]) => {
+  return parameterArray.includes(parameter);
 };

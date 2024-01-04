@@ -30,7 +30,7 @@ export const DATE_RANGE_TITLE = "Date Range";
 export const DELETE_TITLE = "Delete Account";
 export const EMAIL_LIMIT_TITLE = "Email Limit";
 export const NOTIFICATION_TITLE = "Notification Cadence";
-export const PARAMETERS_TITLE = "Parameters";
+export const EMAIL_DATA_TITLE = "Email Data";
 export const RANKING_TITLE = "Ranking";
 
 /***** SETTINGS DETAILS *****/

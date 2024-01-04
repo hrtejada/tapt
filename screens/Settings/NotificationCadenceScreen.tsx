@@ -14,7 +14,7 @@ interface ItemData {
   title: string;
 }
 
-// TODO: See if there will be an issue with creating an id this way
+// If NOTIFICATION_OPTIONS are used in other places, then we need a different ID system e.g. uuid
 const ITEMS: ItemData[] = [
   {
     id: NOTIFICATION_OPTIONS.OFF.toString(),
@@ -44,6 +44,14 @@ interface Props {
   backgroundColor: string;
 }
 
+/**
+ * Item Component.
+ *
+ * This minor component is used to help render the buttons
+ * representing the notification options.
+ *
+ * @component
+ */
 const Item = ({ item, onPress, backgroundColor }: Props) => (
   <Pressable
     onPress={onPress}
@@ -58,21 +66,33 @@ const Item = ({ item, onPress, backgroundColor }: Props) => (
 );
 
 /**
- * Component that holds notification cadence setting.
+ * NotificationCadenceScreen Component.
  *
+ * This component renders a screen that holds notification cadence settings.
+ * The User can pick from a predetermined set of options.
+ *
+ * @component
  * @version 0.1.4
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const NotificationCadenceScreen = () => {
   const { state, dispatch } = useUserContext();
 
+  /**
+   * Function to render the option items.
+   *
+   * This function helps to render the option items.
+   */
   const renderItem = ({ item }: { item: ItemData }) => {
     const backgroundColor =
       item.id === state.notifications
-        ? GlobalStyles.colors.primary700
-        : GlobalStyles.colors.primary500;
+        ? GlobalStyles.colors.primary300
+        : GlobalStyles.colors.background400;
 
-    const selectItemHandler = () => {
+    /**
+     * Function to handle item selection.
+     */
+    const handleSelectItem = () => {
       // Do Backend stuff...
       dispatch({ type: USER_ACTION_TYPES.NOTIFICATION, payload: item.id });
     };
@@ -80,7 +100,7 @@ const NotificationCadenceScreen = () => {
     return (
       <Item
         item={item}
-        onPress={selectItemHandler}
+        onPress={handleSelectItem}
         backgroundColor={backgroundColor}
       />
     );
@@ -109,16 +129,14 @@ export default NotificationCadenceScreen;
 
 const styles = StyleSheet.create({
   optionsContainer: {
-    backgroundColor: GlobalStyles.colors.primary500,
-    marginHorizontal: 8,
+    backgroundColor: GlobalStyles.colors.background400,
     marginVertical: 12,
     borderRadius: 8,
-    borderColor: GlobalStyles.colors.accent500,
-    borderWidth: 1,
     overflow: "hidden",
+    borderWidth: 2,
+    borderColor: GlobalStyles.colors.text,
   },
   option: {
-    backgroundColor: GlobalStyles.colors.primary500,
     paddingVertical: 12,
     paddingHorizontal: 16,
   },
@@ -128,11 +146,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   bar: {
-    borderBottomColor: GlobalStyles.colors.text,
-    borderBottomWidth: 1,
+    borderBottomColor: GlobalStyles.colors.accent500,
+    // borderBottomWidth: 1,
     marginHorizontal: 8,
   },
   pressed: {
-    backgroundColor: GlobalStyles.colors.primary600,
+    backgroundColor: GlobalStyles.colors.primary400,
   },
 });

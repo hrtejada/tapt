@@ -6,8 +6,11 @@ import { NotificationCadenceStackProps } from "../../util/react-navigation";
 import FlatButton from "./FlatButton";
 
 /**
- * Button used to navigate to the NotificationScreen.
+ * NotificationCadenceButton Component.
  *
+ * This component renders a flat button used to navigate to the NotificationCadenceScreen.
+ *
+ * @component
  * @version 0.1.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */

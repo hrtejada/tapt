@@ -20,7 +20,7 @@ import DateRangeScreen from "./screens/Settings/DateRangeScreen";
 import DeleteAccountScreen from "./screens/Settings/DeleteAccountScreen";
 import EmailLimitScreen from "./screens/Settings/EmailLimitScreen";
 import NotificationCadenceScreen from "./screens/Settings/NotificationCadenceScreen";
-import ParametersScreen from "./screens/Settings/ParametersScreen";
+import EmailDataScreen from "./screens/Settings/EmailDataScreen";
 import RankingScreen from "./screens/Settings/RankingScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 import RankedContextProvider from "./store/ranked-context";
@@ -38,6 +38,7 @@ import {
   TODO: Go through styling and make sure all the flexs and appropriate.
   TODO: Go through Context/State and see if it is all needed i.e. Things can be derived
   TODO: Possible closures for the Setting navigation button i.e. DateRangeButton, EmailLimitButton
+  TODO: Determine code style for: inline functions, one prop styling, single prop interface
  */
 
 const Drawer = createDrawerNavigator(); // TODO: Do we need type checking for this?
@@ -130,7 +131,7 @@ const SettingsView = () => {
         name="NotificationCadence"
         component={NotificationCadenceScreen}
       />
-      <SettingsStack.Screen name="Parameters" component={ParametersScreen} />
+      <SettingsStack.Screen name="EmailData" component={EmailDataScreen} />
       <SettingsStack.Screen name="Ranking" component={RankingScreen} />
     </SettingsStack.Navigator>
   );
