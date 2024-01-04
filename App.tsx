@@ -37,6 +37,7 @@ import {
   TODO: Make a current email context??
   TODO: Go through styling and make sure all the flexs and appropriate.
   TODO: Go through Context/State and see if it is all needed i.e. Things can be derived
+  TODO: Possible closures for the Setting navigation button i.e. DateRangeButton, EmailLimitButton
  */
 
 const Drawer = createDrawerNavigator(); // TODO: Do we need type checking for this?

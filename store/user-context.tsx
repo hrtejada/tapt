@@ -23,7 +23,7 @@ const INIT_USER_STATE = {
   unreadCount: 0,
   accepted: 10,
   rejected: 50,
-  limit: "0",
+  limit: "",
   startDate: new Date(),
   endDate: new Date(),
   header: "",
