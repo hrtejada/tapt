@@ -5,7 +5,7 @@ import DateRangeButton from "../components/Settings/DateRangeButton";
 import DeleteAccountButton from "../components/Settings/DeleteAccountButton";
 import EmailLimitButton from "../components/Settings/EmailLimitButton";
 import NotificationCadenceButton from "../components/Settings/NotificationCadenceButton";
-import ParametersButton from "../components/Settings/ParametersButton";
+import EmailDataButton from "../components/Settings/EmailDataButton";
 import RankingButton from "../components/Settings/RankingButton";
 import { GlobalStyles } from "../constants/styles";
 
@@ -46,7 +46,7 @@ const SettingsScreen = () => {
         <DateRangeButton />
         <EmailLimitButton />
         <NotificationCadenceButton />
-        <ParametersButton />
+        <EmailDataButton />
         <RankingButton />
         <View style={styles.deleteContainer}>
           <DeleteAccountButton />
