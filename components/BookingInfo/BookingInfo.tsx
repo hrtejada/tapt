@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { StyleSheet, View } from "react-native";
 import { useUserContext } from "../../store/user-context";
 import HeaderOne from "../ui/HeaderOne";
@@ -5,29 +6,35 @@ import BookingStats from "./BookingStats";
 import BookingStatus from "./BookingStatus";
 
 /**
- * Booking Info component.
+ * BookingInfo Component.
  *
- * Displays any relevant information pertaining to booking.
+ * This component renders info related to the Users booking session.
  *
- * @version 0.1.1
+ * @component
+ * @version 0.2.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const BookingInfo = () => {
   const { state } = useUserContext();
-  const startDate = state.startDate;
-  const endDate = state.endDate;
 
-  const now = new Date();
-  // TODO: Different way to TS this?
-  const options = {
+  // Display the Booking Date Range in nice format
+  // TODO: Rework to be useful internationally??
+  const options: Intl.DateTimeFormatOptions = {
     // weekday: "short" as "short",
-    year: "2-digit" as "2-digit",
-    month: "numeric" as "numeric",
-    day: "numeric" as "numeric",
+    year: "2-digit",
+    month: "numeric",
+    day: "numeric",
   };
-  const startDateDisplay = startDate.toLocaleDateString("en-US", options);
-  const endDateDisplay = endDate.toLocaleDateString("en-US", options);
-  const isBooking = now >= startDate && now < endDate;
+  const startDateDisplay = useMemo(
+    () => state.startDate.toLocaleDateString("en-US", options),
+    [state.startDate]
+  );
+  const endDateDisplay = useMemo(
+    () => state.endDate.toLocaleDateString("en-US", options),
+    [state.endDate]
+  );
+  const now = new Date();
+  const isBooking = now >= state.startDate && now < state.endDate;
 
   return (
     <View style={styles.row}>

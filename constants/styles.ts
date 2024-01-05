@@ -1,17 +1,21 @@
+/**
+ * Styles Constants.
+ *
+ * Color palette for the app.
+ *
+ * Main colors and then we can build shades/tints off of them
+ *  - PRIMARY
+ *  - SECONDARY
+ *  - TERTIARY
+ *  - DISABLED
+ *  - ENABLED
+ *  - SUCCESS
+ *  - WARNING
+ *  - ACCENT
+ *  - BACKGROUND
+ *  - ACTION?
+ */
 export const GlobalStyles = {
-  /**
-   * Need the following main colors and then we can build shades/tints off of them
-   *  - PRIMARY
-   *  - SECONDARY
-   *  - TERTIARY
-   *  - DISABLED
-   *  - ENABLED
-   *  - SUCCESS
-   *  - WARNING
-   *  - ACCENT
-   *  - BACKGROUND
-   *  - ACTION?
-   */
   /****** V1 ******/
   // colors: {
   //   primary300: "#806064",
@@ -62,26 +66,60 @@ export const GlobalStyles = {
   //   warning: "hsl(1, 100%, 29%)",
   // },
   /****** V3 ******/
+  // colors: {
+  //   text: "hsl(70, 60%, 2%)",
+  //   background100: "hsl(240, 7%, 100%)",
+  //   background200: "hsl(240, 7%, 96%)",
+  //   background300: "hsl(240, 7%, 92%)",
+  //   primary300: "hsl(246, 56%, 86%)",
+  //   primary400: "hsl(246, 56%, 82%)",
+  //   primary500: "hsl(246, 56%, 78%)",
+  //   primary600: "hsl(246, 56%, 74%)",
+  //   primary700: "hsl(246, 56%, 70%)",
+  //   secondary300: "hsl(65, 57%, 96%)",
+  //   secondary400: "hsl(65, 57%, 92%)",
+  //   secondary500: "hsl(65, 57%, 88%)",
+  //   secondary600: "hsl(65, 57%, 84%)",
+  //   secondary700: "hsl(65, 57%, 80%)",
+  //   accent300: "hsl(245, 56%, 56%)",
+  //   accent400: "hsl(245, 56%, 52%)",
+  //   accent500: "hsl(245, 56%, 48%)",
+  //   accent600: "hsl(245, 56%, 44%)",
+  //   accent700: "hsl(245, 56%, 40%)",
+  //   success500: "hsl(129, 57%, 33%)",
+  //   success700: "hsl(129, 57%, 25%)",
+  //   warning500: "hsl(343, 100%, 53%)",
+  //   warning700: "hsl(343, 100%, 45%)",
+  // },
+  /****** V4 ******/
   colors: {
-    text: "hsl(70, 60%, 2%)",
-    background100: "hsl(240, 7%, 100%)",
-    background200: "hsl(240, 7%, 96%)",
-    background300: "hsl(240, 7%, 92%)",
-    primary300: "hsl(246, 56%, 86%)",
-    primary400: "hsl(246, 56%, 82%)",
-    primary500: "hsl(246, 56%, 78%)",
-    primary600: "hsl(246, 56%, 74%)",
-    primary700: "hsl(246, 56%, 70%)",
-    secondary300: "hsl(65, 57%, 96%)",
-    secondary400: "hsl(65, 57%, 92%)",
-    secondary500: "hsl(65, 57%, 88%)",
-    secondary600: "hsl(65, 57%, 84%)",
-    secondary700: "hsl(65, 57%, 80%)",
-    accent300: "hsl(245, 56%, 56%)",
-    accent400: "hsl(245, 56%, 52%)",
-    accent500: "hsl(245, 56%, 48%)",
-    accent600: "hsl(245, 56%, 44%)",
-    accent700: "hsl(245, 56%, 40%)",
+    text: "hsl(168, 45%, 2%)",
+    black200: "hsl(168, 45%, 2%)",
+    black300: "hsl(168, 45%, 7%)",
+    black500: "hsl(168, 45%, 12%)",
+    black600: "hsl(168, 45%, 17%)",
+    black700: "hsl(168, 45%, 22%)",
+    background100: "hsl(150, 40%, 100%)",
+    background200: "hsl(150, 40%, 98%)",
+    background300: "hsl(150, 40%, 94%)",
+    background400: "hsl(150, 40%, 90%)",
+    background500: "hsl(150, 40%, 85%)",
+    background600: "hsl(150, 40%, 80%)",
+    primary300: "hsl(160, 38%, 43%)",
+    primary400: "hsl(160, 38%, 48%)",
+    primary500: "hsl(160, 38%, 53%)",
+    primary600: "hsl(160, 38%, 58%)",
+    primary700: "hsl(160, 38%, 63%)",
+    secondary300: "hsl(263, 38%, 62%)",
+    secondary400: "hsl(263, 38%, 67%)",
+    secondary500: "hsl(263, 38%, 72%)",
+    secondary600: "hsl(263, 38%, 77%)",
+    secondary700: "hsl(263, 38%, 82%)",
+    accent300: "hsl(297, 38%, 54%)",
+    accent400: "hsl(297, 38%, 59%)",
+    accent500: "hsl(297, 38%, 64%)",
+    accent600: "hsl(297, 38%, 69%)",
+    accent700: "hsl(297, 38%, 74%)",
     success500: "hsl(129, 57%, 33%)",
     success700: "hsl(129, 57%, 25%)",
     warning500: "hsl(343, 100%, 53%)",

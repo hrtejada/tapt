@@ -1,13 +1,16 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import SettingsContainer from "../../components/Settings/SettingsContainer";
 import Button from "../../components/ui/Button";
 import { GlobalStyles } from "../../constants/styles";
 import { DELETE_ACCOUNT, DELETE_TITLE } from "../../constants/words";
 
 /**
- * Screen containing the account deletion functionality.
+ * DeleteAccountScreen Component.
  *
- * @version 0.2.0
+ * This component renders a screen containing the account deletion setting.
+ *
+ * @component
+ * @version 0.3.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const DeleteAccountScreen = () => {
@@ -22,11 +25,12 @@ const DeleteAccountScreen = () => {
     >
       <View style={styles.deleteContainer}>
         <Button
+          title={"Delete Account"}
+          type={"primary"}
           onPress={deleteAccountHandler}
-          buttonStyle={styles.deleteButton}
-          textStyle={styles.deleteText}
+          style={styles.deleteButton}
         >
-          {DELETE_TITLE.toUpperCase()}
+          <Text style={styles.text}>{DELETE_TITLE.toUpperCase()}</Text>
         </Button>
       </View>
     </SettingsContainer>
@@ -44,9 +48,10 @@ const styles = StyleSheet.create({
   deleteButton: {
     backgroundColor: GlobalStyles.colors.warning500,
   },
-  deleteText: {
+  text: {
     color: "white",
     fontSize: 24,
     fontWeight: "bold",
+    textAlign: "center",
   },
 });

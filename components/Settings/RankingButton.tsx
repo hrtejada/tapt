@@ -6,8 +6,11 @@ import { RankModeStackProps } from "../../util/react-navigation";
 import FlatButton from "./FlatButton";
 
 /**
- * Button used to navigate to the RankModeScreen.
+ * RankingButton Component.
  *
+ * This component renders a flat button used to navigate to the RankingScreen.
+ *
+ * @component
  * @version 0.1.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */

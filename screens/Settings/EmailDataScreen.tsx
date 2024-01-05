@@ -6,30 +6,38 @@ import ParameterModal from "../../components/Settings/Parameters/ParameterModal"
 import Parameters from "../../components/Settings/Parameters/Parameters";
 import SettingsContainer from "../../components/Settings/SettingsContainer";
 import { GlobalStyles } from "../../constants/styles";
-import { PARAMETERS, TYPES } from "../../constants/words";
+import { PARAMETERS, USER_ACTION_TYPES } from "../../constants/words";
 import { useUserContext } from "../../store/user-context";
 import { validateParameter } from "../../util/parameterHelpers";
 
 /**
- * Component for the parameters setting.
+ * EmailDataScreen Component.
+ *
+ * This component renders the screen for the email data settings.
+ * Currently the settings are: email header, and email parameters.
+ *
+ * This is what we search for to help determine what emails to pull.
  *
  * TODO: Determine where to validate TextInput
  * TODO: Restyle this screen 🐱‍👤
  *
- * @version 0.2.2
+ * @component
+ * @version 0.3.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
-const ParametersScreen = () => {
+const EmailDataScreen = () => {
   const { state, dispatch } = useUserContext();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [newParameter, setNewParameter] = useState("");
 
   /**
-   * Add the parameter to the user's parameters array.
+   * Handle adding a parameter.
+   *
+   * This function adds the parameter to the User's parameters array.
    *
    * Dismiss the Modal and reset the TextInput
    */
-  const addParamHandler = () => {
+  const handleAddParam = () => {
     // Convert to lowercase so keys match up when retrieving on EmailScreen
     const newParameter_LC = newParameter.toLowerCase();
 
@@ -51,7 +59,7 @@ const ParametersScreen = () => {
     }
 
     // Do Backend stuff...
-    dispatch({ type: TYPES.ADD, payload: newParameter_LC });
+    dispatch({ type: USER_ACTION_TYPES.ADD, payload: newParameter_LC });
     setIsModalVisible(false);
     setNewParameter("");
   };
@@ -63,7 +71,7 @@ const ParametersScreen = () => {
         param={newParameter}
         modalHandler={setIsModalVisible}
         setParam={setNewParameter}
-        submitParam={addParamHandler}
+        submitParam={handleAddParam}
       />
       <HeaderInput />
       <Parameters />
@@ -78,7 +86,7 @@ const ParametersScreen = () => {
           <FontAwesome5
             name="plus"
             size={36}
-            color={GlobalStyles.colors.background100}
+            color={GlobalStyles.colors.background400}
           />
         </Pressable>
       </View>
@@ -86,7 +94,7 @@ const ParametersScreen = () => {
   );
 };
 
-export default ParametersScreen;
+export default EmailDataScreen;
 
 const styles = StyleSheet.create({
   buttonContainer: {

@@ -1,8 +1,9 @@
+import React, { useMemo } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { ACCEPTED, REJECTED } from "../../constants/words";
-import BookingNumberCard from "./BookingNumberCard";
-import { useUserContext } from "../../store/user-context";
 import { GlobalStyles } from "../../constants/styles";
+import { STATUS } from "../../constants/words";
+import { useUserContext } from "../../store/user-context";
+import BookingNumberCard from "./BookingNumberCard";
 
 interface Props {
   accepted: number;
@@ -10,32 +11,48 @@ interface Props {
 }
 
 /**
- * Component to display the stat components of the most recent booking session.
+ * BookingStats Component.
+ *
+ * This component renders the stats of the most recent booking session.
  *
  * TODO: Rework this; I don't like the current display
  *
- * @version 0.1.4
+ * @component
+ * @version 0.2.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
-const BookingStats = ({ accepted, rejected }: Props) => {
+const BookingStats = React.memo(({ accepted, rejected }: Props) => {
   const { state } = useUserContext();
 
-  const total = accepted + rejected;
+  const total = useMemo(() => accepted + rejected, [accepted, rejected]); // Used to help get percentage
+  const limitDisplay = `Current Limit: ${
+    state.limit === "0" ? "∞" : state.limit
+  }`;
 
   return (
     <View style={styles.container}>
       <View style={styles.cardContainer}>
-        <BookingNumberCard title={ACCEPTED} value={accepted} total={total} />
-        <BookingNumberCard title={REJECTED} value={rejected} total={total} />
+        <BookingNumberCard
+          title={STATUS.ACCEPTED}
+          value={accepted}
+          total={total}
+        />
+        <BookingNumberCard
+          title={STATUS.REJECTED}
+          value={rejected}
+          total={total}
+        />
       </View>
-      <View style={styles.limitContainer}>
-        <Text style={styles.text}>
-          Current Limit: {state.limit === "0" ? "∞" : state.limit}
-        </Text>
+      <View
+        style={styles.limitContainer}
+        accessibilityRole="text"
+        accessibilityHint={limitDisplay}
+      >
+        <Text style={styles.text}>{limitDisplay}</Text>
       </View>
     </View>
   );
-};
+});
 
 export default BookingStats;
 
@@ -44,18 +61,19 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   cardContainer: {
-    // flex: 4,
     flexDirection: "row",
   },
   limitContainer: {
-    // flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: GlobalStyles.colors.accent300,
-    marginHorizontal: "25%",
+    alignSelf: "center",
+    backgroundColor: GlobalStyles.colors.accent600,
+    paddingHorizontal: 24,
     borderBottomStartRadius: 8,
     borderBottomEndRadius: 8,
-    padding: 6,
+    paddingVertical: 6,
+    maxWidth: "80%",
+    minWidth: 200,
   },
   text: {
     fontSize: 20,

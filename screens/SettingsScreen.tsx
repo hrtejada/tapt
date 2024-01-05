@@ -5,14 +5,16 @@ import DateRangeButton from "../components/Settings/DateRangeButton";
 import DeleteAccountButton from "../components/Settings/DeleteAccountButton";
 import EmailLimitButton from "../components/Settings/EmailLimitButton";
 import NotificationCadenceButton from "../components/Settings/NotificationCadenceButton";
-import ParametersButton from "../components/Settings/ParametersButton";
+import EmailDataButton from "../components/Settings/EmailDataButton";
 import RankingButton from "../components/Settings/RankingButton";
 import { GlobalStyles } from "../constants/styles";
 
 /**
- * Settings Screen where the user can perform various actions.
+ * SettingsScreen Component.
  *
- * The user can
+ * This component renders the main Settings Screen where the User can perform various actions.
+ *
+ * The User can
  *  - Logout
  *  - Set how often the receive notifications
  *  - Set what data to parse from what emails
@@ -21,9 +23,9 @@ import { GlobalStyles } from "../constants/styles";
  *  - Delete their account
  *
  * TODO: Need to user test the swiping back gesture when in this Stack (Keep or disabled)
- * TODO: Need ot add Email Header setting!!!!!
  *
- * @version 0.3.2
+ * @component
+ * @version 0.3.3
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const SettingsScreen = () => {
@@ -39,12 +41,12 @@ const SettingsScreen = () => {
         },
       ]}
     >
-      <ScrollView>
+      <ScrollView style={styles.scrollContainer}>
         <AboutButton />
         <DateRangeButton />
         <EmailLimitButton />
         <NotificationCadenceButton />
-        <ParametersButton />
+        <EmailDataButton />
         <RankingButton />
         <View style={styles.deleteContainer}>
           <DeleteAccountButton />
@@ -61,7 +63,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: GlobalStyles.colors.background300,
   },
+  scrollContainer: {
+    marginHorizontal: 16,
+    marginTop: 8,
+  },
   deleteContainer: {
-    marginTop: 4,
+    marginTop: 24,
   },
 });

@@ -3,7 +3,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
-import { TYPES } from "../../constants/words";
+import { USER_ACTION_TYPES } from "../../constants/words";
 import { useUserContext } from "../../store/user-context";
 import { DUMMY_EMAILS } from "../../testData/DUMMY_DATA";
 import { EmailStackProps } from "../../util/react-navigation";
@@ -12,12 +12,13 @@ import HeaderOne from "../ui/HeaderOne";
 import UnreadCountCard from "./UnreadCountCard";
 
 /**
- * Email Info Component.
+ * EmailInfo Component.
  *
- * Button that displays the current unread count. Tapping button
- * takes user to the EmailScreen.
+ * This component renders a button the displays the current Unread Count and
+ * navigates to the Email Screen when pressed.
  *
- * @version 0.2.1
+ * @component
+ * @version 0.2.2
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const EmailInfo = () => {
@@ -26,11 +27,16 @@ const EmailInfo = () => {
 
   // TODO: Is this where we call the Gmail servers periodically to retrieve the new unreadCount??
   useEffect(() => {
-    dispatch({ type: TYPES.UNREAD_COUNT, payload: DUMMY_EMAILS.length });
+    dispatch({
+      type: USER_ACTION_TYPES.UNREAD_COUNT,
+      payload: DUMMY_EMAILS.length,
+    });
   }, [dispatch, DUMMY_EMAILS.length]);
 
   /**
-   * Navigate to the Email Screen.
+   * Handle the press event on the Email button.
+   *
+   * Navigate the User to the Email Screen.
    */
   const emailPressHandler = () => {
     navigation.navigate("Email", { action: "new" });
@@ -45,6 +51,7 @@ const EmailInfo = () => {
         onPress={emailPressHandler}
         type="primary"
         style={styles.buttonContainer}
+        disabled={state.unreadCount === 0}
       >
         <View style={styles.innerContainer}>
           <UnreadCountCard unreadCount={state.unreadCount} />
@@ -82,8 +89,5 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "space-around",
     alignItems: "center",
-  },
-  pressed: {
-    backgroundColor: GlobalStyles.colors.primary700,
   },
 });

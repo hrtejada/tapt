@@ -1,15 +1,18 @@
-import { StyleSheet, View } from "react-native";
-import { GlobalStyles } from "../../constants/styles";
-import { ACCEPT, REJECT } from "../../constants/words";
-import { useUserContext } from "../../store/user-context";
-import Button from "../ui/Button";
-import IconButton from "../ui/IconButton";
-import RankButtons from "./RankButtons";
+import { FontAwesome5, MaterialIcons } from "@expo/vector-icons";
 import { useState } from "react";
+import { Dimensions, StyleSheet, View } from "react-native";
+import { GlobalStyles } from "../../constants/styles";
+import { useUserContext } from "../../store/user-context";
+import AnimatedButton from "../ui/AnimatedButton";
+import RankButtons from "./RankButtons";
 
 interface Props {
+  // rank: number;
   onAccept: () => void;
   onReject: () => void;
+  onQueue: () => void;
+  ranked: boolean; // TODO: Temp to tell the difference between RankedQueue and Regular Email
+  // onRank: (value: number) => void;
 }
 
 /**
@@ -20,31 +23,64 @@ interface Props {
  *
  * TODO: Rework Rank buttons
  *
- * @version 0.2.0
+ * TODO: Come back and fix the buttons. Something going on with containers and flex
+ *
+ * @version 0.3.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
-const EmailButtons = ({ onAccept, onReject }: Props) => {
+const EmailButtons = ({ onAccept, onReject, onQueue, ranked }: Props) => {
   const { state } = useUserContext();
-  const [rank, setRank] = useState(0);
 
-  const rankButtonPress = (value: number) => {
-    setRank(value);
-  };
+  // const rankButtonPress = (value: number) => {
+  //   onRank(value);
+  // };
+
+  // Using this because using StyleSheet wasn't working properly
+  const windowWidth = Dimensions.get("window").width;
+  const buttonWidth = { width: windowWidth / 3 };
+
+  const acceptButton = (
+    <AnimatedButton
+      title="Accept"
+      onPress={onAccept}
+      style={[styles.button, styles.acceptButton, buttonWidth]}
+    >
+      <FontAwesome5 name="check" size={72} color={GlobalStyles.colors.text} />
+    </AnimatedButton>
+  );
+
+  const rejectButton = (
+    <AnimatedButton
+      title="Reject"
+      onPress={onReject}
+      style={[styles.button, styles.rejectButton, buttonWidth]}
+    >
+      <FontAwesome5 name="times" size={72} color={GlobalStyles.colors.text} />
+    </AnimatedButton>
+  );
+
+  let leftMajorButtonDisplay = state.inRankMode ? (
+    <AnimatedButton
+      title="QUEUE"
+      onPress={onQueue}
+      style={[styles.button, styles.queueButton, buttonWidth]}
+    >
+      <MaterialIcons name="queue" size={64} color="black" />
+    </AnimatedButton>
+  ) : (
+    acceptButton
+  );
+
+  if (ranked) {
+    leftMajorButtonDisplay = acceptButton;
+  }
+
   return (
     <View style={styles.rootContainer}>
-      {state.isRanking && <RankButtons rank={rank} onPress={rankButtonPress} />}
+      {state.isRanking && <RankButtons />}
       <View style={styles.innerContainer}>
-        {!state.inRankMode && <IconButton type={ACCEPT} onPress={onAccept} />}
-        {state.inRankMode && (
-          <Button
-            title="QUEUE"
-            style={styles.queueButton}
-            onPress={onAccept}
-            disabled={rank === 0}
-            type="secondary"
-          />
-        )}
-        <IconButton type={REJECT} onPress={onReject} />
+        {leftMajorButtonDisplay}
+        {rejectButton}
       </View>
     </View>
   );
@@ -61,10 +97,19 @@ const styles = StyleSheet.create({
   innerContainer: {
     flex: 1,
     flexDirection: "row",
-    justifyContent: "space-evenly",
-    alignItems: "center",
+    justifyContent: "space-around",
+    marginTop: 4,
+  },
+  button: {
+    borderRadius: 25,
   },
   queueButton: {
     backgroundColor: GlobalStyles.colors.secondary500,
+  },
+  acceptButton: {
+    backgroundColor: GlobalStyles.colors.success500,
+  },
+  rejectButton: {
+    backgroundColor: GlobalStyles.colors.warning500,
   },
 });

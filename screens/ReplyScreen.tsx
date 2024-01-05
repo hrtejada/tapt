@@ -1,39 +1,51 @@
 import { useState } from "react";
-import {
-  KeyboardAvoidingView,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import Button from "../components/ui/Button";
-import HeaderTwo from "../components/ui/HeaderTwo";
-import InfoChip from "../components/ui/InfoChip";
+import { StyleSheet } from "react-native";
+import RQ_Info from "../components/Reply-Queue/RQ_Info";
+import NoteDisplay from "../components/Reply-Queue/NoteDisplay";
+import ParameterDisplay from "../components/Reply-Queue/ParameterDisplay";
+import RQ_Buttons from "../components/Reply-Queue/RQ_Buttons";
+import RQ_Container from "../components/Reply-Queue/RQ_Container";
 import { GlobalStyles } from "../constants/styles";
-import { ACCEPT } from "../constants/words";
-import { useUserContext } from "../store/user-context";
+import {
+  EMAIL_ACTIONS,
+  RANKED_ACTION_TYPES,
+  USER_ACTION_TYPES,
+} from "../constants/words";
 import { DUMMY_EMAILS } from "../testData/DUMMY_DATA";
 import { ReplyStackProps } from "../util/react-navigation";
+import { useUserContext } from "../store/user-context";
+import { useRankedContext } from "../store/ranked-context";
 
 /**
  * Component that will help the user build an simple email reply.
  *
  * TODO: Change how note State works to add validation/cleansing.
  *
- * @version 0.2.1
+ * @version 0.3.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const ReplyScreen = ({ route, navigation }: ReplyStackProps) => {
-  const insets = useSafeAreaInsets();
-  const { state } = useUserContext();
   const mode = route.params?.mode;
 
   const [note, setNote] = useState("");
   const [selected, setSelected] = useState<string[]>([]);
+  const { state: userState, dispatch: userDispatch } = useUserContext();
+  const { state: rankedState, dispatch: rankedDispatch } = useRankedContext();
 
-  const parameters = state.parameters;
+  let backgroundStyle;
+
+  switch (mode) {
+    case EMAIL_ACTIONS.ACCEPT:
+    case EMAIL_ACTIONS.RANKED_ACCEPT:
+      backgroundStyle = { backgroundColor: GlobalStyles.colors.success500 };
+      break;
+    case EMAIL_ACTIONS.REJECT:
+    case EMAIL_ACTIONS.RANKED_REJECT:
+      backgroundStyle = { backgroundColor: GlobalStyles.colors.warning500 };
+      break;
+    default:
+      break;
+  }
 
   /**
    * Handles the reply functionality.
@@ -42,21 +54,24 @@ const ReplyScreen = ({ route, navigation }: ReplyStackProps) => {
    * Navigate back to the Email Screen.
    */
   const replyHandler = () => {
-    /*
-    Create email template and include the selected parameters and note.
-    Send the email via Gmail API
-    */
+    // TODO: Create email template and include the selected parameters and note. Send the email via Gmail API
     console.log("Selected params:", selected); // See the selected params
     console.log("Note:", note); // See the note
-    DUMMY_EMAILS.shift(); // TODO: Just for testing; Shouldn't need this when retrieving one email at a time from API
-    navigation.navigate("Email", { action: "next" });
-  };
 
-  /**
-   * Navigate back one screen on the Stack
-   */
-  const cancleHandler = () => {
-    navigation.pop();
+    if (mode === EMAIL_ACTIONS.RANKED_ACCEPT && route.params.messageId) {
+      rankedDispatch({
+        type: RANKED_ACTION_TYPES.REMOVE_EMAIL,
+        payload: route.params.messageId,
+      });
+      navigation.navigate("Ranked");
+    } else {
+      DUMMY_EMAILS.shift(); // TODO: Just for testing; Shouldn't need this when retrieving one email at a time from API
+      userDispatch({
+        type: USER_ACTION_TYPES.UNREAD_COUNT,
+        payload: DUMMY_EMAILS.length,
+      });
+      navigation.navigate("Email", { action: "next" });
+    }
   };
 
   /**
@@ -75,102 +90,22 @@ const ReplyScreen = ({ route, navigation }: ReplyStackProps) => {
     });
   };
 
+  const noteHandler = (note: string) => {
+    setNote(note);
+  };
+
   return (
-    <View
-      style={[
-        styles.rootContainer,
-        {
-          backgroundColor:
-            mode === ACCEPT
-              ? GlobalStyles.colors.success500
-              : GlobalStyles.colors.warning500,
-          paddingBottom: insets.bottom,
-          paddingLeft: insets.left,
-          paddingRight: insets.right,
-        },
-      ]}
-    >
-      <ScrollView style={styles.innerContainer}>
-        <HeaderTwo>Modify Reply Message:</HeaderTwo>
-        <Text style={styles.paramText}>
-          Select parameters to mention in message
-        </Text>
-        <View style={styles.chipContainer}>
-          {parameters.map((parameter) => (
-            <InfoChip
-              key={parameter}
-              text={parameter}
-              onPress={chipPressHandler}
-            />
-          ))}
-        </View>
-        <KeyboardAvoidingView>
-          <View style={styles.noteContainer}>
-            <TextInput
-              style={styles.noteInput}
-              value={note}
-              keyboardType="default"
-              maxLength={255}
-              multiline
-              numberOfLines={4}
-              onChangeText={setNote}
-              placeholder="Add notes..."
-            />
-          </View>
-        </KeyboardAvoidingView>
-        <View style={styles.buttonsContainer}>
-          <Button title="Send" onPress={replyHandler} type="primary" />
-          <Button title="Cancel" onPress={cancleHandler} type="secondary" />
-        </View>
-      </ScrollView>
-    </View>
+    <RQ_Container rootStyle={backgroundStyle}>
+      <RQ_Info header="Modify Reply Message:">
+        Optional: Select parameters to mention in message
+      </RQ_Info>
+      <ParameterDisplay onChipPress={chipPressHandler} />
+      <NoteDisplay note={note} onNoteChange={noteHandler} />
+      <RQ_Buttons actionButtonText="Send" actionHandler={replyHandler} />
+    </RQ_Container>
   );
 };
 
 export default ReplyScreen;
 
-const styles = StyleSheet.create({
-  rootContainer: {
-    flex: 1,
-  },
-  innerContainer: {
-    margin: 6,
-    paddingHorizontal: 12,
-    paddingVertical: 24,
-    backgroundColor: GlobalStyles.colors.background300,
-    borderWidth: 2,
-    borderColor: GlobalStyles.colors.text,
-    borderTopStartRadius: 8,
-    borderTopEndRadius: 8,
-    borderBottomStartRadius: 16,
-    borderBottomEndRadius: 16,
-  },
-  paramText: {
-    fontSize: 20,
-    textAlign: "center",
-    paddingTop: 8,
-    fontStyle: "italic",
-  },
-  chipContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "center",
-    margin: 16,
-  },
-  buttonsContainer: {
-    flexDirection: "row",
-  },
-  noteContainer: {
-    flexDirection: "row",
-    backgroundColor: GlobalStyles.colors.secondary700,
-    marginVertical: 16,
-  },
-  noteInput: {
-    flex: 1,
-    height: 255,
-    padding: 10,
-    margin: 4,
-    backgroundColor: GlobalStyles.colors.background100,
-    fontSize: 18,
-  },
-});
+const styles = StyleSheet.create({});

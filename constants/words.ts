@@ -2,13 +2,20 @@
  * Constants used in multiple locations to avoid typos
  */
 
-// IconButton
-export const ACCEPT = "ACCEPT";
-export const REJECT = "REJECT";
+// Email Button Actions
+export enum EMAIL_ACTIONS {
+  ACCEPT = "ACCEPT",
+  REJECT = "REJECT",
+  QUEUE = "QUEUE",
+  RANKED_ACCEPT = "RANKED_ACCEPT",
+  RANKED_REJECT = "RANKED_REJECT",
+}
 
 // BookingNumberCard, BookingStats
-export const ACCEPTED = "ACCEPTED";
-export const REJECTED = "REJECTED";
+export enum STATUS {
+  ACCEPTED = "ACCEPTED",
+  REJECTED = "REJECTED",
+}
 
 // BookingStatus
 export const ACTIVE = "ACTIVE";
@@ -23,7 +30,7 @@ export const DATE_RANGE_TITLE = "Date Range";
 export const DELETE_TITLE = "Delete Account";
 export const EMAIL_LIMIT_TITLE = "Email Limit";
 export const NOTIFICATION_TITLE = "Notification Cadence";
-export const PARAMETERS_TITLE = "Parameters";
+export const EMAIL_DATA_TITLE = "Email Data";
 export const RANKING_TITLE = "Ranking";
 
 /***** SETTINGS DETAILS *****/
@@ -42,7 +49,7 @@ export const DELETE_ACCOUNT = {
 };
 export const EMAIL_LIMIT = {
   header: "Limit accepted emails",
-  info: "Change the amount of emails you would like to accept for the booking window (0 = No limit)",
+  info: "Change the amount of emails you would like to accept for the booking window",
 };
 export const NOTIFICATION_CADENCE = {
   header: "Set data retrieval cadence",
@@ -58,7 +65,7 @@ export const RANKING = {
 };
 
 /***** NOTIFICATION CADENCE VALUES *****/
-export enum OPTIONS {
+export enum NOTIFICATION_OPTIONS {
   OFF,
   ONE_HOUR,
   THREE_HOURS,
@@ -66,8 +73,8 @@ export enum OPTIONS {
   TWELVE_HOURS,
 }
 
-/***** CONTEXT/REDUCER *****/
-export enum TYPES {
+/***** USER CONTEXT *****/
+export enum USER_ACTION_TYPES {
   USER_ID = "SET_USER_ID",
   UNREAD_COUNT = "UPDATE_UNREAD_COUNT",
   ACCEPTED = "UPDATE_ACCEPTED",
@@ -83,4 +90,13 @@ export enum TYPES {
   RANKING_OFF = "SWITCH_RANKING_OFF",
   RANK_MODE_ON = "RANK_MODE_ON",
   RANK_MODE_OFF = "RANK_MODE_OFF",
+}
+
+/***** RANKED CONTEXT *****/
+export enum RANKED_ACTION_TYPES {
+  USER_ID = "SET_USER_ID",
+  TEMP_RANK = "SET_TEMP_RANK",
+  RANKED_EMAILS = "SET_RANKED_EMAILS",
+  ADD_EMAIL = "ADD_RANKED_EMAIL",
+  REMOVE_EMAIL = "REMOVE_RANKED_EMAIL",
 }

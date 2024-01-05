@@ -6,8 +6,11 @@ import { DeleteAccountStackProps } from "../../util/react-navigation";
 import FlatButton from "./FlatButton";
 
 /**
- * Component that holds the button to navigate to the DeleteAccounScreen.
+ * DeleteAccountButton Component.
  *
+ * This component renders a flat button used to navigate to the DeleteAccounScreen.
+ *
+ * @component
  * @version 0.2.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */

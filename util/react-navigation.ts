@@ -7,6 +7,7 @@ import {
   ABOUT_TITLE,
   DATE_RANGE_TITLE,
   DELETE_TITLE,
+  EMAIL_DATA_TITLE,
   EMAIL_LIMIT_TITLE,
   NOTIFICATION_TITLE,
 } from "../constants/words";
@@ -16,7 +17,7 @@ import {
  *
  * TODO: Refine the difference between NativeStackScreenProps & NativeStackNavigationProps
  *
- * @version 0.1.1
+ * @version 0.1.2
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 export type HomeStackParamList = {
@@ -25,7 +26,11 @@ export type HomeStackParamList = {
   Ranked: undefined;
   Image: { image: string };
   Login: undefined;
-  Reply: { mode: string } | undefined;
+  Reply: {
+    mode: "ACCEPT" | "REJECT" | "RANKED_ACCEPT" | "RANKED_REJECT";
+    messageId?: string;
+  };
+  Queue: { name: string; email: string; rank: number; messageId: string };
   Settings: undefined;
 };
 
@@ -34,7 +39,7 @@ export type SettingsStackParamList = {
   Delete: undefined;
   EmailLimit: undefined;
   DateRange: undefined;
-  Parameters: undefined;
+  EmailData: undefined;
   NotificationCadence: undefined;
   Ranking: undefined;
   About: undefined;
@@ -49,6 +54,10 @@ export type EmailStackProps = NativeStackScreenProps<
 export type ReplyStackProps = NativeStackScreenProps<
   HomeStackParamList,
   "Reply"
+>;
+export type QueueStackProps = NativeStackScreenProps<
+  HomeStackParamList,
+  "Queue"
 >;
 export type ImageStackProps = NativeStackScreenProps<
   HomeStackParamList,
@@ -76,9 +85,9 @@ export type DateRangeStackProps = NativeStackScreenProps<
   SettingsStackParamList,
   "DateRange"
 >;
-export type ParametersStackProps = NativeStackScreenProps<
+export type EmailDataStackProps = NativeStackScreenProps<
   SettingsStackParamList,
-  "Parameters"
+  "EmailData"
 >;
 export type NotificationCadenceStackProps = NativeStackScreenProps<
   SettingsStackParamList,
@@ -108,10 +117,11 @@ export const getHeaderTitle = (route: Partial<Route<string>>) => {
 
   switch (routeName) {
     case ABOUT_TITLE:
-    case "Parameters":
     case "Ranking":
     case "Settings":
       return routeName;
+    case "EmailData":
+      return EMAIL_DATA_TITLE;
     case "DateRange":
       return DATE_RANGE_TITLE;
     case "Delete":

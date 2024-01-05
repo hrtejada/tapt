@@ -8,11 +8,15 @@ interface Props {
 }
 
 /**
- * Component to display text and have a delete funcitonality.
+ * Chip Component.
+ *
+ * This component renders a rounded rectangle that contains text
+ * and has an 'X' button on the right side to serve as a delete funciton.
  *
  * TODO: Extract generic Chip Component and have one for Pressable and one with Deleting
  *
- * @version 0.1.3
+ * @component
+ * @version 0.2.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const Chip = ({ text, onDelete }: Props) => {
@@ -23,11 +27,7 @@ const Chip = ({ text, onDelete }: Props) => {
         style={({ pressed }) => [styles.button, pressed && styles.pressed]}
         onPress={onDelete}
       >
-        <FontAwesome5
-          name="times"
-          size={22}
-          color={GlobalStyles.colors.accent700}
-        />
+        <FontAwesome5 name="times" size={22} color={GlobalStyles.colors.text} />
       </Pressable>
     </View>
   );
@@ -39,23 +39,22 @@ const styles = StyleSheet.create({
   chip: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: GlobalStyles.colors.secondary500,
+    backgroundColor: GlobalStyles.colors.secondary700,
     margin: 4,
     paddingLeft: 10,
-    borderWidth: 1,
-    borderRadius: 3,
+    borderRadius: 8,
     borderColor: GlobalStyles.colors.text,
-    height: 32,
+    overflow: "hidden",
   },
   text: {
     fontWeight: "bold",
     textTransform: "uppercase",
-    paddingRight: 6,
+    paddingRight: 10,
     fontSize: 16,
   },
   button: {
-    backgroundColor: GlobalStyles.colors.primary500,
-    paddingVertical: 5,
+    backgroundColor: GlobalStyles.colors.primary400,
+    paddingVertical: 4,
     paddingHorizontal: 8,
   },
   pressed: {

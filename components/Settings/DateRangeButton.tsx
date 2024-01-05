@@ -6,8 +6,11 @@ import { DateRangeStackProps } from "../../util/react-navigation";
 import FlatButton from "./FlatButton";
 
 /**
- * Button used to navigate to the DateRangeScreen.
+ * DateRangeButton Component.
  *
+ * This component renders a flat button used to navigate to the DateRangeScreen.
+ *
+ * @component
  * @version 0.2.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */

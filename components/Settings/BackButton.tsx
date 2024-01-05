@@ -4,12 +4,15 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
 
 /**
- * Button to navigate back to the SettingsScreen.
+ * BackButton Component.
  *
- * @version 0.2.0
+ * This component renders a button that is used to go back one screen.
+ *
+ * @component
+ * @version 0.2.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
-const GoBackButton = () => {
+const BackButton = () => {
   const navigation = useNavigation();
 
   return (
@@ -25,35 +28,31 @@ const GoBackButton = () => {
   );
 };
 
-export default GoBackButton;
+export default BackButton;
 
 const styles = StyleSheet.create({
   button: {
     alignItems: "center",
-    backgroundColor: GlobalStyles.colors.primary500,
-    borderBottomColor: GlobalStyles.colors.accent300,
-    borderLeftColor: GlobalStyles.colors.accent500,
-    borderRadius: 3,
-    borderRightColor: GlobalStyles.colors.accent300,
-    borderTopColor: GlobalStyles.colors.accent500,
-    borderWidth: 1,
-    margin: 5,
+    backgroundColor: GlobalStyles.colors.secondary500,
+    borderRadius: 4,
+    position: "relative",
+    top: 8,
+    left: 8,
     paddingHorizontal: 8,
     paddingVertical: 4,
     shadowColor: GlobalStyles.colors.text,
     shadowOffset: { width: 1, height: 1 },
-    shadowOpacity: 0.75,
+    shadowOpacity: 0.95,
     shadowRadius: 1,
     width: "25%",
   },
   innerContainer: {
-    alignItems: "center",
     flexDirection: "row",
   },
   buttonText: {
     fontSize: 18,
   },
   pressed: {
-    backgroundColor: GlobalStyles.colors.primary700,
+    backgroundColor: GlobalStyles.colors.secondary700,
   },
 });
