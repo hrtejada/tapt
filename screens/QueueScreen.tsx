@@ -32,10 +32,7 @@ const QueueScreen = ({ navigation, route }: QueueStackProps) => {
    * Add the email to the Ranked Queue.
    * Navigate back to the Email Screen.
    */
-  const queueHandler = () => {
-    console.log("Selected params:", selected); // See the selected params
-    console.log("Note:", note); // See the note
-
+  const handleQueue = () => {
     const payload = {
       messageId: route.params.messageId,
       name: route.params.name,
@@ -87,7 +84,7 @@ const QueueScreen = ({ navigation, route }: QueueStackProps) => {
       </RQ_Info>
       <ParameterDisplay onChipPress={chipPressHandler} />
       <NoteDisplay note={note} onNoteChange={noteHandler} />
-      <RQ_Buttons actionButtonText="Queue" actionHandler={queueHandler} />
+      <RQ_Buttons actionButtonText="Queue" actionHandler={handleQueue} />
     </RQ_Container>
   );
 };

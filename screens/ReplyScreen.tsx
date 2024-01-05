@@ -53,11 +53,8 @@ const ReplyScreen = ({ route, navigation }: ReplyStackProps) => {
    * Send the reply email.
    * Navigate back to the Email Screen.
    */
-  const replyHandler = () => {
+  const handleReply = () => {
     // TODO: Create email template and include the selected parameters and note. Send the email via Gmail API
-    console.log("Selected params:", selected); // See the selected params
-    console.log("Note:", note); // See the note
-
     if (mode === EMAIL_ACTIONS.RANKED_ACCEPT && route.params.messageId) {
       rankedDispatch({
         type: RANKED_ACTION_TYPES.REMOVE_EMAIL,
@@ -65,7 +62,10 @@ const ReplyScreen = ({ route, navigation }: ReplyStackProps) => {
       });
       navigation.navigate("Ranked");
     } else {
+      console.log("Before Shift", DUMMY_EMAILS.length);
       DUMMY_EMAILS.shift(); // TODO: Just for testing; Shouldn't need this when retrieving one email at a time from API
+      console.log("After Shift", DUMMY_EMAILS.length);
+      console.log("-------------------------------------------");
       userDispatch({
         type: USER_ACTION_TYPES.UNREAD_COUNT,
         payload: DUMMY_EMAILS.length,
@@ -101,7 +101,7 @@ const ReplyScreen = ({ route, navigation }: ReplyStackProps) => {
       </RQ_Info>
       <ParameterDisplay onChipPress={chipPressHandler} />
       <NoteDisplay note={note} onNoteChange={noteHandler} />
-      <RQ_Buttons actionButtonText="Send" actionHandler={replyHandler} />
+      <RQ_Buttons actionButtonText="Send" actionHandler={handleReply} />
     </RQ_Container>
   );
 };
