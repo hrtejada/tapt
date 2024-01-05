@@ -39,6 +39,8 @@ import {
   TODO: Go through Context/State and see if it is all needed i.e. Things can be derived
   TODO: Possible closures for the Setting navigation button i.e. DateRangeButton, EmailLimitButton
   TODO: Determine code style for: inline functions, one prop styling, single prop interface
+  TODO: Adding "Loading Spinners" where appropriate
+  TODO: Visual indicator of saving the Settings
  */
 
 const Drawer = createDrawerNavigator(); // TODO: Do we need type checking for this?
@@ -82,6 +84,7 @@ const MainView = () => {
       screenOptions={{
         headerShown: false,
       }}
+      initialRouteName="Home"
     >
       <HomeStack.Screen name="Home" component={HomeScreen} />
       <HomeStack.Group

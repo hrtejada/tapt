@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { Alert, ScrollView, StyleSheet, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import EmailButtons from "../components/Emails/EmailButtons";
 import ImageParameter from "../components/Emails/ImageParameter";
 import SenderInfo from "../components/Emails/SenderInfo";
 import TextParameter from "../components/Emails/TextParameter";
 import LoadingOverlay from "../components/ui/LoadingOverlay";
 import { GlobalStyles } from "../constants/styles";
+import { EMAIL_ACTIONS, RANKED_ACTION_TYPES } from "../constants/words";
+import { useRankedContext } from "../store/ranked-context";
+import { useUserContext } from "../store/user-context";
 import { DUMMY_EMAILS, RANKED_EMAILS } from "../testData/DUMMY_DATA";
 import { EmailStackProps } from "../util/react-navigation";
-import { EMAIL_ACTIONS, RANKED_ACTION_TYPES } from "../constants/words";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useUserContext } from "../store/user-context";
-import { useRankedContext } from "../store/ranked-context";
 
 type emailDynamic = {
   id: string;
@@ -38,6 +38,8 @@ type emailDynamic = {
  *
  * TODO: Once we figure out how Gmail attachments are retrieved we can determine how to check for them and how to figure out typing
  * TODO: Look into handling "'route.params' being undefined" properly
+ * TODO: For TEST DATA, find out why when going through 2 or more emails, somethimes the email stays after sending answer
+ * TODO: See if component needs to be broken up into smaller parts
  *
  * @version 0.2.6
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
@@ -50,7 +52,15 @@ const EmailScreen = ({ route, navigation }: EmailStackProps) => {
   // TODO: Figure out how to dynamically set the useState type!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   const [emailInfo, setEmailInfo] = useState<any>();
   const [isLoading, setIsLoading] = useState(true);
-  // const [rank, setRank] = useState(0);
+
+  // Used to fix reloading issue when coming from Reply|Queue screen more than once
+  const [replyTrigger, setReplyTrigger] = useState(0);
+  useEffect(() => {
+    const focusHandler = navigation.addListener("focus", () => {
+      setReplyTrigger((prev) => prev + 1);
+    });
+    return focusHandler;
+  }, [navigation]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -59,28 +69,21 @@ const EmailScreen = ({ route, navigation }: EmailStackProps) => {
       switch (route.params?.action) {
         case "next":
         case "new":
+          // TODO: See if this is needed
           if (userState.unreadCount === 0) {
-            navigation.pop();
+            navigation.navigate("Home");
           }
           // Use User defined parameters to build the API call to retrieve certain data from email messages
-          /*
-           * id
-           * name
-           * email
-           * UserParams
-           */
           let email = { id: "", name: "", email: "" };
           if (DUMMY_EMAILS.length !== 0) {
+            console.log("DUMMY EMAIL", DUMMY_EMAILS[0]);
+            console.log("--------------------------------------");
             const message: any = DUMMY_EMAILS[0];
-            // console.log("-------------------------------------------------");
-            // console.log(message);
             email.id = message.id;
             email.name = message.name;
             email.email = message.email;
             userState.parameters.map((param: string) => {
               // TODO: Figure out how to dynamically set the message type!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-              // console.log(param);
-              // console.log(message[param]);
               const value = message[param];
               email = {
                 ...email,
@@ -88,10 +91,10 @@ const EmailScreen = ({ route, navigation }: EmailStackProps) => {
               };
             });
           } else {
-            // DO SOMETHING????
-            // email = {};
+            navigation.navigate("Home");
           }
-          type Email = typeof email;
+
+          type Email = typeof email; // TODO: Remember what this is for
 
           if (email === null) {
             setEmailInfo("");
@@ -110,7 +113,6 @@ const EmailScreen = ({ route, navigation }: EmailStackProps) => {
             RANKED_EMAILS[
               RANKED_EMAILS.findIndex((email) => email.id === messageId)
             ];
-          console.log("INSIDE EMAIL SCREEN", rankedEmail);
 
           rankedEmail.id = currentEmail.id;
           rankedEmail.name = currentEmail.name;
@@ -119,8 +121,6 @@ const EmailScreen = ({ route, navigation }: EmailStackProps) => {
 
           userState.parameters.map((param: string) => {
             // TODO: Figure out how to dynamically set the message type!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            // console.log(param);
-            // console.log(message[param]);
             const value = currentEmail[param];
             rankedEmail = {
               ...rankedEmail,
@@ -147,26 +147,29 @@ const EmailScreen = ({ route, navigation }: EmailStackProps) => {
     navigation,
     route.params?.action,
     route.params?.id,
+    replyTrigger,
   ]);
 
   /**
    * Navigate to the Reply - Accept template
    */
-  const acceptHandler = () => {
+  const handleAccept = () => {
     if (emailInfo.hasOwnProperty("rank")) {
       navigation.navigate("Reply", {
         mode: EMAIL_ACTIONS.RANKED_ACCEPT,
         messageId: emailInfo.id,
       });
     } else {
-      navigation.navigate("Reply", { mode: EMAIL_ACTIONS.ACCEPT });
+      navigation.navigate("Reply", {
+        mode: EMAIL_ACTIONS.ACCEPT,
+      });
     }
   };
 
   /**
    * Navigate to the Reply - Reject template
    */
-  const rejectHandler = () => {
+  const handleReject = () => {
     navigation.navigate("Reply", { mode: EMAIL_ACTIONS.REJECT });
   };
 
@@ -175,7 +178,7 @@ const EmailScreen = ({ route, navigation }: EmailStackProps) => {
    *
    * TODO: See about passing data a 'better' way
    */
-  const queueHandler = () => {
+  const handleQueue = () => {
     navigation.navigate("Queue", {
       name: emailInfo.name,
       email: emailInfo.email,
@@ -183,11 +186,6 @@ const EmailScreen = ({ route, navigation }: EmailStackProps) => {
       messageId: emailInfo.id,
     });
   };
-
-  // const rankHandler = (value: number) => {
-  //   // setRank(value);
-  //   rankedDispatch({ type: RANKED_ACTION_TYPES.TEMP_RANK, payload: value });
-  // };
 
   if (isLoading) {
     return <LoadingOverlay />;
@@ -248,9 +246,9 @@ const EmailScreen = ({ route, navigation }: EmailStackProps) => {
         <ScrollView>{renderParameters()}</ScrollView>
       </View>
       <EmailButtons
-        onAccept={acceptHandler}
-        onReject={rejectHandler}
-        onQueue={queueHandler}
+        onAccept={handleAccept}
+        onReject={handleReject}
+        onQueue={handleQueue}
         ranked={emailInfo.hasOwnProperty("rank")}
       />
     </View>
