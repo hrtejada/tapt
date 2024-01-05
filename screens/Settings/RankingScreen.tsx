@@ -3,26 +3,69 @@ import SettingsContainer from "../../components/Settings/SettingsContainer";
 import { GlobalStyles } from "../../constants/styles";
 import { RANKING, USER_ACTION_TYPES } from "../../constants/words";
 import { useUserContext } from "../../store/user-context";
+import { useState } from "react";
+
+interface Props {
+  text: string;
+  value: boolean;
+  onChange: () => void;
+  disabled?: boolean;
+}
+
+const MainSwitch = ({ text, value, onChange, disabled = false }: Props) => {
+  return (
+    <>
+      <Text style={styles.text}>{text}</Text>
+      <Switch
+        thumbColor={GlobalStyles.colors.accent300}
+        ios_backgroundColor={GlobalStyles.colors.background200}
+        trackColor={{
+          false: GlobalStyles.colors.background100,
+          true: GlobalStyles.colors.black600,
+        }}
+        onValueChange={onChange}
+        value={value}
+        disabled={disabled}
+        style={{ borderColor: GlobalStyles.colors.accent300 }}
+      />
+    </>
+  );
+};
 
 /**
- * Component that holds rank mode setting.
+ * RankingScreen Component.
+ *
+ * Thie component renders a screen that holds ranking settings.
+ * Currently the settings are
+ *  - Ranking Enable: On/Off
+ *    - Ranking Mode: On/Off (Dependent on Ranking Enable)
  *
  * TODO: Refine
  * TODO: Add section for 'Rank Mode' description.
  *
- * @version 0.1.4
+ * @component
+ * @version 0.2.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const RankingScreen = () => {
   const { state, dispatch } = useUserContext();
+  const [isRankingEnabled, setIsRankingEnabled] = useState(state.isRanking);
 
+  /**
+   * Function to toggle if User would like to Rank emails.
+   */
   const toggleIsRanking = () => {
     if (state.isRanking) {
       dispatch({ type: USER_ACTION_TYPES.RANKING_OFF });
     } else {
       dispatch({ type: USER_ACTION_TYPES.RANKING_ON });
     }
+    setIsRankingEnabled(!isRankingEnabled);
   };
+
+  /**
+   * Function to toggle is User would like to be in Rank Mode.
+   */
   const toggleRankMode = () => {
     if (state.inRankMode) {
       dispatch({ type: USER_ACTION_TYPES.RANK_MODE_OFF });
@@ -33,29 +76,19 @@ const RankingScreen = () => {
 
   return (
     <SettingsContainer header={RANKING.header} info={RANKING.info}>
-      <View style={styles.rankingContainer}>
-        <Text style={styles.rankingText}>Ranking Enabled</Text>
-        <Switch
-          thumbColor={GlobalStyles.colors.primary500}
-          trackColor={{
-            true: GlobalStyles.colors.accent500,
-            false: GlobalStyles.colors.secondary500,
-          }}
-          onValueChange={toggleIsRanking}
+      <View style={styles.baseContainer}>
+        <MainSwitch
+          text="Ranking Enabled"
           value={state.isRanking}
+          onChange={toggleIsRanking}
         />
       </View>
       {state.isRanking && (
-        <View style={styles.rankModeContainer}>
-          <Text style={styles.rankModeText}>Rank Mode</Text>
-          <Switch
-            thumbColor={GlobalStyles.colors.primary500}
-            trackColor={{
-              true: GlobalStyles.colors.accent500,
-              false: GlobalStyles.colors.secondary500,
-            }}
-            onValueChange={toggleRankMode}
+        <View style={[styles.baseContainer, styles.rankModeContainer]}>
+          <MainSwitch
+            text="Rank Mode"
             value={state.inRankMode}
+            onChange={toggleRankMode}
             disabled={!state.isRanking}
           />
         </View>
@@ -67,32 +100,20 @@ const RankingScreen = () => {
 export default RankingScreen;
 
 const styles = StyleSheet.create({
-  rankingContainer: {
+  baseContainer: {
     flexDirection: "row",
     backgroundColor: GlobalStyles.colors.background200,
     justifyContent: "space-between",
-    marginTop: 24,
     padding: 8,
     alignItems: "center",
-    borderColor: GlobalStyles.colors.accent500,
+    borderColor: GlobalStyles.colors.black200,
     borderWidth: 1,
     borderRadius: 8,
-  },
-  rankingText: {
-    fontSize: 20,
   },
   rankModeContainer: {
-    flexDirection: "row",
-    backgroundColor: GlobalStyles.colors.background200,
-    justifyContent: "space-between",
-    marginTop: 16,
-    padding: 8,
-    alignItems: "center",
-    borderColor: GlobalStyles.colors.accent500,
-    borderWidth: 1,
-    borderRadius: 8,
+    marginTop: 24,
   },
-  rankModeText: {
+  text: {
     fontSize: 20,
   },
 });
