@@ -13,12 +13,15 @@ interface Props {
 }
 
 /**
- * Animated button to give more of a button push feel.
+ * AnimatedButton Component.
+ *
+ * This component renders an animated button to give more of a button push feel.
  *
  * TODO: Maybe make different types of animated buttons?
  * TODO: Style disabled
  *
- * @version 0.2.0
+ * @component
+ * @version 0.3.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const AnimatedButton = ({
@@ -46,14 +49,16 @@ const AnimatedButton = ({
     () => ({
       backgroundColor:
         type === "primary"
-          ? GlobalStyles.colors.primary700
-          : GlobalStyles.colors.secondary700,
+          ? GlobalStyles.colors.primary300
+          : GlobalStyles.colors.secondary300,
     }),
     [type]
   );
 
   /**
-   * Function to scale down the button
+   * Handle the press in.
+   *
+   * Scales the button down when the User presses the button.
    */
   const handlePressIn = () => {
     Animated.timing(scaleValue, {
@@ -64,6 +69,11 @@ const AnimatedButton = ({
     }).start();
   };
 
+  /**
+   * Handle the press out.
+   *
+   * Scales the button back up when the User releases the button.
+   */
   const handlePressOut = () => {
     Animated.timing(scaleValue, {
       toValue: 1,
@@ -103,17 +113,17 @@ export default AnimatedButton;
 const styles = StyleSheet.create({
   button: {
     backgroundColor: GlobalStyles.colors.primary500,
-    padding: 8,
+    padding: 16,
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
     shadowColor: GlobalStyles.colors.text,
     shadowOffset: { width: 2, height: 2 },
-    shadowOpacity: 0.75,
+    shadowOpacity: 0.9,
     shadowRadius: 2,
   },
   text: {
     color: GlobalStyles.colors.text,
-    fontSize: 18,
+    fontSize: 24,
   },
 });

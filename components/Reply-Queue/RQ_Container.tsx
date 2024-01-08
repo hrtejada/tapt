@@ -6,6 +6,15 @@ interface Props {
   rootStyle?: {};
 }
 
+/**
+ * RQ_Container Component.
+ *
+ * This component renders the container for the Reply Screen content.
+ *
+ * @component
+ * @version 0.2.0
+ * @author  Ralph Woiwode <https://github.com/RAWoiwode>
+ */
 const RQ_Container = ({
   rootStyle,
   children,
@@ -36,15 +45,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   innerContainer: {
-    margin: 6,
-    paddingHorizontal: 12,
+    marginBottom: 8,
+    paddingHorizontal: 16,
     paddingVertical: 24,
     backgroundColor: GlobalStyles.colors.background300,
-    borderWidth: 2,
-    borderColor: GlobalStyles.colors.text,
-    borderTopStartRadius: 8,
-    borderTopEndRadius: 8,
-    borderBottomStartRadius: 16,
-    borderBottomEndRadius: 16,
   },
 });
