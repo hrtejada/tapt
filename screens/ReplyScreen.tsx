@@ -1,26 +1,32 @@
 import { useState } from "react";
 import { StyleSheet } from "react-native";
-import RQ_Info from "../components/Reply-Queue/RQ_Info";
 import NoteDisplay from "../components/Reply-Queue/NoteDisplay";
 import ParameterDisplay from "../components/Reply-Queue/ParameterDisplay";
 import RQ_Buttons from "../components/Reply-Queue/RQ_Buttons";
 import RQ_Container from "../components/Reply-Queue/RQ_Container";
+import RQ_Info from "../components/Reply-Queue/RQ_Info";
 import { GlobalStyles } from "../constants/styles";
 import {
   EMAIL_ACTIONS,
   RANKED_ACTION_TYPES,
   USER_ACTION_TYPES,
 } from "../constants/words";
+import { useRankedContext } from "../store/ranked-context";
+import { useUserContext } from "../store/user-context";
 import { DUMMY_EMAILS } from "../testData/DUMMY_DATA";
 import { ReplyStackProps } from "../util/react-navigation";
-import { useUserContext } from "../store/user-context";
-import { useRankedContext } from "../store/ranked-context";
+import { toggleParameter } from "../util/parameterHelpers";
 
 /**
- * Component that will help the user build an simple email reply.
+ * ReplyScreenComponent.
+ *
+ * This component renders the screen that will help the user build an simple email reply.
  *
  * TODO: Change how note State works to add validation/cleansing.
+ * TODO: Look into the selected state. State isn't used but the set function is.
+ * TODO: Check prop drilling on replyType
  *
+ * @component
  * @version 0.3.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
@@ -29,19 +35,22 @@ const ReplyScreen = ({ route, navigation }: ReplyStackProps) => {
 
   const [note, setNote] = useState("");
   const [selected, setSelected] = useState<string[]>([]);
-  const { state: userState, dispatch: userDispatch } = useUserContext();
-  const { state: rankedState, dispatch: rankedDispatch } = useRankedContext();
+  const { dispatch: userDispatch } = useUserContext();
+  const { dispatch: rankedDispatch } = useRankedContext();
 
-  let backgroundStyle;
+  let backgroundStyle = { backgroundColor: GlobalStyles.colors.background400 };
+  let replyType = "";
 
   switch (mode) {
     case EMAIL_ACTIONS.ACCEPT:
     case EMAIL_ACTIONS.RANKED_ACCEPT:
       backgroundStyle = { backgroundColor: GlobalStyles.colors.success500 };
+      replyType = EMAIL_ACTIONS.ACCEPT;
       break;
     case EMAIL_ACTIONS.REJECT:
     case EMAIL_ACTIONS.RANKED_REJECT:
       backgroundStyle = { backgroundColor: GlobalStyles.colors.warning500 };
+      replyType = EMAIL_ACTIONS.REJECT;
       break;
     default:
       break;
@@ -62,10 +71,7 @@ const ReplyScreen = ({ route, navigation }: ReplyStackProps) => {
       });
       navigation.navigate("Ranked");
     } else {
-      console.log("Before Shift", DUMMY_EMAILS.length);
       DUMMY_EMAILS.shift(); // TODO: Just for testing; Shouldn't need this when retrieving one email at a time from API
-      console.log("After Shift", DUMMY_EMAILS.length);
-      console.log("-------------------------------------------");
       userDispatch({
         type: USER_ACTION_TYPES.UNREAD_COUNT,
         payload: DUMMY_EMAILS.length,
@@ -75,33 +81,28 @@ const ReplyScreen = ({ route, navigation }: ReplyStackProps) => {
   };
 
   /**
-   * Check the parameter of the pressed InfoChip.
+   * Handle a chip being pressed.
    *
+   * Check the parameter of the pressed InfoChip.
    * If the parameter is already selected, remove it.
    * If the parameter is not in selected, add it.
    */
-  const chipPressHandler = (param: string) => {
-    setSelected((prevSelected) => {
-      if (prevSelected.includes(param)) {
-        return prevSelected.filter((s) => s !== param);
-      } else {
-        return [...prevSelected, param];
-      }
-    });
+  const handleChipPress = (param: string) => {
+    setSelected((prevSelected) => toggleParameter(param, prevSelected));
   };
 
-  const noteHandler = (note: string) => {
+  const handleNote = (note: string) => {
     setNote(note);
   };
 
   return (
     <RQ_Container rootStyle={backgroundStyle}>
-      <RQ_Info header="Modify Reply Message:">
+      <RQ_Info header={replyType}>
         Optional: Select parameters to mention in message
       </RQ_Info>
-      <ParameterDisplay onChipPress={chipPressHandler} />
-      <NoteDisplay note={note} onNoteChange={noteHandler} />
-      <RQ_Buttons actionButtonText="Send" actionHandler={handleReply} />
+      <ParameterDisplay replyType={replyType} onChipPress={handleChipPress} />
+      <NoteDisplay note={note} onNoteChange={handleNote} />
+      <RQ_Buttons actionButtonText="Send" handleAction={handleReply} />
     </RQ_Container>
   );
 };

@@ -5,6 +5,7 @@
  *
  * Check if empty
  * Check if parameter already exists
+ *
  * @function
  * @version 0.1.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
@@ -33,6 +34,27 @@ export const validateParameter = (
     title: "",
     message: "",
   };
+};
+
+/**
+ * Function to toggle the state of a parameter.
+ *
+ * Function used in the Reply and Queue screen to toggle the
+ * parameter chips when the User presses them.
+ *
+ * @function
+ * @version 0.1.1
+ * @author  Ralph Woiwode <https://github.com/RAWoiwode>
+ */
+export const toggleParameter = (
+  parameter: string,
+  parameterArray: string[]
+) => {
+  if (parameterArray.includes(parameter)) {
+    return parameterArray.filter((s) => s !== parameter);
+  } else {
+    return [...parameterArray, parameter];
+  }
 };
 
 const isParameterEmpty = (parameter: string) => {

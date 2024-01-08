@@ -41,6 +41,9 @@ import {
   TODO: Determine code style for: inline functions, one prop styling, single prop interface
   TODO: Adding "Loading Spinners" where appropriate
   TODO: Visual indicator of saving the Settings
+  TODO: Rename RQ_* stuff 🤢
+  
+  TODO: Before deploy, go through and check all styling
  */
 
 const Drawer = createDrawerNavigator(); // TODO: Do we need type checking for this?

@@ -1,9 +1,4 @@
-import {
-  KeyboardAvoidingView,
-  StyleSheet,
-  TextInput,
-  View,
-} from "react-native";
+import { KeyboardAvoidingView, StyleSheet, TextInput } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
 
 interface Props {
@@ -11,21 +6,29 @@ interface Props {
   onNoteChange: (note: string) => void;
 }
 
+/**
+ * NoteDisplay Component.
+ *
+ * This component renders the input for writing a note to
+ * attach to the reply email.
+ *
+ * @component
+ * @version 0.2.0
+ * @author  Ralph Woiwode <https://github.com/RAWoiwode>
+ */
 const NoteDisplay = ({ note, onNoteChange }: Props) => {
   return (
     <KeyboardAvoidingView>
-      <View style={styles.container}>
-        <TextInput
-          style={styles.input}
-          value={note}
-          keyboardType="default"
-          maxLength={255}
-          multiline
-          numberOfLines={4}
-          onChangeText={onNoteChange}
-          placeholder="Add notes..."
-        />
-      </View>
+      <TextInput
+        style={styles.input}
+        value={note}
+        keyboardType="default"
+        maxLength={255}
+        multiline
+        numberOfLines={4}
+        onChangeText={onNoteChange}
+        placeholder="Add notes..."
+      />
     </KeyboardAvoidingView>
   );
 };
@@ -33,17 +36,14 @@ const NoteDisplay = ({ note, onNoteChange }: Props) => {
 export default NoteDisplay;
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    backgroundColor: GlobalStyles.colors.secondary700,
-    marginVertical: 16,
-  },
   input: {
     flex: 1,
     height: 255,
     padding: 10,
     margin: 4,
+    marginBottom: 16,
     backgroundColor: GlobalStyles.colors.background100,
     fontSize: 18,
+    borderWidth: 2,
   },
 });

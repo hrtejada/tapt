@@ -1,36 +1,58 @@
 import { useState } from "react";
 import { Pressable, StyleSheet, Text } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
+import { EMAIL_ACTIONS } from "../../constants/words";
 
 interface Props {
   text: string;
+  replyType: string;
   onPress: (param: string) => void;
 }
 
 /**
- * Component to display text and have a pressable functionality.
+ * InfoChip Component.
+ *
+ * This component renders the parameter text and has a pressable functionality.
  *
  * TODO: Check to see if Chip can be combined
+ * TODO: See about different chip background colors depend on flow
  *
- * @version 0.1.2
+ * @component
+ * @version 0.1.4
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
-const InfoChip = ({ text, onPress }: Props) => {
+const InfoChip = ({ text, replyType, onPress }: Props) => {
   const [modeStyle, setModeStyle] = useState({
-    backgroundColor: GlobalStyles.colors.primary300,
+    backgroundColor: GlobalStyles.colors.background500,
   });
 
+  const pressedBackground = {
+    backgroundColor:
+      replyType === EMAIL_ACTIONS.ACCEPT
+        ? GlobalStyles.colors.primary300
+        : GlobalStyles.colors.secondary300,
+  };
+
   /**
-   * Change the backgroundColor on press.
+   * Handle chip press.
    *
    * Change the backgroundColor of the InfoChip depending on the mode.
    */
-  const pressHandler = () => {
+  const handlePress = () => {
     setModeStyle((prevModeStyle) => {
-      return prevModeStyle["backgroundColor"] === GlobalStyles.colors.primary300
-        ? { backgroundColor: GlobalStyles.colors.primary700 }
-        : { backgroundColor: GlobalStyles.colors.primary300 };
+      let bg = {
+        backgroundColor:
+          replyType === EMAIL_ACTIONS.ACCEPT
+            ? GlobalStyles.colors.primary500
+            : GlobalStyles.colors.secondary500,
+      };
+
+      return prevModeStyle["backgroundColor"] ===
+        GlobalStyles.colors.background500
+        ? bg
+        : { backgroundColor: GlobalStyles.colors.background500 };
     });
+
     onPress(text);
   };
 
@@ -39,9 +61,9 @@ const InfoChip = ({ text, onPress }: Props) => {
       style={({ pressed }) => [
         styles.chip,
         modeStyle,
-        pressed && styles.pressed,
+        pressed && pressedBackground,
       ]}
-      onPress={pressHandler}
+      onPress={handlePress}
     >
       <Text style={styles.text}>{text}</Text>
     </Pressable>
@@ -54,7 +76,6 @@ const styles = StyleSheet.create({
   chip: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: GlobalStyles.colors.primary300,
     margin: 4,
     paddingVertical: 6,
     paddingHorizontal: 8,
@@ -69,6 +90,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   pressed: {
-    backgroundColor: GlobalStyles.colors.primary500,
+    backgroundColor: GlobalStyles.colors.primary300,
   },
 });

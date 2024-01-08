@@ -10,13 +10,15 @@ import { QueueStackProps } from "../util/react-navigation";
 import { useRankedContext } from "../store/ranked-context";
 import { RANKED_ACTION_TYPES, USER_ACTION_TYPES } from "../constants/words";
 import { useUserContext } from "../store/user-context";
+import { toggleParameter } from "../util/parameterHelpers";
 
 /**
- * `QueueScreen` Component.
+ * QueueScreen Component.
  *
- * Screen that allows the user to select parameters and add a note to
- * the email they queued.
+ * This component renders a screen that allows the User to select parameters and
+ * add a note to the email they want queued.
  *
+ * @compnent
  * @version 0.1.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
@@ -25,6 +27,8 @@ const QueueScreen = ({ navigation, route }: QueueStackProps) => {
   const [selected, setSelected] = useState<string[]>([]);
   const { dispatch: rankedDispatch } = useRankedContext();
   const { dispatch: userDispatch } = useUserContext();
+
+  const replyType = "Queue";
 
   /**
    * Handles the queue functionality.
@@ -43,7 +47,6 @@ const QueueScreen = ({ navigation, route }: QueueStackProps) => {
     };
 
     // TODO: Hardcoded Ranked. Remove once backend in place
-    console.log("queueHandler", payload);
     RANKED_EMAILS[
       RANKED_EMAILS.findIndex((email) => email.id === payload.messageId)
     ].rank = payload.rank;
@@ -58,33 +61,28 @@ const QueueScreen = ({ navigation, route }: QueueStackProps) => {
   };
 
   /**
-   * Check the parameter of the pressed InfoChip.
+   * Handle a chip being pressed.
    *
+   * Check the parameter of the pressed InfoChip.
    * If the parameter is already selected, remove it.
    * If the parameter is not in selected, add it.
    */
-  const chipPressHandler = (param: string) => {
-    setSelected((prevSelected) => {
-      if (prevSelected.includes(param)) {
-        return prevSelected.filter((s) => s !== param);
-      } else {
-        return [...prevSelected, param];
-      }
-    });
+  const handleChipPress = (param: string) => {
+    setSelected((prevSelected) => toggleParameter(param, prevSelected));
   };
 
-  const noteHandler = (note: string) => {
+  const handleNote = (note: string) => {
     setNote(note);
   };
 
   return (
     <RQ_Container>
-      <RQ_Info header="Queue Ranked Booking:">
+      <RQ_Info header={replyType}>
         Optional: Select parameters you liked
       </RQ_Info>
-      <ParameterDisplay onChipPress={chipPressHandler} />
-      <NoteDisplay note={note} onNoteChange={noteHandler} />
-      <RQ_Buttons actionButtonText="Queue" actionHandler={handleQueue} />
+      <ParameterDisplay replyType={replyType} onChipPress={handleChipPress} />
+      <NoteDisplay note={note} onNoteChange={handleNote} />
+      <RQ_Buttons actionButtonText="Queue" handleAction={handleQueue} />
     </RQ_Container>
   );
 };
