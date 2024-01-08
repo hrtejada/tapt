@@ -15,6 +15,7 @@ import { useRankedContext } from "../store/ranked-context";
 import { useUserContext } from "../store/user-context";
 import { DUMMY_EMAILS } from "../testData/DUMMY_DATA";
 import { ReplyStackProps } from "../util/react-navigation";
+import { toggleParameter } from "../util/parameterHelpers";
 
 /**
  * ReplyScreenComponent.
@@ -87,13 +88,7 @@ const ReplyScreen = ({ route, navigation }: ReplyStackProps) => {
    * If the parameter is not in selected, add it.
    */
   const handleChipPress = (param: string) => {
-    setSelected((prevSelected) => {
-      if (prevSelected.includes(param)) {
-        return prevSelected.filter((s) => s !== param);
-      } else {
-        return [...prevSelected, param];
-      }
-    });
+    setSelected((prevSelected) => toggleParameter(param, prevSelected));
   };
 
   const handleNote = (note: string) => {
