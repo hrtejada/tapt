@@ -7,8 +7,11 @@ interface Props {
 }
 
 /**
- * Component to hold the body of a Ranked Booking.
+ * RankedBody Component.
  *
+ * This component renders the body of a Ranked Item.
+ *
+ * @component
  * @version 0.2.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
@@ -25,7 +28,6 @@ const RankedBody = ({ messageId }: Props) => {
 
   const likedParams = email.parameters.join(", ").toUpperCase();
   const showParams = likedParams !== "";
-
   const showNote = email.note !== "";
   const noteDisplay = (
     <Text style={styles.note} numberOfLines={2}>
@@ -33,16 +35,11 @@ const RankedBody = ({ messageId }: Props) => {
     </Text>
   );
 
-  if (!showParams && !showNote) {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.empty}>No info for email</Text>
-      </View>
-    );
-  }
-
   return (
     <View style={styles.container}>
+      {!showParams && !showNote && (
+        <Text style={styles.empty}>No info for email</Text>
+      )}
       {showParams && <Text style={styles.params}>Liked - {likedParams}</Text>}
       {showNote && noteDisplay}
     </View>
@@ -59,21 +56,23 @@ const styles = StyleSheet.create({
   empty: {
     fontSize: 20,
     fontStyle: "italic",
+    fontWeight: "bold",
     textAlign: "center",
-    padding: 10,
+    padding: 16,
   },
   params: {
     fontSize: 16,
     fontStyle: "italic",
-    paddingVertical: 10,
+    fontWeight: "bold",
+    paddingVertical: 12,
   },
   note: {
     color: GlobalStyles.colors.text,
-    backgroundColor: GlobalStyles.colors.secondary300,
+    backgroundColor: GlobalStyles.colors.background300,
     fontSize: 18,
     marginVertical: 8,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderWidth: 1,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderWidth: 2,
   },
 });

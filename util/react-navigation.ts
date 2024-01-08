@@ -27,7 +27,13 @@ export type HomeStackParamList = {
   Image: { image: string };
   Login: undefined;
   Reply: {
-    mode: "ACCEPT" | "REJECT" | "RANKED_ACCEPT" | "RANKED_REJECT";
+    mode:
+      | "ACCEPT"
+      | "REJECT"
+      | "RANKED_ACCEPT"
+      | "RANKED_REJECT"
+      | "QUEUE_ACCEPT"
+      | "QUEUE_REJECT";
     messageId?: string;
   };
   Queue: { name: string; email: string; rank: number; messageId: string };

@@ -10,10 +10,14 @@ import { GlobalStyles } from "../constants/styles";
 import { RankedEmail, useRankedContext } from "../store/ranked-context";
 
 /**
- * Screen that will display the Ranked Queue.
+ * RankedQueueScreen Component.
+ *
+ * This component renders a screen that displays the Ranked Queue.
  *
  * TODO: Add border to separate Screen title and content??
+ * TODO: See if we need to change how key is generated in renderRankedItem
  *
+ * @component
  * @version 0.2.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
@@ -22,7 +26,6 @@ const RankedQueueScreen = () => {
   const { state } = useRankedContext();
 
   const renderRankedItem = ({ item }: { item: RankedEmail }) => {
-    // const message = DUMMY_EMAILS.find((email) => email.id === item.messageId);
     let rankedDisplay = [];
     for (let i = 0; i < item.rank!; i++) {
       rankedDisplay.push(
@@ -70,18 +73,17 @@ export default RankedQueueScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 12,
-    backgroundColor: GlobalStyles.colors.secondary400,
+    paddingTop: 16,
+    backgroundColor: GlobalStyles.colors.background500,
   },
   rankSpace: {
     paddingHorizontal: 1,
   },
   innerContainer: {
-    backgroundColor: GlobalStyles.colors.primary300,
-    marginVertical: 4,
+    backgroundColor: GlobalStyles.colors.secondary700,
+    marginVertical: 8,
     marginHorizontal: 16,
     borderRadius: 8,
-    borderWidth: 1,
-    borderColor: GlobalStyles.colors.accent500,
+    overflow: "hidden",
   },
 });
