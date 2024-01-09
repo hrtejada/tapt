@@ -61,10 +61,17 @@ const ReplyScreen = ({ route, navigation }: ReplyStackProps) => {
    *
    * Send the reply email.
    * Navigate back to the Email Screen.
+   * TODO: Create email template and include the selected parameters and note. Send the email via Gmail API
    */
   const handleReply = () => {
-    // TODO: Create email template and include the selected parameters and note. Send the email via Gmail API
-    if (mode === EMAIL_ACTIONS.RANKED_ACCEPT && route.params.messageId) {
+    // Ranked Queue actions
+    if (
+      (mode === EMAIL_ACTIONS.RANKED_ACCEPT ||
+        mode === EMAIL_ACTIONS.RANKED_REJECT ||
+        mode == EMAIL_ACTIONS.QUEUE_ACCEPT ||
+        mode === EMAIL_ACTIONS.QUEUE_REJECT) &&
+      route.params.messageId
+    ) {
       rankedDispatch({
         type: RANKED_ACTION_TYPES.REMOVE_EMAIL,
         payload: route.params.messageId,

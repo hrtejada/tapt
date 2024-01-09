@@ -76,8 +76,6 @@ const EmailScreen = ({ route, navigation }: EmailStackProps) => {
           // Use User defined parameters to build the API call to retrieve certain data from email messages
           let email = { id: "", name: "", email: "" };
           if (DUMMY_EMAILS.length !== 0) {
-            console.log("DUMMY EMAIL", DUMMY_EMAILS[0]);
-            console.log("--------------------------------------");
             const message: any = DUMMY_EMAILS[0];
             email.id = message.id;
             email.name = message.name;
@@ -127,6 +125,10 @@ const EmailScreen = ({ route, navigation }: EmailStackProps) => {
               [param]: value,
             };
           });
+
+          console.log("Ranked Queue Email", rankedEmail);
+          console.log("--------------------------------------------------");
+
           rankedDispatch({
             type: RANKED_ACTION_TYPES.TEMP_RANK,
             payload: rankedEmail.rank,
@@ -170,7 +172,14 @@ const EmailScreen = ({ route, navigation }: EmailStackProps) => {
    * Navigate to the Reply - Reject template
    */
   const handleReject = () => {
-    navigation.navigate("Reply", { mode: EMAIL_ACTIONS.REJECT });
+    if (emailInfo.hasOwnProperty("rank")) {
+      navigation.navigate("Reply", {
+        mode: EMAIL_ACTIONS.RANKED_REJECT,
+        messageId: emailInfo.id,
+      });
+    } else {
+      navigation.navigate("Reply", { mode: EMAIL_ACTIONS.REJECT });
+    }
   };
 
   /**

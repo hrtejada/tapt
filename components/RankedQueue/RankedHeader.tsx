@@ -8,10 +8,12 @@ interface Props {
 }
 
 /**
- * Component that will display the email senders info inside
- * the RankedQueueScreen.
+ * RankedHeader Component.
  *
- * @version 0.1.1
+ * This component renders a header that will display the email senders info.
+ *
+ * @component
+ * @version 0.1.2
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const RankedHeader = ({ name, email, children }: Props) => {
@@ -32,29 +34,20 @@ export default RankedHeader;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     backgroundColor: GlobalStyles.colors.background200,
-    borderBottomWidth: 1,
-    borderBottomColor: GlobalStyles.colors.accent700,
     paddingHorizontal: 8,
-    paddingVertical: 4,
     borderTopStartRadius: 8,
     borderTopEndRadius: 8,
-  },
-  bar: {
-    width: 3,
-    height: "75%",
-    backgroundColor: GlobalStyles.colors.accent500,
+    minHeight: 36,
   },
   emailInfoContainer: {
     flexDirection: "row",
   },
   rankedDisplay: {
     flexDirection: "row",
-    paddingVertical: 4,
   },
   name: {
     fontSize: 20,

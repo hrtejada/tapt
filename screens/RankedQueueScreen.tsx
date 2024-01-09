@@ -1,6 +1,6 @@
 import { FontAwesome } from "@expo/vector-icons";
 import React from "react";
-import { FlatList, StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import RankedBody from "../components/RankedQueue/RankedBody";
 import RankedFooter from "../components/RankedQueue/RankedFooter";
@@ -10,19 +10,29 @@ import { GlobalStyles } from "../constants/styles";
 import { RankedEmail, useRankedContext } from "../store/ranked-context";
 
 /**
- * Screen that will display the Ranked Queue.
+ * RankedQueueScreen Component.
+ *
+ * This component renders a screen that displays the Ranked Queue.
  *
  * TODO: Add border to separate Screen title and content??
+ * TODO: See if we need to change how key is generated in renderRankedItem
  *
- * @version 0.2.0
+ * @component
+ * @version 0.2.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const RankedQueueScreen = () => {
   const insets = useSafeAreaInsets();
   const { state } = useRankedContext();
 
+  const isQueueEmpty = state.rankedEmails.length === 0;
+  const emptyDisplay = (
+    <View style={styles.emptyContainer}>
+      <Text style={styles.emptyText}>No emails in queue</Text>
+    </View>
+  );
+
   const renderRankedItem = ({ item }: { item: RankedEmail }) => {
-    // const message = DUMMY_EMAILS.find((email) => email.id === item.messageId);
     let rankedDisplay = [];
     for (let i = 0; i < item.rank!; i++) {
       rankedDisplay.push(
@@ -55,12 +65,15 @@ const RankedQueueScreen = () => {
       ]}
     >
       <HeaderOne>Ranked Queue</HeaderOne>
-      <FlatList
-        keyExtractor={(item) => item.messageId}
-        renderItem={renderRankedItem}
-        data={state.rankedEmails}
-        style={{ flex: 1 }}
-      />
+      {isQueueEmpty && emptyDisplay}
+      {!isQueueEmpty && (
+        <FlatList
+          keyExtractor={(item) => item.messageId}
+          renderItem={renderRankedItem}
+          data={state.rankedEmails}
+          style={{ flex: 1 }}
+        />
+      )}
     </View>
   );
 };
@@ -70,18 +83,24 @@ export default RankedQueueScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 12,
-    backgroundColor: GlobalStyles.colors.secondary400,
+    paddingTop: 16,
+    backgroundColor: GlobalStyles.colors.background500,
   },
   rankSpace: {
     paddingHorizontal: 1,
   },
   innerContainer: {
-    backgroundColor: GlobalStyles.colors.primary300,
-    marginVertical: 4,
+    backgroundColor: GlobalStyles.colors.secondary700,
+    marginVertical: 8,
     marginHorizontal: 16,
     borderRadius: 8,
-    borderWidth: 1,
-    borderColor: GlobalStyles.colors.accent500,
+    overflow: "hidden",
   },
+  emptyContainer: {
+    marginTop: 32,
+    backgroundColor: GlobalStyles.colors.background300,
+    marginHorizontal: 16,
+    paddingVertical: 16,
+  },
+  emptyText: { fontSize: 24, textAlign: "center", fontStyle: "italic" },
 });
