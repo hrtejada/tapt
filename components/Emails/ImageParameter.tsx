@@ -1,8 +1,16 @@
 import { useNavigation } from "@react-navigation/native";
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { useState } from "react";
+import {
+  ActivityIndicator,
+  FlatList,
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { GlobalStyles } from "../../constants/styles";
 import { ImageStackProps } from "../../util/react-navigation";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 interface Props {
   id: string;
@@ -10,14 +18,31 @@ interface Props {
   images: string[];
 }
 
+interface ImageState {
+  isLoading: boolean;
+  error: boolean;
+  uri: string;
+}
+
 /**
- * Component that will display an image parameter.
+ * ImageParameter Component.
  *
- * @version 0.1.2
+ * This component renders an image parameter.
+ *
+ * @component
+ * @version 0.2.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const ImageParameter = ({ id, parameter, images }: Props) => {
   const navigation = useNavigation<ImageStackProps["navigation"]>();
+
+  // Create an array of state objects for each image
+  const initialImageStates: ImageState[] = images.map((uri) => ({
+    isLoading: false, // TODO: Turn on when pulling from APIs
+    error: false,
+    uri,
+  }));
+  const [imageStates, setImageStates] = useState(initialImageStates);
 
   /**
    * Handle an image being pressed.
@@ -25,10 +50,28 @@ const ImageParameter = ({ id, parameter, images }: Props) => {
    * Bring up the Image Screen modal to show the image larger for the user to get
    * a better look.
    */
-  const imagePressHandler = (image: string) => {
-    navigation.navigate("Image", {
-      image: image,
-    });
+  const handleImagePress = (image: string) => {
+    navigation.navigate("Image", { image });
+  };
+
+  const handleLoadEnd = (uri: string) => {
+    updateImageState(uri, false, false);
+  };
+
+  const handleError = (uri: string) => {
+    updateImageState(uri, false, true);
+  };
+
+  const updateImageState = (
+    uri: string,
+    isLoading: boolean,
+    error: boolean
+  ) => {
+    setImageStates((prev) =>
+      prev.map((image) =>
+        image.uri === uri ? { ...image, isLoading, error } : image
+      )
+    );
   };
 
   /**
@@ -37,19 +80,38 @@ const ImageParameter = ({ id, parameter, images }: Props) => {
    * Create a unique key for each image and display the image in a reasonable format.
    * TODO: Find a better way to create a unique key
    */
-  const imagesDisplay = images.map((image) => {
-    const key = id + Math.random();
+  const renderItem = ({ item }: { item: ImageState }) => {
+    if (item.isLoading) {
+      return <ActivityIndicator size={"small"} />;
+    }
+
+    if (item.error) {
+      return <Text style={styles.message}>Failed to load image</Text>;
+    }
+
     return (
-      <Pressable key={key} onPress={imagePressHandler.bind(this, image)}>
-        <Image style={styles.image} source={{ uri: image }} />
+      <Pressable
+        style={{ alignItems: "center" }}
+        onPress={() => handleImagePress(item.uri)}
+      >
+        <Image
+          style={styles.image}
+          source={{ uri: item.uri }}
+          onLoadEnd={() => handleLoadEnd(item.uri)}
+          onError={() => handleError(item.uri)}
+        />
       </Pressable>
     );
-  });
+  };
 
   return (
     <View style={[styles.container]}>
       <Text style={styles.parameter}>{parameter.toUpperCase()}</Text>
-      {imagesDisplay}
+      <FlatList
+        data={imageStates}
+        renderItem={renderItem}
+        keyExtractor={(item, index) => `${id}-${index}`}
+      />
     </View>
   );
 };
@@ -79,5 +141,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: GlobalStyles.colors.text,
     alignItems: "center",
+    justifyContent: "center",
+  },
+  message: {
+    fontSize: 32,
+    textAlign: "center",
+    color: GlobalStyles.colors.warning500,
   },
 });

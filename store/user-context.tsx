@@ -27,10 +27,10 @@ const INIT_USER_STATE = {
   startDate: new Date(),
   endDate: new Date(),
   header: "",
-  parameters: ["description", "budget", "size"], // TODO: Just adding init values to help with testing. REMOVE AFTERWARDS
+  parameters: ["description", "budget", "size", "placement", "images"], // TODO: Just adding init values to help with testing. REMOVE AFTERWARDS
   notifications: NOTIFICATION_OPTIONS.OFF.toString(),
-  isRanking: true, // TODO: Just adding init values to help with testing. REMOVE AFTERWARDS
-  inRankMode: true, // TODO: Just adding init values to help with testing. REMOVE AFTERWARDS
+  isRanking: false, // TODO: Just adding init values to help with testing. REMOVE AFTERWARDS
+  inRankMode: false, // TODO: Just adding init values to help with testing. REMOVE AFTERWARDS
 };
 
 // Define the Actions that can occur in this context

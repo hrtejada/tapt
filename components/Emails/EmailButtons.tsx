@@ -90,12 +90,10 @@ export default EmailButtons;
 
 const styles = StyleSheet.create({
   rootContainer: {
-    flex: 1,
-    borderTopWidth: 1,
-    borderTopColor: GlobalStyles.colors.accent500,
+    // borderTopWidth: 1,
+    // borderTopColor: GlobalStyles.colors.accent500,
   },
   innerContainer: {
-    flex: 1,
     flexDirection: "row",
     justifyContent: "space-around",
     marginTop: 4,
