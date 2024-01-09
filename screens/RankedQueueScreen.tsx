@@ -1,6 +1,6 @@
 import { FontAwesome } from "@expo/vector-icons";
 import React from "react";
-import { FlatList, StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import RankedBody from "../components/RankedQueue/RankedBody";
 import RankedFooter from "../components/RankedQueue/RankedFooter";
@@ -18,12 +18,19 @@ import { RankedEmail, useRankedContext } from "../store/ranked-context";
  * TODO: See if we need to change how key is generated in renderRankedItem
  *
  * @component
- * @version 0.2.0
+ * @version 0.2.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const RankedQueueScreen = () => {
   const insets = useSafeAreaInsets();
   const { state } = useRankedContext();
+
+  const isQueueEmpty = state.rankedEmails.length === 0;
+  const emptyDisplay = (
+    <View style={styles.emptyContainer}>
+      <Text style={styles.emptyText}>No emails in queue</Text>
+    </View>
+  );
 
   const renderRankedItem = ({ item }: { item: RankedEmail }) => {
     let rankedDisplay = [];
@@ -58,12 +65,15 @@ const RankedQueueScreen = () => {
       ]}
     >
       <HeaderOne>Ranked Queue</HeaderOne>
-      <FlatList
-        keyExtractor={(item) => item.messageId}
-        renderItem={renderRankedItem}
-        data={state.rankedEmails}
-        style={{ flex: 1 }}
-      />
+      {isQueueEmpty && emptyDisplay}
+      {!isQueueEmpty && (
+        <FlatList
+          keyExtractor={(item) => item.messageId}
+          renderItem={renderRankedItem}
+          data={state.rankedEmails}
+          style={{ flex: 1 }}
+        />
+      )}
     </View>
   );
 };
@@ -86,4 +96,11 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     overflow: "hidden",
   },
+  emptyContainer: {
+    marginTop: 32,
+    backgroundColor: GlobalStyles.colors.background300,
+    marginHorizontal: 16,
+    paddingVertical: 16,
+  },
+  emptyText: { fontSize: 24, textAlign: "center", fontStyle: "italic" },
 });
