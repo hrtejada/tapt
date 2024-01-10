@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Alert, ScrollView, StyleSheet, View } from "react-native";
+import { Alert, FlatList, ScrollView, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import EmailButtons from "../components/Emails/EmailButtons";
 import ImageParameter from "../components/Emails/ImageParameter";
@@ -22,6 +22,20 @@ type emailDynamic = {
   [key: string]: string;
 };
 
+interface ImageItem {
+  type: "image";
+  id: string;
+  parameter: string;
+  images: string[];
+}
+interface TextItem {
+  type: "text";
+  parameter: string;
+  info: string;
+}
+
+type ListItem = ImageItem | TextItem;
+
 /**
  * Component that will display the parsed email information.
  *
@@ -40,8 +54,9 @@ type emailDynamic = {
  * TODO: Look into handling "'route.params' being undefined" properly
  * TODO: For TEST DATA, find out why when going through 2 or more emails, somethimes the email stays after sending answer
  * TODO: See if component needs to be broken up into smaller parts
+ * TODO: Styling: The bottom padding for the FlatList so the list won't be obstructed by EmailButtons; Has to be a better way to calculate how much padding is necessary
  *
- * @version 0.2.6
+ * @version 0.3.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const EmailScreen = ({ route, navigation }: EmailStackProps) => {
@@ -126,9 +141,6 @@ const EmailScreen = ({ route, navigation }: EmailStackProps) => {
             };
           });
 
-          console.log("Ranked Queue Email", rankedEmail);
-          console.log("--------------------------------------------------");
-
           rankedDispatch({
             type: RANKED_ACTION_TYPES.TEMP_RANK,
             payload: rankedEmail.rank,
@@ -200,43 +212,79 @@ const EmailScreen = ({ route, navigation }: EmailStackProps) => {
     return <LoadingOverlay />;
   }
 
-  const renderParameters = () => {
-    const display = [];
-
-    for (const property in emailInfo) {
-      const value = emailInfo[property];
-
-      // TODO: Work on ImageParameter
-      if (/^(https?:\/\/).*(.jpg).*/.test(value)) {
-        display.push(
+  /**
+   * Function to render parameter items.
+   *
+   * This function takes the emailInfo data and create the corresponding
+   * component.
+   */
+  const renderItem = ({ item }: { item: ListItem }) => {
+    switch (item.type) {
+      case "image":
+        return (
           <ImageParameter
-            key={emailInfo.id + property}
-            id={emailInfo.id}
-            parameter={property}
-            images={value}
+            id={item.id}
+            parameter={item.parameter}
+            images={item.images}
           />
         );
-      } else {
-        if (
-          property === "id" ||
-          property === "name" ||
-          property === "email" ||
-          property === "rank"
+      case "text":
+        return <TextParameter parameter={item.parameter} info={item.info} />;
+      default:
+        return null;
+    }
+  };
+
+  /**
+   * Function to create data array from emailInfo.
+   *
+   * Thie functions helps to restructure emailInfo into a better format
+   * for FlatList rendering.
+   */
+  const createDataArrayFromEmailInfo = (
+    emailInfo: emailDynamic
+  ): ListItem[] => {
+    const items: ListItem[] = [];
+
+    // Add text or image items
+    for (const property in emailInfo) {
+      if (emailInfo.hasOwnProperty(property)) {
+        const value = emailInfo[property];
+
+        // Check if the property is an image
+        if (/^(https?:\/\/).*(.jpg).*/.test(value)) {
+          const imageUrls = Array.isArray(value) ? value : [value];
+          items.push({
+            type: "image",
+            id: emailInfo.id,
+            parameter: property,
+            images: imageUrls,
+          });
+        } else if (
+          property !== "id" &&
+          property !== "name" &&
+          property !== "email" &&
+          property !== "rank"
         ) {
-          continue;
+          items.push({
+            type: "text",
+            parameter: property,
+            info: value,
+          });
         }
-        display.push(
-          <TextParameter
-            key={emailInfo.id + property}
-            parameter={property}
-            info={value}
-          />
-        );
       }
     }
 
-    return display;
+    return items;
   };
+
+  const keyExtractor = (item: ListItem, index: number) => {
+    return item.type === "image"
+      ? `image-${item.id}-${index}`
+      : `text-${index}`;
+  };
+
+  const data = createDataArrayFromEmailInfo(emailInfo);
 
   return (
     <View
@@ -246,20 +294,33 @@ const EmailScreen = ({ route, navigation }: EmailStackProps) => {
           paddingBottom: insets.bottom,
           paddingLeft: insets.left,
           paddingRight: insets.right,
-          flexDirection: "column",
         },
       ]}
     >
-      <View style={styles.emailInfoContainer}>
-        <SenderInfo name={emailInfo.name} email={emailInfo.email} />
-        <ScrollView>{renderParameters()}</ScrollView>
-      </View>
-      <EmailButtons
-        onAccept={handleAccept}
-        onReject={handleReject}
-        onQueue={handleQueue}
-        ranked={emailInfo.hasOwnProperty("rank")}
+      <SenderInfo name={emailInfo.name} email={emailInfo.email} />
+      <FlatList
+        data={data}
+        renderItem={renderItem}
+        keyExtractor={keyExtractor}
+        contentContainerStyle={{ paddingBottom: 180 }}
       />
+      <View
+        style={[
+          styles.buttonsContainer,
+          {
+            left: insets.left,
+            right: insets.right,
+            paddingBottom: insets.bottom,
+          },
+        ]}
+      >
+        <EmailButtons
+          onAccept={handleAccept}
+          onReject={handleReject}
+          onQueue={handleQueue}
+          ranked={emailInfo.hasOwnProperty("rank")}
+        />
+      </View>
     </View>
   );
 };
@@ -271,8 +332,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: GlobalStyles.colors.primary500,
   },
-  emailInfoContainer: {
-    flex: 4,
+  buttonsContainer: {
+    position: "absolute",
+    bottom: 0,
+    width: "100%",
     backgroundColor: GlobalStyles.colors.secondary700,
+    height: 215,
+    justifyContent: "center",
   },
 });

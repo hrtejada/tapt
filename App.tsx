@@ -42,6 +42,7 @@ import {
   TODO: Adding "Loading Spinners" where appropriate
   TODO: Visual indicator of saving the Settings
   TODO: Rename RQ_* stuff 🤢
+  TODO: Should 'Zero' rank be allowed?
   
   TODO: Before deploy, go through and check all styling
  */
