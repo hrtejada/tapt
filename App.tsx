@@ -28,12 +28,17 @@ import UserContextProvider from "./store/user-context";
 import {
   HomeStackParamList,
   SettingsStackParamList,
+  StyleStackParamList,
   getHeaderTitle,
 } from "./util/react-navigation";
+import StyleGuideScreen from "./screens/StyleGuideScreen";
+import TypographyScreen from "./screens/StyleGuide/TypographyScreen";
 
 /*
   TODO: OVERALL LIST
   
+  TODO: Redo the header bar for Drawer Navigation; I don't like the hacky way I put the back button in for each settings option screen
+  TODO: Rework imports to separate between libraries and components/functions
   TODO: Make a current email context??
   TODO: Go through styling and make sure all the flexs and appropriate.
   TODO: Go through Context/State and see if it is all needed i.e. Things can be derived
@@ -50,6 +55,7 @@ import {
 const Drawer = createDrawerNavigator(); // TODO: Do we need type checking for this?
 const HomeStack = createNativeStackNavigator<HomeStackParamList>();
 const SettingsStack = createNativeStackNavigator<SettingsStackParamList>();
+const StyleStack = createNativeStackNavigator<StyleStackParamList>();
 
 /**
  * LoginStack Component.
@@ -145,6 +151,29 @@ const SettingsView = () => {
 };
 
 /**
+ * StyleView Component.
+ *
+ * This component renders the SettingsStack that is used in the
+ * main Drawer navigation.
+ *
+ * @component
+ * @version 0.1.0
+ * @author  Ralph Woiwode <https://github.com/RAWoiwode>
+ */
+const StyleView = () => {
+  return (
+    <StyleStack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <StyleStack.Screen name="Guide" component={StyleGuideScreen} />
+      <StyleStack.Screen name="Typography" component={TypographyScreen} />
+    </StyleStack.Navigator>
+  );
+};
+
+/**
  * App Component.
  *
  * This component render the main screen depending on the sessoin.
@@ -217,6 +246,13 @@ export default function App() {
                   headerTitle: getHeaderTitle(route),
                   title: "Settings",
                 })}
+              />
+              <Drawer.Screen
+                name="StyleStack"
+                component={StyleView}
+                options={{
+                  title: "Style Guide",
+                }}
               />
             </Drawer.Navigator>
           </NavigationContainer>
