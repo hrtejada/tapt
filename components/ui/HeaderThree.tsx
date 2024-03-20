@@ -1,19 +1,23 @@
 import { StyleSheet, Text } from "react-native";
+
 import { GlobalStyles } from "../../constants/styles";
 
 interface Props {
+  style?: undefined | object;
   accessibilityHint?: string;
 }
 
 /**
  * Header component to display text. (H3)
  *
+ * Made to be customizable from the component using it.
  * Updated to be more ADA compliant.
  *
- * @version 0.2.0
+ * @version 0.3.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const HeaderThree = ({
+  style,
   accessibilityHint,
   children,
 }: React.PropsWithChildren<Props>) => {
@@ -22,7 +26,7 @@ const HeaderThree = ({
 
   return (
     <Text
-      style={styles.headingText}
+      style={[styles.headingText, style]}
       accessibilityRole="header"
       accessibilityHint={a11yHint}
     >
@@ -37,8 +41,5 @@ const styles = StyleSheet.create({
   headingText: {
     color: GlobalStyles.colors.text,
     fontSize: 20,
-    fontWeight: "bold",
-    marginBottom: 4,
-    textAlign: "center",
   },
 });
