@@ -54,6 +54,7 @@ export type SettingsStackParamList = {
 export type StyleStackParamList = {
   Guide: undefined;
   Typography: undefined;
+  Buttons: undefined;
 };
 
 /***** HomeStackParamList *****/
@@ -113,7 +114,7 @@ export type AboutStackProps = NativeStackScreenProps<
   "About"
 >;
 
-/***** SettingsStackParamList *****/
+/***** StyleStackParamList *****/
 export type StyleStackProps = NativeStackScreenProps<
   StyleStackParamList,
   "Guide"
@@ -121,6 +122,10 @@ export type StyleStackProps = NativeStackScreenProps<
 export type TypographyStackProps = NativeStackScreenProps<
   StyleStackParamList,
   "Typography"
+>;
+export type ButtonsStackProps = NativeStackScreenProps<
+  StyleStackParamList,
+  "Buttons"
 >;
 
 // Used to fix the type error when using the useNavigation hook

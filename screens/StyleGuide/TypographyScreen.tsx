@@ -7,11 +7,14 @@ import HeaderOne from "../../components/ui/HeaderOne";
 import HeaderThree from "../../components/ui/HeaderThree";
 import HeaderTwo from "../../components/ui/HeaderTwo";
 import { GlobalStyles } from "../../constants/styles";
+import BackButton from "../../components/Settings/BackButton";
 
 /**
  * TypographyScreen Component.
  *
  * This component renders the typograpy style guide.
+ *
+ * TODO: Add ScrollView to make sure all spacing is still good
  *
  * @component
  * @version 0.1.0
@@ -31,6 +34,7 @@ const TypographyScreen = () => {
         },
       ]}
     >
+      <BackButton />
       <View style={styles.innerContainer}>
         <Text style={styles.info}>H1 (24)</Text>
         <View style={styles.lineContainer}>

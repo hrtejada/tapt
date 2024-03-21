@@ -12,6 +12,9 @@ const StyleGuideScreen = ({ navigation }: StyleStackProps) => {
   const handleTypography = () => {
     navigation.navigate("Typography");
   };
+  const handleButtons = () => {
+    navigation.navigate("Buttons");
+  };
 
   return (
     <View
@@ -25,11 +28,22 @@ const StyleGuideScreen = ({ navigation }: StyleStackProps) => {
       ]}
     >
       <ScrollView style={styles.scrollContainer}>
-        <Button
-          onPress={handleTypography}
-          title="Typography"
-          type="primary"
-        ></Button>
+        <View style={styles.buttonContainer}>
+          <Button
+            onPress={handleTypography}
+            title="Typography"
+            type="primary"
+            size="medium"
+          />
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button
+            onPress={handleButtons}
+            title="Buttons"
+            type="primary"
+            size="medium"
+          />
+        </View>
       </ScrollView>
     </View>
   );
@@ -39,11 +53,16 @@ export default StyleGuideScreen;
 
 const styles = StyleSheet.create({
   rootContainer: {
-    flex: 1,
+    // flex: 1,
     backgroundColor: GlobalStyles.colors.background300,
+    justifyContent: "space-between",
   },
   scrollContainer: {
-    marginHorizontal: 16,
-    marginTop: 8,
+    backgroundColor: GlobalStyles.colors.secondary700,
+    borderWidth: 1,
+    paddingHorizontal: 4,
+  },
+  buttonContainer: {
+    paddingVertical: 8,
   },
 });

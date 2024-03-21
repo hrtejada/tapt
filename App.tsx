@@ -33,6 +33,7 @@ import {
 } from "./util/react-navigation";
 import StyleGuideScreen from "./screens/StyleGuideScreen";
 import TypographyScreen from "./screens/StyleGuide/TypographyScreen";
+import ButtonsScreen from "./screens/StyleGuide/ButtonsScreen";
 
 /*
   TODO: OVERALL LIST
@@ -169,6 +170,7 @@ const StyleView = () => {
     >
       <StyleStack.Screen name="Guide" component={StyleGuideScreen} />
       <StyleStack.Screen name="Typography" component={TypographyScreen} />
+      <StyleStack.Screen name="Buttons" component={ButtonsScreen} />
     </StyleStack.Navigator>
   );
 };
