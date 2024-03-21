@@ -34,7 +34,56 @@ const ButtonsScreen = () => {
       <BackButton />
       <ScrollView>
         <View style={styles.innerContainer}>
-          <Text style={styles.info}>Medium Buttons</Text>
+          <Text style={styles.info}>Small</Text>
+          <View style={styles.buttonContainer}>
+            <Button
+              title="Primary"
+              onPress={handlePress}
+              type="primary"
+              size="small"
+            />
+            <Button
+              title="Secondary"
+              onPress={handlePress}
+              type="secondary"
+              size="small"
+            />
+            <Button
+              title="Tertiary"
+              onPress={handlePress}
+              type="tertiary"
+              size="small"
+            />
+          </View>
+          <View style={styles.buttonContainer}>
+            <Button
+              title="Primary"
+              onPress={handlePress}
+              type="primary"
+              size="small"
+            >
+              <Text style={styles.textSm}>Primary</Text>
+            </Button>
+            <Button
+              title="Secondary"
+              onPress={handlePress}
+              type="secondary"
+              size="small"
+            >
+              <Text style={styles.textSm}>Secondary</Text>
+            </Button>
+            <Button
+              title="Tertiary"
+              onPress={handlePress}
+              type="tertiary"
+              size="small"
+            >
+              <Text style={styles.textSm}>Tertiary</Text>
+            </Button>
+          </View>
+        </View>
+        <View style={styles.innerContainer}>
+          <Text style={styles.info}>Medium</Text>
           <View style={styles.buttonContainer}>
             <Button
               title="Primary"
@@ -55,9 +104,82 @@ const ButtonsScreen = () => {
               size="medium"
             />
           </View>
+          <View style={styles.buttonContainer}>
+            <Button
+              title="Primary"
+              onPress={handlePress}
+              type="primary"
+              size="medium"
+            >
+              <Text style={styles.textMed}>Primary</Text>
+            </Button>
+            <Button
+              title="Secondary"
+              onPress={handlePress}
+              type="secondary"
+              size="medium"
+            >
+              <Text style={styles.textMed}>Secondary</Text>
+            </Button>
+            <Button
+              title="Tertiary"
+              onPress={handlePress}
+              type="tertiary"
+              size="medium"
+            >
+              <Text style={styles.textMed}>Tertiary</Text>
+            </Button>
+          </View>
         </View>
-        <View style={styles.innerContainer}></View>
-        <View style={styles.innerContainer}></View>
+        <View style={styles.innerContainer}>
+          <Text style={styles.info}>Large</Text>
+          <View style={styles.buttonContainer}>
+            <Button
+              title="Primary"
+              onPress={handlePress}
+              type="primary"
+              size="large"
+            />
+            <Button
+              title="Secondary"
+              onPress={handlePress}
+              type="secondary"
+              size="large"
+            />
+            <Button
+              title="Tertiary"
+              onPress={handlePress}
+              type="tertiary"
+              size="large"
+            />
+          </View>
+          <View style={styles.buttonContainer}>
+            <Button
+              title="Primary"
+              onPress={handlePress}
+              type="primary"
+              size="large"
+            >
+              <Text style={styles.textLg}>Primary</Text>
+            </Button>
+            <Button
+              title="Secondary"
+              onPress={handlePress}
+              type="secondary"
+              size="large"
+            >
+              <Text style={styles.textLg}>Secondary</Text>
+            </Button>
+            <Button
+              title="Tertiary"
+              onPress={handlePress}
+              type="tertiary"
+              size="large"
+            >
+              <Text style={styles.textLg}>Tertiary</Text>
+            </Button>
+          </View>
+        </View>
         <View style={styles.innerContainer}></View>
       </ScrollView>
     </View>
@@ -84,9 +206,22 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-evenly",
+    marginVertical: 4,
   },
   info: {
     fontSize: 18,
     textAlign: "center",
+  },
+  textSm: {
+    fontSize: 15,
+    fontWeight: "600",
+  },
+  textMed: {
+    fontSize: 18,
+    fontWeight: "600",
+  },
+  textLg: {
+    fontSize: 21,
+    fontWeight: "600",
   },
 });

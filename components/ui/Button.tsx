@@ -6,7 +6,6 @@ interface Props {
   onPress: () => void;
   type: "primary" | "secondary" | "tertiary";
   size: "small" | "medium" | "large";
-  textStyle?: null | object;
   disabled?: boolean;
   children?: React.ReactNode;
 }
@@ -22,9 +21,9 @@ const pressedColors = {
   tertiary: GlobalStyles.colors.accent700,
 };
 const textColors = {
-  primary: GlobalStyles.colors.primary500,
-  secondary: GlobalStyles.colors.secondary500,
-  tertiary: GlobalStyles.colors.accent500,
+  primary: GlobalStyles.colors.text,
+  secondary: GlobalStyles.colors.text,
+  tertiary: GlobalStyles.colors.text,
 };
 const paddings = {
   small: 8,
@@ -32,17 +31,21 @@ const paddings = {
   large: 16,
 };
 const fontSizes = {
-  small: 14,
+  small: 15,
   medium: 18,
-  large: 22,
+  large: 21,
 };
 
 /**
  * Main button component
  *
- * TODO: Refine this. Might be overengineered ಠ_ಠ
+ * Moderately customizable button.
+ * Use props to determine styling.
+ * Can either use a title prop for button text, or pass a child component
  *
- * @version 0.3.0
+ * TODO: Decide if there should be default values for some props
+ *
+ * @version 0.4.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const Button = ({
@@ -50,23 +53,34 @@ const Button = ({
   onPress,
   type,
   size,
-  textStyle,
   disabled = false,
   children,
 }: Props) => {
+  const buttonStyles = [
+    styles.button,
+    {
+      backgroundColor: buttonColors[type],
+      padding: paddings[size],
+    },
+  ];
+
+  const textStyles = [
+    {
+      color: textColors[type],
+      fontSize: fontSizes[size],
+    },
+  ];
+
   return (
     <Pressable
       onPress={onPress}
       style={({ pressed }) => [
-        styles.button,
-        {
-          backgroundColor: buttonColors[type],
-        },
+        ...buttonStyles,
         pressed && { backgroundColor: pressedColors[type] },
       ]}
       disabled={disabled}
     >
-      {children || <Text style={[styles.text, textStyle]}>{title}</Text>}
+      {children || <Text style={textStyles}>{title}</Text>}
     </Pressable>
   );
 };
@@ -77,20 +91,13 @@ const styles = StyleSheet.create({
   button: {
     minWidth: 44,
     minHeight: 44,
-    paddingHorizontal: 6,
+    borderRadius: 8,
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 8,
-    backgroundColor: GlobalStyles.colors.primary500,
     shadowColor: GlobalStyles.colors.accent700,
     shadowOffset: { width: 2, height: 2 },
     shadowRadius: 2,
     shadowOpacity: 0.75,
-    textAlign: "center",
-  },
-  text: {
-    color: GlobalStyles.colors.text,
-    fontSize: 18,
   },
   pressed: {
     opacity: 0.75,
