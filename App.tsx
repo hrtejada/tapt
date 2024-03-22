@@ -6,6 +6,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+
 import LogoutButton from "./components/ui/LogoutButton";
 import { GlobalStyles } from "./constants/styles";
 import EmailScreen from "./screens/EmailScreen";
@@ -18,22 +19,28 @@ import ReplyScreen from "./screens/ReplyScreen";
 import AboutScreen from "./screens/Settings/AboutScreen";
 import DateRangeScreen from "./screens/Settings/DateRangeScreen";
 import DeleteAccountScreen from "./screens/Settings/DeleteAccountScreen";
+import EmailDataScreen from "./screens/Settings/EmailDataScreen";
 import EmailLimitScreen from "./screens/Settings/EmailLimitScreen";
 import NotificationCadenceScreen from "./screens/Settings/NotificationCadenceScreen";
-import EmailDataScreen from "./screens/Settings/EmailDataScreen";
 import RankingScreen from "./screens/Settings/RankingScreen";
 import SettingsScreen from "./screens/SettingsScreen";
+import ButtonsScreen from "./screens/StyleGuide/ButtonsScreen";
+import TypographyScreen from "./screens/StyleGuide/TypographyScreen";
+import StyleGuideScreen from "./screens/StyleGuideScreen";
 import RankedContextProvider from "./store/ranked-context";
 import UserContextProvider from "./store/user-context";
 import {
   HomeStackParamList,
   SettingsStackParamList,
+  StyleStackParamList,
   getHeaderTitle,
 } from "./util/react-navigation";
 
 /*
   TODO: OVERALL LIST
   
+  TODO: Redo the header bar for Drawer Navigation; I don't like the hacky way I put the back button in for each settings option screen
+  TODO: Rework imports to separate between libraries and components/functions
   TODO: Make a current email context??
   TODO: Go through styling and make sure all the flexs and appropriate.
   TODO: Go through Context/State and see if it is all needed i.e. Things can be derived
@@ -50,6 +57,7 @@ import {
 const Drawer = createDrawerNavigator(); // TODO: Do we need type checking for this?
 const HomeStack = createNativeStackNavigator<HomeStackParamList>();
 const SettingsStack = createNativeStackNavigator<SettingsStackParamList>();
+const StyleStack = createNativeStackNavigator<StyleStackParamList>();
 
 /**
  * LoginStack Component.
@@ -145,6 +153,30 @@ const SettingsView = () => {
 };
 
 /**
+ * StyleView Component.
+ *
+ * This component renders the SettingsStack that is used in the
+ * main Drawer navigation.
+ *
+ * @component
+ * @version 0.1.0
+ * @author  Ralph Woiwode <https://github.com/RAWoiwode>
+ */
+const StyleView = () => {
+  return (
+    <StyleStack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <StyleStack.Screen name="Guide" component={StyleGuideScreen} />
+      <StyleStack.Screen name="Typography" component={TypographyScreen} />
+      <StyleStack.Screen name="Buttons" component={ButtonsScreen} />
+    </StyleStack.Navigator>
+  );
+};
+
+/**
  * App Component.
  *
  * This component render the main screen depending on the sessoin.
@@ -217,6 +249,13 @@ export default function App() {
                   headerTitle: getHeaderTitle(route),
                   title: "Settings",
                 })}
+              />
+              <Drawer.Screen
+                name="StyleStack"
+                component={StyleView}
+                options={{
+                  title: "Style Guide",
+                }}
               />
             </Drawer.Navigator>
           </NavigationContainer>

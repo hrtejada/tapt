@@ -51,6 +51,12 @@ export type SettingsStackParamList = {
   About: undefined;
 };
 
+export type StyleStackParamList = {
+  Guide: undefined;
+  Typography: undefined;
+  Buttons: undefined;
+};
+
 /***** HomeStackParamList *****/
 export type HomeStackProps = NativeStackScreenProps<HomeStackParamList, "Home">;
 export type EmailStackProps = NativeStackScreenProps<
@@ -108,8 +114,22 @@ export type AboutStackProps = NativeStackScreenProps<
   "About"
 >;
 
+/***** StyleStackParamList *****/
+export type StyleStackProps = NativeStackScreenProps<
+  StyleStackParamList,
+  "Guide"
+>;
+export type TypographyStackProps = NativeStackScreenProps<
+  StyleStackParamList,
+  "Typography"
+>;
+export type ButtonsStackProps = NativeStackScreenProps<
+  StyleStackParamList,
+  "Buttons"
+>;
+
 // Used to fix the type error when using the useNavigation hook
-// TODO: Get rid of this when going over the ImageScreen againa. Use ["navigation"] key on StackPropsz
+// TODO: Get rid of this when going over the ImageScreen again. Use ["navigation"] key on StackProps
 export type ImageNavigationProps = NativeStackNavigationProp<
   HomeStackParamList,
   "Image"

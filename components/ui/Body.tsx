@@ -1,22 +1,22 @@
-import { StyleProp, StyleSheet, Text, TextStyle } from "react-native";
+import React from "react";
+import { StyleSheet, Text } from "react-native";
 
 import { GlobalStyles } from "../../constants/styles";
 
 interface Props {
-  style?: undefined | StyleProp<TextStyle>;
+  style?: undefined | object;
   accessibilityHint?: string;
 }
 
 /**
- * Header component to display text. (H2)
+ * Body component to display text. (P)
  *
  * Made to be customizable from the component using it.
- * Updated to be more ADA compliant.
  *
- * @version 0.3.1
+ * @version 0.1.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
-const HeaderTwo = ({
+const Body = ({
   style,
   accessibilityHint,
   children,
@@ -26,8 +26,8 @@ const HeaderTwo = ({
 
   return (
     <Text
-      style={[styles.headingText, style]}
-      accessibilityRole="header"
+      style={[styles.bodyText, style]}
+      accessibilityRole="text"
       accessibilityHint={a11yHint}
     >
       {children}
@@ -35,11 +35,11 @@ const HeaderTwo = ({
   );
 };
 
-export default HeaderTwo;
+export default Body;
 
 const styles = StyleSheet.create({
-  headingText: {
+  bodyText: {
     color: GlobalStyles.colors.text,
-    fontSize: 22,
+    fontSize: 17,
   },
 });
