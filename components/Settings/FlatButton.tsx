@@ -13,6 +13,7 @@ interface Props {
  * FlatButton Component.
  *
  * This component renders a flat button with a passable onPress action.
+ * TODO: Get rid of this
  *
  * @component
  * @version 0.1.2

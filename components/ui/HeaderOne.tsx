@@ -1,9 +1,9 @@
-import { StyleSheet, Text } from "react-native";
+import { StyleProp, StyleSheet, Text, TextStyle } from "react-native";
 
 import { GlobalStyles } from "../../constants/styles";
 
 interface Props {
-  style?: undefined | object;
+  style?: undefined | StyleProp<TextStyle>;
   accessibilityHint?: string;
 }
 
@@ -13,7 +13,7 @@ interface Props {
  * Made to be customizable from the component using it.
  * Updated to be more ADA compliant.
  *
- * @version 0.3.0
+ * @version 0.3.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const HeaderOne = ({

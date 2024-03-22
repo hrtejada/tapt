@@ -34,6 +34,7 @@ import {
 import StyleGuideScreen from "./screens/StyleGuideScreen";
 import TypographyScreen from "./screens/StyleGuide/TypographyScreen";
 import ButtonsScreen from "./screens/StyleGuide/ButtonsScreen";
+import InputsScreen from "./screens/StyleGuide/InputsScreen";
 
 /*
   TODO: OVERALL LIST
@@ -171,6 +172,7 @@ const StyleView = () => {
       <StyleStack.Screen name="Guide" component={StyleGuideScreen} />
       <StyleStack.Screen name="Typography" component={TypographyScreen} />
       <StyleStack.Screen name="Buttons" component={ButtonsScreen} />
+      <StyleStack.Screen name="Inputs" component={InputsScreen} />
     </StyleStack.Navigator>
   );
 };
