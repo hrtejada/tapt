@@ -1,5 +1,6 @@
-import { Pressable, StyleSheet, Text } from "react-native";
+import { Animated, Pressable, StyleSheet, Text } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
+import { useRef } from "react";
 
 interface Props {
   title: string;
@@ -15,11 +16,6 @@ const buttonColors = {
   primary: GlobalStyles.colors.primary500,
   secondary: GlobalStyles.colors.secondary500,
   tertiary: GlobalStyles.colors.accent500,
-};
-const pressedColors = {
-  primary: GlobalStyles.colors.primary700,
-  secondary: GlobalStyles.colors.secondary700,
-  tertiary: GlobalStyles.colors.accent700,
 };
 const textColors = {
   primary: GlobalStyles.colors.text,
@@ -46,7 +42,7 @@ const fontSizes = {
  *
  * TODO: Decide if there should be default values for some props
  *
- * @version 0.4.0
+ * @version 0.5.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const Button = ({
@@ -58,13 +54,33 @@ const Button = ({
   isFlat = false,
   children,
 }: Props) => {
+  const scale = useRef(new Animated.Value(1)).current; // Don't trigger a re-render
+
+  const handlePressIn = () => {
+    Animated.spring(scale, {
+      toValue: 0.9,
+      speed: 30,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const handlePresOut = () => {
+    Animated.spring(scale, {
+      toValue: 1,
+      bounciness: 4,
+      useNativeDriver: true,
+    }).start();
+  };
+
   const buttonStyles = [
-    styles.button,
-    !isFlat && styles.notFlat,
-    disabled && styles.disabled,
+    styles.buttonWrapper,
+    !isFlat && styles.button,
     {
       backgroundColor: buttonColors[type],
       padding: paddings[size],
+      transform: [{ scale: scale }],
+      borderRadius: isFlat ? 0 : 8,
+      opacity: disabled ? 0.4 : 1,
     },
   ];
 
@@ -78,13 +94,13 @@ const Button = ({
   return (
     <Pressable
       onPress={onPress}
-      style={({ pressed }) => [
-        ...buttonStyles,
-        pressed && { backgroundColor: pressedColors[type] },
-      ]}
+      onPressIn={handlePressIn}
+      onPressOut={handlePresOut}
       disabled={disabled}
     >
-      {children || <Text style={textStyles}>{title}</Text>}
+      <Animated.View style={[...buttonStyles]}>
+        {children || <Text style={textStyles}>{title}</Text>}
+      </Animated.View>
     </Pressable>
   );
 };
@@ -92,23 +108,16 @@ const Button = ({
 export default Button;
 
 const styles = StyleSheet.create({
-  button: {
+  buttonWrapper: {
     minWidth: 44,
     minHeight: 44,
     justifyContent: "center",
     alignItems: "center",
   },
-  notFlat: {
-    borderRadius: 8,
+  button: {
     shadowColor: GlobalStyles.colors.text,
     shadowOffset: { width: 2, height: 1 },
     shadowRadius: 1,
     shadowOpacity: 0.75,
-  },
-  disabled: {
-    opacity: 0.4,
-  },
-  pressed: {
-    opacity: 0.75,
   },
 });

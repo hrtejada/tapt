@@ -5,6 +5,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { GlobalStyles } from "../../constants/styles";
 import Button from "../../components/ui/Button";
 import BackButton from "../../components/Settings/BackButton";
+import AnimatedButton from "../../components/ui/AnimatedButton";
 
 /**
  * ButtonsScreen Component.

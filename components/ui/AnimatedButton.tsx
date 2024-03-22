@@ -1,16 +1,42 @@
 import { useMemo, useRef } from "react";
 import { Animated, Easing, Pressable, StyleSheet, Text } from "react-native";
+
 import { GlobalStyles } from "../../constants/styles";
 
 interface Props {
   title: string;
   onPress: () => void;
-  style?: null | object;
-  textStyle?: null | object;
-  type?: "primary" | "secondary";
-  disabled?: true | false;
+  type: "primary" | "secondary" | "tertiary";
+  size: "small" | "medium" | "large";
+  disabled?: boolean;
   children?: React.ReactNode;
 }
+
+const buttonColors = {
+  primary: GlobalStyles.colors.primary500,
+  secondary: GlobalStyles.colors.secondary500,
+  tertiary: GlobalStyles.colors.accent500,
+};
+const pressedColors = {
+  primary: GlobalStyles.colors.primary700,
+  secondary: GlobalStyles.colors.secondary700,
+  tertiary: GlobalStyles.colors.accent700,
+};
+const textColors = {
+  primary: GlobalStyles.colors.text,
+  secondary: GlobalStyles.colors.text,
+  tertiary: GlobalStyles.colors.text,
+};
+const paddings = {
+  small: 8,
+  medium: 12,
+  large: 16,
+};
+const fontSizes = {
+  small: 15,
+  medium: 18,
+  large: 21,
+};
 
 /**
  * AnimatedButton Component.
@@ -21,39 +47,34 @@ interface Props {
  * TODO: Style disabled
  *
  * @component
- * @version 0.3.0
+ * @version 0.4.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const AnimatedButton = ({
   title,
   onPress,
-  style,
-  textStyle,
   type = "primary",
+  size,
   disabled = false,
   children,
 }: Props) => {
   const scaleValue = useRef(new Animated.Value(1)).current; // Don't trigger a re-render
 
-  const backgroundColor = useMemo(
-    () => ({
-      backgroundColor:
-        type === "primary"
-          ? GlobalStyles.colors.primary500
-          : GlobalStyles.colors.secondary500,
-    }),
-    [type]
-  );
+  const buttonStyles = [
+    styles.button,
+    disabled && styles.disabled,
+    {
+      backgroudColor: buttonColors[type],
+      padding: paddings[size],
+    },
+  ];
 
-  const pressedBG = useMemo(
-    () => ({
-      backgroundColor:
-        type === "primary"
-          ? GlobalStyles.colors.primary300
-          : GlobalStyles.colors.secondary300,
-    }),
-    [type]
-  );
+  const textStyles = [
+    {
+      color: textColors[type],
+      fontSize: fontSizes[size],
+    },
+  ];
 
   /**
    * Handle the press in.
@@ -93,15 +114,13 @@ const AnimatedButton = ({
       {({ pressed }) => (
         <Animated.View
           style={[
-            styles.button,
-            backgroundColor,
+            ...buttonStyles,
             { transform: [{ scale: scaleValue }] },
-            style,
-            pressed && pressedBG,
+            pressed && { backgroundColor: pressedColors[type] },
           ]}
           testID="animated-button"
         >
-          {children || <Text style={[styles.text, textStyle]}>{title}</Text>}
+          {children || <Text style={textStyles}>{title}</Text>}
         </Animated.View>
       )}
     </Pressable>
@@ -112,18 +131,17 @@ export default AnimatedButton;
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: GlobalStyles.colors.primary500,
-    padding: 16,
-    borderRadius: 10,
+    minWidth: 44,
+    minHeight: 44,
     alignItems: "center",
     justifyContent: "center",
+    borderRadius: 8,
     shadowColor: GlobalStyles.colors.text,
     shadowOffset: { width: 2, height: 2 },
     shadowOpacity: 0.9,
     shadowRadius: 2,
   },
-  text: {
-    color: GlobalStyles.colors.text,
-    fontSize: 24,
+  disabled: {
+    opacity: 0.4,
   },
 });
