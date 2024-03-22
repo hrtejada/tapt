@@ -15,6 +15,9 @@ const StyleGuideScreen = ({ navigation }: StyleStackProps) => {
   const handleButtons = () => {
     navigation.navigate("Buttons");
   };
+  const handleInputs = () => {
+    navigation.navigate("Inputs");
+  };
 
   return (
     <View
@@ -29,20 +32,13 @@ const StyleGuideScreen = ({ navigation }: StyleStackProps) => {
     >
       <ScrollView style={styles.scrollContainer}>
         <View style={styles.buttonContainer}>
-          <Button
-            onPress={handleTypography}
-            title="Typography"
-            type="primary"
-            size="medium"
-          />
+          <Button onPress={handleTypography} title="Typography" />
         </View>
         <View style={styles.buttonContainer}>
-          <Button
-            onPress={handleButtons}
-            title="Buttons"
-            type="primary"
-            size="medium"
-          />
+          <Button onPress={handleButtons} title="Buttons" />
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button onPress={handleInputs} title="Inputs" />
         </View>
       </ScrollView>
     </View>
