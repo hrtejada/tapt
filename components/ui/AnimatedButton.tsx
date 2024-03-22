@@ -45,6 +45,7 @@ const fontSizes = {
  *
  * TODO: Maybe make different types of animated buttons?
  * TODO: Style disabled
+ * TODO: Get rid of. No longer necessary
  *
  * @component
  * @version 0.4.0

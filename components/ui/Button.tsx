@@ -1,12 +1,13 @@
-import { Animated, Pressable, StyleSheet, Text } from "react-native";
-import { GlobalStyles } from "../../constants/styles";
 import { useRef } from "react";
+import { Animated, Pressable, StyleSheet, Text } from "react-native";
+
+import { GlobalStyles } from "../../constants/styles";
 
 interface Props {
   title: string;
   onPress: () => void;
-  type: "primary" | "secondary" | "tertiary";
-  size: "small" | "medium" | "large";
+  type?: "primary" | "secondary" | "tertiary";
+  size?: "small" | "medium" | "large";
   isFlat?: boolean;
   disabled?: boolean;
   children?: React.ReactNode;
@@ -42,14 +43,14 @@ const fontSizes = {
  *
  * TODO: Decide if there should be default values for some props
  *
- * @version 0.5.0
+ * @version 0.5.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const Button = ({
   title,
   onPress,
-  type,
-  size,
+  type = "primary",
+  size = "medium",
   disabled = false,
   isFlat = false,
   children,
@@ -58,7 +59,7 @@ const Button = ({
 
   const handlePressIn = () => {
     Animated.spring(scale, {
-      toValue: 0.9,
+      toValue: 0.93,
       speed: 30,
       useNativeDriver: true,
     }).start();
@@ -99,7 +100,9 @@ const Button = ({
       disabled={disabled}
     >
       <Animated.View style={[...buttonStyles]}>
-        {children || <Text style={textStyles}>{title}</Text>}
+        {children || (
+          <Text style={[textStyles, { fontWeight: "600" }]}>{title}</Text>
+        )}
       </Animated.View>
     </Pressable>
   );

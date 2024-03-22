@@ -1,11 +1,13 @@
 import React from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { FontAwesome5 } from "@expo/vector-icons";
 
-import { GlobalStyles } from "../../constants/styles";
-import Button from "../../components/ui/Button";
 import BackButton from "../../components/Settings/BackButton";
-import AnimatedButton from "../../components/ui/AnimatedButton";
+import Button from "../../components/ui/Button";
+import HeaderOne from "../../components/ui/HeaderOne";
+import { GlobalStyles } from "../../constants/styles";
+import { FLAT_BUTTON_ICON_SIZE } from "../../constants/sizes";
 
 /**
  * ButtonsScreen Component.
@@ -21,6 +23,10 @@ const ButtonsScreen = () => {
 
   const handlePress = () => {};
 
+  const rightIcon = <FontAwesome5 name="angle-right" size={24} color="black" />;
+  const leftIcon = <FontAwesome5 name="angle-left" size={24} color="black" />;
+  const icon = <FontAwesome5 name="coffee" size={28} color="black" />;
+
   return (
     <View
       style={[
@@ -34,15 +40,11 @@ const ButtonsScreen = () => {
     >
       <BackButton />
       <ScrollView>
+        <HeaderOne style={{ textAlign: "center" }}>STANDARD</HeaderOne>
         <View style={styles.innerContainer}>
           <Text style={styles.info}>Small</Text>
           <View style={styles.buttonContainer}>
-            <Button
-              title="Primary"
-              onPress={handlePress}
-              type="primary"
-              size="small"
-            />
+            <Button title="Primary" onPress={handlePress} size="small" />
             <Button
               title="Secondary"
               onPress={handlePress}
@@ -55,102 +57,78 @@ const ButtonsScreen = () => {
               type="tertiary"
               size="small"
             />
-          </View>
-          <View style={styles.buttonContainer}>
-            <Button
-              title="Primary"
-              onPress={handlePress}
-              type="primary"
-              size="small"
-            >
-              <Text style={styles.textSm}>Primary</Text>
-            </Button>
-            <Button
-              title="Secondary"
-              onPress={handlePress}
-              type="secondary"
-              size="small"
-            >
-              <Text style={styles.textSm}>Secondary</Text>
-            </Button>
-            <Button
-              title="Tertiary"
-              onPress={handlePress}
-              type="tertiary"
-              size="small"
-            >
-              <Text style={styles.textSm}>Tertiary</Text>
-            </Button>
           </View>
         </View>
         <View style={styles.innerContainer}>
           <Text style={styles.info}>Medium</Text>
           <View style={styles.buttonContainer}>
-            <Button
-              title="Primary"
-              onPress={handlePress}
-              type="primary"
-              size="medium"
-            />
-            <Button
-              title="Secondary"
-              onPress={handlePress}
-              type="secondary"
-              size="medium"
-            />
-            <Button
-              title="Tertiary"
-              onPress={handlePress}
-              type="tertiary"
-              size="medium"
-            />
+            <Button title="Primary" onPress={handlePress} />
+            <Button title="Secondary" onPress={handlePress} type="secondary" />
+            <Button title="Tertiary" onPress={handlePress} type="tertiary" />
           </View>
           <View style={styles.buttonContainer}>
-            <Button
-              title="Primary"
-              onPress={handlePress}
-              type="primary"
-              size="medium"
-            >
-              <Text style={styles.textMed}>Primary</Text>
+            <Button title="Primary" onPress={handlePress}>
+              <View style={styles.buttonContent}>
+                <Text style={styles.textRightIcon}>Icon</Text>
+                {rightIcon}
+              </View>
             </Button>
-            <Button
-              title="Secondary"
-              onPress={handlePress}
-              type="secondary"
-              size="medium"
-            >
-              <Text style={styles.textMed}>Secondary</Text>
+            <Button title="Secondary" onPress={handlePress} type="secondary">
+              <View style={styles.buttonContent}>
+                <Text style={styles.textRightIcon}>Icon</Text>
+                {rightIcon}
+              </View>
             </Button>
-            <Button
-              title="Tertiary"
-              onPress={handlePress}
-              type="tertiary"
-              size="medium"
-            >
-              <Text style={styles.textMed}>Tertiary</Text>
+            <Button title="Tertiary" onPress={handlePress} type="tertiary">
+              <View style={styles.buttonContent}>
+                <Text style={styles.textRightIcon}>Icon</Text>
+                {rightIcon}
+              </View>
             </Button>
           </View>
           <View style={styles.buttonContainer}>
-            <Button
-              title="Primary"
-              onPress={handlePress}
-              type="primary"
-              size="medium"
-              disabled
-            />
+            <Button title="Primary" onPress={handlePress}>
+              <View style={styles.buttonContent}>
+                {leftIcon}
+                <Text style={styles.textleftIcon}>Icon</Text>
+              </View>
+            </Button>
+            <Button title="Secondary" onPress={handlePress} type="secondary">
+              <View style={styles.buttonContent}>
+                {leftIcon}
+                <Text style={styles.textleftIcon}>Icon</Text>
+              </View>
+            </Button>
+            <Button title="Tertiary" onPress={handlePress} type="tertiary">
+              <View style={styles.buttonContent}>
+                {leftIcon}
+                <Text style={styles.textleftIcon}>Icon</Text>
+              </View>
+            </Button>
+          </View>
+          <View style={styles.buttonContainer}>
+            <Button title="Primary" onPress={handlePress}>
+              {icon}
+            </Button>
+            <Button title="Secondary" onPress={handlePress} type="secondary">
+              {icon}
+            </Button>
+            <Button title="Tertiary" onPress={handlePress} type="tertiary">
+              {icon}
+            </Button>
+          </View>
+          <View style={styles.buttonContainer}>
+            <Button title="Primary" onPress={handlePress} disabled />
             <Button
               title="Secondary"
               onPress={handlePress}
               type="secondary"
-              size="medium"
               disabled
             />
             <Button
               title="Tertiary"
               onPress={handlePress}
               type="tertiary"
-              size="medium"
               disabled
             />
           </View>
@@ -158,12 +136,7 @@ const ButtonsScreen = () => {
         <View style={styles.innerContainer}>
           <Text style={styles.info}>Large</Text>
           <View style={styles.buttonContainer}>
-            <Button
-              title="Primary"
-              onPress={handlePress}
-              type="primary"
-              size="large"
-            />
+            <Button title="Primary" onPress={handlePress} size="large" />
             <Button
               title="Secondary"
               onPress={handlePress}
@@ -176,44 +149,13 @@ const ButtonsScreen = () => {
               type="tertiary"
               size="large"
             />
-          </View>
-          <View style={styles.buttonContainer}>
-            <Button
-              title="Primary"
-              onPress={handlePress}
-              type="primary"
-              size="large"
-            >
-              <Text style={styles.textLg}>Primary</Text>
-            </Button>
-            <Button
-              title="Secondary"
-              onPress={handlePress}
-              type="secondary"
-              size="large"
-            >
-              <Text style={styles.textLg}>Secondary</Text>
-            </Button>
-            <Button
-              title="Tertiary"
-              onPress={handlePress}
-              type="tertiary"
-              size="large"
-            >
-              <Text style={styles.textLg}>Tertiary</Text>
-            </Button>
           </View>
         </View>
+        <HeaderOne style={{ textAlign: "center" }}>FLAT</HeaderOne>
         <View style={styles.innerContainer}>
           <Text style={styles.info}>Small</Text>
           <View style={styles.buttonContainer}>
-            <Button
-              title="Primary"
-              onPress={handlePress}
-              type="primary"
-              size="small"
-              isFlat
-            />
+            <Button title="Primary" onPress={handlePress} size="small" isFlat />
             <Button
               title="Secondary"
               onPress={handlePress}
@@ -228,105 +170,112 @@ const ButtonsScreen = () => {
               size="small"
               isFlat
             />
-          </View>
-          <View style={styles.buttonContainer}>
-            <Button
-              title="Primary"
-              onPress={handlePress}
-              type="primary"
-              size="small"
-              isFlat
-            >
-              <Text style={styles.textSm}>Primary</Text>
-            </Button>
-            <Button
-              title="Secondary"
-              onPress={handlePress}
-              type="secondary"
-              size="small"
-              isFlat
-            >
-              <Text style={styles.textSm}>Secondary</Text>
-            </Button>
-            <Button
-              title="Tertiary"
-              onPress={handlePress}
-              type="tertiary"
-              size="small"
-              isFlat
-            >
-              <Text style={styles.textSm}>Tertiary</Text>
-            </Button>
           </View>
         </View>
         <View style={styles.innerContainer}>
           <Text style={styles.info}>Medium</Text>
           <View style={styles.buttonContainer}>
-            <Button
-              title="Primary"
-              onPress={handlePress}
-              type="primary"
-              size="medium"
-              isFlat
-            />
+            <Button title="Primary" onPress={handlePress} isFlat />
             <Button
               title="Secondary"
               onPress={handlePress}
               type="secondary"
-              size="medium"
               isFlat
             />
             <Button
               title="Tertiary"
               onPress={handlePress}
               type="tertiary"
-              size="medium"
               isFlat
             />
           </View>
           <View style={styles.buttonContainer}>
-            <Button
-              title="Primary"
-              onPress={handlePress}
-              type="primary"
-              size="medium"
-              isFlat
-            >
-              <Text style={styles.textMed}>Primary</Text>
+            <Button title="Primary" onPress={handlePress} isFlat>
+              <View style={styles.buttonContent}>
+                <Text style={styles.textRightIcon}>Icon</Text>
+                {rightIcon}
+              </View>
             </Button>
             <Button
               title="Secondary"
               onPress={handlePress}
               type="secondary"
-              size="medium"
               isFlat
             >
-              <Text style={styles.textMed}>Secondary</Text>
+              <View style={styles.buttonContent}>
+                <Text style={styles.textRightIcon}>Icon</Text>
+                {rightIcon}
+              </View>
             </Button>
             <Button
               title="Tertiary"
               onPress={handlePress}
               type="tertiary"
-              size="medium"
               isFlat
             >
-              <Text style={styles.textMed}>Tertiary</Text>
+              <View style={styles.buttonContent}>
+                <Text style={styles.textRightIcon}>Icon</Text>
+                {rightIcon}
+              </View>
             </Button>
           </View>
           <View style={styles.buttonContainer}>
-            <Button
-              title="Primary"
-              onPress={handlePress}
-              type="primary"
-              size="medium"
-              isFlat
-              disabled
-            />
+            <Button title="Primary" onPress={handlePress} isFlat>
+              <View style={styles.buttonContent}>
+                {leftIcon}
+                <Text style={styles.textleftIcon}>Icon</Text>
+              </View>
+            </Button>
             <Button
               title="Secondary"
               onPress={handlePress}
               type="secondary"
-              size="medium"
+              isFlat
+            >
+              <View style={styles.buttonContent}>
+                {leftIcon}
+                <Text style={styles.textleftIcon}>Icon</Text>
+              </View>
+            </Button>
+            <Button
+              title="Tertiary"
+              onPress={handlePress}
+              type="tertiary"
+              isFlat
+            >
+              <View style={styles.buttonContent}>
+                {leftIcon}
+                <Text style={styles.textleftIcon}>Icon</Text>
+              </View>
+            </Button>
+          </View>
+          <View style={styles.buttonContainer}>
+            <Button title="Primary" onPress={handlePress} isFlat>
+              {icon}
+            </Button>
+            <Button
+              title="Secondary"
+              onPress={handlePress}
+              type="secondary"
+              isFlat
+            >
+              {icon}
+            </Button>
+            <Button
+              title="Tertiary"
+              onPress={handlePress}
+              type="tertiary"
+              isFlat
+            >
+              {icon}
+            </Button>
+          </View>
+          <View style={styles.buttonContainer}>
+            <Button title="Primary" onPress={handlePress} isFlat disabled />
+            <Button
+              title="Secondary"
+              onPress={handlePress}
+              type="secondary"
               isFlat
               disabled
             />
@@ -334,7 +283,6 @@ const ButtonsScreen = () => {
               title="Tertiary"
               onPress={handlePress}
               type="tertiary"
-              size="medium"
               isFlat
               disabled
             />
@@ -343,13 +291,7 @@ const ButtonsScreen = () => {
         <View style={styles.innerContainer}>
           <Text style={styles.info}>Large</Text>
           <View style={styles.buttonContainer}>
-            <Button
-              title="Primary"
-              onPress={handlePress}
-              type="primary"
-              size="large"
-              isFlat
-            />
+            <Button title="Primary" onPress={handlePress} size="large" isFlat />
             <Button
               title="Secondary"
               onPress={handlePress}
@@ -364,35 +306,6 @@ const ButtonsScreen = () => {
               size="large"
               isFlat
             />
-          </View>
-          <View style={styles.buttonContainer}>
-            <Button
-              title="Primary"
-              onPress={handlePress}
-              type="primary"
-              size="large"
-              isFlat
-            >
-              <Text style={styles.textLg}>Primary</Text>
-            </Button>
-            <Button
-              title="Secondary"
-              onPress={handlePress}
-              type="secondary"
-              size="large"
-              isFlat
-            >
-              <Text style={styles.textLg}>Secondary</Text>
-            </Button>
-            <Button
-              title="Tertiary"
-              onPress={handlePress}
-              type="tertiary"
-              size="large"
-              isFlat
-            >
-              <Text style={styles.textLg}>Tertiary</Text>
-            </Button>
           </View>
         </View>
         <View style={styles.innerContainer}></View>
@@ -420,19 +333,26 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flex: 1,
     flexDirection: "row",
-    justifyContent: "space-evenly",
+    justifyContent: "space-around",
     marginVertical: 4,
+  },
+  buttonContent: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
   },
   info: {
     fontSize: 18,
     textAlign: "center",
   },
-  textSm: {
-    fontSize: 15,
+  textRightIcon: {
+    fontSize: 18,
+    marginRight: 8,
     fontWeight: "600",
   },
-  textMed: {
+  textleftIcon: {
     fontSize: 18,
+    marginLeft: 8,
     fontWeight: "600",
   },
   textLg: {
