@@ -15,9 +15,6 @@ const StyleGuideScreen = ({ navigation }: StyleStackProps) => {
   const handleButtons = () => {
     navigation.navigate("Buttons");
   };
-  const handleInputs = () => {
-    navigation.navigate("Inputs");
-  };
 
   return (
     <View
@@ -36,9 +33,6 @@ const StyleGuideScreen = ({ navigation }: StyleStackProps) => {
         </View>
         <View style={styles.buttonContainer}>
           <Button onPress={handleButtons} title="Buttons" />
-        </View>
-        <View style={styles.buttonContainer}>
-          <Button onPress={handleInputs} title="Inputs" />
         </View>
       </ScrollView>
     </View>

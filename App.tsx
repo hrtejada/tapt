@@ -6,6 +6,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+
 import LogoutButton from "./components/ui/LogoutButton";
 import { GlobalStyles } from "./constants/styles";
 import EmailScreen from "./screens/EmailScreen";
@@ -18,11 +19,14 @@ import ReplyScreen from "./screens/ReplyScreen";
 import AboutScreen from "./screens/Settings/AboutScreen";
 import DateRangeScreen from "./screens/Settings/DateRangeScreen";
 import DeleteAccountScreen from "./screens/Settings/DeleteAccountScreen";
+import EmailDataScreen from "./screens/Settings/EmailDataScreen";
 import EmailLimitScreen from "./screens/Settings/EmailLimitScreen";
 import NotificationCadenceScreen from "./screens/Settings/NotificationCadenceScreen";
-import EmailDataScreen from "./screens/Settings/EmailDataScreen";
 import RankingScreen from "./screens/Settings/RankingScreen";
 import SettingsScreen from "./screens/SettingsScreen";
+import ButtonsScreen from "./screens/StyleGuide/ButtonsScreen";
+import TypographyScreen from "./screens/StyleGuide/TypographyScreen";
+import StyleGuideScreen from "./screens/StyleGuideScreen";
 import RankedContextProvider from "./store/ranked-context";
 import UserContextProvider from "./store/user-context";
 import {
@@ -31,10 +35,6 @@ import {
   StyleStackParamList,
   getHeaderTitle,
 } from "./util/react-navigation";
-import StyleGuideScreen from "./screens/StyleGuideScreen";
-import TypographyScreen from "./screens/StyleGuide/TypographyScreen";
-import ButtonsScreen from "./screens/StyleGuide/ButtonsScreen";
-import InputsScreen from "./screens/StyleGuide/InputsScreen";
 
 /*
   TODO: OVERALL LIST
@@ -172,7 +172,6 @@ const StyleView = () => {
       <StyleStack.Screen name="Guide" component={StyleGuideScreen} />
       <StyleStack.Screen name="Typography" component={TypographyScreen} />
       <StyleStack.Screen name="Buttons" component={ButtonsScreen} />
-      <StyleStack.Screen name="Inputs" component={InputsScreen} />
     </StyleStack.Navigator>
   );
 };
