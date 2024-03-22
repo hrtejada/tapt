@@ -43,7 +43,7 @@ const fontSizes = {
  *
  * TODO: Decide if there should be default values for some props
  *
- * @version 0.5.1
+ * @version 0.5.2
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const Button = ({
@@ -86,6 +86,7 @@ const Button = ({
   ];
 
   const textStyles = [
+    styles.text,
     {
       color: textColors[type],
       fontSize: fontSizes[size],
@@ -99,10 +100,8 @@ const Button = ({
       onPressOut={handlePresOut}
       disabled={disabled}
     >
-      <Animated.View style={[...buttonStyles]}>
-        {children || (
-          <Text style={[textStyles, { fontWeight: "600" }]}>{title}</Text>
-        )}
+      <Animated.View style={buttonStyles}>
+        {children || <Text style={textStyles}>{title}</Text>}
       </Animated.View>
     </Pressable>
   );
@@ -122,5 +121,8 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 2, height: 1 },
     shadowRadius: 1,
     shadowOpacity: 0.75,
+  },
+  text: {
+    fontWeight: "600",
   },
 });
