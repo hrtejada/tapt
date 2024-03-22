@@ -6,6 +6,7 @@ interface Props {
   onPress: () => void;
   type: "primary" | "secondary" | "tertiary";
   size: "small" | "medium" | "large";
+  isFlat?: boolean;
   disabled?: boolean;
   children?: React.ReactNode;
 }
@@ -54,10 +55,13 @@ const Button = ({
   type,
   size,
   disabled = false,
+  isFlat = false,
   children,
 }: Props) => {
   const buttonStyles = [
     styles.button,
+    !isFlat && styles.notFlat,
+    disabled && styles.disabled,
     {
       backgroundColor: buttonColors[type],
       padding: paddings[size],
@@ -91,13 +95,18 @@ const styles = StyleSheet.create({
   button: {
     minWidth: 44,
     minHeight: 44,
-    borderRadius: 8,
     justifyContent: "center",
     alignItems: "center",
-    shadowColor: GlobalStyles.colors.accent700,
-    shadowOffset: { width: 2, height: 2 },
-    shadowRadius: 2,
+  },
+  notFlat: {
+    borderRadius: 8,
+    shadowColor: GlobalStyles.colors.text,
+    shadowOffset: { width: 2, height: 1 },
+    shadowRadius: 1,
     shadowOpacity: 0.75,
+  },
+  disabled: {
+    opacity: 0.4,
   },
   pressed: {
     opacity: 0.75,
