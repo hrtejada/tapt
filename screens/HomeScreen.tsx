@@ -18,7 +18,7 @@ import { GlobalStyles } from "../constants/styles";
  * TODO: Restyle a bit more. Still not 100% happy with the layout/data displayed
  *
  * @component
- * @version 0.3.1
+ * @version 0.3.2
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const HomeScreen = () => {
@@ -30,7 +30,7 @@ const HomeScreen = () => {
       style={[
         styles.container,
         {
-          paddingTop: insets.top,
+          // paddingTop: insets.top,
           paddingBottom: insets.bottom,
           paddingLeft: insets.left,
           paddingRight: insets.right,

@@ -4,6 +4,7 @@ import { GlobalStyles } from "../../constants/styles";
 import { STATUS } from "../../constants/words";
 import { useUserContext } from "../../store/user-context";
 import BookingNumberCard from "./BookingNumberCard";
+import HeaderTwo from "../ui/HeaderTwo";
 
 interface Props {
   accepted: number;
@@ -18,7 +19,7 @@ interface Props {
  * TODO: Rework this; I don't like the current display
  *
  * @component
- * @version 0.2.1
+ * @version 0.3.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const BookingStats = React.memo(({ accepted, rejected }: Props) => {
@@ -31,17 +32,25 @@ const BookingStats = React.memo(({ accepted, rejected }: Props) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.cardContainer}>
-        <BookingNumberCard
-          title={STATUS.ACCEPTED}
-          value={accepted}
-          total={total}
-        />
-        <BookingNumberCard
-          title={STATUS.REJECTED}
-          value={rejected}
-          total={total}
-        />
+      <View style={styles.pill}>
+        <View style={styles.card}>
+          <HeaderTwo style={{ fontWeight: "bold" }}>
+            {STATUS.ACCEPTED}
+          </HeaderTwo>
+          <View style={styles.leftIndent}>
+            <Text style={{ fontSize: 48 }}>10</Text>
+            <Text>17%</Text>
+          </View>
+        </View>
+        <View style={styles.card}>
+          <HeaderTwo style={{ fontWeight: "bold" }}>
+            {STATUS.REJECTED}
+          </HeaderTwo>
+          <View style={styles.leftIndent}>
+            <Text style={{ fontSize: 48 }}>50</Text>
+            <Text>83%</Text>
+          </View>
+        </View>
       </View>
       <View
         style={styles.limitContainer}
@@ -59,6 +68,24 @@ export default BookingStats;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  pill: {
+    backgroundColor: GlobalStyles.colors.secondary300,
+    marginHorizontal: 24,
+    borderRadius: 8,
+    padding: 4,
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  card: {
+    flex: 1,
+    backgroundColor: GlobalStyles.colors.background300,
+    borderRadius: 4,
+    padding: 8,
+    alignItems: "center",
+  },
+  leftIndent: {
+    // paddingLeft: 24,
   },
   cardContainer: {
     flexDirection: "row",

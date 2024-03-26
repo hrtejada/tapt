@@ -24,8 +24,8 @@ const INIT_USER_STATE = {
   accepted: 10,
   rejected: 50,
   limit: "",
-  startDate: new Date(),
-  endDate: new Date(),
+  startDate: new Date(2024, 2, 20), // TODO: Remove after testing
+  endDate: new Date(2024, 3, 20), // TODO: Remove after testing
   header: "",
   parameters: ["description", "budget", "size", "placement", "images"], // TODO: Just adding init values to help with testing. REMOVE AFTERWARDS
   notifications: NOTIFICATION_OPTIONS.OFF.toString(),

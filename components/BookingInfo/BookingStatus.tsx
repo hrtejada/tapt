@@ -15,25 +15,31 @@ interface Props {
  * Styled differently depending on the current status.
  *
  * @component
- * @version 0.3.1
+ * @version 0.4.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const BookingStatus = ({ status, startDate, endDate }: Props) => {
-  const statusText = status ? ACTIVE : INACTIVE;
+  const statusText = `${status ? ACTIVE : INACTIVE} - `;
   const dateRangeText = status ? `${startDate} - ${endDate}` : "";
   const accessibilityHint = `Booking Status: ${statusText}. ${dateRangeText}`;
 
   return (
     <View
-      style={[styles.container, status ? styles.active : styles.inactive]}
+      style={styles.container}
       accessibilityRole="text"
       accessibilityHint={accessibilityHint}
       accessibilityLiveRegion="polite"
     >
-      <Text style={[styles.text, styles.statusText]}>{statusText}</Text>
-      {status && (
-        <Text style={[styles.text, styles.dateRangeText]}>{dateRangeText}</Text>
-      )}
+      <View
+        style={[
+          styles.statusContainer,
+          // status ? styles.active : styles.inactive,
+        ]}
+      >
+        <Text style={[styles.text, styles.statusText]}>{`${statusText} ${
+          status && dateRangeText
+        }`}</Text>
+      </View>
     </View>
   );
 };
@@ -45,23 +51,22 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    padding: 6,
+    paddingTop: 8,
+  },
+  statusContainer: {
+    padding: 12,
   },
   active: {
-    backgroundColor: GlobalStyles.colors.primary300,
+    backgroundColor: GlobalStyles.colors.primary700,
   },
   inactive: {
     backgroundColor: GlobalStyles.colors.secondary300,
   },
   text: {
-    flex: 0,
-    color: GlobalStyles.colors.background100,
     fontWeight: "bold",
+    textDecorationLine: "underline",
   },
   statusText: {
     fontSize: 22,
-  },
-  dateRangeText: {
-    fontSize: 20,
   },
 });
