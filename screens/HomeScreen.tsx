@@ -12,10 +12,9 @@ import { GlobalStyles } from "../constants/styles";
  *
  * This component renders the main aspects of the app.
  *
- * Currently broken up into 3 main rows
+ * Currently broken up into 2 main parts
  *  - Booking Information
  *  - Email Information/Action
- *  - Ranked Queue
  *
  * TODO: Restyle a bit more. Still not 100% happy with the layout/data displayed
  *
