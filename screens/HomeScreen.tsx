@@ -18,7 +18,7 @@ import { GlobalStyles } from "../constants/styles";
  * TODO: Restyle a bit more. Still not 100% happy with the layout/data displayed
  *
  * @component
- * @version 0.3.2
+ * @version 0.3.3
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const HomeScreen = () => {
@@ -39,7 +39,7 @@ const HomeScreen = () => {
     >
       <BookingInfo />
       <EmailInfo />
-      <RankedInfo />
+      {/* <RankedInfo /> */}
       <View>
         <Text style={styles.bottomText}>MPJ Labs, 2023 ©</Text>
       </View>
@@ -54,7 +54,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: GlobalStyles.colors.background200,
   },
-
   bottomText: {
     fontSize: 16,
     textAlign: "center",

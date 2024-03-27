@@ -31,6 +31,7 @@ import RankedContextProvider from "./store/ranked-context";
 import UserContextProvider from "./store/user-context";
 import {
   HomeStackParamList,
+  QueueStackParamList,
   SettingsStackParamList,
   StyleStackParamList,
   getHeaderTitle,
@@ -58,6 +59,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 const Drawer = createDrawerNavigator(); // TODO: Do we need type checking for this?
 const Tab = createBottomTabNavigator(); // TODO: Do we need type checking for this?
 const HomeStack = createNativeStackNavigator<HomeStackParamList>();
+const QueueStack = createNativeStackNavigator<QueueStackParamList>();
 const SettingsStack = createNativeStackNavigator<SettingsStackParamList>();
 const StyleStack = createNativeStackNavigator<StyleStackParamList>();
 
@@ -116,9 +118,34 @@ const MainView = () => {
         />
         <HomeStack.Screen name="Image" component={ImageScreen} />
         <HomeStack.Screen name="Reply" component={ReplyScreen} />
-        <HomeStack.Screen name="Queue" component={QueueScreen} />
+        {/* <HomeStack.Screen name="Queue" component={QueueScreen} /> */}
       </HomeStack.Group>
     </HomeStack.Navigator>
+  );
+};
+
+/**
+ * QueueView Component.
+ *
+ * Thie component renders the QueueStack used in the
+ * main Tab navigation.
+ *
+ * Only accessed if the user is successfully V&V'd
+ *
+ * @component
+ * @version 0.1.0
+ * @author  Ralph Woiwode <https://github.com/RAWoiwode>
+ */
+const QueueView = () => {
+  return (
+    <QueueStack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+      initialRouteName="Queue"
+    >
+      <QueueStack.Screen name="Queue" component={RankedQueueScreen} />
+    </QueueStack.Navigator>
   );
 };
 
@@ -210,6 +237,16 @@ export default function App() {
                   tabBarIcon: ({ color, size }) => (
                     <FontAwesome5 name="home" size={size} color={color} />
                   ),
+                }}
+              />
+              <Tab.Screen
+                name="QueueView"
+                component={QueueView}
+                options={{
+                  tabBarIcon: ({ color, size }) => (
+                    <FontAwesome5 name="list" size={size} color={color} />
+                  ),
+                  title: "Queue",
                 }}
               />
               <Tab.Screen
