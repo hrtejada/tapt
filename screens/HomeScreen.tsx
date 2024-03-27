@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import BookingInfo from "../components/BookingInfo/BookingInfo";
 import EmailInfo from "../components/EmailInfo/EmailInfo";
@@ -37,12 +37,14 @@ const HomeScreen = () => {
         },
       ]}
     >
-      <BookingInfo />
-      <EmailInfo />
-      {/* <RankedInfo /> */}
-      <View>
-        <Text style={styles.bottomText}>MPJ Labs, 2023 ©</Text>
-      </View>
+      <ScrollView>
+        <BookingInfo />
+        <EmailInfo />
+        {/* <RankedInfo /> */}
+        <View>
+          <Text style={styles.bottomText}>MPJ Labs, 2023 ©</Text>
+        </View>
+      </ScrollView>
     </View>
   );
 };
