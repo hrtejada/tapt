@@ -72,17 +72,15 @@ export default EmailInfo;
 
 const styles = StyleSheet.create({
   row: {
-    justifyContent: "center",
+    flexGrow: 1,
     alignItems: "center",
-    paddingVertical: 32,
-    backgroundColor: GlobalStyles.colors.background600,
+    justifyContent: "center",
   },
   container: {
+    justifyContent: "space-around",
     width: 250,
     flexDirection: "row",
     alignItems: "center",
-    alignContent: "stretch",
-    justifyContent: "space-around",
   },
   count: {
     fontSize: 72,

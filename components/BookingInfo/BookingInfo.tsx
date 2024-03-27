@@ -56,16 +56,13 @@ export default BookingInfo;
 
 const styles = StyleSheet.create({
   row: {
-    flex: 1,
-    paddingVertical: 32,
+    flexGrow: 1,
+    paddingBottom: 32,
+    marginHorizontal: 12,
     justifyContent: "center",
-    backgroundColor: GlobalStyles.colors.background600,
   },
   bookingTextContainer: {
     alignItems: "center",
-    backgroundColor: GlobalStyles.colors.primary300,
-    paddingVertical: 8,
-    marginTop: 12,
   },
   bookingTextStyle: {
     fontWeight: "bold",

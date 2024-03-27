@@ -1,5 +1,7 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { LinearGradient } from "expo-linear-gradient";
+
 import BookingInfo from "../components/BookingInfo/BookingInfo";
 import EmailInfo from "../components/EmailInfo/EmailInfo";
 import RankedInfo from "../components/RankedInfo/RankedInfo";
@@ -26,26 +28,34 @@ const HomeScreen = () => {
   const insets = useSafeAreaInsets();
 
   return (
-    <View
+    <ScrollView
       style={[
         styles.container,
         {
-          // paddingTop: insets.top,
-          paddingBottom: insets.bottom,
           paddingLeft: insets.left,
           paddingRight: insets.right,
+          paddingTop: insets.top,
         },
       ]}
+      contentContainerStyle={{ flexGrow: 1 }}
     >
-      <ScrollView>
+      <LinearGradient
+        colors={[
+          GlobalStyles.colors.background300,
+          GlobalStyles.colors.secondary700,
+          GlobalStyles.colors.background300,
+        ]}
+        start={{ x: 0.25, y: 0.2 }}
+        end={{ x: 0.35, y: 1 }}
+        style={{ flexGrow: 1 }}
+      >
         <BookingInfo />
         <EmailInfo />
-        {/* <RankedInfo /> */}
-        <View>
+        <View style={styles.footer}>
           <Text style={styles.bottomText}>MPJ Labs, 2023 ©</Text>
         </View>
-      </ScrollView>
-    </View>
+      </LinearGradient>
+    </ScrollView>
   );
 };
 
@@ -53,8 +63,12 @@ export default HomeScreen;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: GlobalStyles.colors.background200,
+    backgroundColor: GlobalStyles.colors.background300,
+  },
+  footer: {
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 12,
   },
   bottomText: {
     fontSize: 16,
