@@ -1,10 +1,10 @@
 import React from "react";
-import { StyleSheet, Text } from "react-native";
+import { StyleProp, StyleSheet, Text, TextStyle } from "react-native";
 
 import { GlobalStyles } from "../../constants/styles";
 
 interface Props {
-  style?: undefined | object;
+  style?: undefined | StyleProp<TextStyle>;
   accessibilityHint?: string;
 }
 
