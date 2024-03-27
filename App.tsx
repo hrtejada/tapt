@@ -31,10 +31,12 @@ import RankedContextProvider from "./store/ranked-context";
 import UserContextProvider from "./store/user-context";
 import {
   HomeStackParamList,
+  QueueStackParamList,
   SettingsStackParamList,
   StyleStackParamList,
   getHeaderTitle,
 } from "./util/react-navigation";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 /*
   TODO: OVERALL LIST
@@ -55,7 +57,9 @@ import {
  */
 
 const Drawer = createDrawerNavigator(); // TODO: Do we need type checking for this?
+const Tab = createBottomTabNavigator(); // TODO: Do we need type checking for this?
 const HomeStack = createNativeStackNavigator<HomeStackParamList>();
+const QueueStack = createNativeStackNavigator<QueueStackParamList>();
 const SettingsStack = createNativeStackNavigator<SettingsStackParamList>();
 const StyleStack = createNativeStackNavigator<StyleStackParamList>();
 
@@ -114,9 +118,34 @@ const MainView = () => {
         />
         <HomeStack.Screen name="Image" component={ImageScreen} />
         <HomeStack.Screen name="Reply" component={ReplyScreen} />
-        <HomeStack.Screen name="Queue" component={QueueScreen} />
+        {/* <HomeStack.Screen name="Queue" component={QueueScreen} /> */}
       </HomeStack.Group>
     </HomeStack.Navigator>
+  );
+};
+
+/**
+ * QueueView Component.
+ *
+ * Thie component renders the QueueStack used in the
+ * main Tab navigation.
+ *
+ * Only accessed if the user is successfully V&V'd
+ *
+ * @component
+ * @version 0.1.0
+ * @author  Ralph Woiwode <https://github.com/RAWoiwode>
+ */
+const QueueView = () => {
+  return (
+    <QueueStack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+      initialRouteName="Queue"
+    >
+      <QueueStack.Screen name="Queue" component={RankedQueueScreen} />
+    </QueueStack.Navigator>
   );
 };
 
@@ -195,69 +224,56 @@ export default function App() {
       <UserContextProvider>
         <RankedContextProvider>
           <NavigationContainer>
-            <Drawer.Navigator
+            <Tab.Navigator
               screenOptions={{
-                drawerActiveTintColor: GlobalStyles.colors.text,
-                drawerActiveBackgroundColor: GlobalStyles.colors.secondary700,
-                drawerInactiveTintColor: GlobalStyles.colors.text,
-                drawerInactiveBackgroundColor:
-                  GlobalStyles.colors.background200,
-                drawerType: "front",
-                drawerLabelStyle: {
-                  fontSize: 22,
-                },
-                drawerStyle: {
-                  backgroundColor: GlobalStyles.colors.primary700,
-                },
-
-                headerStyle: {
-                  backgroundColor: GlobalStyles.colors.background300,
-                  borderBottomColor: GlobalStyles.colors.accent500,
-                  borderBottomWidth: 1,
-                },
-                headerTintColor: GlobalStyles.colors.text,
+                tabBarShowLabel: false,
               }}
             >
-              <Drawer.Screen
+              <Tab.Screen
                 name="MainView"
                 component={MainView}
                 options={{
-                  headerTitle: "",
-                  title: "Home",
-                  headerTransparent: true,
-                  drawerIcon: () => (
-                    <FontAwesome5
-                      name="home"
-                      size={20}
-                      color={GlobalStyles.colors.text}
-                    />
+                  headerShown: false,
+                  tabBarIcon: ({ color, size }) => (
+                    <FontAwesome5 name="home" size={size} color={color} />
                   ),
                 }}
               />
-              <Drawer.Screen
+              <Tab.Screen
+                name="QueueView"
+                component={QueueView}
+                options={{
+                  tabBarIcon: ({ color, size }) => (
+                    <FontAwesome5 name="list" size={size} color={color} />
+                  ),
+                  title: "Queue",
+                }}
+              />
+              <Tab.Screen
                 name="SettingsStack"
                 component={SettingsView}
                 options={({ route }) => ({
-                  drawerIcon: () => (
-                    <FontAwesome5
-                      name="cogs"
-                      size={20}
-                      color={GlobalStyles.colors.text}
-                    />
+                  tabBarIcon: ({ color, size }) => (
+                    <FontAwesome5 name="cog" size={size} color={color} />
                   ),
-                  headerRight: () => <LogoutButton />,
                   headerTitle: getHeaderTitle(route),
-                  title: "Settings",
                 })}
               />
-              <Drawer.Screen
+              <Tab.Screen
                 name="StyleStack"
                 component={StyleView}
                 options={{
-                  title: "Style Guide",
+                  tabBarIcon: ({ color, size }) => (
+                    <FontAwesome5
+                      name="file-contract"
+                      size={size}
+                      color={color}
+                    />
+                  ),
+                  title: "Guide",
                 }}
               />
-            </Drawer.Navigator>
+            </Tab.Navigator>
           </NavigationContainer>
         </RankedContextProvider>
       </UserContextProvider>

@@ -7,6 +7,8 @@ import { GlobalStyles } from "../../constants/styles";
  * This component renders the count of unread emails from the users inbox that
  * match the set parameters.
  *
+ * TODO: See if this needs to exist. Maybe compound component pattern
+ *
  * @component
  * @version 0.2.2
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>

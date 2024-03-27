@@ -36,8 +36,12 @@ export type HomeStackParamList = {
       | "QUEUE_REJECT";
     messageId?: string;
   };
-  Queue: { name: string; email: string; rank: number; messageId: string };
+  // Queue: { name: string; email: string; rank: number; messageId: string };
   Settings: undefined;
+};
+
+export type QueueStackParamList = {
+  Queue: undefined;
 };
 
 export type SettingsStackParamList = {
@@ -67,10 +71,6 @@ export type ReplyStackProps = NativeStackScreenProps<
   HomeStackParamList,
   "Reply"
 >;
-export type QueueStackProps = NativeStackScreenProps<
-  HomeStackParamList,
-  "Queue"
->;
 export type ImageStackProps = NativeStackScreenProps<
   HomeStackParamList,
   "Image"
@@ -78,6 +78,12 @@ export type ImageStackProps = NativeStackScreenProps<
 export type RankedStackProps = NativeStackScreenProps<
   HomeStackParamList,
   "Ranked"
+>;
+
+/***** QueueStackParamList *****/
+export type QueueStackProps = NativeStackScreenProps<
+  QueueStackParamList,
+  "Queue"
 >;
 
 /***** SettingsStackParamList *****/

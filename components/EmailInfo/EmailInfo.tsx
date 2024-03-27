@@ -1,7 +1,8 @@
 import { FontAwesome5 } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { useEffect } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
+
 import { GlobalStyles } from "../../constants/styles";
 import { USER_ACTION_TYPES } from "../../constants/words";
 import { useUserContext } from "../../store/user-context";
@@ -10,6 +11,7 @@ import { EmailStackProps } from "../../util/react-navigation";
 import AnimatedButton from "../ui/AnimatedButton";
 import HeaderOne from "../ui/HeaderOne";
 import UnreadCountCard from "./UnreadCountCard";
+import Button from "../ui/Button";
 
 /**
  * EmailInfo Component.
@@ -18,7 +20,7 @@ import UnreadCountCard from "./UnreadCountCard";
  * navigates to the Email Screen when pressed.
  *
  * @component
- * @version 0.2.2
+ * @version 0.3.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const EmailInfo = () => {
@@ -45,25 +47,23 @@ const EmailInfo = () => {
 
   return (
     <View style={styles.row}>
-      <HeaderOne>Emails</HeaderOne>
-      <AnimatedButton
-        title="Open Emails"
+      <Button
         onPress={emailPressHandler}
-        type="primary"
-        style={styles.buttonContainer}
+        title="Open Emails"
         disabled={state.unreadCount === 0}
       >
-        <View style={styles.innerContainer}>
-          <UnreadCountCard unreadCount={state.unreadCount} />
-          <View style={styles.iconContainer}>
-            <FontAwesome5
-              name="envelope-open-text"
-              size={72}
-              color={GlobalStyles.colors.text}
-            />
+        <View style={styles.container}>
+          <View>
+            <Text style={styles.count}>{state.unreadCount}</Text>
+            <Text style={styles.text}>Unread</Text>
           </View>
+          <FontAwesome5
+            name="envelope-open-text"
+            size={72}
+            color={GlobalStyles.colors.text}
+          />
         </View>
-      </AnimatedButton>
+      </Button>
     </View>
   );
 };
@@ -72,22 +72,25 @@ export default EmailInfo;
 
 const styles = StyleSheet.create({
   row: {
-    flex: 1,
+    flexGrow: 1,
     alignItems: "center",
     justifyContent: "center",
   },
-  buttonContainer: {
-    backgroundColor: GlobalStyles.colors.primary500,
-    marginHorizontal: 24,
-    borderRadius: 8,
-    width: "70%",
-  },
-  innerContainer: {
-    flexDirection: "row",
-  },
-  iconContainer: {
-    flex: 1,
+  container: {
     justifyContent: "space-around",
+    width: 250,
+    flexDirection: "row",
     alignItems: "center",
+  },
+  count: {
+    fontSize: 72,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  text: {
+    fontSize: 18,
+    fontWeight: "bold",
+    textAlign: "center",
+    textTransform: "uppercase",
   },
 });

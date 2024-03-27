@@ -4,6 +4,7 @@ import { useUserContext } from "../../store/user-context";
 import HeaderOne from "../ui/HeaderOne";
 import BookingStats from "./BookingStats";
 import BookingStatus from "./BookingStatus";
+import { GlobalStyles } from "../../constants/styles";
 
 /**
  * BookingInfo Component.
@@ -11,7 +12,7 @@ import BookingStatus from "./BookingStatus";
  * This component renders info related to the Users booking session.
  *
  * @component
- * @version 0.2.1
+ * @version 0.3.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const BookingInfo = () => {
@@ -38,7 +39,9 @@ const BookingInfo = () => {
 
   return (
     <View style={styles.row}>
-      <HeaderOne>Booking Info</HeaderOne>
+      <View style={styles.bookingTextContainer}>
+        <HeaderOne style={styles.bookingTextStyle}>Booking Info</HeaderOne>
+      </View>
       <BookingStatus
         status={isBooking}
         startDate={startDateDisplay}
@@ -53,8 +56,16 @@ export default BookingInfo;
 
 const styles = StyleSheet.create({
   row: {
-    flex: 1,
-    paddingVertical: 32,
+    flexGrow: 1,
+    paddingBottom: 32,
+    marginHorizontal: 12,
     justifyContent: "center",
+  },
+  bookingTextContainer: {
+    alignItems: "center",
+  },
+  bookingTextStyle: {
+    fontWeight: "bold",
+    textTransform: "uppercase",
   },
 });

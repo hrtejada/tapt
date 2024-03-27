@@ -1,9 +1,11 @@
 import React, { useMemo } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { GlobalStyles } from "../../constants/styles";
+import { StyleSheet, View } from "react-native";
+
 import { STATUS } from "../../constants/words";
 import { useUserContext } from "../../store/user-context";
+import HeaderThree from "../ui/HeaderThree";
 import BookingNumberCard from "./BookingNumberCard";
+import { GlobalStyles } from "../../constants/styles";
 
 interface Props {
   accepted: number;
@@ -15,22 +17,29 @@ interface Props {
  *
  * This component renders the stats of the most recent booking session.
  *
- * TODO: Rework this; I don't like the current display
  *
  * @component
- * @version 0.2.1
+ * @version 0.3.1
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const BookingStats = React.memo(({ accepted, rejected }: Props) => {
   const { state } = useUserContext();
 
   const total = useMemo(() => accepted + rejected, [accepted, rejected]); // Used to help get percentage
+  console.log(state.limit);
   const limitDisplay = `Current Limit: ${
     state.limit === "0" ? "∞" : state.limit
   }`;
 
   return (
     <View style={styles.container}>
+      <View
+        style={styles.limitContainer}
+        accessibilityRole="text"
+        accessibilityHint={limitDisplay}
+      >
+        <HeaderThree>{limitDisplay}</HeaderThree>
+      </View>
       <View style={styles.cardContainer}>
         <BookingNumberCard
           title={STATUS.ACCEPTED}
@@ -43,13 +52,6 @@ const BookingStats = React.memo(({ accepted, rejected }: Props) => {
           total={total}
         />
       </View>
-      <View
-        style={styles.limitContainer}
-        accessibilityRole="text"
-        accessibilityHint={limitDisplay}
-      >
-        <Text style={styles.text}>{limitDisplay}</Text>
-      </View>
     </View>
   );
 });
@@ -61,23 +63,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   cardContainer: {
-    flexDirection: "row",
+    flexGrow: 0.25,
+    justifyContent: "space-evenly",
   },
   limitContainer: {
-    justifyContent: "center",
     alignItems: "center",
-    alignSelf: "center",
-    backgroundColor: GlobalStyles.colors.accent600,
-    paddingHorizontal: 24,
-    borderBottomStartRadius: 8,
-    borderBottomEndRadius: 8,
-    paddingVertical: 6,
-    maxWidth: "80%",
-    minWidth: 200,
-  },
-  text: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "white",
+    marginBottom: 12,
   },
 });

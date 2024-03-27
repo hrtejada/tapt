@@ -1,7 +1,11 @@
 import { useMemo } from "react";
 import { StyleSheet, Text, View } from "react-native";
+
 import { GlobalStyles } from "../../constants/styles";
 import { STATUS } from "../../constants/words";
+import HeaderTwo from "../ui/HeaderTwo";
+import Body from "../ui/Body";
+import HeaderThree from "../ui/HeaderThree";
 
 interface Props {
   title: STATUS;
@@ -17,8 +21,10 @@ interface Props {
  *
  * NOTE - Possibly expand this component in the future to show more statistics
  *
+ * TODO: Come up with what to display on Reject card besides revenue
+ *
  * @component
- * @version 0.3.1
+ * @version 0.4.0
  * @author  Ralph Woiwode <https://github.com/RAWoiwode>
  */
 const BookingNumberCard = ({ title, value, total }: Props) => {
@@ -37,21 +43,36 @@ const BookingNumberCard = ({ title, value, total }: Props) => {
 
   return (
     <View
-      style={[styles.card, isAccepted ? styles.accepted : styles.rejected]}
-      accessibilityRole="text"
-      accessibilityHint={accessibilityHint}
+      style={[
+        styles.outerCard,
+        {
+          backgroundColor: isAccepted
+            ? GlobalStyles.colors.primary300
+            : GlobalStyles.colors.accent300,
+        },
+      ]}
     >
-      <Text style={[styles.text, styles.title]}>{title}:</Text>
-      <Text style={[styles.text, styles.number]}>{value}</Text>
-      <Text
-        style={[
-          styles.text,
-          styles.percentage,
-          isAccepted ? styles.justifyEnd : styles.justifyStart,
-        ]}
+      <View
+        style={styles.innerCard}
+        accessibilityHint={accessibilityHint}
+        accessibilityRole="text"
       >
-        {formattedPercentage}%
-      </Text>
+        <View>
+          <HeaderTwo style={{ fontWeight: "bold" }}>{title}</HeaderTwo>
+          <Text style={{ fontSize: 42 }}>{value}</Text>
+          <Body>{`${formattedPercentage}%`}</Body>
+        </View>
+        {isAccepted && (
+          <View
+            style={{
+              alignItems: "flex-end",
+            }}
+          >
+            <HeaderTwo>Approx. Revenue</HeaderTwo>
+            <HeaderThree>$2000</HeaderThree>
+          </View>
+        )}
+      </View>
     </View>
   );
 };
@@ -59,47 +80,21 @@ const BookingNumberCard = ({ title, value, total }: Props) => {
 export default BookingNumberCard;
 
 const styles = StyleSheet.create({
-  card: {
-    flex: 1,
+  outerCard: {
+    marginHorizontal: 24,
+    borderRadius: 8,
+    padding: 4,
+    flexDirection: "row",
     justifyContent: "center",
-    marginTop: 12,
   },
-  accepted: {
-    backgroundColor: GlobalStyles.colors.secondary400,
-    borderTopLeftRadius: 25,
-    borderBottomLeftRadius: 25,
-    marginLeft: 24,
-  },
-  rejected: {
-    backgroundColor: GlobalStyles.colors.secondary600,
-    borderTopRightRadius: 25,
-    borderBottomRightRadius: 25,
-    marginRight: 24,
-  },
-  text: {
-    color: GlobalStyles.colors.text,
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  title: {
-    fontSize: 20,
-    fontStyle: "italic",
-    paddingTop: 10,
-  },
-  number: {
-    fontSize: 60,
-    fontStyle: "normal",
-    paddingVertical: 8,
-  },
-  percentage: {
-    fontSize: 20,
-    color: GlobalStyles.colors.text,
-    paddingBottom: 10,
-  },
-  justifyEnd: {
-    justifyContent: "flex-end",
-  },
-  justifyStart: {
-    justifyContent: "flex-start",
+  innerCard: {
+    flex: 1,
+    flexDirection: "row",
+    backgroundColor: GlobalStyles.colors.background300,
+    borderRadius: 4,
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    justifyContent: "space-around",
+    alignItems: "center",
   },
 });
